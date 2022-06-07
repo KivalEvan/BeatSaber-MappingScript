@@ -1,4 +1,4 @@
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const environment: bsmap.types.v3.IChromaEnvironment[] = [];
@@ -944,17 +944,9 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     lookupMethod: 'Regex',
                     duplicate: 1,
                     position: [
-                        x +
-                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
-                            37.5 *
-                            xShift +
-                        xShift * 36.125,
+                        x + Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) * 37.5 * xShift + xShift * 36.125,
                         15 + Math.sin(bsmap.utils.degToRad(160 - j * 12)) * 50,
-                        z +
-                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
-                            37.5 *
-                            zShift +
-                        zShift * 36.125,
+                        z + Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) * 37.5 * zShift + zShift * 36.125,
                     ],
                     scale: [0.3125, 0.0575, 0.3125],
                     rotation: [160 - j * 12, i * rotationAmount, 0],
@@ -1123,11 +1115,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     id: regexCube,
                     lookupMethod: 'Regex',
                     duplicate: 1,
-                    position: [
-                        -4.875 - x * 0.625,
-                        -0.1 + bsmap.utils.random(0, 0.1),
-                        (x % 2 ? -8 : 0) + 6 * z,
-                    ],
+                    position: [-4.875 - x * 0.625, -0.1 + bsmap.utils.random(0, 0.1), (x % 2 ? -8 : 0) + 6 * z],
                     scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
                 },
@@ -1135,11 +1123,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     id: regexCube,
                     lookupMethod: 'Regex',
                     duplicate: 1,
-                    position: [
-                        4.875 + x * 0.625,
-                        -0.1 + bsmap.utils.random(0, 0.1),
-                        (x % 2 ? -8 : 0) + 6 * z,
-                    ],
+                    position: [4.875 + x * 0.625, -0.1 + bsmap.utils.random(0, 0.1), (x % 2 ? -8 : 0) + 6 * z],
                     scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
                 },
@@ -1153,9 +1137,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map(
-                (n) => n * 0.6,
-            ) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
         }
         return e;
     });

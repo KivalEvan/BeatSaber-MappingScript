@@ -1,4 +1,4 @@
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 bsmap.globals.path =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/247a6_Morphine_-_AaltopahWi';

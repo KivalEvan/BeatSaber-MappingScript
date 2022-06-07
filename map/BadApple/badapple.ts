@@ -1,4 +1,4 @@
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 import { dirname } from 'https://deno.land/std@0.135.0/path/mod.ts';
 

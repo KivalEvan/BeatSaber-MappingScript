@@ -1,5 +1,5 @@
 // holy shit image are so tedious to work with and optimise
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 
 console.log('Running script...');
@@ -430,8 +430,8 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
         override: options.override ?? false,
         easings: options.easings ?? bsmap.easings.method.easeLinear,
     };
-    let gifFile = Deno.readFileSync(WORKING_DIRECTORY + imagePath);
-    let gif = await imagescript.GIF.decode(gifFile, !opt.animated);
+    const gifFile = Deno.readFileSync(WORKING_DIRECTORY + imagePath);
+    const gif = await imagescript.GIF.decode(gifFile, !opt.animated);
     let itFrame = 0;
     gif.forEach((frame) => {
         frame.rotate(opt.rotate);

@@ -1,16 +1,13 @@
-import * as bsmap from '../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
-export default (
-    d: bsmap.v2.DifficultyData,
-    environment: bsmap.types.EnvironmentAllName,
-) => {
+export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
     // you can modify these variable as you prefer
     // uses beat time instead of real time
     const eventStackTol = 0.001;
     const ringStackTol = 0.05; // 1/20 precision
 
     // beyond you're on your own
-    let events = d.events;
+    const events = d.events;
 
     // constant variable, best to not touch unless you know what you're doing
     // light value for static event such as OFF and ON event
@@ -22,10 +19,7 @@ export default (
     const reduceRingStack = false;
     const reduceLightId = true;
 
-    const matchColor = (
-        c1: bsmap.types.ColorArray | null,
-        c2: bsmap.types.ColorArray | null,
-    ) => {
+    const matchColor = (c1: bsmap.types.ColorArray | null, c2: bsmap.types.ColorArray | null) => {
         if (c1 == null || c2 == null) {
             return false;
         }
@@ -50,10 +44,7 @@ export default (
     ) => {
         if (Array.isArray(ev.customData?._lightID)) {
             for (const id of ev.customData!._lightID) {
-                if (
-                    lightIDList[id].value !== ev.value ||
-                    !matchColor(lightIDList[id].color, ev.customData?._color)
-                ) {
+                if (lightIDList[id].value !== ev.value || !matchColor(lightIDList[id].color, ev.customData?._color)) {
                     return false;
                 }
             }
@@ -61,10 +52,7 @@ export default (
         if (!isNaN(ev.customData?._lightID)) {
             if (
                 lightIDList[ev.customData?._lightID].value !== ev.value ||
-                !matchColor(
-                    lightIDList[ev.customData?._lightID].color,
-                    ev.customData?._color,
-                )
+                !matchColor(lightIDList[ev.customData?._lightID].color, ev.customData?._color)
             ) {
                 return false;
             }
@@ -75,21 +63,13 @@ export default (
     console.log(`Initiating light optimisation script`);
 
     const prevEvent: { [key: number]: bsmap.v2.Event } = {};
-    for (
-        let i = bsmap.EventList[environment][0].sort((a, b) => a - b).at(-1)!;
-        i >= 0;
-        i--
-    ) {
+    for (let i = [...bsmap.EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
         prevEvent[i] = bsmap.v2.Event.create();
     }
 
     // not to be confused as above, this keep index of any same type event at same time
     const eventAtTime: { [key: number]: number[] } = {};
-    for (
-        let i = bsmap.EventList[environment][0].sort((a, b) => a - b).at(-1)!;
-        i >= 0;
-        i--
-    ) {
+    for (let i = [...bsmap.EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
         eventAtTime[i] = [];
     }
 
@@ -144,14 +124,11 @@ export default (
             }
 
             // for current event that does not have customData
-            if (typeof events[i].customData === undefined) {
+            if (!events[i].customData) {
                 if (events[i].time - prevEvent[evType].time < eventStackTol) {
                     flagRemove = true;
                 }
-                if (
-                    lightStatic.includes(events[i].value) &&
-                    events[i].value === prevEvent[evType].value
-                ) {
+                if (lightStatic.includes(events[i].value) && events[i].value === prevEvent[evType].value) {
                     // check if previous event had no customData
                     if (prevEvent[evType].customData == null) {
                         flagRemove = true;
@@ -174,10 +151,7 @@ export default (
                 // optimise lightID
                 if (events[i].customData?._lightID) {
                     // yeet the redundant lightID event
-                    if (
-                        reduceLightId &&
-                        matchLightID(events[i], eventLightID[evType])
-                    ) {
+                    if (reduceLightId && matchLightID(events[i], eventLightID[evType])) {
                         flagRemove = true;
                     }
                     if (!flagRemove && Array.isArray(events[i].customData!._lightID)) {
@@ -193,7 +167,7 @@ export default (
                     }
                 }
                 for (let j = 0; j < eventAtTime[evType].length; j++) {
-                    let lookupIndex = eventAtTime[evType][j];
+                    const lookupIndex = eventAtTime[evType][j];
                     if (
                         events[i].time - events[lookupIndex].time < eventStackTol &&
                         events[i].customData?._lightID &&
@@ -203,10 +177,7 @@ export default (
                         // merge into one event
                         // honestly what the fuck?
                         if (
-                            (matchColor(
-                                events[i].customData?._color,
-                                events[lookupIndex].customData?._color,
-                            ) &&
+                            (matchColor(events[i].customData?._color, events[lookupIndex].customData?._color) &&
                                 events[i].value === events[lookupIndex].value) ||
                             (events[i].value === events[lookupIndex].value &&
                                 events[i].customData?._color == null &&
@@ -221,13 +192,9 @@ export default (
                             }
 
                             // insert temp into eventAtTime
-                            if (
-                                Array.isArray(events[lookupIndex].customData?._lightID)
-                            ) {
+                            if (Array.isArray(events[lookupIndex].customData?._lightID)) {
                                 events[lookupIndex].customData!._lightID = events[lookupIndex].customData?._lightID
-                                    .concat(
-                                        temp,
-                                    );
+                                    .concat(temp);
                             }
                             if (!isNaN(events[lookupIndex].customData?._lightID)) {
                                 events[lookupIndex].customData!._lightID = [
@@ -236,9 +203,7 @@ export default (
                             }
 
                             // sort the lightID
-                            events[lookupIndex].customData?._lightID.sort(
-                                (a: number, b: number) => a - b,
-                            );
+                            events[lookupIndex].customData?._lightID.sort((a: number, b: number) => a - b);
 
                             // console.log(
                             //     `Merging event ${
@@ -260,21 +225,14 @@ export default (
                 }
 
                 // remove redundancy
-                if (
-                    events[i].customData?._color &&
-                    !events[i].customData?._lightID &&
-                    !events[i].customData?._propID
-                ) {
+                if (events[i].customData?._color && !events[i].customData?._lightID && !events[i].customData?._propID) {
                     if (
                         lightStatic.includes(events[i].value) &&
                         prevEvent[evType].customData &&
                         prevEvent[evType].customData?._lightID == null &&
                         prevEvent[evType].customData?._propID == null &&
                         events[i].value === prevEvent[evType].value &&
-                        matchColor(
-                            events[i].customData?._color,
-                            prevEvent[evType].customData?._color,
-                        )
+                        matchColor(events[i].customData?._color, prevEvent[evType].customData?._color)
                     ) {
                         flagRemove = true;
                     }
@@ -321,17 +279,10 @@ export default (
 
         // LASER ROTATION EVENT
         if (evType === 12 || evType === 13) {
-            if (
-                events[i].customData == null &&
-                events[i].time - prevEvent[evType].time < eventStackTol
-            ) {
+            if (events[i].customData == null && events[i].time - prevEvent[evType].time < eventStackTol) {
                 flagRemove = true;
             }
-            if (
-                events[i].customData == null &&
-                events[i].value === 0 &&
-                prevEvent[evType].value === 0
-            ) {
+            if (events[i].customData == null && events[i].value === 0 && prevEvent[evType].value === 0) {
                 flagRemove = true;
             }
         }
@@ -366,7 +317,7 @@ export default (
         eventAtTime[evType].push(i);
     }
 
-    d.events = d.events.filter((el) => typeof el != null);
+    d.events = d.events.filter((el) => el != null);
 
     // do the funny message
     let message = `Light Optimiser`;

@@ -1,7 +1,7 @@
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 import walls from './walls.ts';
 import lights from './lights.ts';
-import jankySliderConvert from '../../deno/example/jankySliderConvert.ts';
+import jankySliderConvert from 'https://deno.land/x/bsmap@1.0.0/example/jankySliderConvert.ts';
 
 console.log('Running script...');
 console.time('Runtime');
@@ -25,18 +25,10 @@ difficultyList.forEach((d) => {
         }
         if (d.difficulty === 'ExpertPlus' || d.difficulty === 'Expert') {
             if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
-                n.angleOffset = bsmap.utils.lerp(
-                    bsmap.utils.normalize(n.time, 32, 32.75),
-                    -45,
-                    0,
-                );
+                n.angleOffset = bsmap.utils.lerp(bsmap.utils.normalize(n.time, 32, 32.75), -45, 0);
             }
             if (n.color === 0 && n.time >= 33 && n.time < 33.75) {
-                n.angleOffset = bsmap.utils.lerp(
-                    bsmap.utils.normalize(n.time, 33, 33.75),
-                    45,
-                    0,
-                );
+                n.angleOffset = bsmap.utils.lerp(bsmap.utils.normalize(n.time, 33, 33.75), 45, 0);
             }
             if (n.time >= 98 + j * 4 && n.time <= 101 + j * 4) {
                 if (n.color === (d.difficulty === 'Expert' ? j + 1 : j) % 2) {

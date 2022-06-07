@@ -1,5 +1,5 @@
-import * as bsmap from '../../deno/mod.ts';
-import convertSlider from '../../deno/example/jankySliderConvert.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import convertSlider from 'https://deno.land/x/bsmap@1.0.0/example/jankySliderConvert.ts';
 
 console.log('Running script...');
 console.time('Runtime');

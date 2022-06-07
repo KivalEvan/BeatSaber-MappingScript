@@ -1,4 +1,4 @@
-import * as bsmap from '../../deno/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 export const ringCount = 5;
 export const ringRepeat = 2;

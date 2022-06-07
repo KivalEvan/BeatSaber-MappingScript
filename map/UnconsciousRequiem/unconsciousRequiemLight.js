@@ -5,8 +5,8 @@ const fs = require('fs');
 const INPUT_FILE = 'ExpertPlusStandardOriginal.dat';
 const OUTPUT_FILE = 'ExpertPlusStandard.dat';
 
-let difficulty = JSON.parse(fs.readFileSync(INPUT_FILE));
-let _events = difficulty._events;
+const difficulty = JSON.parse(fs.readFileSync(INPUT_FILE));
+const _events = difficulty._events;
 
 _events.forEach((e) => {
     e._floatValue = 1;
@@ -94,9 +94,7 @@ function deeperDaddy(obj) {
             } else if (typeof obj[key] === 'object' || Array.isArray(obj[key])) {
                 deeperDaddy(obj[key]);
             } else if (typeof obj[key] === 'number') {
-                obj[key] = parseFloat(
-                    Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP,
-                );
+                obj[key] = parseFloat(Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP);
             }
         }
     }

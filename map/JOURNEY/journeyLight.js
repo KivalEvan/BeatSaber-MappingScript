@@ -5,8 +5,8 @@ const fs = require('fs');
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
-let difficulty = JSON.parse(fs.readFileSync(INPUT_FILE));
-let _events = difficulty._events;
+const difficulty = JSON.parse(fs.readFileSync(INPUT_FILE));
+const _events = difficulty._events;
 difficulty._version = '2.5.0';
 
 const isLight = (t) => {
@@ -42,13 +42,13 @@ const easings = {
     InOutQuad: (x) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
     InCubic: (x) => x * x * x,
     OutCubic: (x) => --x * x * x + 1,
-    InOutCubic: (x) => x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1,
+    InOutCubic: (x) => (x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1),
     InQuart: (x) => x * x * x * x,
     OutQuart: (x) => 1 - --x * x * x * x,
     InOutQuart: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
     InQuint: (x) => x * x * x * x * x,
     OutQuint: (x) => 1 - --x * x * x * x * x,
-    InOutQuint: (x) => x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x,
+    InOutQuint: (x) => (x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x),
 };
 
 function setFloat(t1, t2, n, type) {
@@ -59,11 +59,7 @@ function setFloat(t1, t2, n, type) {
         if (_events[i]._time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i]._type) ||
-            _events[i]._time < t1 ||
-            (type != null && _events[i]._type !== type)
-        ) {
+        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
             continue;
         }
         _events[i]._floatValue = n;
@@ -79,11 +75,7 @@ function gradientFloat(t1, t2, n1, n2, type, ease = 'Linear') {
         if (_events[i]._time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i]._type) ||
-            _events[i]._time < t1 ||
-            (type != null && _events[i]._type !== type)
-        ) {
+        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
             continue;
         }
         norm = easings[ease](normalize(_events[i]._time, t1, t2));
@@ -100,11 +92,7 @@ function randomizeFloat(t1, t2, min, max, type) {
         if (_events[i]._time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i]._type) ||
-            _events[i]._time < t1 ||
-            (type != null && _events[i]._type !== type)
-        ) {
+        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
             continue;
         }
         _events[i]._floatValue = min + Math.random() * (max - min);
@@ -114,7 +102,7 @@ function randomizeFloat(t1, t2, min, max, type) {
 //#region Vagueness
 //#region intro
 for (let i = 0; i < 3; i++) {
-    let offset = i * 64;
+    const offset = i * 64;
     gradientFloat(6 + offset - (!i ? 1 / 16 : 0), 16 + offset, 1.2, 0.125, 1);
     gradientFloat(6 + offset - (!i ? 1 / 16 : 0), 12 + offset, 1.2, 0, 4, 'InQuad');
     if (i !== 2) {
@@ -131,7 +119,7 @@ gradientFloat(198, 198.999, 1, 0, 4);
 //#endregion
 
 for (let i = 0; i < 24; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(199 + offset, 199.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 setFloat(213.5, 214, 0.5, 4);
@@ -218,7 +206,7 @@ gradientFloat(454, 455.5, 1.5, 1, 0, 'OutQuad');
 gradientFloat(454, 456, 1.25, 0.25, 1, 'OutQuad');
 gradientFloat(454, 454.999, 1.375, 0.25, 4);
 for (let i = 0; i < 28; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(455 + offset, 455.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(457.5, 459, 1.125, 1, 0, 'OutQuad');
@@ -228,7 +216,7 @@ setFloat(469.5, 470, 0.5, 4);
 gradientFloat(470, 471.5, 1.375, 1, 0, 'OutQuad');
 gradientFloat(470, 470.999, 1.2, 0.125, 4);
 for (let i = 0; i < 4; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(471 + offset, 472.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(473.5, 475, 1.125, 1, 0, 'OutQuad');
@@ -252,7 +240,7 @@ gradientFloat(499.5, 500.5, 1, 0.125, 4, 'OutQuad');
 setFloat(501.5, 502, 0.5, 4);
 gradientFloat(502, 503.5, 1.375, 1, 0, 'OutQuad');
 for (let i = 0; i < 3; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(503 + offset, 504.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(505.5, 507, 1.125, 1, 0, 'OutQuad');
@@ -307,7 +295,7 @@ gradientFloat(646, 647.5, 1.5, 1, 0, 'OutQuad');
 gradientFloat(646, 648, 1.25, 0.25, 1, 'OutQuad');
 gradientFloat(646, 646.999, 1.375, 0.25, 4);
 for (let i = 0; i < 28; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(647 + offset, 647.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(649.5, 651, 1.125, 1, 0, 'OutQuad');
@@ -317,7 +305,7 @@ setFloat(661.5, 662, 0.5, 4);
 gradientFloat(662, 663.5, 1.375, 1, 0, 'OutQuad');
 gradientFloat(662, 662.999, 1.2, 0.125, 4);
 for (let i = 0; i < 4; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(663 + offset, 664.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(665.5, 667, 1.125, 1, 0, 'OutQuad');
@@ -341,7 +329,7 @@ gradientFloat(691.5, 692.5, 1, 0.125, 4, 'OutQuad');
 setFloat(693.5, 694, 0.5, 4);
 gradientFloat(694, 695.5, 1.375, 1, 0, 'OutQuad');
 for (let i = 0; i < 3; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(695 + offset, 696.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(697.5, 699, 1.125, 1, 0, 'OutQuad');
@@ -351,19 +339,19 @@ gradientFloat(697.5, 699, 1.125, 1, 0, 'OutQuad');
 gradientFloat(710, 710.499, 1.25, 0.25, 1, 'OutQuad');
 gradientFloat(710, 710.999, 1.375, 0.25, 4);
 for (let i = 0; i < 7; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(711 + offset, 711.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(726, 726.999, 1.375, 0.25, 4);
 for (let i = 0; i < 5; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(727 + offset, 727.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(734, 734.999, 1.2, 0.125, 4);
 gradientFloat(737.5, 738.499, 1.125, 0.375, 4);
 gradientFloat(739.5, 740.499, 1, 0.125, 4);
 for (let i = 0; i < 7; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(741 + offset, 741.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 setFloat(741.5, 741.999, 0.5, 4);
@@ -371,7 +359,7 @@ gradientFloat(742, 742.999, 1.375, 0.25, 4);
 gradientFloat(752, 752.999, 1.2, 0.125, 4);
 gradientFloat(754.5, 755.499, 1.2, 0.375, 4);
 for (let i = 0; i < 6; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(757 + offset, 757.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 setFloat(757.5, 757.999, 0.5, 4);
@@ -394,7 +382,7 @@ gradientFloat(793.5, 794.5, 1.125, 0.125, 4, 'InQuad');
 gradientFloat(795.5, 796.5, 1.125, 0.125, 4, 'InQuad');
 gradientFloat(806, 806.999, 1.2, 0.25, 4);
 for (let i = 0; i < 4; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(807 + offset, 807.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(815, 815.999, 1.2, 0.25, 4);
@@ -441,7 +429,7 @@ gradientFloat(902, 903.5, 1.5, 1, 0, 'OutQuad');
 gradientFloat(902, 904, 1.25, 0.25, 1, 'OutQuad');
 gradientFloat(902, 902.999, 1.375, 0.25, 4);
 for (let i = 0; i < 28; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(903 + offset, 903.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(905.5, 907, 1.125, 1, 0, 'OutQuad');
@@ -451,7 +439,7 @@ setFloat(917.5, 918, 0.5, 4);
 gradientFloat(918, 919.5, 1.375, 1, 0, 'OutQuad');
 gradientFloat(918, 918.999, 1.2, 0.125, 4);
 for (let i = 0; i < 4; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(919 + offset, 920.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(921.5, 923, 1.125, 1, 0, 'OutQuad');
@@ -475,7 +463,7 @@ gradientFloat(947.5, 948.5, 1, 0.125, 4, 'OutQuad');
 setFloat(949.5, 950, 0.5, 4);
 gradientFloat(950, 951.5, 1.375, 1, 0, 'OutQuad');
 for (let i = 0; i < 3; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(951 + offset, 952.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(953.5, 955, 1.125, 1, 0, 'OutQuad');
@@ -489,7 +477,7 @@ setFloat(963, 963.5, 0.375, 1);
 gradientFloat(966, 968, 1.25, 0.25, 1, 'OutQuad');
 gradientFloat(966, 966.999, 1.375, 0.25, 4);
 for (let i = 0; i < 28; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(967 + offset, 967.999 + offset, 1, 0.125, 4, 'OutQuad');
 }
 gradientFloat(978.5, 979, 0.75, 0.125, 4, 'OutQuad');
@@ -497,7 +485,7 @@ gradientFloat(979.5, 980.5, 1, 0.125, 4, 'OutQuad');
 setFloat(981.5, 982, 0.5, 4);
 gradientFloat(982, 982.999, 1.2, 0.125, 4);
 for (let i = 0; i < 4; i++) {
-    let offset = i * 2;
+    const offset = i * 2;
     gradientFloat(983 + offset, 984.999 + offset, 1.125, 0, 4);
 }
 gradientFloat(991.5, 994, 1.125, 0.75, 2);
@@ -551,9 +539,7 @@ function deeperDaddy(obj) {
             } else if (typeof obj[key] === 'object' || Array.isArray(obj[key])) {
                 deeperDaddy(obj[key]);
             } else if (typeof obj[key] === 'number') {
-                obj[key] = parseFloat(
-                    Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP,
-                );
+                obj[key] = parseFloat(Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP);
             }
         }
     }
@@ -574,8 +560,6 @@ fs.writeFileSync(OUTPUT_FILE, JSON.stringify(difficulty, null));
 
 console.log(
     `gradient event: ${
-        difficulty._events.filter(
-            (e) => isLight(e._type) && (e._value === 4 || e._value === 8),
-        ).length
+        difficulty._events.filter((e) => isLight(e._type) && (e._value === 4 || e._value === 8)).length
     }`,
 );
