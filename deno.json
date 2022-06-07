@@ -1,14 +1,12 @@
 {
     "lint": {
         "files": {
-            "include": ["./"],
-            "exclude": ["./example", "./tests"]
+            "exclude": ["chromapper"]
         }
     },
     "fmt": {
         "files": {
-            "include": ["./"],
-            "exclude": ["./example", "./tests"]
+            "exclude": ["chromapper"]
         },
         "options": {
             "indentWidth": 4,
