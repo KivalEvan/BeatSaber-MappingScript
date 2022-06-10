@@ -5,7 +5,7 @@ import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 console.log('Running script...');
 console.time('Runtime');
 const WORKING_DIRECTORY = './map/ECHO/';
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO/';
+bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
 const OUTPUT_FILE = 'EasyLightshow.dat';
 
 const difficulty = bsmap.v2.DifficultyData.create();
@@ -112,21 +112,41 @@ const regexGlowLineL = `\\[\\d+\\]GlowLineLVisible$`;
 const regexGlowLineR = `\\[\\d+\\]GlowLineRVisible$`;
 const regexLaser = `Environment\.\\[\\d+\\]Laser$`;
 const regexRotatingLasersPair = `\\[\\d+\\]RotatingLasersPair$`;
-envEnh.push({
-    _id: '\\[\\d+\\]FloorMirror$',
-    _lookupMethod: 'Regex',
-    _active: false,
-});
-envEnh.push({
-    _id: regexTentacleLeft,
-    _lookupMethod: 'Regex',
-    _position: [-10, 7, 48],
-});
-envEnh.push({
-    _id: regexTentacleRight,
-    _lookupMethod: 'Regex',
-    _position: [10, 7, 48],
-});
+envEnh.push(
+    {
+        _id: '\\[\\d+\\]FloorMirror$',
+        _lookupMethod: 'Regex',
+        _active: false,
+    },
+    {
+        _id: regexTentacleLeft,
+        _lookupMethod: 'Regex',
+        _position: [-10, 7, 48],
+    },
+    {
+        _id: regexTentacleRight,
+        _lookupMethod: 'Regex',
+        _position: [10, 7, 48],
+    },
+    {
+        _id: '\\[\\d+\\]EnergyPanel$',
+        _lookupMethod: 'Regex',
+        _position: [0, 7, 34.1666],
+        _scale: [0.033, 0.03, 0.03],
+    },
+    {
+        _id: '\\[\\d+\\]RightPanel$',
+        _lookupMethod: 'Regex',
+        _position: [7.5, -1.25, 36],
+        _scale: [1.69, 1.69, 1],
+    },
+    {
+        _id: '\\[\\d+\\]LeftPanel$',
+        _lookupMethod: 'Regex',
+        _position: [-7.5, -1.25, 36],
+        _scale: [1.69, 1.69, 1],
+    },
+);
 
 let offsetLightID = 200;
 const screenLight: { [key: number]: number } = {};
@@ -141,8 +161,12 @@ const screenEndID = offsetLightID + screenX * screenY;
 const screenArray = [];
 for (let y = 0; y < screenY; y++) {
     for (let x = 0; x < screenX; x++) {
-        const posX = screenXOffset + -(((screenX - 1) / 2) * screenSize) + x * (screenSize + screenGap);
-        const posY = screenYOffset + -((screenY / 2) * screenSize) - y * (screenSize + screenGap);
+        const posX = screenXOffset +
+            -(((screenX - 1) / 2) * screenSize) +
+            x * (screenSize + screenGap);
+        const posY = screenYOffset +
+            -((screenY / 2) * screenSize) -
+            y * (screenSize + screenGap);
         const posZ = 32 - Math.tan(345 * (Math.PI / 180)) * screenSize * y;
         envEnh.push({
             _id: regexGlowLine,
@@ -159,7 +183,14 @@ for (let y = 0; y < screenY; y++) {
 }
 
 const chevronID = [3, 4];
-const centerOrder = [screenEndID + 1, screenEndID + 2, 1, 2, screenEndID + 3, screenEndID + 4];
+const centerOrder = [
+    screenEndID + 1,
+    screenEndID + 2,
+    1,
+    2,
+    screenEndID + 3,
+    screenEndID + 4,
+];
 
 for (let i = 0, offset = 0; i < 77; i++) {
     if (i === 26) {
@@ -218,7 +249,11 @@ for (let i = 0; i < 6; i++) {
     envEnh.push({
         _id: fixed ? regexLaser.replace('$', ` \\(${fixed}\\)$`) : regexLaser,
         _lookupMethod: 'Regex',
-        _position: [(i > 2 ? -1 : 1) * (8 + (i > 2 ? i - 3 : i) * 3), -3, 48 - (i > 2 ? i - 3 : i) * 3],
+        _position: [
+            (i > 2 ? -1 : 1) * (8 + (i > 2 ? i - 3 : i) * 3),
+            -3,
+            48 - (i > 2 ? i - 3 : i) * 3,
+        ],
         _rotation: [0, 0, 0],
     });
 }
@@ -491,13 +526,15 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
             addEvents({
                 _time: (opt.animated
                     ? bsmap.utils.lerp(
-                        opt.easings(bsmap.utils.normalize(itFrame, 0, gif.length)),
+                        opt.easings(
+                            bsmap.utils.normalize(itFrame, 0, gif.length),
+                        ),
                         opt.time,
                         opt.endTime,
                     )
                     : opt.time) + opt.fadeInDuration,
                 _type: 4,
-                _value: opt.fadeInDuration ? (opt.eventValue > 4 ? 8 : 4) : opt.eventValue,
+                _value: opt.fadeInDuration ? opt.eventValue > 4 ? 8 : 4 : opt.eventValue,
                 _floatValue: (parseInt(color) / 255) * opt.floatValue,
                 _customData: {
                     _lightID: colorID[color],
@@ -1874,9 +1911,7 @@ for (let i = 0; i < 4; i++) {
                     _time: 376 + i * 2 + 0.25 + t,
                     _floatValue: 0,
                     _customData: {
-                        _lightID: i === 1
-                            ? [centerOrder[0], centerOrder[1]]
-                            : i === 3
+                        _lightID: i === 1 ? [centerOrder[0], centerOrder[1]] : i === 3
                             ? [centerOrder[4], centerOrder[5]]
                             : [centerOrder[2], centerOrder[3]],
                     },
@@ -1902,9 +1937,7 @@ for (let i = 0; i < 4; i++) {
                         _time: 376 + i * 2 + 0.0625 + t + j,
                         _floatValue: 0,
                         _customData: {
-                            _lightID: i === 1
-                                ? [centerOrder[0], centerOrder[1]]
-                                : i === 3
+                            _lightID: i === 1 ? [centerOrder[0], centerOrder[1]] : i === 3
                                 ? [centerOrder[4], centerOrder[5]]
                                 : [centerOrder[2], centerOrder[3]],
                         },
@@ -2056,10 +2089,16 @@ for (const ctp of crystalTimingPeriod) {
                 }
                 old = crystalShuffleRight[crystalShuffleRight.length - 1];
                 bsmap.utils.shuffle(crystalShuffleRight);
-                while (crystalShuffleRight[0] === old || crystalShuffleRight[1] === old) {
+                while (
+                    crystalShuffleRight[0] === old ||
+                    crystalShuffleRight[1] === old
+                ) {
                     bsmap.utils.shuffle(crystalShuffleRight);
                 }
-                crystalShuffle = bsmap.utils.interleave(crystalShuffleLeft, crystalShuffleRight);
+                crystalShuffle = bsmap.utils.interleave(
+                    crystalShuffleLeft,
+                    crystalShuffleRight,
+                );
                 r = 0;
             }
         }
@@ -3214,7 +3253,10 @@ for (const t of chorus1Timing) {
                         _value: 1,
                         _floatValue: parseInt(color) / 255,
                         _customData: {
-                            _lightID: [...colorID[color].map((n) => n + 1), screenStartID + screenX * 13 + 12],
+                            _lightID: [
+                                ...colorID[color].map((n) => n + 1),
+                                screenStartID + screenX * 13 + 12,
+                            ],
                         },
                     },
                     {
@@ -3222,7 +3264,10 @@ for (const t of chorus1Timing) {
                         _time: t + 14.625,
                         _floatValue: 0,
                         _customData: {
-                            _lightID: [...colorID[color].map((n) => n + 1), screenStartID + screenX * 13 + 12],
+                            _lightID: [
+                                ...colorID[color].map((n) => n + 1),
+                                screenStartID + screenX * 13 + 12,
+                            ],
                         },
                     },
                     {
@@ -3359,7 +3404,10 @@ for (const t of chorus1Timing) {
                 },
                 {
                     _type: 4,
-                    _time: 15.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+                    _time: 15.1875 +
+                        t +
+                        (parseInt(x) / roadShuffle.length) * 0.25 +
+                        j * 0.25,
                     _floatValue: 0,
                     _customData: { _lightID: roadShuffle[x] },
                 },
@@ -3834,7 +3882,10 @@ for (const t of chorus1Timing) {
                 },
                 {
                     _type: 4,
-                    _time: 23.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+                    _time: 23.1875 +
+                        t +
+                        (parseInt(x) / roadShuffle.length) * 0.25 +
+                        j * 0.25,
                     _floatValue: 0,
                     _customData: { _lightID: roadShuffle[x] },
                 },
@@ -4306,13 +4357,20 @@ for (const t of chorus2Timing) {
                 addEvents(
                     {
                         _type: 4,
-                        _time: t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                        _time: t +
+                            i * 4 +
+                            (parseInt(x) / roadShuffle.length) * 1.25 +
+                            j * 0.25,
                         _value: 7,
                         _customData: { _lightID: roadShuffle[x] },
                     },
                     {
                         _type: 4,
-                        _time: 0.25 + t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                        _time: 0.25 +
+                            t +
+                            i * 4 +
+                            (parseInt(x) / roadShuffle.length) * 1.25 +
+                            j * 0.25,
                         _floatValue: 0,
                         _customData: { _lightID: roadShuffle[x] },
                     },
@@ -5859,7 +5917,22 @@ const synthTiming = [
     [515, 1],
     [515.5, 0],
 ];
-const synthDownTiming = [212, 220, 228, 236, 244, 252, 260, 268, 292, 300, 484, 492, 500, 508];
+const synthDownTiming = [
+    212,
+    220,
+    228,
+    236,
+    244,
+    252,
+    260,
+    268,
+    292,
+    300,
+    484,
+    492,
+    500,
+    508,
+];
 for (const sdt of synthDownTiming) {
     for (let i = 1; i <= 7; i++) {
         addEvents(
@@ -6686,7 +6759,7 @@ for (let t = 484; t < 516; t += 4) {
         yOffset: 5,
     });
 }
-screenClear(512.5, 2);
+screenClear(512.5, 3.5);
 
 envEnh.push({
     _id: 'Environment$',
