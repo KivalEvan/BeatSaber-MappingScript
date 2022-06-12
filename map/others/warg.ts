@@ -1,6 +1,6 @@
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
 import { convertLight, insertEnvironment } from '../../environment-enhancement/bmv2/mod.ts';
-import { printChromaEnvironment } from 'https://deno.land/x/bsmap@1.0.0/example/printInfo.ts';
+import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';
 
 bsmap.globals.path =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/5495_Warg_-_AaltopahWi_Skeelie';

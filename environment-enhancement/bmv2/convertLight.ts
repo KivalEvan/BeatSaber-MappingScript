@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
 export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
@@ -83,10 +83,10 @@ export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.type
         10: tempID.map((val) => val + 6),
         11: tempID.map((val) => val + 8),
         14: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val) => val + idOffsetType0 - 1,
+            (val) => val + idOffsetType0 - 1
         ),
         15: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val) => val + idOffsetType0 - 1,
+            (val) => val + idOffsetType0 - 1
         ),
     };
 

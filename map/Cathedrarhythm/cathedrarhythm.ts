@@ -1,7 +1,7 @@
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
 import { insertEnvironment } from '../../environment-enhancement/cathedral/mod.ts';
-import jankySliderConvert from 'https://deno.land/x/bsmap@1.0.0/example/jankySliderConvert.ts';
-import { printChromaEnvironment } from 'https://deno.land/x/bsmap@1.0.0/example/printInfo.ts';
+import jankySliderConvert from 'https://deno.land/x/bsmap/example/jankySliderConvert.ts';
+import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';
 
 bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm/';
 

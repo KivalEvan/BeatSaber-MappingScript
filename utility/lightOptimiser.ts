@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
 
 export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
     // you can modify these variable as you prefer
@@ -40,7 +40,7 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
         ev: bsmap.v2.Event,
         lightIDList: {
             [key: number]: { value: number; color: bsmap.types.ColorArray | null };
-        },
+        }
     ) => {
         if (Array.isArray(ev.customData?._lightID)) {
             for (const id of ev.customData!._lightID) {
@@ -162,8 +162,8 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
                     }
                     if (!flagRemove && !isNaN(events[i].customData?._lightID)) {
                         eventLightID[evType][events[i].customData?._lightID].value = events[i].value;
-                        eventLightID[evType][events[i].customData?._lightID].color = events[i].customData?._color ||
-                            null;
+                        eventLightID[evType][events[i].customData?._lightID].color =
+                            events[i].customData?._color || null;
                     }
                 }
                 for (let j = 0; j < eventAtTime[evType].length; j++) {
@@ -193,8 +193,8 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
 
                             // insert temp into eventAtTime
                             if (Array.isArray(events[lookupIndex].customData?._lightID)) {
-                                events[lookupIndex].customData!._lightID = events[lookupIndex].customData?._lightID
-                                    .concat(temp);
+                                events[lookupIndex].customData!._lightID =
+                                    events[lookupIndex].customData?._lightID.concat(temp);
                             }
                             if (!isNaN(events[lookupIndex].customData?._lightID)) {
                                 events[lookupIndex].customData!._lightID = [

@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
 
 export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const environment: bsmap.types.v3.IChromaEnvironment[] = [];
@@ -128,7 +128,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [-64, 20, 160],
             rotation: [0, 180, 45],
             scale: [0.25, 0.25, 1],
-        },
+        }
     );
 
     //#region cringe pillar
@@ -157,7 +157,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 rotation: [135, 195, 7.5],
                 position: [24, 28 - i * 2, 74 + i * 8],
-            },
+            }
         );
     }
     //#endregion
@@ -180,7 +180,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 position: [-posX, posY, posZ],
                 rotation: [4 + i * 2, 0, -7.5],
-            },
+            }
         );
     }
 
@@ -392,7 +392,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [27.5, 8, -512],
             scale: [1.5, 1.5, 1.5],
             rotation: [90, 0, 0],
-        },
+        }
     );
     //#endregion
 
@@ -413,7 +413,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [18.2, 0, 48],
             scale: [4.75, 0.00075, 22],
             rotation: [0, 0, 0],
-        },
+        }
     );
     //#endregion
 
@@ -818,7 +818,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [3, 5.875, 112],
             scale: [0.125, 0.125, 0.125],
             rotation: [180, 0, 30],
-        },
+        }
     );
     //#endregion
 
@@ -860,7 +860,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     position: [x, 3, z],
                     scale: [0.75, 0.005, 0.3105],
                     rotation: [180, rotationAmount / 2 + i * rotationAmount, 0],
-                },
+                }
             );
         }
         for (let i = 0; i < 8; i++) {
@@ -1075,7 +1075,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 position: [2.125 + x, 1.28125, 0.1875 + z],
                 scale: [0.015625, 0.00375, 0.015625],
                 rotation: [90, 0, 0],
-            },
+            }
         );
     };
 
@@ -1126,7 +1126,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     position: [4.875 + x * 0.625, -0.1 + bsmap.utils.random(0, 0.1), (x % 2 ? -8 : 0) + 6 * z],
                     scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
-                },
+                }
             );
         }
     }
