@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../deps.ts';
 
 export const roadCount = 5;
 export const roadRepeat = 4;
@@ -25,7 +25,8 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
     const regexConstruction = `\\[\\d+\\]Construction$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-    const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLights =
+        `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexFrontLights = `\\[\\d+\\]FrontLights.\\[0\\]NeonTube$`;
     const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
@@ -71,7 +72,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
             _id: regexNearBuilding,
             _lookupMethod: 'Regex',
             _active: false,
-        }
+        },
     );
     //#endregion
     //#region extra thicc ring
@@ -105,7 +106,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _position: posAddZ(centerRoadPos, i * roadGap),
                 _rotation: [0, 0, 78],
                 _lightID: internalIdOffsetType4++,
-            }
+            },
         );
     }
     for (let i = 0; i < roadCount * roadRepeat; i++) {
@@ -127,7 +128,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _position: posAddZ(farRoadPos, i * roadGap),
                 _rotation: [0, 0, 114],
                 _lightID: internalIdOffsetType4++,
-            }
+            },
         );
     }
     //#endregion
@@ -192,7 +193,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
             _lookupMethod: 'Regex',
             _scale: farLaneLightScale,
             _position: farLaneLightPos,
-        }
+        },
     );
     //#endregion
     //#region yeet center light backtop thing
@@ -222,7 +223,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _scale: backTopFarScale,
                 _position: posAddZ(backTopFarPos, i * 16),
                 _rotation: [60 - i * 5, 0, 165 - i * 6],
-            }
+            },
         );
     }
     //#endregion
@@ -246,7 +247,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _duplicate: 1,
                 _scale: extraMirrorLightScale,
                 _position: posMirrorX(
-                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY)
+                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
                 ),
                 _rotation: [0 - i * 2.5, 0, 220 - i * 11],
                 _lightID: internalIdOffsetType0++,
@@ -258,7 +259,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _scale: extraMirrorLightScale,
                 _position: posAddY(
                     posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                    extraMirrorLightMirrorOffsetY
+                    extraMirrorLightMirrorOffsetY,
                 ),
                 _rotation: [0 - i * 2.5, 0, 140 + i * 11],
                 _lightID: internalIdOffsetType0++,
@@ -271,7 +272,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
                 _position: posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
                 _rotation: [0 + i * 2.5, 0, 40 - i * 11],
                 _lightID: internalIdOffsetType0++,
-            }
+            },
         );
     }
     //#endregion

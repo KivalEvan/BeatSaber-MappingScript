@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../depsLocal.ts';
 
 export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const environment: bsmap.types.v3.IChromaEnvironment[] = [];
@@ -29,33 +29,100 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [-64, 48, 128],
             rotation: [90, 0, 45],
             scale: [0.25, 0.25, 1],
-        }
+        },
     );
     // duplicate this shit everywhere
-    for (let i = 0; i < 15; i++) {
-        const posXRight = (i + 1) * 12 + 36;
-        const posZRight = 32 + Math.random() * 64;
-        const posYRight = Math.max(-64 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25, 2);
-        const posXLeft = (i + 1) * 12 + 36;
-        const posZLeft = 32 + Math.random() * 64;
-        const posYLeft = Math.max(-64 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25, 2);
-        environment.push(
-            {
-                id: regexRingRight,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [posXRight, posYRight, 64 + posZRight],
-                rotation: [90, 0, 45],
-            },
-            {
-                id: regexRingLeft,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [-posXLeft, posYLeft, 64 + posZLeft],
-                rotation: [90, 0, 45],
-            }
-        );
+    for (let z = 0; z < 8; z++) {
+        for (let i = 0; i < 15; i++) {
+            const posXRight = (i + 1) * 12 + 96 - z * 8;
+            const posZRight = 32 + Math.random() * 64;
+            const posYRight = Math.max(
+                -36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25,
+                2,
+            );
+            const posXLeft = (i + 1) * 12 + 96 - z * 8;
+            const posZLeft = 32 + Math.random() * 64;
+            const posYLeft = Math.max(
+                -36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25,
+                2,
+            );
+            environment.push(
+                {
+                    id: regexRingRight,
+                    lookupMethod: 'Regex',
+                    duplicate: 1,
+                    position: [posXRight, posYRight, -256 + posZRight + z * 64],
+                    rotation: [90, 0, 45],
+                },
+                {
+                    id: regexRingLeft,
+                    lookupMethod: 'Regex',
+                    duplicate: 1,
+                    position: [-posXLeft, posYLeft, -256 + posZLeft + z * 64],
+                    rotation: [90, 0, 45],
+                },
+            );
+        }
     }
+    const regexCloudGeometry = '\\[\\d+\\]HighCloudsGenerator.\\[\\d+\\]OpaqueGeometry$';
+
+    for (let i = 0; i < 12; i++) {
+        // environment.push({
+        //     id: regexCloudGeometry,
+        //     lookupMethod: 'Regex',
+        //     duplicate: 1,
+        //     position: [0, 16, -112 + i * 24],
+        //     rotation: [i % 2 ? 270 : 90, 0, 0],
+        //     scale: [
+        //         0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+        //         0.25 + Math.random() * 0.375,
+        //         0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+        //     ],
+        // });
+    }
+
+    environment.push(
+        {
+            id: regexCloudGeometry,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            position: [0, -12, 0],
+            rotation: [0, 0, 0],
+            scale: [0.75, 0.75, 0.75],
+        },
+        {
+            id: regexRingRight,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            position: [48, -4, 144],
+            rotation: [0, 180, 45],
+            scale: [0.25, 0.25, 1],
+        },
+        {
+            id: regexRingLeft,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            position: [-48, -4, 144],
+            rotation: [0, 180, 45],
+            scale: [0.25, 0.25, 1],
+        },
+        {
+            id: regexRingRight,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            position: [64, 10, 160],
+            rotation: [0, 180, 45],
+            scale: [0.25, 0.25, 1],
+        },
+        {
+            id: regexRingLeft,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            position: [-64, 10, 160],
+            rotation: [0, 180, 45],
+            scale: [0.25, 0.25, 1],
+        },
+    );
     //#endregion
     //#region side
     for (let i = 0; i < 2; i++) {
@@ -78,7 +145,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 position: [-posX, posY, posZ],
                 rotation: [90, 0, 0],
                 scale: [1.5, 1.5, 1.5],
-            }
+            },
         );
     }
     //#endregion
@@ -101,7 +168,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 position: [-posX, posY, posZ],
                 rotation: [15 + i * 2.5, 0, 16 + i * 8],
-            }
+            },
         );
     }
     //#endregion
@@ -124,7 +191,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 position: [-posX, posY, posZ],
                 rotation: [-15, 0, -60 + i * 2.5],
-            }
+            },
         );
     }
     //#endregion
@@ -142,7 +209,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 rotation: [15, -45, 0 + i * 7.5],
                 position: [32 - i * 4, 5 + i * 4 + Math.pow(i, i / 3), 64 + i * 12],
-            }
+            },
         );
     }
     //#endregion
@@ -162,20 +229,123 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             rotation: [0, 0, -60],
             position: [4.625, 28, 192],
             scale: [1, 1.5, 1],
-        }
+        },
     );
     //#endregion
 
+    const lightBlock = bsmap.ext.chroma.EnvironmentBlock.create(
+        {
+            id: regexSideLaser,
+            lookupMethod: 'Regex',
+            scale: [10, 0.0004, 10],
+        },
+        [0, 0, 0],
+    );
+    const logo: bsmap.types.v3.IChromaEnvironment[] = [];
+    //F
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] },
+        logo,
+    );
+    //E
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 40 + 15.5, 4, 0],
+            scale: [31, 8, 0.015625],
+        },
+        logo,
+    );
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 40 + 4, 14.5, 0],
+            scale: [8, 11, 0.015625],
+        },
+        logo,
+    );
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 40 + 13.5, 24, 0],
+            scale: [27, 8, 0.015625],
+        },
+        logo,
+    );
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 40 + 4, 32.5, 0],
+            scale: [8, 7, 0.015625],
+        },
+        logo,
+    );
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 40 + 14.5, 40, 0],
+            scale: [29, 8, 0.015625],
+        },
+        logo,
+    );
+    //L
+    lightBlock.place(
+        { position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] },
+        logo,
+    );
+    //T
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 113 + 19, 40, 0],
+            scale: [38, 8, 0.015625],
+        },
+        logo,
+    );
+    lightBlock.place(
+        {
+            position: [-(151 / 2) + 127 + 4, 18, 0],
+            scale: [8, 36, 0.015625],
+        },
+        logo,
+    );
+
     // v3 patch for old v2 pos
-    return environment.map((e) => {
+    environment.forEach((e) => {
         if (e.position) {
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map(
+                (n) => n * 0.6,
+            ) as typeof e.localPosition;
         }
-        return e;
     });
+
+    const logoGroup = bsmap.ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
+    logoGroup.place(
+        {
+            position: [0, 1, 180],
+            scale: [0.0625, 0.0625, 0.0625],
+            lightID: 100,
+        },
+        environment,
+    );
+    return environment;
 };
 
 export const insertEnvironment = (d: bsmap.v3.DifficultyData) => {

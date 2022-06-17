@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../deps.ts';
 
 export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     const environment: bsmap.types.v2.IChromaEnvironment[] = [];
@@ -63,7 +63,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
             _duplicate: 1,
             _rotation: [0, 0, -90],
             _position: [80, 73, 12],
-        }
+        },
     );
     //#endregion
     //#region extra thicc ring
@@ -100,7 +100,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
             _lookupMethod: 'Regex',
             _duplicate: 1,
             _position: posGlowLine1,
-        }
+        },
     );
     //#endregion
     //#region test
@@ -119,7 +119,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
             _duplicate: 1,
             _rotation: [90, 0, 0],
             _position: posGlowLine3,
-        }
+        },
     );
     //#endregion
     return environment;

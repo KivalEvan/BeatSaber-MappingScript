@@ -59,7 +59,7 @@ difficultyList.forEach((d) => {
                     d: 0.25,
                     x: 3 + i,
                     y: 0,
-                }
+                },
             );
         }
     } else {
@@ -100,7 +100,7 @@ difficultyList.forEach((d) => {
                     d: 0.25,
                     x: 5,
                     y: 0,
-                }
+                },
             );
         }
     }
@@ -136,7 +136,7 @@ difficultyList.forEach((d) => {
         { b: 210, d: 1.875, x: -1, y: 2, h: 2 },
         { b: 210, d: 1.875, x: 4, y: 2, h: 2 },
         { b: 290, d: 1.75, x: -1, y: 2, h: 2 },
-        { b: 290, d: 1.75, x: 4, y: 2, h: 2 }
+        { b: 290, d: 1.75, x: 4, y: 2, h: 2 },
     );
 });
 

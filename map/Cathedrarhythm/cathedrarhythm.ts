@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../deps.ts';
 import { insertEnvironment } from '../../environment-enhancement/cathedral/mod.ts';
 import jankySliderConvert from 'https://deno.land/x/bsmap/example/jankySliderConvert.ts';
 import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';

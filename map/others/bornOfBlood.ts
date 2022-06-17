@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../deps.ts';
 import { convertLight, insertEnvironment } from '../../environment-enhancement/bmv2/mod.ts';
 import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';
 

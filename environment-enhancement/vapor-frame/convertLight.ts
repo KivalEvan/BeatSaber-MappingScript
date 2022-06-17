@@ -1,4 +1,4 @@
-import * as bsmap from 'https://deno.land/x/bsmap/mod.ts';
+import * as bsmap from '../../deps.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './environment.ts';
 
 export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {

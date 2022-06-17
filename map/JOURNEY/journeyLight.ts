@@ -1,101 +1,125 @@
-'use strict';
+import * as bsmap from '../../depsLocal.ts';
 
-const fs = require('fs');
+bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
 
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
-const difficulty = JSON.parse(fs.readFileSync(INPUT_FILE));
-const _events = difficulty._events;
-difficulty._version = '2.5.0';
+const difficulty = bsmap.load.difficultySync(INPUT_FILE, 2);
+const _events = difficulty.events;
 
-const isLight = (t) => {
+const isLight = (t: number) => {
     return t >= 0 && t <= 4;
 };
 
 _events.forEach((e) => {
-    e._floatValue = 1;
-    if (isLight(e._type)) {
-        e._floatValue = e._value ? 1 : 0;
+    e.floatValue = 1;
+    if (isLight(e.type)) {
+        e.floatValue = e.value ? 1 : 0;
     }
-    if (e._customData?._color) {
-        if (e._value !== 0) {
-            e._value = e._customData._color[0] ? (e._value <= 4 ? 4 : 8) : e._value;
+    if (e.customData?._color) {
+        if (e.value !== 0) {
+            e.value = e.customData._color[0] ? (e.value <= 4 ? 4 : 8) : e.value;
         }
-        e._floatValue = e._customData._color[3] ?? 1;
+        e.floatValue = e.customData._color[3] ?? 1;
     }
-    delete e._customData;
+    e.resetCustomData();
 });
 
-function normalize(x, min, max) {
+function normalize(x: number, min: number, max: number) {
     return (x - min) / (max - min);
 }
 
-function lerp(x, y, a) {
+function lerp(x: number, y: number, a: number) {
     return x + (y - x) * a;
 }
 
 const easings = {
-    Linear: (x) => x,
-    InQuad: (x) => x * x,
-    OutQuad: (x) => x * (2 - x),
-    InOutQuad: (x) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
-    InCubic: (x) => x * x * x,
-    OutCubic: (x) => --x * x * x + 1,
-    InOutCubic: (x) => (x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1),
-    InQuart: (x) => x * x * x * x,
-    OutQuart: (x) => 1 - --x * x * x * x,
-    InOutQuart: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
-    InQuint: (x) => x * x * x * x * x,
-    OutQuint: (x) => 1 - --x * x * x * x * x,
-    InOutQuint: (x) => (x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x),
+    Linear: (x: number) => x,
+    InQuad: (x: number) => x * x,
+    OutQuad: (x: number) => x * (2 - x),
+    InOutQuad: (x: number) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
+    InCubic: (x: number) => x * x * x,
+    OutCubic: (x: number) => --x * x * x + 1,
+    InOutCubic: (x: number) => x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1,
+    InQuart: (x: number) => x * x * x * x,
+    OutQuart: (x: number) => 1 - --x * x * x * x,
+    InOutQuart: (x: number) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
+    InQuint: (x: number) => x * x * x * x * x,
+    OutQuint: (x: number) => 1 - --x * x * x * x * x,
+    InOutQuint: (x: number) => x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x,
 };
 
-function setFloat(t1, t2, n, type) {
+function setFloat(t1: number, t2: number, n: number, type: number) {
     if (t2 < t1) {
         throw new Error(`t1 ${t1} starts after t2 ${t2}`);
     }
     for (let i = 0; i < _events.length; i++) {
-        if (_events[i]._time > t2) {
+        if (_events[i].time > t2) {
             break;
         }
-        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
+        if (
+            !isLight(_events[i].type) ||
+            _events[i].time < t1 ||
+            (type != null && _events[i].type !== type)
+        ) {
             continue;
         }
-        _events[i]._floatValue = n;
+        _events[i].floatValue = n;
     }
 }
 
-function gradientFloat(t1, t2, n1, n2, type, ease = 'Linear') {
+function gradientFloat(
+    t1: number,
+    t2: number,
+    n1: number,
+    n2: number,
+    type: number,
+    ease: keyof typeof easings = 'Linear',
+) {
     if (t2 < t1) {
         throw new Error(`t1 ${t1} starts after t2 ${t2}`);
     }
     let norm = 0;
     for (let i = 0; i < _events.length; i++) {
-        if (_events[i]._time > t2) {
+        if (_events[i].time > t2) {
             break;
         }
-        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
+        if (
+            !isLight(_events[i].type) ||
+            _events[i].time < t1 ||
+            (type != null && _events[i].type !== type)
+        ) {
             continue;
         }
-        norm = easings[ease](normalize(_events[i]._time, t1, t2));
-        _events[i]._floatValue = lerp(n1, n2, norm);
+        norm = easings[ease](normalize(_events[i].time, t1, t2));
+        _events[i].floatValue = lerp(n1, n2, norm);
     }
 }
 
-function randomizeFloat(t1, t2, min, max, type) {
+function randomizeFloat(
+    t1: number,
+    t2: number,
+    min: number,
+    max: number,
+    type: number,
+) {
     if (t2 < t1) {
         throw new Error(`t1 ${t1} starts after t2 ${t2}`);
     }
     max = Math.max(min, max);
     for (let i = 0; i < _events.length; i++) {
-        if (_events[i]._time > t2) {
+        if (_events[i].time > t2) {
             break;
         }
-        if (!isLight(_events[i]._type) || _events[i]._time < t1 || (type != null && _events[i]._type !== type)) {
+        if (
+            !isLight(_events[i].type) ||
+            _events[i].time < t1 ||
+            (type != null && _events[i].type !== type)
+        ) {
             continue;
         }
-        _events[i]._floatValue = min + Math.random() * (max - min);
+        _events[i].floatValue = min + Math.random() * (max - min);
     }
 }
 
@@ -522,44 +546,9 @@ gradientFloat(1037.5, 1038, 1, 0.5, 4, 'OutQuad');
 //#endregion
 
 _events.forEach((e) => {
-    if (isLight(e._type)) {
-        e._floatValue = e._value ? e._floatValue : 0;
+    if (isLight(e.type)) {
+        e.floatValue = e.value ? e.floatValue : 0;
     }
 });
 
-// save file
-const precision = 4;
-const jsonP = Math.pow(10, precision);
-const sortP = Math.pow(10, 2);
-function deeperDaddy(obj) {
-    if (obj) {
-        for (const key in obj) {
-            if (obj[key] == null || JSON.stringify(obj[key]) === '{}') {
-                delete obj[key];
-            } else if (typeof obj[key] === 'object' || Array.isArray(obj[key])) {
-                deeperDaddy(obj[key]);
-            } else if (typeof obj[key] === 'number') {
-                obj[key] = parseFloat(Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP);
-            }
-        }
-    }
-}
-deeperDaddy(difficulty);
-difficulty._notes.sort(
-    (a, b) =>
-        parseFloat(Math.round((a._time + Number.EPSILON) * sortP) / sortP) -
-            parseFloat(Math.round((b._time + Number.EPSILON) * sortP) / sortP) ||
-        parseFloat(Math.round((a._lineIndex + Number.EPSILON) * sortP) / sortP) -
-            parseFloat(Math.round((b._lineIndex + Number.EPSILON) * sortP) / sortP) ||
-        parseFloat(Math.round((a._lineLayer + Number.EPSILON) * sortP) / sortP) -
-            parseFloat(Math.round((b._lineLayer + Number.EPSILON) * sortP) / sortP),
-);
-difficulty._obstacles.sort((a, b) => a._time - b._time);
-difficulty._events.sort((a, b) => a._time - b._time);
-fs.writeFileSync(OUTPUT_FILE, JSON.stringify(difficulty, null));
-
-console.log(
-    `gradient event: ${
-        difficulty._events.filter((e) => isLight(e._type) && (e._value === 4 || e._value === 8)).length
-    }`,
-);
+bsmap.save.difficultySync(difficulty, { filePath: OUTPUT_FILE });
