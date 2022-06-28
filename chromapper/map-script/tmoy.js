@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 // this also went to conversion from rgba to hsva
 //#region helper function
 function normalize(x, min, max) {
@@ -86,17 +92,10 @@ function setGradientColor(obj, type, color1, color2, t1, t2) {
 }
 //#endregion
 
-function check(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+/**
+ * @type {Run}
+ */
+function run(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     setColor(walls, 2, [0, 0, 1], 6, 8);
     setColor(walls, 2, [0, 0, 1], 134, 136);
     setColor(walls, 2, [0, 0, 1], 262, 264);
@@ -129,9 +128,13 @@ function check(
     setColor(walls, 2, [90, 0.675, 0.75], 458, 470);
 }
 
-module.exports = {
-    name: 'The March of Yui',
-    params: {},
-    run: check,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'The March of Yui',
+        params: {},
+        run: run,
+        errorCheck: false,
+    });

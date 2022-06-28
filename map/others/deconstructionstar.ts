@@ -3,7 +3,8 @@ import convertSlider from 'https://deno.land/x/bsmap@1.0.0/example/jankySliderCo
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Deconstruction Star/';
+bsmap.globals.directory =
+    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Deconstruction Star/';
 
 const info = bsmap.load.infoSync();
 const difficultyList = bsmap.load.difficultyFromInfoSync(info);
@@ -86,7 +87,7 @@ difficultyList.forEach((d) => {
 });
 
 bsmap.save.difficultyListSync(difficultyList, {
-    path: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Deconstruction Star/',
+    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Deconstruction Star/',
 });
 
 console.timeEnd('Runtime');

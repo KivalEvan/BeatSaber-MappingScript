@@ -93,7 +93,10 @@ function lerp(v0, v1, t) {
 }
 function noteSetNonInteractible(t1, t2, type = 2) {
     const filterednotes = _notes.filter(
-        (n) => n._time >= t1 && n._time <= t2 && ((type === 2 && (n._type === 0 || n._type === 1)) || n._type === type),
+        (n) =>
+            n._time >= t1 &&
+            n._time <= t2 &&
+            ((type === 2 && (n._type === 0 || n._type === 1)) || n._type === type),
     );
     filterednotes.forEach((note) => {
         note._customData._interactable = false;
@@ -102,7 +105,10 @@ function noteSetNonInteractible(t1, t2, type = 2) {
 }
 function noteReplaceType(t1, t2, type = 2, type2) {
     const filterednotes = _notes.filter(
-        (n) => n._time >= t1 && n._time <= t2 && ((type === 2 && (n._type === 0 || n._type === 1)) || n._type === type),
+        (n) =>
+            n._time >= t1 &&
+            n._time <= t2 &&
+            ((type === 2 && (n._type === 0 || n._type === 1)) || n._type === type),
     );
     filterednotes.forEach((note) => {
         note._type = type2;
@@ -126,7 +132,16 @@ function trackOnNotesBetween(t1, t2, track, potentialOffset) {
     });
     return filterednotes;
 }
-function trackDuplicateNotes(t1, t2, toffset, cd, track, potentialOffset, interactable, rotation) {
+function trackDuplicateNotes(
+    t1,
+    t2,
+    toffset,
+    cd,
+    track,
+    potentialOffset,
+    interactable,
+    rotation,
+) {
     const filterednotes = _notes.filter((n) => n._time >= t1 && n._time <= t2);
     filterednotes.forEach((note) => {
         const n = JSON.parse(JSON.stringify(note));
@@ -188,7 +203,11 @@ function flickerPoint(dur, prec, odd, val, easeZero, easeOne) {
         if (i % 2 === 0) {
             array.push([1, i / dur / prec + (odd ? 0 : 1 / dur / prec), easeOne]);
         } else {
-            array.push([val, (i - 1) / dur / prec + (odd ? 0 : 1 / dur / prec) + 0.001, easeZero]);
+            array.push([
+                val,
+                (i - 1) / dur / prec + (odd ? 0 : 1 / dur / prec) + 0.001,
+                easeZero,
+            ]);
         }
     }
     array.push([1, 1, easeOne]);
@@ -249,9 +268,12 @@ function simultaneousWallSpawn(t1, t2, speed, njsoff = NJSOFFSET) {
     });
 }
 function rampNoteNJS(t1, t2, njsStart, njsEnd, jd, type = 2) {
-    const filterednotes = _notes.filter((n) => n._time >= t1 && n._time <= t2 && (type === 2 || n._type === type));
-    const factor = (njsEnd - njsStart) / (filterednotes[filterednotes.length - 1]?._time - filterednotes[0]?._time) ||
-        1;
+    const filterednotes = _notes.filter(
+        (n) => n._time >= t1 && n._time <= t2 && (type === 2 || n._type === type),
+    );
+    const factor = (njsEnd - njsStart) /
+            (filterednotes[filterednotes.length - 1]?._time -
+                filterednotes[0]?._time) || 1;
     return filterednotes.forEach((n) => {
         n._customData._noteJumpMovementSpeed = njsStart + (n._time - filterednotes[0]?._time) * factor || njsEnd;
         if (typeof jd !== 'undefined') {
@@ -263,8 +285,9 @@ function rampNoteNJS(t1, t2, njsStart, njsEnd, jd, type = 2) {
 }
 function rampWallNJS(t1, t2, njsStart, njsEnd, jd) {
     const filteredwalls = _obstacles.filter((n) => n._time >= t1 && n._time <= t2);
-    const factor = (njsEnd - njsStart) / (filteredwalls[filteredwalls.length - 1]?._time - filteredwalls[0]?._time) ||
-        1;
+    const factor = (njsEnd - njsStart) /
+            (filteredwalls[filteredwalls.length - 1]?._time -
+                filteredwalls[0]?._time) || 1;
     return filteredwalls.forEach((n) => {
         n._customData._noteJumpMovementSpeed = njsStart + (n._time - filteredwalls[0]?._time) * factor || njsEnd;
         if (typeof jd !== 'undefined') {
@@ -374,7 +397,10 @@ function glitchyBeforeFastPewPewSection(timeArr) {
         glitchyDotArrow(t, 'easeOutBounce');
     });
 }
-const glitchyBeforeFastPewPew = [].concat(getRepeatArray(408, 32, 4), getRepeatArray(920, 32, 4));
+const glitchyBeforeFastPewPew = [].concat(
+    getRepeatArray(408, 32, 4),
+    getRepeatArray(920, 32, 4),
+);
 glitchyBeforeFastPewPewSection(glitchyBeforeFastPewPew);
 
 function slapBeforeFastPewPewSection(timeArr) {
@@ -414,7 +440,11 @@ function slapBeforeFastPewPewSection(timeArr) {
                                 _interactable: false,
                                 _rotation: 180,
                                 _position: [-3 - j - i / 32, -1 - i / 64],
-                                _color: [0.875 - i / 32, 0.875 - i / 32, 0.875 - i / 32],
+                                _color: [
+                                    0.875 - i / 32,
+                                    0.875 - i / 32,
+                                    0.875 - i / 32,
+                                ],
                             },
                         },
                         {
@@ -429,7 +459,11 @@ function slapBeforeFastPewPewSection(timeArr) {
                                 _interactable: false,
                                 _rotation: 180,
                                 _position: [2 + j + i / 32, -1 - i / 64],
-                                _color: [0.875 - i / 32, 0.875 - i / 32, 0.875 - i / 32],
+                                _color: [
+                                    0.875 - i / 32,
+                                    0.875 - i / 32,
+                                    0.875 - i / 32,
+                                ],
                             },
                         },
                     );
@@ -450,8 +484,15 @@ function slapBeforeFastPewPewSection(timeArr) {
                                     _noteJumpStartBeatOffset: -1,
                                     _interactable: false,
                                     _rotation: 0 - i / 2 - j * 2,
-                                    _position: [-3 - j * 1.5 - i / 32, -2 + j * 2 - i / 64],
-                                    _color: [0.75 - i / 16, 0.125 + i / 96, 0.375 - i / 48],
+                                    _position: [
+                                        -3 - j * 1.5 - i / 32,
+                                        -2 + j * 2 - i / 64,
+                                    ],
+                                    _color: [
+                                        0.75 - i / 16,
+                                        0.125 + i / 96,
+                                        0.375 - i / 48,
+                                    ],
                                 },
                             },
                             {
@@ -465,8 +506,15 @@ function slapBeforeFastPewPewSection(timeArr) {
                                     _noteJumpStartBeatOffset: -1,
                                     _interactable: false,
                                     _rotation: 0 + i / 2 + j * 2,
-                                    _position: [2 + j * 1.5 + i / 32, -2 + j * 2 - i / 64],
-                                    _color: [0.75 - i / 16, 0.125 + i / 96, 0.375 - i / 48],
+                                    _position: [
+                                        2 + j * 1.5 + i / 32,
+                                        -2 + j * 2 - i / 64,
+                                    ],
+                                    _color: [
+                                        0.75 - i / 16,
+                                        0.125 + i / 96,
+                                        0.375 - i / 48,
+                                    ],
                                 },
                             },
                         );
@@ -635,11 +683,17 @@ function slapBeforeFastPewPewSection(timeArr) {
         }
     });
 }
-const slapBeforeFastPewPew = [].concat(getRepeatArray(392, 64, 2), [584, 1096, 1224, 1288], getRepeatArray(904, 64, 2));
+const slapBeforeFastPewPew = [].concat(
+    getRepeatArray(392, 64, 2),
+    [584, 1096, 1224, 1288],
+    getRepeatArray(904, 64, 2),
+);
 slapBeforeFastPewPewSection(slapBeforeFastPewPew);
 
 function bombContractExpandThingy(t1, t2) {
-    const filterednotes = _notes.filter((n) => n._time >= t1 && n._time <= t2 && n._type === 3);
+    const filterednotes = _notes.filter(
+        (n) => n._time >= t1 && n._time <= t2 && n._type === 3,
+    );
     return filterednotes.forEach((n) => {
         n._customData._position = [
             (n._lineIndex - 1.5) * (1 + (n._time % (t2 - t1)) / 2) - 0.5,
@@ -717,7 +771,10 @@ function slowBuildSection(timeArr) {
                             _noteJumpStartBeatOffset: 1,
                             _interactable: false,
                             _rotation: j % 2 === 0 ? -12 + i * 1.8 : 12 - i * 1.75,
-                            _position: [j % 2 === 0 ? 5 - i ** 1.36 : -31 + i ** 1.56, -1 - (1 / (i + 1)) ** 2],
+                            _position: [
+                                j % 2 === 0 ? 5 - i ** 1.36 : -31 + i ** 1.56,
+                                -1 - (1 / (i + 1)) ** 2,
+                            ],
                             _color: [0.25, 0.25, 0.25],
                         },
                     },
@@ -732,7 +789,10 @@ function slowBuildSection(timeArr) {
                             _noteJumpStartBeatOffset: 1,
                             _interactable: false,
                             _rotation: j % 2 === 0 ? 12 - i * 1.8 : -12 + i * 1.75,
-                            _position: [j % 2 === 0 ? -6 + i ** 1.36 : 32 - i ** 1.56, -1 - (1 / (i + 1)) ** 2],
+                            _position: [
+                                j % 2 === 0 ? -6 + i ** 1.36 : 32 - i ** 1.56,
+                                -1 - (1 / (i + 1)) ** 2,
+                            ],
                             _color: [0.25, 0.25, 0.25],
                         },
                     },
@@ -1141,7 +1201,10 @@ function slowBuildSection(timeArr) {
                         _noteJumpMovementSpeed: NJS,
                         _noteJumpStartBeatOffset: 0,
                         _interactable: false,
-                        _position: [-5 - i / 24, i % 2 === 0 ? 2 + i / 12 : 3.5 + i / 4],
+                        _position: [
+                            -5 - i / 24,
+                            i % 2 === 0 ? 2 + i / 12 : 3.5 + i / 4,
+                        ],
                         _rotation: i % 2 !== 0 ? -i - i / 4 : -i,
                         _color: flip ? [0.5 + i / 128, 0, 0] : [0, 0, 0.5 + i / 128],
                     },
@@ -1661,23 +1724,146 @@ function nyyoooombeforeglitchyburst(timeArr) {
                     },
                 },
             );
-            trackDuplicateNotes(t + 2 + i * 64, t + 5 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 8 + i * 64, t + 11 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 16 + i * 64, t + 16 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 18 + i * 64, t + 21 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 24 + i * 64, t + 26 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 32 + i * 64, t + 32 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 34 + i * 64, t + 37 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 40 + i * 64, t + 43 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 48 + i * 64, t + 48 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-            trackDuplicateNotes(t + 50 + i * 64, t + 53 + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
+            trackDuplicateNotes(
+                t + 2 + i * 64,
+                t + 5 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 8 + i * 64,
+                t + 11 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 16 + i * 64,
+                t + 16 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 18 + i * 64,
+                t + 21 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 24 + i * 64,
+                t + 26 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 32 + i * 64,
+                t + 32 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 34 + i * 64,
+                t + 37 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 40 + i * 64,
+                t + 43 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 48 + i * 64,
+                t + 48 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
+            trackDuplicateNotes(
+                t + 50 + i * 64,
+                t + 53 + i * 64,
+                0.99,
+                8,
+                'pewpewtrack' + t,
+                -1,
+                false,
+                180,
+            );
             if (i === 1) {
-                trackDuplicateNotes(t + i * 64, t + i * 64, 0.99, 8, 'pewpewtrack' + t, -1, false, 180);
-                trackDuplicateNotes(t + i * 64, t + i * 64, -0.01, 8, 'invisibleBlockOnlyTrack' + t);
+                trackDuplicateNotes(
+                    t + i * 64,
+                    t + i * 64,
+                    0.99,
+                    8,
+                    'pewpewtrack' + t,
+                    -1,
+                    false,
+                    180,
+                );
+                trackDuplicateNotes(
+                    t + i * 64,
+                    t + i * 64,
+                    -0.01,
+                    8,
+                    'invisibleBlockOnlyTrack' + t,
+                );
             }
-            trackDuplicateNotes(t + 16 + i * 64, t + 16 + i * 64, -0.01, 8, 'invisibleBlockOnlyTrack' + t);
-            trackDuplicateNotes(t + 32 + i * 64, t + 32 + i * 64, -0.01, 8, 'invisibleBlockOnlyTrack' + t);
-            trackDuplicateNotes(t + 48 + i * 64, t + 48 + i * 64, -0.01, 8, 'invisibleBlockOnlyTrack' + t);
+            trackDuplicateNotes(
+                t + 16 + i * 64,
+                t + 16 + i * 64,
+                -0.01,
+                8,
+                'invisibleBlockOnlyTrack' + t,
+            );
+            trackDuplicateNotes(
+                t + 32 + i * 64,
+                t + 32 + i * 64,
+                -0.01,
+                8,
+                'invisibleBlockOnlyTrack' + t,
+            );
+            trackDuplicateNotes(
+                t + 48 + i * 64,
+                t + 48 + i * 64,
+                -0.01,
+                8,
+                'invisibleBlockOnlyTrack' + t,
+            );
         });
     }
     timeArr.forEach((t) => {
@@ -1777,7 +1963,9 @@ function deeperDaddy(obj) {
             } else if (typeof obj[key] === 'object' || Array.isArray(obj[key])) {
                 deeperDaddy(obj[key]);
             } else if (typeof obj[key] === 'number') {
-                obj[key] = parseFloat(Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP);
+                obj[key] = parseFloat(
+                    Math.round((obj[key] + Number.EPSILON) * jsonP) / jsonP,
+                );
             }
         }
     }

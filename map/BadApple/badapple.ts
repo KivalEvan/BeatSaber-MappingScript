@@ -1,6 +1,6 @@
 import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
-import { dirname } from 'https://deno.land/std@0.135.0/path/mod.ts';
+import { dirname } from 'https://deno.land/std@0.135.0/directory/mod.ts';
 
 const WORKING_DIRECTORY = dirname(Deno.mainModule).replace('file:///', '') + '/'; // for some reason deno doesnt like to deal with file:///
 const MAP_DIRECTORY = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Bad Apple/';

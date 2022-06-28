@@ -240,7 +240,7 @@ function convert(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     const environmentName = global.params[0];
     const convertType = {
@@ -298,8 +298,7 @@ function convert(
             //         ) +
             //         '}'
             // );
-            eventSelected[i]._customData._lightID =
-                environmentMap[environmentName][eventSelected[i]._type];
+            eventSelected[i]._customData._lightID = environmentMap[environmentName][eventSelected[i]._type];
         } else {
             eventSelected[i]._customData = {
                 _lightID: environmentMap[environmentName][eventSelected[i]._type],
@@ -330,7 +329,7 @@ function convert(
             }
             finalTime = Math.min(
                 eventSelected[i]._time + timeFromFade,
-                eventSelected[j]._time
+                eventSelected[j]._time,
             );
             break;
         }
@@ -343,9 +342,7 @@ function convert(
             if (fixNoChroma) {
                 originalColor = [
                     ...colorScheme[schemeName][
-                        eventSelected[i]._value === 1
-                            ? '_envColorRight'
-                            : '_envColorLeft'
+                        eventSelected[i]._value === 1 ? '_envColorRight' : '_envColorLeft'
                     ],
                 ];
             } else {
@@ -360,7 +357,7 @@ function convert(
             let currentColor = [...originalColor];
             currentColor[3] = Math.max(
                 lerp(fadeBrightness, 0, fadeEasing(normalize(j, 0, maxStep))),
-                0
+                0,
             );
             const temp = JSON.parse(JSON.stringify(eventSelected[i]));
             temp._time += j / fadeStep;
@@ -374,7 +371,7 @@ function convert(
                 for (let k = 0; k < 3; k++) {
                     currentColor[k] = Math.max(
                         lerp(currentColor[k], 0, 1 - currentColor[3]),
-                        0
+                        0,
                     );
                 }
             }

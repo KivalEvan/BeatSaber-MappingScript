@@ -70,7 +70,7 @@ function swingNext(n1, n2, bpm, context = null) {
             if (
                 Math.max(
                     Math.abs(other._lineIndex - n1._lineIndex),
-                    Math.abs(other._lineLayer - n1._lineLayer)
+                    Math.abs(other._lineLayer - n1._lineLayer),
                 ) < 1
             ) {
                 return true;
@@ -97,7 +97,7 @@ function swingWindow(n1, n2) {
     return (
         Math.max(
             Math.abs(n1._lineIndex - n2._lineIndex),
-            Math.abs(n1._lineLayer - n2._lineLayer)
+            Math.abs(n1._lineLayer - n2._lineLayer),
         ) >= 2
     );
 }
@@ -230,7 +230,7 @@ function findLastInteractiveObstacleTime(obstacles, bpm) {
         ) {
             obstacleEnd = Math.max(
                 obstacleEnd,
-                ((obstacles[i]._time + obstacles[i]._duration) / bpm) * 60
+                ((obstacles[i]._time + obstacles[i]._duration) / bpm) * 60,
             );
         }
     }
@@ -313,7 +313,7 @@ function getBPMChangesTime(bpm, bpmc = []) {
         };
         if (temp) {
             curBPMC.newTime = Math.ceil(
-                ((curBPMC.jsonTime - temp.jsonTime) / bpm) * temp.bpm + temp.newTime - 0.01
+                ((curBPMC.jsonTime - temp.jsonTime) / bpm) * temp.bpm + temp.newTime - 0.01,
             );
         } else {
             curBPMC.newTime = Math.ceil(curBPMC.jsonTime);
@@ -347,7 +347,7 @@ function shuffle(arr) {
 
 function testFunction(data) {
     alert(
-        `Core script module for various use\nand development purpose.\n\nRelease version ${releaseVersion}`
+        `Core script module for various use\nand development purpose.\n\nRelease version ${releaseVersion}`,
     );
 }
 

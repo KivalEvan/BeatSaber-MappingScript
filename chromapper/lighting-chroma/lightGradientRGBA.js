@@ -74,7 +74,7 @@ function light(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     // event type and color
     const eventType = eventTypeEnum[global.params[0]];
@@ -118,26 +118,16 @@ function light(
     const repeatOffset = global.params[20];
 
     // flicker
-    const flickerMode =
-        typeof global.params[21] === 'boolean' ? global.params[21] : false;
-    const flickerInvert =
-        typeof global.params[22] === 'boolean' ? global.params[22] : false;
-    const flickerStrength =
-        typeof global.params[23] === 'number' ? Math.abs(global.params[23]) : 1;
-    const flickerCoverage =
-        typeof global.params[24] === 'number' ? Math.abs(global.params[24] / 100) : 1;
+    const flickerMode = typeof global.params[21] === 'boolean' ? global.params[21] : false;
+    const flickerInvert = typeof global.params[22] === 'boolean' ? global.params[22] : false;
+    const flickerStrength = typeof global.params[23] === 'number' ? Math.abs(global.params[23]) : 1;
+    const flickerCoverage = typeof global.params[24] === 'number' ? Math.abs(global.params[24] / 100) : 1;
 
     // noise
-    const noiseMode =
-        typeof global.params[25] === 'boolean' ? global.params[25] : false;
-    const noiseIntensity =
-        typeof global.params[26] === 'number'
-            ? Math.abs(global.params[26] / 100)
-            : 64 / 100;
-    const noiseSaturation =
-        typeof global.params[27] === 'number' ? Math.abs(global.params[27] / 100) : 1;
-    const noiseCoverage =
-        typeof global.params[28] === 'number' ? Math.abs(global.params[28] / 100) : 1;
+    const noiseMode = typeof global.params[25] === 'boolean' ? global.params[25] : false;
+    const noiseIntensity = typeof global.params[26] === 'number' ? Math.abs(global.params[26] / 100) : 64 / 100;
+    const noiseSaturation = typeof global.params[27] === 'number' ? Math.abs(global.params[27] / 100) : 1;
+    const noiseCoverage = typeof global.params[28] === 'number' ? Math.abs(global.params[28] / 100) : 1;
 
     const lightID = [];
     const lightIDAll = [];
@@ -163,12 +153,12 @@ function light(
                 (id) =>
                     id +
                     (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) *
-                        idLightCount
+                        idLightCount,
             );
             const idStepTime = lerp(
                 0,
                 duration,
-                durationEasing(normalize(itIdStep, 0, maxIdStep))
+                durationEasing(normalize(itIdStep, 0, maxIdStep)),
             );
             for (let itColorStep = 0; itColorStep <= maxColorStep; itColorStep++) {
                 if (offStrobe && lightOff && itColorStep === maxColorStep) {
@@ -187,10 +177,9 @@ function light(
                 const colorStepTime = lerp(
                     0,
                     length,
-                    colorEasing(normalize(itColorStep, 0, maxColorStep))
+                    colorEasing(normalize(itColorStep, 0, maxColorStep)),
                 );
-                const currentTime =
-                    cursorTime +
+                const currentTime = cursorTime +
                     repeatTime +
                     (fillStart && itColorStep === 0 ? 0 : colorStepTime + idStepTime);
                 if (itColorStep === maxColorStep && lightOff) {
@@ -199,10 +188,7 @@ function light(
                         _type: eventType,
                         _value: 0,
                         _customData: {
-                            _lightID:
-                                fillStart && itColorStep === 0
-                                    ? lightIDAll
-                                    : currentLightID,
+                            _lightID: fillStart && itColorStep === 0 ? lightIDAll : currentLightID,
                         },
                     });
                     break;
@@ -215,12 +201,12 @@ function light(
                             lerp(
                                 0,
                                 length,
-                                stepEasing(normalize(itColorStep, 0, maxColorStep))
+                                stepEasing(normalize(itColorStep, 0, maxColorStep)),
                             ),
                             0,
-                            length
-                        )
-                    )
+                            length,
+                        ),
+                    ),
                 );
                 if (noiseMode && Math.random() < noiseCoverage) {
                     for (let c = 0; c < 3; c++) {
@@ -230,7 +216,7 @@ function light(
                                     noiseSaturation *
                                     noiseIntensity) *
                                 ((-0.5 + Math.random()) * noiseIntensity),
-                            0
+                            0,
                         );
                     }
                 }
@@ -240,18 +226,14 @@ function light(
                     _value: eventColor,
                     _customData: {
                         _color: currentRGBA,
-                        _lightID:
-                            fillStart && itColorStep === 0
-                                ? lightIDAll
-                                : currentLightID,
+                        _lightID: fillStart && itColorStep === 0 ? lightIDAll : currentLightID,
                     },
                 });
                 if (!flickerMode && offStrobe && itColorStep !== maxColorStep) {
                     const isFlicker = Math.random() < flickerStrength;
                     if (isFlicker && flickerCoverage > itColorStep / maxColorStep) {
                         events.push({
-                            _time:
-                                currentTime -
+                            _time: currentTime -
                                 colorStepTime +
                                 lerp(
                                     0,
@@ -260,9 +242,9 @@ function light(
                                         normalize(
                                             itColorStep * 2 + 1,
                                             0,
-                                            maxColorStep * 2
-                                        )
-                                    )
+                                            maxColorStep * 2,
+                                        ),
+                                    ),
                                 ),
                             _type: eventType,
                             _value: 0,
@@ -278,8 +260,7 @@ function light(
                         : Math.random() * flickerStrength < itColorStep / maxColorStep;
                     if (isFlicker && flickerCoverage > itColorStep / maxColorStep) {
                         events.push({
-                            _time:
-                                currentTime -
+                            _time: currentTime -
                                 colorStepTime +
                                 lerp(
                                     0,
@@ -288,9 +269,9 @@ function light(
                                         normalize(
                                             itColorStep * 2 + 1,
                                             0,
-                                            maxColorStep * 2
-                                        )
-                                    )
+                                            maxColorStep * 2,
+                                        ),
+                                    ),
                                 ),
                             _type: eventType,
                             _value: 0,

@@ -1,4 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
 // require _easings.js
+'use strict';
 
 // hue: [0-inf] => set color hue (0 -> red, 120 -> green, 240 -> blue, 360 -> red, ...)
 // saturation: [0-1] => color saturation
@@ -87,17 +92,10 @@ const eventColorEnum = {
     Blue: 5,
 };
 
-function light(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+/**
+ * @type {Run}
+ */
+function light(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     // event type and color
     const eventType = eventTypeEnum[global.params[0]];
     const eventColor = eventColorEnum[global.params[1]];
@@ -129,10 +127,9 @@ function light(
     // repeat
     const maxRepeat = Math.abs(global.params[12]);
     const repeatOffset = global.params[13];
-    const repeatShiftHue =
-        global.params[14] >= 0
-            ? (global.params[14] / 360) % 1
-            : (((global.params[14] % 360) + 360) / 360) % 1;
+    const repeatShiftHue = global.params[14] >= 0
+        ? (global.params[14] / 360) % 1
+        : (((global.params[14] % 360) + 360) / 360) % 1;
 
     const lightID = [];
     for (let i = 1; i <= idLightCount; i++) {
@@ -147,24 +144,12 @@ function light(
         const currentLightID = [];
         for (let itIdStep = 0; itIdStep <= maxIdStep; itIdStep++) {
             lightID.forEach((id) =>
-                currentLightID.push(
-                    id +
-                        (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) *
-                            idLightCount
-                )
+                currentLightID.push(id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount)
             );
-            const idStepTime = lerp(
-                0,
-                duration,
-                durationEasing(normalize(itIdStep, 0, maxIdStep))
-            );
+            const idStepTime = lerp(0, duration, durationEasing(normalize(itIdStep, 0, maxIdStep)));
             const tempLightID = [...currentLightID];
             const currentTime = cursorTime + repeatTime + idStepTime;
-            const currentHSVA = interpolateColor(
-                startHSVA,
-                endHSVA,
-                colorEasing(normalize(itIdStep, 0, maxIdStep))
-            );
+            const currentHSVA = interpolateColor(startHSVA, endHSVA, colorEasing(normalize(itIdStep, 0, maxIdStep)));
             events.push({
                 _time: currentTime,
                 _type: eventType,
@@ -180,25 +165,29 @@ function light(
     }
 }
 
-module.exports = {
-    name: 'Light Wave HSVA',
-    params: {
-        'Event Type': Object.keys(eventTypeEnum),
-        'Event Color': Object.keys(eventColorEnum),
-        'HSVA Start': '360,1,1,1',
-        'HSVA End': '240,1,1,1',
-        Duration: 2,
-        Invert: false,
-        'ID Start-End': '1-15',
-        'ID Light Count': 4,
-        'ID Offset': 0,
-        'ID Ignore': '0',
-        'Easing Duration': Easings.list,
-        'Easing Color': Easings.list,
-        Repeat: 0,
-        'Repeat Offset': 0,
-        'Repeat Shift Hue': 0,
-    },
-    run: light,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Main}
+     */
+    ({
+        name: 'Light Wave HSVA',
+        params: {
+            'Event Type': Object.keys(eventTypeEnum),
+            'Event Color': Object.keys(eventColorEnum),
+            'HSVA Start': '360,1,1,1',
+            'HSVA End': '240,1,1,1',
+            Duration: 2,
+            Invert: false,
+            'ID Start-End': '1-15',
+            'ID Light Count': 4,
+            'ID Offset': 0,
+            'ID Ignore': '0',
+            'Easing Duration': Easings.list,
+            'Easing Color': Easings.list,
+            Repeat: 0,
+            'Repeat Offset': 0,
+            'Repeat Shift Hue': 0,
+        },
+        run: light,
+        errorCheck: false,
+    });

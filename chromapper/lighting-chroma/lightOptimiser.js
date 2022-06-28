@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 // optimise lighting event by removing redundancy and merging Chroma event into one
 // useful to get faster loading time, especially on high event count map
 // any feedback send on Discord@Kival Evan#5480
@@ -19,6 +25,9 @@ const lightStatic = [0, 1, 5];
 const lightEvent = [0, 1, 2, 3, 4, 6, 7];
 const eventTemplate = '{"_time":-999,"_type":0,"_value":0,}';
 
+/**
+ * @type {Run}
+ */
 function optimise(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     const reduceRingStack = global.params[0] > 0;
     const reduceLightId = global.params[1] > 0;
@@ -70,10 +79,7 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                 if (events[i]._time - prevEvent[evType]._time < eventStackTol) {
                     flagRemove = true;
                 }
-                if (
-                    lightStatic.includes(events[i]._value) &&
-                    events[i]._value === prevEvent[evType]._value
-                ) {
+                if (lightStatic.includes(events[i]._value) && events[i]._value === prevEvent[evType]._value) {
                     // check if previous event had no _customData
                     if (prevEvent[evType]._customData == null) {
                         flagRemove = true;
@@ -103,10 +109,9 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                         });
                     }
                     if (!flagRemove && !isNaN(events[i]._customData._lightID)) {
-                        eventLightID[evType][events[i]._customData._lightID]._value =
-                            events[i]._value;
-                        eventLightID[evType][events[i]._customData._lightID]._color =
-                            events[i]._customData._color || null;
+                        eventLightID[evType][events[i]._customData._lightID]._value = events[i]._value;
+                        eventLightID[evType][events[i]._customData._lightID]._color = events[i]._customData._color ||
+                            null;
                     }
                 }
                 for (let j = 0; j < eventAtTime[evType].length; j++) {
@@ -120,10 +125,7 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                         // merge into one event
                         // honestly what the fuck?
                         if (
-                            (matchColor(
-                                events[i]._customData._color,
-                                events[lookupIndex]._customData._color
-                            ) &&
+                            (matchColor(events[i]._customData._color, events[lookupIndex]._customData._color) &&
                                 events[i]._value === events[lookupIndex]._value) ||
                             (events[i]._value === events[lookupIndex]._value &&
                                 events[i]._customData._color == null &&
@@ -139,8 +141,8 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
 
                             // insert temp into eventAtTime
                             if (Array.isArray(events[lookupIndex]._customData._lightID)) {
-                                events[lookupIndex]._customData._lightID =
-                                    events[lookupIndex]._customData._lightID.concat(temp);
+                                events[lookupIndex]._customData._lightID = events[lookupIndex]._customData._lightID
+                                    .concat(temp);
                             }
                             if (!isNaN(events[lookupIndex]._customData._lightID)) {
                                 events[lookupIndex]._customData._lightID = [
@@ -152,9 +154,7 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                             events[lookupIndex]._customData._lightID.sort((a, b) => a - b);
 
                             console.log(
-                                `Merging event ${
-                                    Math.round(events[i]._time * 1000) / 1000
-                                } type ${evType} ${
+                                `Merging event ${Math.round(events[i]._time * 1000) / 1000} type ${evType} ${
                                     events[i]._customData._color
                                         ? `colour [${events[i]._customData._color.join()}]`
                                         : `value ${events[i]._value}`
@@ -162,7 +162,7 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                                     Array.isArray(events[i]._customData._lightID)
                                         ? `[${events[i]._customData._lightID.join()}]`
                                         : events[i]._customData._lightID
-                                } => [${events[lookupIndex]._customData._lightID.join()}]`
+                                } => [${events[lookupIndex]._customData._lightID.join()}]`,
                             );
                             flagChroma = true;
                             break;
@@ -182,10 +182,7 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
                         prevEvent[evType]._customData._lightID == null &&
                         prevEvent[evType]._customData._propID == null &&
                         events[i]._value === prevEvent[evType]._value &&
-                        matchColor(
-                            events[i]._customData._color,
-                            prevEvent[evType]._customData._color
-                        )
+                        matchColor(events[i]._customData._color, prevEvent[evType]._customData._color)
                     ) {
                         flagRemove = true;
                     }
@@ -232,17 +229,10 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
 
         // LASER ROTATION EVENT
         if (evType === 12 || evType === 13) {
-            if (
-                events[i]._customData == null &&
-                events[i]._time - prevEvent[evType]._time < eventStackTol
-            ) {
+            if (events[i]._customData == null && events[i]._time - prevEvent[evType]._time < eventStackTol) {
                 flagRemove = true;
             }
-            if (
-                events[i]._customData == null &&
-                events[i]._value === 0 &&
-                prevEvent[evType]._value === 0
-            ) {
+            if (events[i]._customData == null && events[i]._value === 0 && prevEvent[evType]._value === 0) {
                 flagRemove = true;
             }
         }
@@ -250,9 +240,9 @@ function optimise(cursor, notes, events, walls, _, global, data, customEvents, b
         // REMOVE EVENT
         if (flagRemove) {
             console.log(
-                `Removing event ${Math.round(events[i]._time * 1000) / 1000} type ${evType} value ${
-                    events[i]._value
-                }${events[i]._customData ? ` customData ${events[i]._customData}` : ''}`
+                `Removing event ${Math.round(events[i]._time * 1000) / 1000} type ${evType} value ${events[i]._value}${
+                    events[i]._customData ? ` customData ${events[i]._customData}` : ''
+                }`,
             );
             delete events[i];
             countRedundant++;
@@ -308,10 +298,7 @@ function matchColor(c1, c2) {
 function matchLightID(ev, lightIDList) {
     if (Array.isArray(ev._customData._lightID)) {
         for (const id of ev._customData._lightID) {
-            if (
-                lightIDList[id]._value !== ev._value ||
-                !matchColor(lightIDList[id]._color, ev._customData._color)
-            ) {
+            if (lightIDList[id]._value !== ev._value || !matchColor(lightIDList[id]._color, ev._customData._color)) {
                 return false;
             }
         }
@@ -327,8 +314,12 @@ function matchLightID(ev, lightIDList) {
     return true;
 }
 
-module.exports = {
-    name: 'Light Optimiser',
-    params: { 'Reduce Ring Stack': 0, 'Reduce LightID': 0 },
-    run: optimise,
-};
+module.exports =
+    /**
+     * @type {Main}
+     */
+    ({
+        name: 'Light Optimiser',
+        params: { 'Reduce Ring Stack': 0, 'Reduce LightID': 0 },
+        run: optimise,
+    });

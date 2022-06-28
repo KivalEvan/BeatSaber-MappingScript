@@ -32,22 +32,21 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
                     note,
                     lastNote[note._type],
                     data.songBPM,
-                    swingNoteArray[note._type]
+                    swingNoteArray[note._type],
                 )
             ) {
                 if (startNoteDot[note._type]) {
                     startNoteDot[note._type] = null;
-                    lastNoteDirection[note._type] =
-                        kvlCore.flipCutDir[lastNoteDirection[note._type]];
+                    lastNoteDirection[note._type] = kvlCore.flipCutDir[lastNoteDirection[note._type]];
                 }
                 if (
                     checkShrAngle(note._cutDirection, lastNoteDirection[note._type], note._type) &&
                     kvlCore.adjustTime(note._time, data.songBPM, bpmChangesTime) -
-                        kvlCore.adjustTime(
-                            lastNote[note._type]._time,
-                            data.songBPM,
-                            bpmChangesTime
-                        ) <=
+                                kvlCore.adjustTime(
+                                    lastNote[note._type]._time,
+                                    data.songBPM,
+                                    bpmChangesTime,
+                                ) <=
                         1 / maxPrec + epsilon
                 ) {
                     addError(note, '');
@@ -63,11 +62,11 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
                     startNoteDot[note._type] &&
                     checkShrAngle(note._cutDirection, lastNoteDirection[note._type], note._type) &&
                     kvlCore.adjustTime(note._time, data.songBPM, bpmChangesTime) -
-                        kvlCore.adjustTime(
-                            lastNote[note._type]._time,
-                            data.songBPM,
-                            bpmChangesTime
-                        ) <=
+                                kvlCore.adjustTime(
+                                    lastNote[note._type]._time,
+                                    data.songBPM,
+                                    bpmChangesTime,
+                                ) <=
                         1 / maxPrec + epsilon
                 ) {
                     addError(note, 'Ambiguous dot flow assume Shrado Angle');

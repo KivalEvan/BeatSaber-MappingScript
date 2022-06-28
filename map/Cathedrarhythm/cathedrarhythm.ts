@@ -3,7 +3,7 @@ import { insertEnvironment } from '../../environment-enhancement/cathedral/mod.t
 import jankySliderConvert from 'https://deno.land/x/bsmap/example/jankySliderConvert.ts';
 import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';
 
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm/';
+bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm/';
 
 const d2 = bsmap.load.difficultySync('ExpertPlusStandard.dat', 2);
 const d3 = bsmap.convert.V2toV3(d2, true);

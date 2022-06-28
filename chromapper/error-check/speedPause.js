@@ -32,31 +32,31 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
                     note,
                     lastNote[note._type],
                     data.songBPM,
-                    swingNoteArray[note._type]
+                    swingNoteArray[note._type],
                 )
             ) {
                 if (
                     kvlCore.adjustTime(note._time, data.songBPM, bpmChangesTime) -
-                        kvlCore.adjustTime(
-                            lastNote[note._type]._time,
-                            data.songBPM,
-                            bpmChangesTime
-                        ) <=
-                    (1 / streamPrec) * 2 + epsilon
+                            kvlCore.adjustTime(
+                                lastNote[note._type]._time,
+                                data.songBPM,
+                                bpmChangesTime,
+                            ) <=
+                        (1 / streamPrec) * 2 + epsilon
                 ) {
                     if (
                         maybePause[0] &&
                         maybePause[1] &&
                         kvlCore.adjustTime(
-                            lastNote[note._type]._time,
-                            data.songBPM,
-                            bpmChangesTime
-                        ) -
-                            kvlCore.adjustTime(
-                                lastNotePause[note._type]._time,
-                                data.songBPM,
-                                bpmChangesTime
-                            ) <=
+                                        lastNote[note._type]._time,
+                                        data.songBPM,
+                                        bpmChangesTime,
+                                    ) -
+                                    kvlCore.adjustTime(
+                                        lastNotePause[note._type]._time,
+                                        data.songBPM,
+                                        bpmChangesTime,
+                                    ) <=
                             (1 / streamPrec) * 3 + epsilon
                     ) {
                         addError(lastNote[note._type]);

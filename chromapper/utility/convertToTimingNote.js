@@ -1,3 +1,12 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
+/**
+ * @type {Run}
+ */
 function convert(cursor, notes, events, walls, _, global, data) {
     let startTime = global.params[0];
     let endTime = global.params[1];
@@ -10,9 +19,7 @@ function convert(cursor, notes, events, walls, _, global, data) {
         3: [],
     };
 
-    let noteSelected = notes
-        .filter((n) => n.selected)
-        .sort((a, b) => a._time - b._time);
+    let noteSelected = notes.filter((n) => n.selected).sort((a, b) => a._time - b._time);
     if (!noteSelected.length) {
         noteSelected = notes;
     } else {
@@ -59,14 +66,18 @@ function checkNoteAtTime(noteArr, note) {
     return false;
 }
 
-module.exports = {
-    name: 'Convert to Timing Note',
-    params: {
-        'Start Time': 0,
-        'End Time': 999,
-        'Remove Stack': false,
-        'Ignore Bomb': false,
-    },
-    run: convert,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'Convert to Timing Note',
+        params: {
+            'Start Time': 0,
+            'End Time': 999,
+            'Remove Stack': false,
+            'Ignore Bomb': false,
+        },
+        run: convert,
+        errorCheck: false,
+    });

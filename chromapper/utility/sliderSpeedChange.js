@@ -1,5 +1,14 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 const kvlCore = require('./_kivalCore.js');
 
+/**
+ * @type {Run}
+ */
 function check(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     const changeSpeed = parseFloat(global.params[0]) / 1000;
     const fastWindow = global.params[1] > 0;
@@ -18,14 +27,7 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
     for (let i = 0, len = notes.length; i < len; i++) {
         const note = JSON.parse(JSON.stringify(notes[i]));
         if (kvlCore.isNote(note) && lastNote[note._type]) {
-            if (
-                kvlCore.swingNext(
-                    note,
-                    lastNote[note._type],
-                    data.songBPM,
-                    swingNoteArray[note._type]
-                )
-            ) {
+            if (kvlCore.swingNext(note, lastNote[note._type], data.songBPM, swingNoteArray[note._type])) {
                 changeSliderSpeed(swingNoteArray[note._type]);
                 swingNoteArray[note._type] = [];
             }
@@ -49,14 +51,13 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
         let sliderFlag = false;
         for (const n of noteArr) {
             if (prevNote) {
-                sliderSpeed =
-                    kvlCore.toRealTime(n._time - prevTime, data.songBPM) /
+                sliderSpeed = kvlCore.toRealTime(n._time - prevTime, data.songBPM) /
                     (kvlCore.swingWindow(n, prevNote) ? 2 : 1);
                 if (sliderSpeed > epsilon) {
                     prevTime = n._time;
                     changeTime = kvlCore.toBeatTime(
                         changeSpeed * (!fastWindow && kvlCore.swingWindow(n, prevNote) ? 2 : 1),
-                        data.songBPM
+                        data.songBPM,
                     );
                     n._time = prevNote._time + changeTime;
                     if (!sliderFlag) {
@@ -74,11 +75,15 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
     return { notes: newNotes };
 }
 
-module.exports = {
-    name: 'Slider Speed Change',
-    params: {
-        'Speed (ms)': 20,
-        'Fast Window': 0,
-    },
-    run: check,
-};
+module.exports =
+    /**
+     * @type {Main}
+     */
+    ({
+        name: 'Slider Speed Change',
+        params: {
+            'Speed (ms)': 20,
+            'Fast Window': 0,
+        },
+        run: check,
+    });

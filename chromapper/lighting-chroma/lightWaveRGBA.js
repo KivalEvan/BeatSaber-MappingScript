@@ -53,17 +53,7 @@ const eventColorEnum = {
     Blue: 5,
 };
 
-function light(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+function light(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     // event type and color
     const eventType = eventTypeEnum[global.params[0]];
     const eventColor = eventColorEnum[global.params[1]];
@@ -109,24 +99,12 @@ function light(
         const currentLightID = [];
         for (let itIdStep = 0; itIdStep <= maxIdStep; itIdStep++) {
             lightID.forEach((id) =>
-                currentLightID.push(
-                    id +
-                        (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) *
-                            idLightCount
-                )
+                currentLightID.push(id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount)
             );
-            const idStepTime = lerp(
-                0,
-                duration,
-                durationEasing(normalize(itIdStep, 0, maxIdStep))
-            );
+            const idStepTime = lerp(0, duration, durationEasing(normalize(itIdStep, 0, maxIdStep)));
             const tempLightID = [...currentLightID];
             const currentTime = cursorTime + repeatTime + idStepTime;
-            const currentRGBA = interpolateColor(
-                startRGBA,
-                endRGBA,
-                colorEasing(normalize(idStepTime, 0, maxIdStep))
-            );
+            const currentRGBA = interpolateColor(startRGBA, endRGBA, colorEasing(normalize(idStepTime, 0, maxIdStep)));
             events.push({
                 _time: currentTime,
                 _type: eventType,

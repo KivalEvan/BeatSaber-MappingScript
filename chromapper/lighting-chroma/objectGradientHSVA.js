@@ -71,7 +71,7 @@ function color(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     const startHSVA = parseHSVA(global.params[0]);
     const endHSVA = parseHSVA(global.params[1]);
@@ -85,15 +85,14 @@ function color(
     const objectSelected = []
         .concat(
             notes.filter(
-                (n) => n.selected && (selectedType === -1 || n._type === selectedType)
+                (n) => n.selected && (selectedType === -1 || n._type === selectedType),
             ),
             events.filter(
-                (ev) =>
-                    ev.selected && (selectedType === -1 || ev._type === selectedType)
+                (ev) => ev.selected && (selectedType === -1 || ev._type === selectedType),
             ),
             walls.filter(
-                (w) => w.selected && (selectedType === -1 || w._type === selectedType)
-            )
+                (w) => w.selected && (selectedType === -1 || w._type === selectedType),
+            ),
         )
         .sort((a, b) => a._time - b._time);
     if (!objectSelected.length) {
@@ -107,7 +106,7 @@ function color(
         const currentHSVA = interpolateColor(
             startHSVA,
             endHSVA,
-            colorEasing(normalize(obj._time, startTime, endTime))
+            colorEasing(normalize(obj._time, startTime, endTime)),
         );
         if (obj._customData) {
             obj._customData._color = currentHSVA;

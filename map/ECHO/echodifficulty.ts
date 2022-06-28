@@ -3,7 +3,7 @@ import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
+bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
 
 const info = bsmap.load.infoSync();
 const lightshow = bsmap.load.difficultySync('EasyLightshow.dat', 3);
@@ -14,7 +14,7 @@ difficultyList.forEach((d) => {
     if (!bsmap.version.isV3(d.data)) {
         d.data = bsmap.convert.V2toV3(d.data, true);
     }
-    diffFile.push(bsmap.globals.path + d.fileName);
+    diffFile.push(bsmap.globals.directory + d.fileName);
 
     d.data.basicBeatmapEvents = lightshow.basicBeatmapEvents;
     d.data.customData.environment = lightshow.customData.environment;
@@ -141,7 +141,7 @@ difficultyList.forEach((d) => {
 });
 
 bsmap.save.difficultyListSync(difficultyList, {
-    path: bsmap.globals.path.replace('CustomWIPLevels', 'CustomLevels'),
+    directory: bsmap.globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
 });
 
 console.timeEnd('Runtime');

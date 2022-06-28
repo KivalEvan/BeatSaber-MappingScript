@@ -1,4 +1,4 @@
-import * as bsmap from '../../deps.ts';
+import * as bsmap from '../../depsLocal.ts';
 
 export default (d: bsmap.v3.DifficultyData) => {
     for (let i = 0; i < 8; i++) {

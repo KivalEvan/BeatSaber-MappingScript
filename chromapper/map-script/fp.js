@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 // this also went to conversion from rgba to hsva
 //#region helper function
 function normalize(x, min, max) {
@@ -86,17 +92,7 @@ function setGradientColor(obj, type, color1, color2, t1, t2) {
 }
 //#endregion
 
-function check(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+function check(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     for (let i = 0; i < 8; i++) {
         setColor(walls, 2, [180 + 45 * i, 0.75, 0.75], 20 + i * 8, 28 + i * 8);
         setColor(walls, 2, [45 + 75 * i, 0.75, 0.75], 20.75 + i * 8);
@@ -147,7 +143,7 @@ function check(
                 [480 + 105 * i, 0.75, 0.75],
                 [560 + 105 * i, 0.5, 0.5],
                 215 + j * 1.5 + i * (8 + 3 / 8),
-                216.5 + j * 1.5 + i * (8 + 3 / 8)
+                216.5 + j * 1.5 + i * (8 + 3 / 8),
             );
         }
     }
@@ -159,18 +155,11 @@ function check(
                 [360 + 105 * i, 0.75, 0.75],
                 [480 + 105 * i, 0.5, 0.5],
                 292 + j * 1.5 + i * (8 + 3 / 8),
-                293.5 + j * 1.5 + i * (8 + 3 / 8)
+                293.5 + j * 1.5 + i * (8 + 3 / 8),
             );
         }
     }
-    setGradientColor(
-        walls,
-        2,
-        [175, 0.75, 0.75],
-        [175 + 360 * 10, 0.75, 0.75],
-        452,
-        580
-    );
+    setGradientColor(walls, 2, [175, 0.75, 0.75], [175 + 360 * 10, 0.75, 0.75], 452, 580);
     for (let i = 0; i < 2; i++) {
         for (let j = 0; j < 2; j++) {
             setGradientColor(
@@ -179,7 +168,7 @@ function check(
                 [240 + 105 * i, 0.75, 0.75],
                 [360 + 105 * i, 0.5, 0.5],
                 756 + j * 1.5 + i * (8 + 3 / 8),
-                757.5 + j * 1.5 + i * (8 + 3 / 8)
+                757.5 + j * 1.5 + i * (8 + 3 / 8),
             );
         }
     }
@@ -191,7 +180,7 @@ function check(
                 [1080 - 105 * i, 0.75, 0.75],
                 [960 - 105 * i, 0.5, 0.5],
                 772 + j * 1.5 + i * (8 + 3 / 8),
-                773.5 + j * 1.5 + i * (8 + 3 / 8)
+                773.5 + j * 1.5 + i * (8 + 3 / 8),
             );
         }
     }
@@ -203,7 +192,7 @@ function check(
                 [1200 + 105 * i, 0.75, 0.75],
                 [1080 + 105 * i, 0.5, 0.5],
                 804 + j * 1.5 + i * (8 + 3 / 8),
-                805.5 + j * 1.5 + i * (8 + 3 / 8)
+                805.5 + j * 1.5 + i * (8 + 3 / 8),
             );
         }
     }
@@ -212,9 +201,13 @@ function check(
     setGradientColor(sideWalls, 2, [200, 0, 1], [240, 0, 0], 1091, 1092);
 }
 
-module.exports = {
-    name: 'forgotten parser',
-    params: {},
-    run: check,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'forgotten parser',
+        params: {},
+        run: check,
+        errorCheck: false,
+    });

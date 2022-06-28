@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 // had to replace rgb to hsv so this looks incredibly messy
 //#region helper function
 function normalize(x, min, max) {
@@ -97,17 +103,10 @@ const dColorRight = [203, 0.81, 0.81, 1];
 const noirColorLeft = [0, 0, 0.28, 1];
 const noirColorRight = [203, 0, 0.62, 1];
 
-function check(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+/**
+ * @type {Run}
+ */
+function run(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     notes.forEach((n) => {
         if (n._type === 0) {
             n._customData = { _color: [0, 2, 0] };
@@ -131,156 +130,44 @@ function check(
     setColor(notes, 0, noirColorLeft, 32, 36);
     setColor(notes, 1, noirColorRight, 32, 36);
     setGradientColor(notes, 0, noirColorLeft, dColorLeft, 34, 36);
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.25),
-        34,
-        36
-    );
-    setGradientColor(
-        notes,
-        0,
-        multiplyColor(dColorLeft, 1.5),
-        dColorLeft,
-        36,
-        36 + 1 / 24
-    );
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.5),
-        noirColorRight,
-        36,
-        36 + 1 / 24
-    );
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.25), 34, 36);
+    setGradientColor(notes, 0, multiplyColor(dColorLeft, 1.5), dColorLeft, 36, 36 + 1 / 24);
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.5), noirColorRight, 36, 36 + 1 / 24);
     setColor(notes, 0, dColorLeft, 40, 64);
     setColor(notes, 1, noirColorRight, 40, 64);
     setGradientColor(notes, 0, dColorLeft, multiplyColor(dColorLeft, 1.5), 62, 64);
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        62,
-        64
-    );
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 62, 64);
     setColor(notes, 0, multiplyColor(dColorLeft, 1.5), 67, 68);
     setColor(notes, 1, multiplyColor(noirColorRight, 1.5), 67, 68);
     setColor(notes, 0, dColorLeft, 68, 164);
     setColor(notes, 1, noirColorRight, 68, 164);
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.25),
-        noirColorRight,
-        64,
-        64 + 1 / 24
-    );
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.25), noirColorRight, 64, 64 + 1 / 24);
     setGradientColor(notes, 0, dColorLeft, multiplyColor(dColorLeft, 0.625), 124, 131);
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 0.625),
-        124,
-        131
-    );
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 0.625), 124, 131);
     setColor(notes, 0, noirColorLeft, 143, 148);
     setColor(notes, 1, noirColorRight, 143, 148);
     setGradientColor(notes, 0, dColorLeft, multiplyColor(dColorLeft, 1.5), 148, 164);
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        148,
-        164
-    );
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 148, 164);
     setGradientColor(notes, 0, dColorLeft, noirColorLeft, 164, 164 + 1 / 24);
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.25),
-        noirColorRight,
-        164,
-        164 + 1 / 24
-    );
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.25), noirColorRight, 164, 164 + 1 / 24);
     setColor(notes, 0, noirColorLeft, 166, 189);
     setColor(notes, 1, noirColorRight, 166, 189);
-    setGradientColor(
-        notes,
-        0,
-        noirColorLeft,
-        multiplyColor(noirColorLeft, 1.125),
-        190,
-        192
-    );
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        190,
-        192
-    );
+    setGradientColor(notes, 0, noirColorLeft, multiplyColor(noirColorLeft, 1.125), 190, 192);
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 190, 192);
     setGradientColor(notes, 0, noirColorLeft, noirColorLeft, 192, 196);
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.5),
-        noirColorRight,
-        192,
-        196
-    );
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.5), noirColorRight, 192, 196);
     setColor(notes, 0, dColorLeft, 196, 260);
     setColor(notes, 1, noirColorRight, 196, 260);
     setGradientColor(notes, 0, dColorLeft, noirColorLeft, 260, 260 + 1 / 24);
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.5),
-        noirColorRight,
-        260,
-        260 + 1 / 24
-    );
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.5), noirColorRight, 260, 260 + 1 / 24);
     setColor(notes, 0, noirColorLeft, 264, 280);
     setColor(notes, 1, noirColorRight, 264, 280);
-    setGradientColor(
-        notes,
-        0,
-        noirColorLeft,
-        multiplyColor(noirColorLeft, 1.125),
-        280,
-        288
-    );
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        280,
-        288
-    );
+    setGradientColor(notes, 0, noirColorLeft, multiplyColor(noirColorLeft, 1.125), 280, 288);
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 280, 288);
     setColor(notes, 0, noirColorLeft, 288, 290);
     setColor(notes, 1, noirColorRight, 288, 290);
-    setGradientColor(
-        notes,
-        0,
-        noirColorLeft,
-        multiplyColor(noirColorLeft, 1.125),
-        290,
-        292
-    );
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        290,
-        292
-    );
+    setGradientColor(notes, 0, noirColorLeft, multiplyColor(noirColorLeft, 1.125), 290, 292);
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 290, 292);
     setColor(notes, 0, dColorLeft, 292, 388);
     setColor(notes, 1, dColorRight, 292, 388);
     setColor(notes, 0, noirColorLeft, 327.5, 330.5);
@@ -294,30 +181,9 @@ function check(
     setColor(notes, 0, noirColorLeft, 399, 403);
     setColor(notes, 1, noirColorRight, 399, 403);
     setGradientColor(notes, 0, dColorLeft, multiplyColor(dColorLeft, 1.5), 404, 419);
-    setGradientColor(
-        notes,
-        1,
-        noirColorRight,
-        multiplyColor(noirColorRight, 1.5),
-        404,
-        419
-    );
-    setGradientColor(
-        notes,
-        0,
-        multiplyColor(dColorLeft, 1.5),
-        dColorLeft,
-        419,
-        419 + 1 / 24
-    );
-    setGradientColor(
-        notes,
-        1,
-        multiplyColor(noirColorRight, 1.5),
-        noirColorRight,
-        419,
-        419 + 1 / 24
-    );
+    setGradientColor(notes, 1, noirColorRight, multiplyColor(noirColorRight, 1.5), 404, 419);
+    setGradientColor(notes, 0, multiplyColor(dColorLeft, 1.5), dColorLeft, 419, 419 + 1 / 24);
+    setGradientColor(notes, 1, multiplyColor(noirColorRight, 1.5), noirColorRight, 419, 419 + 1 / 24);
     //#endregion
     //#region bomb
     setColor(notes, 3, [120, 0, 2], 0, 434);
@@ -335,14 +201,7 @@ function check(
     randomizeColor(notes, 3, [0, 0, 0.375], [0, 0, 0.75], 193, 194);
     setColor(notes, 3, [26, 1, 0.87], 194, 194.5);
     for (let i = 0; i < 8; i++) {
-        setGradientColor(
-            notes,
-            3,
-            [0, 0, 0.375],
-            [0, 0, 0.5],
-            228 + i * 4,
-            228.5 + i * 4
-        );
+        setGradientColor(notes, 3, [0, 0, 0.375], [0, 0, 0.5], 228 + i * 4, 228.5 + i * 4);
     }
     randomizeColor(notes, 3, [0, 0, 0.375], [0, 0, 0.75], 257.5, 258);
     setGradientColor(notes, 3, [300, 0, 0.75], [330, 1, 1], 258.5, 259.25);
@@ -394,14 +253,7 @@ function check(
     setGradientColor(walls, 2, [270, 1, 1], [330, 1, 1], 295.5 + 1 / 8, 298.5 + 1 / 8);
     setGradientColor(walls, 2, [270, 1, 1], [330, 1, 1], 295.5, 298.5);
     setGradientColor(walls, 2, [0, 0, 0.5], [0, 0, 0.75], 327.5 + 1 / 8, 330.5 + 1 / 8);
-    setGradientColor(
-        crouchWalls,
-        2,
-        [270, 1, 1],
-        [330, 1, 1],
-        327.5 + 1 / 8,
-        330.5 + 1 / 8
-    );
+    setGradientColor(crouchWalls, 2, [270, 1, 1], [330, 1, 1], 327.5 + 1 / 8, 330.5 + 1 / 8);
     setGradientColor(walls, 2, [0, 0, 0.5], [0, 0, 0.75], 327.5, 330.5);
     setGradientColor(crouchWalls, 2, [270, 1, 1], [330, 1, 1], 327.5, 330.5);
     setGradientColor(walls, 2, [0, 0, 0.5], [0, 0, 0.25], 353.5, 354);
@@ -413,9 +265,13 @@ function check(
     //#endregion
 }
 
-module.exports = {
-    name: 'werewolf howls',
-    params: {},
-    run: check,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'werewolf howls',
+        params: {},
+        run: run,
+        errorCheck: false,
+    });

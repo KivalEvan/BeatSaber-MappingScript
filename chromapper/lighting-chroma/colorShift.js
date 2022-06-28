@@ -76,7 +76,7 @@ function shiftColor(currentColor, shiftHSVA, settings) {
                 return shiftHSVA[i];
             }
             return hsva + shiftHSVA[i];
-        })
+        }),
     );
 }
 
@@ -89,12 +89,10 @@ function shift(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     const hsvaShift = [
-        global.params[0] >= 0
-            ? (global.params[0] / 360) % 1
-            : (((global.params[0] % 360) + 360) / 360) % 1,
+        global.params[0] >= 0 ? (global.params[0] / 360) % 1 : (((global.params[0] % 360) + 360) / 360) % 1,
         global.params[1] / 100,
         global.params[2],
         global.params[3],
@@ -106,7 +104,7 @@ function shift(
     const objectSelected = [].concat(
         notes.filter((n) => n.selected),
         events.filter((ev) => ev.selected),
-        walls.filter((w) => w.selected)
+        walls.filter((w) => w.selected),
     );
     if (!objectSelected.length) {
         alert('Select any notes, events, or walls with Chroma color');
@@ -117,19 +115,19 @@ function shift(
             obj._customData._color = shiftColor(
                 obj._customData._color,
                 hsvaShift,
-                settings
+                settings,
             );
         }
         if (obj._customData && obj._customData._lightGradient) {
             obj._customData._lightGradient._startColor = shiftColor(
                 obj._customData._lightGradient._startColor,
                 hsvaShift,
-                settings
+                settings,
             );
             obj._customData._lightGradient._endColor = shiftColor(
                 obj._customData._lightGradient._endColor,
                 hsvaShift,
-                settings
+                settings,
             );
         }
     });

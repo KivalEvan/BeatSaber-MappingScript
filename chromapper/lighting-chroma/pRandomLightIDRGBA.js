@@ -71,7 +71,7 @@ function light(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     // event type and color
     const eventType = eventTypeEnum[global.params[0]];
@@ -141,7 +141,7 @@ function light(
             const colorStepTime = lerp(
                 0,
                 length,
-                normalize(itColorStep, 0, maxColorStep)
+                normalize(itColorStep, 0, maxColorStep),
             );
             const currentTime = cursorTime + idCountStepTime + colorStepTime;
             if (lightOff && itColorStep === maxColorStep) {
@@ -163,12 +163,12 @@ function light(
                         lerp(
                             0,
                             length,
-                            stepEasing(normalize(itColorStep, 0, maxColorStep))
+                            stepEasing(normalize(itColorStep, 0, maxColorStep)),
                         ),
                         0,
-                        length
-                    )
-                )
+                        length,
+                    ),
+                ),
             );
             events.push({
                 _time: currentTime,
@@ -181,15 +181,14 @@ function light(
             });
             if (offStrobe && itColorStep !== maxColorStep) {
                 events.push({
-                    _time:
-                        currentTime -
+                    _time: currentTime -
                         colorStepTime +
                         lerp(
                             0,
                             length,
                             stepEasing(
-                                normalize(itColorStep * 2 + 1, 0, maxColorStep * 2)
-                            )
+                                normalize(itColorStep * 2 + 1, 0, maxColorStep * 2),
+                            ),
                         ),
                     _type: eventType,
                     _value: 0,

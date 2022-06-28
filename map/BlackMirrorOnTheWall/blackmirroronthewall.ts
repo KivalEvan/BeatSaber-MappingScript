@@ -3,7 +3,7 @@ import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.path =
+bsmap.globals.directory =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Black Mirror on the Wall/';
 const INPUT_FILE = 'ExpertPlusStandard.dat';
 const OUTPUT_FILE = INPUT_FILE;

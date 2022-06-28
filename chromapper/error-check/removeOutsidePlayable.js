@@ -12,10 +12,7 @@ function move(cursor, notes, events, walls, _, global, data, customEvents, bpmCh
     };
 
     for (const i in notes) {
-        if (
-            notes[i]._time >= 0 &&
-            kvlCore.toRealTime(notes[i]._time, data.songBPM) < songDuration
-        ) {
+        if (notes[i]._time >= 0 && kvlCore.toRealTime(notes[i]._time, data.songBPM) < songDuration) {
             continue;
         }
         count.note++;
@@ -29,10 +26,7 @@ function move(cursor, notes, events, walls, _, global, data, customEvents, bpmCh
         addWarning(notes[i]);
     }
     for (const i in events) {
-        if (
-            events[i]._time >= 0 &&
-            kvlCore.toRealTime(events[i]._time, data.songBPM) < songDuration
-        ) {
+        if (events[i]._time >= 0 && kvlCore.toRealTime(events[i]._time, data.songBPM) < songDuration) {
             continue;
         }
         count.event++;
@@ -43,10 +37,7 @@ function move(cursor, notes, events, walls, _, global, data, customEvents, bpmCh
         events[i]._time = 0;
     }
     for (const i in walls) {
-        if (
-            walls[i]._time >= 0 &&
-            kvlCore.toRealTime(walls[i]._time, data.songBPM) < songDuration
-        ) {
+        if (walls[i]._time >= 0 && kvlCore.toRealTime(walls[i]._time, data.songBPM) < songDuration) {
             continue;
         }
         count.wall++;
@@ -63,19 +54,17 @@ function move(cursor, notes, events, walls, _, global, data, customEvents, bpmCh
     const totalObj = Object.keys(count).reduce((sum, key) => sum + count[key], 0);
     if (flagDelete) {
         alert(
-            `Deleted ${totalObj} object${pluralthing(totalObj)}...\n${count.note} note${pluralthing(
-                count.note
-            )}, ${count.wall} wall${pluralthing(count.wall)}, ${count.event} event${pluralthing(
-                count.event
-            )}`
+            `Deleted ${totalObj} object${pluralthing(totalObj)}...\n${count.note} note${
+                pluralthing(count.note)
+            }, ${count.wall} wall${pluralthing(count.wall)}, ${count.event} event${pluralthing(count.event)}`,
         );
     } else {
         alert(
-            `Moved ${totalObj} object${pluralthing(totalObj)} to beat 0...\n${
-                count.note
-            } note${pluralthing(count.note)}, ${count.wall} wall${pluralthing(count.wall)}, ${
-                count.event
-            } event${pluralthing(count.event)}`
+            `Moved ${totalObj} object${pluralthing(totalObj)} to beat 0...\n${count.note} note${
+                pluralthing(
+                    count.note,
+                )
+            }, ${count.wall} wall${pluralthing(count.wall)}, ${count.event} event${pluralthing(count.event)}`,
         );
     }
 }
@@ -85,6 +74,6 @@ function pluralthing(num) {
 
 module.exports = {
     name: 'Remove Outside Playable',
-    params: { 'Song Duration (s)': 999, Delete: 1 },
+    params: { 'Song Duration (s)': 999, Delete: true },
     run: move,
 };

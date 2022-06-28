@@ -32,8 +32,8 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         },
     );
     // duplicate this shit everywhere
-    for (let z = 0; z < 8; z++) {
-        for (let i = 0; i < 15; i++) {
+    for (let z = 0; z < 5; z++) {
+        for (let i = 0; i < 10; i++) {
             const posXRight = (i + 1) * 12 + 96 - z * 8;
             const posZRight = 32 + Math.random() * 64;
             const posYRight = Math.max(
@@ -51,14 +51,14 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     id: regexRingRight,
                     lookupMethod: 'Regex',
                     duplicate: 1,
-                    position: [posXRight, posYRight, -256 + posZRight + z * 64],
+                    position: [posXRight, posYRight, -96 + posZRight + z * 64],
                     rotation: [90, 0, 45],
                 },
                 {
                     id: regexRingLeft,
                     lookupMethod: 'Regex',
                     duplicate: 1,
-                    position: [-posXLeft, posYLeft, -256 + posZLeft + z * 64],
+                    position: [-posXLeft, posYLeft, -96 + posZLeft + z * 64],
                     rotation: [90, 0, 45],
                 },
             );
@@ -311,7 +311,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     //T
     lightBlock.place(
         {
-            position: [-(151 / 2) + 113 + 19, 40, 0],
+            position: [-(151 / 2) + 113 + 18, 40, 0],
             scale: [38, 8, 0.015625],
         },
         logo,

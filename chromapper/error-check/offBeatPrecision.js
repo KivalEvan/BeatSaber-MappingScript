@@ -28,7 +28,7 @@ function check(cursor, notes, events, walls, _, global, data, customEvents, bpmC
                     note,
                     lastNote[note._type],
                     data.songBPM,
-                    swingNoteArray[note._type]
+                    swingNoteArray[note._type],
                 )
             ) {
                 if (checkPrec(noteTime, beatPrec)) {

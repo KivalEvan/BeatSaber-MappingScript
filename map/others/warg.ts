@@ -2,7 +2,7 @@ import * as bsmap from '../../deps.ts';
 import { convertLight, insertEnvironment } from '../../environment-enhancement/bmv2/mod.ts';
 import { printChromaEnvironment } from 'https://deno.land/x/bsmap/example/printInfo.ts';
 
-bsmap.globals.path =
+bsmap.globals.directory =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/5495_Warg_-_AaltopahWi_Skeelie';
 
 const d2 = bsmap.load.difficultySync('LightshowOriginal.dat', 2);

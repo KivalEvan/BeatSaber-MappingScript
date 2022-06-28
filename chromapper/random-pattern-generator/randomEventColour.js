@@ -8,9 +8,7 @@ function rainbow(cursor, notes, events, walls, _, global, data, customEvents, bp
             const r = Math.max(minValue, Math.min(Math.random() * multiplier, maxValue));
             const g = Math.max(minValue, Math.min(Math.random() * multiplier, maxValue));
             const b = Math.max(minValue, Math.min(Math.random() * multiplier, maxValue));
-            const a = doAlpha
-                ? Math.max(minValue, Math.min(Math.random() * multiplier, maxValue))
-                : 1;
+            const a = doAlpha ? Math.max(minValue, Math.min(Math.random() * multiplier, maxValue)) : 1;
             ev['_customData'] = { _color: [r, g, b, a] };
         }
     });

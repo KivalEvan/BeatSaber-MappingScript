@@ -140,11 +140,7 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
 
         timerDuration();
 
-        if (
-            (now === time[1] || (now - time[1] <= 0.02 && time[1] !== time[2])) &&
-            time[1] !== 0 &&
-            now !== last
-        ) {
+        if ((now === time[1] || (now - time[1] <= 0.02 && time[1] !== time[2])) && time[1] !== 0 && now !== last) {
             if (!nerfStrobes) {
                 if (now - last >= 0.5) {
                     if (allowBackStrobe) {
@@ -213,8 +209,7 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
             if (
                 notes[i]._time - notes[i - 1]._time <= 0.125 &&
                 notes[i]._time - notes[i - 1]._time > 0 &&
-                (notes[i]._cutDirection === notes[i - 1]._cutDirection ||
-                    notes[i]._cutDirection === 8)
+                (notes[i]._cutDirection === notes[i - 1]._cutDirection || notes[i]._cutDirection === 8)
             ) {
                 if (sliderNoteCount === 0) {
                     nextSlider = notes[i - 1];
@@ -348,8 +343,7 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
                 if (
                     notes[i]._time - notes[i - 1]._time <= 0.125 &&
                     notes[i]._time - notes[i - 1]._time > 0 &&
-                    (notes[i]._cutDirection === notes[i - 1]._cutDirection ||
-                        notes[i]._cutDirection === 8)
+                    (notes[i]._cutDirection === notes[i - 1]._cutDirection || notes[i]._cutDirection === 8)
                 ) {
                     if (sliderNoteCount === 0) {
                         nextSlider = notes[i - 1];
@@ -441,11 +435,7 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
             }
             wasSlider = true;
         } else if (time[0] !== nextDouble) {
-            if (
-                time[0] - time[1] >= lastSpeed + 0.02 ||
-                time[0] - time[1] <= lastSpeed - 0.02 ||
-                patternCount === 20
-            ) {
+            if (time[0] - time[1] >= lastSpeed + 0.02 || time[0] - time[1] <= lastSpeed - 0.02 || patternCount === 20) {
                 let old = 0;
                 if (patternIndex !== 0) {
                     old = pattern[patternIndex - 1];
@@ -496,9 +486,8 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
             if (notes[notes.length - 1] !== note) {
                 if (notes[notes.findIndex((n) => n === note) + 1]._time === nextDouble) {
                     if (notes[notes.findIndex((n) => n === note) + 1]._time - time[0] <= 2) {
-                        let value =
-                            (notes[notes.findIndex((n) => n === note) + 1]._time -
-                                notes[notes.findIndex((n) => n === note)]._time) /
+                        let value = (notes[notes.findIndex((n) => n === note) + 1]._time -
+                            notes[notes.findIndex((n) => n === note)]._time) /
                             2;
                         events.push({
                             _time: notes[notes.findIndex((n) => n === note)]._time + value,
@@ -551,14 +540,14 @@ function heresy(cursor, notes, events, walls, _, global, data, customEvents, bpm
             if (time[0] === time[1]) {
                 createGenericLight(currentSpeed);
             } else {
-                createGenericLight((currentSpeed = 7));
+                createGenericLight(currentSpeed = 7);
             }
         } else if (time[0] - time[1] >= 0.25 && time[0] - time[1] < 0.5) {
-            createGenericLight((currentSpeed = 5));
+            createGenericLight(currentSpeed = 5);
         } else if (time[0] - time[1] >= 0.5 && time[0] - time[1] < 1) {
-            createGenericLight((currentSpeed = 3));
+            createGenericLight(currentSpeed = 3);
         } else if (time[0] - time[1] >= 1) {
-            createGenericLight((currentSpeed = 1));
+            createGenericLight(currentSpeed = 1);
         }
 
         lastCut = note._cutDirection;

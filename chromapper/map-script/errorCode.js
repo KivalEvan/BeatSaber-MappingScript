@@ -1,3 +1,12 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
+/**
+ * @type {Run}
+ */
 // not particularly efficient but it gets the job done
 // this looks overly complicated than it should be but i dont care enough
 function modify(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
@@ -150,10 +159,7 @@ function modify(cursor, notes, events, walls, _, global, data, customEvents, bpm
                 normalMin = n._time;
                 normalMax = n._time + 4;
             }
-            if (
-                (n._time >= 76 + 4 * i && n._time < 77 + 4 * i) ||
-                (n._time >= 268 + 4 * i && n._time < 269 + 4 * i)
-            ) {
+            if ((n._time >= 76 + 4 * i && n._time < 77 + 4 * i) || (n._time >= 268 + 4 * i && n._time < 269 + 4 * i)) {
                 n._customData._color = [0.875, 0.125, 0.125];
             }
             if (
@@ -255,8 +261,12 @@ function modify(cursor, notes, events, walls, _, global, data, customEvents, bpm
     }
 }
 
-module.exports = {
-    name: 'Error Code',
-    params: {},
-    run: modify,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'Error Code',
+        params: {},
+        run: modify,
+    });

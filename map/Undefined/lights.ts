@@ -1,8 +1,8 @@
-import * as bsmap from '../../deps.ts';
+import * as bsmap from '../../depsLocal.ts';
 
 export default (d: bsmap.v3.DifficultyData) => {
     //#region intro
-    d.addColorBoostBeatmapEvents({ b: 0, o: true });
+    d.addColorBoostEvents({ b: 0, o: true });
     for (let i = 0; i < 8; i++) {
         const e: Partial<bsmap.types.v3.ILightColorBase>[] = [
             {
@@ -50,7 +50,7 @@ export default (d: bsmap.v3.DifficultyData) => {
         d.addLightColorEventBoxGroups(
             {
                 b: 2 + i * 4,
-                g: i % 4 === 1 ? 4 + Math.floor(i / 4) * 2 : 6 - Math.floor(i / 4) * 2,
+                g: i % 4 === 2 ? (i % 4 ? 4 : 0) + Math.floor(i / 4) * 2 : (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
                 e: [
                     {
                         w: 3,
@@ -60,7 +60,7 @@ export default (d: bsmap.v3.DifficultyData) => {
             },
             {
                 b: 2 + i * 4,
-                g: i % 4 === 1 ? 5 + Math.floor(i / 4) * 2 : 7 - Math.floor(i / 4) * 2,
+                g: i % 4 === 2 ? (i % 4 ? 5 : 1) + Math.floor(i / 4) * 2 : (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
                 e: [
                     {
                         w: 3,
@@ -72,20 +72,20 @@ export default (d: bsmap.v3.DifficultyData) => {
         d.addLightRotationEventBoxGroups(
             {
                 b: 2 + i * 4,
-                g: i % 4 === 1 ? 4 + Math.floor(i / 4) * 2 : 6 - Math.floor(i / 4) * 2,
+                g: i % 4 === 2 ? (i % 4 ? 4 : 0) + Math.floor(i / 4) * 2 : (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
                 e: [
                     {
-                        s: i % 4 > 1 ? 20 : 30,
+                        s: i % 4 > 1 ? 20 : -60,
                         w: 3.25,
                         l: [
                             {
                                 e: -1,
-                                r: i % 4 > 1 ? 105 : 180,
+                                r: i % 4 > 1 ? 105 : 225,
                             },
                             {
                                 b: 3,
                                 e: 2,
-                                r: i % 4 > 1 ? 90 : 210,
+                                r: i % 4 > 1 ? 90 : 255,
                             },
                         ],
                     },
@@ -93,20 +93,20 @@ export default (d: bsmap.v3.DifficultyData) => {
             },
             {
                 b: 2 + i * 4,
-                g: i % 4 === 1 ? 5 + Math.floor(i / 4) * 2 : 7 - Math.floor(i / 4) * 2,
+                g: i % 4 === 2 ? (i % 4 ? 5 : 1) + Math.floor(i / 4) * 2 : (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
                 e: [
                     {
-                        s: i % 4 > 1 ? 20 : 30,
+                        s: i % 4 > 1 ? 20 : -60,
                         w: 3.25,
                         l: [
                             {
                                 e: -1,
-                                r: i % 4 > 1 ? 105 : 180,
+                                r: i % 4 > 1 ? 105 : 225,
                             },
                             {
                                 b: 3,
                                 e: 2,
-                                r: i % 4 > 1 ? 90 : 210,
+                                r: i % 4 > 1 ? 90 : 255,
                             },
                         ],
                     },
@@ -114,100 +114,6 @@ export default (d: bsmap.v3.DifficultyData) => {
             },
         );
     }
-    d.addLightColorEventBoxGroups(
-        {
-            b: 30,
-            g: 0,
-            e: [
-                {
-                    f: { f: 2, p: 0, t: 2 },
-                    w: 1,
-                    e: [
-                        {
-                            c: 2,
-                            s: 0,
-                            f: 5,
-                        },
-                        {
-                            c: 2,
-                            i: 1,
-                            b: 3,
-                            f: 10,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            b: 30,
-            g: 1,
-            e: [
-                {
-                    f: { f: 2, p: 0, t: 2 },
-                    w: 1,
-                    e: [
-                        {
-                            c: 2,
-                            s: 0,
-                            f: 5,
-                        },
-                        {
-                            c: 2,
-                            i: 1,
-                            b: 3,
-                            f: 10,
-                        },
-                    ],
-                },
-            ],
-        },
-        { b: 34, g: 0, e: [{ e: [{ s: 0 }] }] },
-        { b: 34, g: 1, e: [{ e: [{ s: 0 }] }] },
-    );
-    d.addLightRotationEventBoxGroups(
-        {
-            b: 30,
-            g: 0,
-            e: [
-                {
-                    s: 15,
-                    w: 1,
-                    l: [
-                        {
-                            e: -1,
-                            r: 180,
-                        },
-                        {
-                            b: 4,
-                            e: 3,
-                            r: 210,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            b: 30,
-            g: 1,
-            e: [
-                {
-                    s: 15,
-                    w: 1,
-                    l: [
-                        {
-                            e: -1,
-                            r: 180,
-                        },
-                        {
-                            b: 4,
-                            e: 3,
-                            r: 210,
-                        },
-                    ],
-                },
-            ],
-        },
-    );
     for (let i = 0; i < 2; i++) {
         for (let t = 0; t < 4; t++) {
             d.addLightColorEventBoxGroups(
@@ -367,16 +273,112 @@ export default (d: bsmap.v3.DifficultyData) => {
     for (let i = 0; i < 3; i++) {
         d.addLightColorEventBoxGroups(
             {
+                b: 30 + i * 32,
+                g: 0,
+                e: [
+                    {
+                        f: { f: 2, p: 0, t: 2 },
+                        w: 1,
+                        e: [
+                            {
+                                c: 2,
+                                s: 0,
+                                f: 5,
+                            },
+                            {
+                                c: 2,
+                                i: 1,
+                                b: 3,
+                                f: 10,
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                b: 30 + i * 32,
+                g: 1,
+                e: [
+                    {
+                        f: { f: 2, p: 0, t: 2 },
+                        w: 1,
+                        e: [
+                            {
+                                c: 2,
+                                s: 0,
+                                f: 5,
+                            },
+                            {
+                                c: 2,
+                                i: 1,
+                                b: 3,
+                                f: 10,
+                            },
+                        ],
+                    },
+                ],
+            },
+            { b: 34 + i * 32, g: 0, e: [{ e: [{ s: 0 }] }] },
+            { b: 34 + i * 32, g: 1, e: [{ e: [{ s: 0 }] }] },
+        );
+        d.addLightRotationEventBoxGroups(
+            {
+                b: 30 + i * 32,
+                g: 0,
+                e: [
+                    {
+                        s: 15,
+                        w: 1,
+                        l: [
+                            {
+                                e: -1,
+                                r: 180,
+                            },
+                            {
+                                b: 4,
+                                e: 3,
+                                r: 210,
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                b: 30 + i * 32,
+                g: 1,
+                e: [
+                    {
+                        s: 15,
+                        w: 1,
+                        l: [
+                            {
+                                e: -1,
+                                r: 180,
+                            },
+                            {
+                                b: 4,
+                                e: 3,
+                                r: 210,
+                            },
+                        ],
+                    },
+                ],
+            },
+        );
+        d.addLightColorEventBoxGroups(
+            {
                 b: 34 + i * 32,
                 g: 2,
                 e: [
                     {
                         f: { r: 1, f: 2, p: 0, t: 2 },
-                        w: 2.625,
+                        w: 2.75,
                         e: [
-                            { c: 2, s: 2.5 },
-                            { c: 2, b: 0.5, i: 1, s: 1 },
-                            { i: 1, b: 2.5, s: 0 },
+                            { c: 2, s: 4 },
+                            { c: 2, b: 0.125, s: 2 },
+                            { c: 2, b: 0.25, i: 1, s: 1 },
+                            { c: 2, b: 1, i: 1, s: 1 },
+                            { c: 2, b: 2.5, i: 1, s: 0 },
                         ],
                     },
                 ],
@@ -387,11 +389,13 @@ export default (d: bsmap.v3.DifficultyData) => {
                 e: [
                     {
                         f: { r: 1, f: 2, p: 0, t: 2 },
-                        w: 2.625,
+                        w: 2.75,
                         e: [
-                            { c: 2, s: 2.5 },
-                            { c: 2, b: 0.5, i: 1, s: 1 },
-                            { i: 1, b: 2.5, s: 0 },
+                            { c: 2, s: 4 },
+                            { c: 2, b: 0.125, s: 2 },
+                            { c: 2, b: 0.25, i: 1, s: 1 },
+                            { c: 2, b: 1, i: 1, s: 1 },
+                            { c: 2, b: 2.5, i: 1, s: 0 },
                         ],
                     },
                 ],
@@ -402,11 +406,13 @@ export default (d: bsmap.v3.DifficultyData) => {
                 e: [
                     {
                         f: { r: 1, f: 2, p: 0, t: 2 },
-                        w: 2.625,
+                        w: 2.75,
                         e: [
-                            { c: 2, s: 2.5 },
-                            { c: 2, b: 0.5, i: 1, s: 1 },
-                            { i: 1, b: 2.5, s: 0 },
+                            { c: 2, s: 4 },
+                            { c: 2, b: 0.125, s: 2 },
+                            { c: 2, b: 0.25, i: 1, s: 1 },
+                            { c: 2, b: 1, i: 1, s: 1 },
+                            { c: 2, b: 2.5, i: 1, s: 0 },
                         ],
                     },
                 ],
@@ -417,11 +423,13 @@ export default (d: bsmap.v3.DifficultyData) => {
                 e: [
                     {
                         f: { r: 1, f: 2, p: 0, t: 2 },
-                        w: 2.625,
+                        w: 2.75,
                         e: [
-                            { c: 2, s: 2.5 },
-                            { c: 2, b: 0.5, i: 1, s: 1 },
-                            { i: 1, b: 2.5, s: 0 },
+                            { c: 2, s: 4 },
+                            { c: 2, b: 0.125, s: 2 },
+                            { c: 2, b: 0.25, i: 1, s: 1 },
+                            { c: 2, b: 1, i: 1, s: 1 },
+                            { c: 2, b: 2.5, i: 1, s: 0 },
                         ],
                     },
                 ],
@@ -489,8 +497,18 @@ export default (d: bsmap.v3.DifficultyData) => {
     //#endregion
     //#region drum and kick
     for (let t = 34; t < 98; t++) {
-        const fltr = { f: 1, p: 2, t: 1, r: 1 } as bsmap.types.v3.IIndexFilter;
-        const fltrR = { f: 1, p: 2, t: 1, r: 0 } as bsmap.types.v3.IIndexFilter;
+        const fltr = {
+            f: 1,
+            p: t % 2 ? 2 : 8,
+            t: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
+            r: 1,
+        } as bsmap.types.v3.IIndexFilter;
+        const fltrR = {
+            f: 1,
+            p: t % 2 ? 2 : 8,
+            t: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
+            r: 0,
+        } as bsmap.types.v3.IIndexFilter;
         const e = [
             { c: 2, s: t % 2 ? 1.25 : 1 },
             { b: 0.0625 + 0.03125, c: 2, s: t % 2 ? 1 : 0.75, i: 1 },
@@ -499,11 +517,11 @@ export default (d: bsmap.v3.DifficultyData) => {
             { c: t % 2 ? 0 : 1, b: 0.3125 + 0.03125, s: 0.25, i: 1 },
             { c: t % 2 ? 0 : 1, b: 0.375, s: 0 },
         ] as Partial<bsmap.types.v3.ILightColorBase>[];
-        const w = t % 2 ? 0.5 : 0.625;
+        const w = t % 2 ? 0.5 : 0;
         d.addLightColorEventBoxGroups(
             {
                 b: t,
-                g: t % 2 ? 14 : 12,
+                g: t % 4 > 1 ? 12 : 14,
                 e: [
                     { f: fltr, e, w },
                     { f: fltrR, e, w },
@@ -511,7 +529,7 @@ export default (d: bsmap.v3.DifficultyData) => {
             },
             {
                 b: t,
-                g: t % 2 ? 15 : 13,
+                g: t % 4 > 1 ? 13 : 15,
                 e: [
                     { f: fltr, e, w },
                     { f: fltrR, e, w },
@@ -725,15 +743,146 @@ export default (d: bsmap.v3.DifficultyData) => {
         );
     }
     //#endregion
+    const mainG: number[][][] = [
+        [
+            [5, 135, -15],
+            [1, 75, -15],
+            [11, 195, -30],
+            [4, 135, -15],
+            [0, 75, -15],
+            [10, 195, -30],
+        ],
+        [
+            [9, 135, -15],
+            [3, 75, -15],
+            [5, 195, -30],
+            [8, 135, -15],
+            [2, 75, -15],
+            [4, 195, -30],
+        ],
+        [
+            [6, 135, -15],
+            [9, 75, -15],
+            [4, 195, -30],
+            [7, 135, -15],
+            [8, 75, -15],
+            [5, 195, -30],
+        ],
+        [
+            [7, 135, -15],
+            [2, 75, -15],
+            [9, 195, -30],
+            [6, 135, -15],
+            [3, 75, -15],
+            [8, 195, -30],
+        ],
+        [
+            [4, 135, -15],
+            [0, 75, -15],
+            [10, 195, -30],
+            [5, 135, -15],
+            [1, 75, -15],
+            [11, 195, -30],
+        ],
+        [
+            [8, 135, -15],
+            [2, 75, -15],
+            [4, 195, -30],
+            [9, 135, -15],
+            [3, 75, -15],
+            [5, 195, -30],
+        ],
+        [
+            [7, 135, -15],
+            [8, 75, -15],
+            [5, 195, -30],
+            [6, 135, -15],
+            [9, 75, -15],
+            [4, 195, -30],
+        ],
+        [
+            [1, 135, -15],
+            [3, 75, -15],
+            [11, 195, -30],
+            [0, 135, -15],
+            [2, 75, -15],
+            [10, 195, -30],
+        ],
+        [
+            [5, 135, -15],
+            [1, 75, -15],
+            [11, 195, -30],
+            [4, 135, -15],
+            [0, 75, -15],
+            [10, 195, -30],
+        ],
+        [
+            [9, 135, -15],
+            [3, 75, -15],
+            [5, 195, -30],
+            [8, 135, -15],
+            [2, 75, -15],
+            [4, 195, -30],
+        ],
+        [
+            [6, 135, -15],
+            [9, 75, -15],
+            [4, 195, -30],
+            [7, 135, -15],
+            [8, 75, -15],
+            [5, 195, -30],
+        ],
+        [
+            [7, 135, -15],
+            [2, 75, -15],
+            [9, 195, -30],
+            [6, 135, -15],
+            [3, 75, -15],
+            [8, 195, -30],
+        ],
+        [
+            [4, 135, -15],
+            [0, 75, -15],
+            [10, 195, -30],
+            [5, 135, -15],
+            [1, 75, -15],
+            [11, 195, -30],
+        ],
+        [
+            [8, 135, -15],
+            [2, 75, -15],
+            [4, 195, -30],
+            [9, 135, -15],
+            [3, 75, -15],
+            [5, 195, -30],
+        ],
+        [
+            [7, 135, -15],
+            [8, 75, -15],
+            [5, 195, -30],
+            [6, 135, -15],
+            [9, 75, -15],
+            [4, 195, -30],
+        ],
+        [
+            [1, 135, -15],
+            [3, 75, -15],
+            [11, 195, -30],
+            [0, 135, -15],
+            [2, 75, -15],
+            [10, 195, -30],
+        ],
+    ];
     for (let j = 0; j < 16; j++) {
+        if (j === 7 || j === 15) continue;
         const time = 34 + j * 4;
-        d.addColorBoostBeatmapEvents({ b: time, o: false }, { b: time + 3, o: true });
+        d.addColorBoostEvents({ b: time, o: false }, { b: time + 3, o: true });
+        const g = mainG[j].map((n) => n[0]);
+        const r = mainG[j].map((n) => n[1]);
+        const rEnd = mainG[j].map((n) => n[2]);
         for (let i = 0; i < 6; i++) {
             const t = [0.25, 0.5, 0.75, 1.25, 1.5, 1.75];
             const td = t.map((n) => 3 - n);
-            const g = [5, 1, 11, 4, 0, 10];
-            const r = [135, 75, 195, 135, 75, 195];
-            const rEnd = [-15, -15, -30, -15, -15, -30];
             const e = [
                 { c: 2 },
                 { c: 2, b: 0.125 },
@@ -764,32 +913,32 @@ export default (d: bsmap.v3.DifficultyData) => {
         d.addLightColorEventBoxGroups(
             {
                 b: time + 2.25,
-                g: 0,
+                g: g[1],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
             {
                 b: time + 2.25,
-                g: 1,
+                g: g[4],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
             {
                 b: time + 2.5,
-                g: 4,
+                g: g[0],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
             {
                 b: time + 2.5,
-                g: 5,
+                g: g[2],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
             {
                 b: time + 2.5,
-                g: 10,
+                g: g[3],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
             {
                 b: time + 2.5,
-                g: 11,
+                g: g[5],
                 e: [{ e: [{ c: 2 }, { b: 0.0625, s: 0 }], w: 0.25 }],
             },
         );
@@ -805,7 +954,7 @@ export default (d: bsmap.v3.DifficultyData) => {
         [7, 8, 5, 6, 9, 4],
         [1, 3, 11, 0, 2, 10],
     ];
-    d.addColorBoostBeatmapEvents({ b: 98, o: false });
+    d.addColorBoostEvents({ b: 98, o: false });
     for (let j = 0; j < 8; j++) {
         const time = 98 + j * 4;
         const t = [0.25, 0.5, 0.75, 1.25, 1.5, 1.75];

@@ -5,7 +5,7 @@ import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 console.log('Running script...');
 console.time('Runtime');
 const WORKING_DIRECTORY = './map/ECHO/';
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
+bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
 const OUTPUT_FILE = 'EasyLightshow.dat';
 
 const difficulty = bsmap.v2.DifficultyData.create();

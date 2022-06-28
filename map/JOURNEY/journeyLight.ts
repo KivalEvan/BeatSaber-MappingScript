@@ -1,6 +1,6 @@
 import * as bsmap from '../../depsLocal.ts';
 
-bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
 
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
@@ -41,13 +41,13 @@ const easings = {
     InOutQuad: (x: number) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
     InCubic: (x: number) => x * x * x,
     OutCubic: (x: number) => --x * x * x + 1,
-    InOutCubic: (x: number) => x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1,
+    InOutCubic: (x: number) => (x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1),
     InQuart: (x: number) => x * x * x * x,
     OutQuart: (x: number) => 1 - --x * x * x * x,
     InOutQuart: (x: number) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
     InQuint: (x: number) => x * x * x * x * x,
     OutQuint: (x: number) => 1 - --x * x * x * x * x,
-    InOutQuint: (x: number) => x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x,
+    InOutQuint: (x: number) => (x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x),
 };
 
 function setFloat(t1: number, t2: number, n: number, type: number) {
@@ -58,11 +58,7 @@ function setFloat(t1: number, t2: number, n: number, type: number) {
         if (_events[i].time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i].type) ||
-            _events[i].time < t1 ||
-            (type != null && _events[i].type !== type)
-        ) {
+        if (!isLight(_events[i].type) || _events[i].time < t1 || (type != null && _events[i].type !== type)) {
             continue;
         }
         _events[i].floatValue = n;
@@ -85,11 +81,7 @@ function gradientFloat(
         if (_events[i].time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i].type) ||
-            _events[i].time < t1 ||
-            (type != null && _events[i].type !== type)
-        ) {
+        if (!isLight(_events[i].type) || _events[i].time < t1 || (type != null && _events[i].type !== type)) {
             continue;
         }
         norm = easings[ease](normalize(_events[i].time, t1, t2));
@@ -97,13 +89,7 @@ function gradientFloat(
     }
 }
 
-function randomizeFloat(
-    t1: number,
-    t2: number,
-    min: number,
-    max: number,
-    type: number,
-) {
+function randomizeFloat(t1: number, t2: number, min: number, max: number, type: number) {
     if (t2 < t1) {
         throw new Error(`t1 ${t1} starts after t2 ${t2}`);
     }
@@ -112,11 +98,7 @@ function randomizeFloat(
         if (_events[i].time > t2) {
             break;
         }
-        if (
-            !isLight(_events[i].type) ||
-            _events[i].time < t1 ||
-            (type != null && _events[i].type !== type)
-        ) {
+        if (!isLight(_events[i].type) || _events[i].time < t1 || (type != null && _events[i].type !== type)) {
             continue;
         }
         _events[i].floatValue = min + Math.random() * (max - min);

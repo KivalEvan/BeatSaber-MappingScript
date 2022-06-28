@@ -73,7 +73,7 @@ function HSVAtoRGBA(hue, saturation, value, alpha) {
 }
 function interpolateColor(hsvaStart, hsvaEnd, norm) {
     return HSVAtoRGBA(
-        ...RGBAtoHSVA(...hsvaStart).map((hsva, i) => lerp(hsva, hsvaEnd[i], norm))
+        ...RGBAtoHSVA(...hsvaStart).map((hsva, i) => lerp(hsva, hsvaEnd[i], norm)),
     );
 }
 function shiftColor(currentColor, shiftHSVA) {
@@ -94,12 +94,10 @@ function shift(
     global,
     data,
     customEvents,
-    bpmChanges
+    bpmChanges,
 ) {
     const hsvaShift = [
-        global.params[0] >= 0
-            ? (global.params[0] / 360) % 1
-            : (((global.params[0] % 360) + 360) / 360) % 1,
+        global.params[0] >= 0 ? (global.params[0] / 360) % 1 : (((global.params[0] % 360) + 360) / 360) % 1,
         global.params[1] / 100,
         global.params[2],
         global.params[3],
@@ -109,7 +107,7 @@ function shift(
         .concat(
             notes.filter((n) => n.selected),
             events.filter((ev) => ev.selected),
-            walls.filter((w) => w.selected)
+            walls.filter((w) => w.selected),
         )
         .sort((a, b) => a._time - b._time);
     if (!objectSelected.length) {
@@ -125,19 +123,19 @@ function shift(
             obj._customData._color = interpolateColor(
                 obj._customData._color,
                 shiftColor(obj._customData._color, hsvaShift),
-                norm
+                norm,
             );
         }
         if (obj._customData && obj._customData._lightGradient) {
             obj._customData._lightGradient._startColor = interpolateColor(
                 obj._customData._lightGradient._startColor,
                 shiftColor(obj._lightGradient._startColor, hsvaShift),
-                norm
+                norm,
             );
             obj._customData._lightGradient._endColor = interpolateColor(
                 obj._customData._lightGradient._endColor,
                 shiftColor(obj._lightGradient._endColor, hsvaShift),
-                norm
+                norm,
             );
         }
     });

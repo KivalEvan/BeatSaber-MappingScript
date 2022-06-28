@@ -108,7 +108,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     //T
     pillarBlock.place(
         {
-            position: [-(151 / 2) + 113 + 19, 40, 0],
+            position: [-(151 / 2) + 113 + 18, 40, 0],
             scale: [38, 8, 0.015625],
         },
         logo,
@@ -122,13 +122,6 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     );
 
     const logoGroup = bsmap.ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
-    logoGroup.place(
-        {
-            position: [0, 3.875, 1040],
-            scale: [0.015625, 0.015625, 0.015625],
-        },
-        environment,
-    );
 
     const torii: bsmap.types.v3.IChromaEnvironment[] = [];
     pillarBlock.place({ position: [-4, 4, 0], scale: [1, 8, 1] }, torii);
@@ -1132,9 +1125,17 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         environment,
     );
 
+    logoGroup.place(
+        {
+            position: [0, 3.875, 1040],
+            scale: [0.015625, 0.015625, 0.015625],
+        },
+        environment,
+    );
     environment.push({
         id: regexEnvironment,
         lookupMethod: 'Regex',
+        track: 'everythinglmao',
         position: [0, 0, -1032],
     });
 

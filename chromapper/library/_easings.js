@@ -8,15 +8,13 @@ const func = {
     InOutQuad: (x) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
     InCubic: (x) => x * x * x,
     OutCubic: (x) => --x * x * x + 1,
-    InOutCubic: (x) =>
-        x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1,
+    InOutCubic: (x) => (x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1),
     InQuart: (x) => x * x * x * x,
     OutQuart: (x) => 1 - --x * x * x * x,
     InOutQuart: (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
     InQuint: (x) => x * x * x * x * x,
     OutQuint: (x) => 1 - --x * x * x * x * x,
-    InOutQuint: (x) =>
-        x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x,
+    InOutQuint: (x) => (x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x),
 };
 
 // less scary

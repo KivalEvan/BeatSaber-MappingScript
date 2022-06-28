@@ -1,7 +1,7 @@
 import * as bsmap from '../../depsLocal.ts';
 import { generateEnvironment } from '../../environment-enhancement/lotus/environment.ts';
 
-bsmap.globals.path = '/home/kival/CustomWIPLevels/JOURNEY/';
+bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
 
 const INPUT_FILE = 'Lightshow.dat';
 const OUTPUT_FILE = 'EasyLightshow.dat';
@@ -79,8 +79,8 @@ lightshow.addEvents(
     {
         _time: 1,
         _type: 1,
-        _value: 5,
-        _floatValue: 0.5,
+        _value: 8,
+        _floatValue: 0.75,
         _customData: {
             _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
@@ -89,7 +89,7 @@ lightshow.addEvents(
         _time: 4,
         _type: 1,
         _value: 8,
-        _floatValue: 0.75,
+        _floatValue: 1,
         _customData: {
             _easing: 'easeInQuad',
             _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],

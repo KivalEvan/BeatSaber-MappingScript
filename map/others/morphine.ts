@@ -1,6 +1,6 @@
 import * as bsmap from '../../deps.ts';
 
-bsmap.globals.path =
+bsmap.globals.directory =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/247a6_Morphine_-_AaltopahWi';
 
 const d3 = bsmap.load.difficultySync('ExpertPlusStandardOld.dat');

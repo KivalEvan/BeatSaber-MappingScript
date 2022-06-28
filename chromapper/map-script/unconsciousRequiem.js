@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../template.d.ts').Run} Run
+ * @typedef {import('../template.d.ts').Main} Main
+ */
+'use strict';
+
 //#region helper function
 function normalize(x, min, max) {
     return (x - min) / (max - min);
@@ -95,17 +101,10 @@ const dColorLeft = [290, 0.66, 0.6875];
 const dColorRight = [105, 0.6875, 0.66];
 const dObstacleColor = [270, 0.75, 0.875];
 
-function check(
-    cursor,
-    notes,
-    events,
-    walls,
-    _,
-    global,
-    data,
-    customEvents,
-    bpmChanges
-) {
+/**
+ * @type {Run}
+ */
+function run(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     notes.forEach((n) => {
         if (n._type === 0) {
             n._customData = { _color: HSVAtoRGBA(0, 1, 2) };
@@ -189,9 +188,13 @@ function check(
     //#endregion
 }
 
-module.exports = {
-    name: 'Unconscious Requiem',
-    params: {},
-    run: check,
-    errorCheck: false,
-};
+module.exports =
+    /**
+     * @type {Run}
+     */
+    ({
+        name: 'Unconscious Requiem',
+        params: {},
+        run: run,
+        errorCheck: false,
+    });
