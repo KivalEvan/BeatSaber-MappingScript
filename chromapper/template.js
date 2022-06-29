@@ -1,8 +1,10 @@
+// @ts-check -- remove if error is scary
 /**
- * @typedef {import('./template.d.ts').Run} Run
- * @typedef {import('./template.d.ts').Main} Main
+ * @typedef {import('./library/types').Run} Run
+ * @typedef {import('./library/types').Main} Main
  */
-'use strict';
+
+// const KvlCore = require('./library/kvlCore.js');
 
 /**
  * @type {Run} run

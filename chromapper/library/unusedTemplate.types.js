@@ -10,7 +10,7 @@
  */
 
 /**
- * @typedef {Function} EasingFunction
+ * @callback EasingFunction
  * @param {number} x
  * @returns {number}
  */

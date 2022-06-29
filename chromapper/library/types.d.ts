@@ -1,36 +1,35 @@
 /** Base custom data interface. */
-interface ICustomDataBase {
-    // deno-lint-ignore no-explicit-any
+export interface ICustomDataBase {
     [key: string]: any;
 }
 
-type Curve = 'Sine' | 'Quad' | 'Cubic' | 'Quart' | 'Quint' | 'Expo' | 'Circ' | 'Back' | 'Elastic' | 'Bounce';
-type Transition = 'In' | 'Out' | 'InOut';
-type Easings = `ease${Transition}${Curve}` | 'easeLinear' | 'easeStep';
-type EasingFunction = (x: number) => number;
+export type Curve = 'Sine' | 'Quad' | 'Cubic' | 'Quart' | 'Quint' | 'Expo' | 'Circ' | 'Back' | 'Elastic' | 'Bounce';
+export type Transition = 'In' | 'Out' | 'InOut';
+export type Easings = `ease${Transition}${Curve}` | 'easeLinear' | 'easeStep';
+export type EasingFunction = (x: number) => number;
 
-type ColorArray = [number, number, number, number?];
-type Vector2 = [number, number];
-type Vector3 = [number, number, number];
-type ColorPointDefinition = [number, number, number, number, number, Easings?];
-type PercentPointDefinition = [number, number, Easings?];
-type Vector2PointDefinition =
+export type ColorArray = [number, number, number, number?];
+export type Vector2 = [number, number];
+export type Vector3 = [number, number, number];
+export type ColorPointDefinition = [number, number, number, number, number, Easings?];
+export type PercentPointDefinition = [number, number, Easings?];
+export type Vector2PointDefinition =
     | [number, number, number, Easings?, 'splineCatmullRom'?]
     | [number, number, number, 'splineCatmullRom'?];
-type Vector3PointDefinition =
+export type Vector3PointDefinition =
     | [number, number, number, number, Easings?, 'splineCatmullRom'?]
     | [number, number, number, number, 'splineCatmullRom'?];
-type PointDefinition = Vector2PointDefinition[] | Vector3PointDefinition[] | ColorPointDefinition[];
+export type PointDefinition = Vector2PointDefinition[] | Vector3PointDefinition[] | ColorPointDefinition[];
 
 /** Heck Base Custom Event interface. */
-interface IHeckCustomEventDataBase {
+export interface IHeckCustomEventDataBase {
     _track: string | string[];
 }
 
 /** AnimateTrack interface for Heck Custom Event.
  * @extends IHeckCustomEventDataBase
  */
-interface IHeckCustomEventDataAnimateTrack extends IHeckCustomEventDataBase {
+export interface IHeckCustomEventDataAnimateTrack extends IHeckCustomEventDataBase {
     _duration: number;
     _easing?: Easings;
     _position?: string | Vector3PointDefinition[];
@@ -47,7 +46,7 @@ interface IHeckCustomEventDataAnimateTrack extends IHeckCustomEventDataBase {
 /** AssignPathAnimation interface for Heck Custom Event.
  * @extends IHeckCustomEventDataBase
  */
-interface IHeckCustomEventDataAssignPathAnimation extends IHeckCustomEventDataBase {
+export interface IHeckCustomEventDataAssignPathAnimation extends IHeckCustomEventDataBase {
     _duration: number;
     _easing?: Easings;
     _position?: string | Vector3PointDefinition[];
@@ -62,23 +61,23 @@ interface IHeckCustomEventDataAssignPathAnimation extends IHeckCustomEventDataBa
 }
 
 /** Heck Custom Event interface for AnimateTrack. */
-interface IHeckCustomEventAnimateTrack {
+export interface IHeckCustomEventAnimateTrack {
     _time: number;
     _type: 'AnimateTrack';
     _data: IHeckCustomEventDataAnimateTrack;
 }
 
 /** Heck Custom Event interface for AssignPathAnimation. */
-interface IHeckCustomEventAssignPathAnimation {
+export interface IHeckCustomEventAssignPathAnimation {
     _time: number;
     _type: 'AssignPathAnimation';
     _data: IHeckCustomEventDataAssignPathAnimation;
 }
 
-type IHeckCustomEvent = IHeckCustomEventAnimateTrack | IHeckCustomEventAssignPathAnimation;
+export type IHeckCustomEvent = IHeckCustomEventAnimateTrack | IHeckCustomEventAssignPathAnimation;
 
 /** Noodle Extensions Object interface for Beatmap Object. */
-interface INEObject {
+export interface INEObject {
     _position?: Vector2;
     _rotation?: number | Vector3;
     _localRotation?: Vector3;
@@ -93,7 +92,7 @@ interface INEObject {
 /** Noodle Extensions Note interface for Beatmap Note.
  * @extends INEObject
  */
-interface INENote extends INEObject {
+export interface INENote extends INEObject {
     _cutDirection?: number;
     _flip?: Vector2;
     _disableNoteGravity?: boolean;
@@ -103,19 +102,19 @@ interface INENote extends INEObject {
 /** Noodle Extensions Obstacle interface for Beatmap Obstacle.
  * @extends INEObject
  */
-interface INEObstacle extends INEObject {
+export interface INEObstacle extends INEObject {
     _scale?: Vector3;
 }
 
 /** Noodle Extensions Event interface for Beatmap Event.
  * @extends ICustomDataBase
  */
-interface INEEvent extends ICustomDataBase {
+export interface INEEvent extends ICustomDataBase {
     _rotation?: number;
 }
 
 /** AssignPathAnimation interface for Noodle Extensions Custom Event. */
-interface INECustomEventDataAssignTrackParent {
+export interface INECustomEventDataAssignTrackParent {
     _childrenTracks: string[];
     _parentTrack: string;
     _worldPositionStays?: boolean;
@@ -124,12 +123,12 @@ interface INECustomEventDataAssignTrackParent {
 /** AssignPlayerToTrack interface for Noodle Extensions Custom Event.
  * @extends INECustomEventDataBase
  */
-interface INECustomEventDataAssignPlayerToTrack extends IHeckCustomEventDataBase {
+export interface INECustomEventDataAssignPlayerToTrack extends IHeckCustomEventDataBase {
     _track: string;
 }
 
 /** Noodle Extensions Animation interface for Noodle Extensions Object. */
-interface INEAnimation {
+export interface INEAnimation {
     _position?: string | Vector3PointDefinition[];
     _rotation?: string | Vector3PointDefinition[];
     _localRotation?: string | Vector3PointDefinition[];
@@ -143,39 +142,39 @@ interface INEAnimation {
 }
 
 /** Noodle Extensions Custom Event interface for AssignTrackParent. */
-interface INECustomEventAssignTrackParent {
+export interface INECustomEventAssignTrackParent {
     _time: number;
     _type: 'AssignTrackParent';
     _data: INECustomEventDataAssignTrackParent;
 }
 
 /** Noodle Extensions Custom Event interface for AssignPlayerToTrack. */
-interface INECustomEventAssignPlayerToTrack {
+export interface INECustomEventAssignPlayerToTrack {
     _time: number;
     _type: 'AssignPlayerToTrack';
     _data: INECustomEventDataAssignPlayerToTrack;
 }
 
-type INECustomEvent = INECustomEventAssignTrackParent | INECustomEventAssignPlayerToTrack;
+export type INECustomEvent = INECustomEventAssignTrackParent | INECustomEventAssignPlayerToTrack;
 
 /** Chroma interface for Beatmap Note Custom Data. */
-interface IChromaAnimation {
+export interface IChromaAnimation {
     _color?: string | ColorPointDefinition[];
 }
 
 /** Chroma interface for Beatmap Note Custom Data. */
-interface IChromaNote {
+export interface IChromaNote {
     _color?: ColorArray;
     _disableSpawnEffect?: boolean;
 }
 
 /** Chroma interface for Beatmap Obstacle Custom Data. */
-interface IChromaObstacle {
+export interface IChromaObstacle {
     _color?: ColorArray;
 }
 
 /** Chroma interface for Beatmap Event Light Custom Data. */
-interface IChromaEventLight extends ICustomDataBase {
+export interface IChromaEventLight extends ICustomDataBase {
     _color?: ColorArray;
     _lightID?: number | number[];
     _propID?: number;
@@ -190,7 +189,7 @@ interface IChromaEventLight extends ICustomDataBase {
 }
 
 /** Chroma interface for Beatmap Event Laser Rotation Custom Data. */
-interface IChromaEventLaser extends ICustomDataBase {
+export interface IChromaEventLaser extends ICustomDataBase {
     _lockPosition?: boolean;
     _speed?: number;
     _preciseSpeed?: number;
@@ -198,7 +197,7 @@ interface IChromaEventLaser extends ICustomDataBase {
 }
 
 /** Chroma interface for Beatmap Event Ring Spin Custom Data. */
-interface IChromaEventRing extends ICustomDataBase {
+export interface IChromaEventRing extends ICustomDataBase {
     _nameFilter?: string;
     _reset?: boolean;
     _rotation?: number;
@@ -213,13 +212,13 @@ interface IChromaEventRing extends ICustomDataBase {
 }
 
 /** Chroma interface for Beatmap Event Ring Zoom Custom Data. */
-interface IChromaEventZoom extends ICustomDataBase {
+export interface IChromaEventZoom extends ICustomDataBase {
     _step?: number;
     _speed?: number;
 }
 
 /** AssignFogTrack interface for Noodle Extensions Custom Event. */
-interface IChromaCustomEventDataAssignFogTrack extends IHeckCustomEventDataBase {
+export interface IChromaCustomEventDataAssignFogTrack extends IHeckCustomEventDataBase {
     _track: string;
     _attenuation?: number | PercentPointDefinition[];
     _offset?: number | PercentPointDefinition[];
@@ -228,25 +227,25 @@ interface IChromaCustomEventDataAssignFogTrack extends IHeckCustomEventDataBase 
 }
 
 /** Chroma Custom Event interface for AssignFogTrack. */
-interface IChromaCustomEventAssignFogTrack {
+export interface IChromaCustomEventAssignFogTrack {
     _time: number;
     _type: 'AssignFogTrack';
     _data: IChromaCustomEventDataAssignFogTrack;
 }
 
-type IChromaCustomEvent = IChromaCustomEventAssignFogTrack;
+export type IChromaCustomEvent = IChromaCustomEventAssignFogTrack;
 
-type ICustomEvent = IHeckCustomEvent | IChromaCustomEvent | INECustomEvent;
-type ICustomDataNote = ICustomDataBase & IChromaNote & INENote;
-type ICustomDataObstacle = ICustomDataBase & IChromaObstacle & INEObstacle;
+export type ICustomEvent = IHeckCustomEvent | IChromaCustomEvent | INECustomEvent;
+export type ICustomDataNote = ICustomDataBase & IChromaNote & INENote;
+export type ICustomDataObstacle = ICustomDataBase & IChromaObstacle & INEObstacle;
 
-interface IBaseObject {
+export interface IBaseObject {
     /** Beat time `<float>` of beatmap object. */
     _time: number;
     _customData?: ICustomDataBase;
 }
 
-interface INote extends IBaseObject {
+export interface INote extends IBaseObject {
     /** Note placement on column.
      * ```ts
      * 0 -> Outer Left
@@ -285,7 +284,7 @@ interface INote extends IBaseObject {
 
 /** Beatmap object interface for Event. */
 // it took me long enough to realise Event is a built in JS class/interface, but it has no effect here anyway
-interface IEventBase extends IBaseObject {
+export interface IEventBase extends IBaseObject {
     /** Type of event.
      * ```ts
      * 0 -> Back Lasers
@@ -322,7 +321,7 @@ interface IEventBase extends IBaseObject {
     _customData?: ICustomDataBase;
 }
 
-interface IEventLight extends IEventBase {
+export interface IEventLight extends IEventBase {
     _type: 0 | 1 | 2 | 3 | 4 | 6 | 7 | 10 | 11;
     /** State of light event. ( Blue | Red | White )
      * ```ts
@@ -343,34 +342,34 @@ interface IEventLight extends IEventBase {
     _customData?: IChromaEventLight;
 }
 
-interface IEventGeneric extends IEventBase {
+export interface IEventGeneric extends IEventBase {
     _type: number;
 }
 
-interface IEventBoost extends IEventBase {
+export interface IEventBoost extends IEventBase {
     _type: 5;
     /** Toggle between boost event. */
     _value: 0 | 1;
 }
 
-interface IEventRing extends IEventBase {
+export interface IEventRing extends IEventBase {
     _type: 8;
     _customData?: IChromaEventRing;
 }
 
-interface IEventZoom extends IEventBase {
+export interface IEventZoom extends IEventBase {
     _type: 9;
     _customData?: IChromaEventRing & IChromaEventZoom;
 }
 
-interface IEventLaser extends IEventBase {
+export interface IEventLaser extends IEventBase {
     _type: 12 | 13;
     /** Laser rotation speed in degree per second multiplied by 20. */
     _value: number;
     _customData?: IChromaEventLaser;
 }
 
-interface IEventLaneRotation extends IEventBase {
+export interface IEventLaneRotation extends IEventBase {
     _type: 14 | 15;
     /** Amount of angle changed clockwise.
      * ```ts
@@ -388,19 +387,19 @@ interface IEventLaneRotation extends IEventBase {
     _customData?: INEEvent;
 }
 
-interface IEventExtra extends IEventBase {
+export interface IEventExtra extends IEventBase {
     _type: 16 | 17 | 18 | 19;
 }
 
-interface IEventSpecial extends IEventBase {
+export interface IEventSpecial extends IEventBase {
     _type: 40 | 41 | 42 | 43;
 }
 
-interface IEventBPMChange extends IEventBase {
+export interface IEventBPMChange extends IEventBase {
     _type: 100;
 }
 
-type IEvent =
+export type IEvent =
     | IEventGeneric
     | IEventLight
     | IEventBoost
@@ -413,7 +412,7 @@ type IEvent =
     | IEventBPMChange;
 
 /** Beatmap object interface for Obstacle. */
-interface IObstacle extends IBaseObject {
+export interface IObstacle extends IBaseObject {
     /** Obstacle placement on column.
      * ```ts
      * 0 -> Outer Left
@@ -436,25 +435,14 @@ interface IObstacle extends IBaseObject {
     _customData?: ICustomDataObstacle;
 }
 
-interface IBPMChange {
+export interface IBPMChange {
     _time: number;
     _BPM: number;
     _beatsPerBar: number;
     _metronomeOffset: number;
 }
 
-/**
- * @typedef {Object} IBPMChange
- * @property {number} _time
- * @property {number} _BPM
- * @property {number} _beatsPerBar
- * @property {number} _metronomeOffset
- */
-
-type Parameter = string | number | boolean | string[];
-/**
- * @typedef {string | number | boolean | string[]} Parameter
- */
+export type Parameter = string | number | boolean | string[];
 
 export type Run = (
     cursor: number,
@@ -467,19 +455,6 @@ export type Run = (
     customEvents?: ICustomEvent[],
     bpmChanges?: IBPMChange[],
 ) => void;
-/**
- * @typedef {Function} Run
- * @param {number} cursor
- * @param {INote[]} notes
- * @param {IEvent[]} events
- * @param {IObstacle[]} walls
- * @param {*} _
- * @param {{params: Parameter[]}} global
- * @param {*} data
- * @param {ICustomEvent[]} [customEvents]
- * @param {IBPMChange[]} [bpmChanges]
- * @returns {void}
- */
 
 export type Main = {
     name: string;
@@ -497,10 +472,3 @@ export type Main = {
     ): void;
     errorCheck?: boolean;
 };
-/**
- * @typedef {Object} Main
- * @property {string} name
- * @property {{[key:string]: Parameter}} params
- * @property {Run} run
- * @property {boolean} [errorCheck]
- */
