@@ -21,8 +21,7 @@
  * @returns {ColorArray}
  */
 
-const KvlCore = require('./kvlCore');
-const { lerp, isHex } = KvlCore;
+const { lerp, isHex } = require('./kvlCore');
 
 function RGBAtoHSVA(r, g, b, a = 1) {
     let h;

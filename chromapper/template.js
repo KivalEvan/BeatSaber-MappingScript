@@ -1,10 +1,11 @@
-// @ts-check -- remove if error is scary
+// @ts-check -- remove if error message is annoying
 /**
  * @typedef {import('./library/types').Run} Run
  * @typedef {import('./library/types').Main} Main
  */
 
 // const KvlCore = require('./library/kvlCore.js');
+// const {} = require('./library/helpers.js');
 
 /**
  * @type {Run} run
