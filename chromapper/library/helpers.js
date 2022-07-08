@@ -95,13 +95,13 @@ function where(objects, filter = {}) {
             return result;
         })
         .filter((o) => {
-            let result = true;
+            let result = false;
             for (const key in filter.exclude) {
                 const value = filter.exclude[key];
                 if (key === '_customData') {
                     if (o[key]) {
                         result = value.some((p) => Object.keys(o[key]).includes(p));
-                        if (!result) {
+                        if (result) {
                             break;
                         }
                     } else {
@@ -109,15 +109,15 @@ function where(objects, filter = {}) {
                     }
                 }
                 if (Array.isArray(value)) {
-                    result = !value.some((p) => o[key] === p);
+                    result = value.some((p) => o[key] === p);
                 } else {
-                    result = !(o[key] === value);
+                    result = o[key] === value;
                 }
-                if (!result) {
+                if (result) {
                     break;
                 }
             }
-            return result;
+            return !result;
         });
 }
 

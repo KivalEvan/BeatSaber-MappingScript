@@ -61,7 +61,12 @@ function RGBAtoHSVA(r, g, b, a = 1) {
  */
 function HSVAtoRGBA(hue, saturation, value, alpha = 1) {
     hue = hue / 360;
-    let r, g, b;
+    if (hue < 0) {
+        hue += Math.abs(Math.floor(hue));
+    }
+    let r = 0,
+        g = 0,
+        b = 0;
     const i = Math.floor(hue * 6);
     const f = hue * 6 - i;
     const p = value * (1 - saturation);
@@ -124,7 +129,7 @@ function interpolateColor(colorStart, colorEnd, alpha, type = 'rgba', easing) {
                     }
                     const cE = typeof cEnd[i] === 'number' ? cEnd[i] : c;
                     return lerp(easing(alpha), c, cE);
-                }),
+                })
             );
         }
         case 'long hsva': {
@@ -135,7 +140,7 @@ function interpolateColor(colorStart, colorEnd, alpha, type = 'rgba', easing) {
                     }
                     const cE = typeof cEnd[i] === 'number' ? cEnd[i] : c;
                     return lerp(easing(alpha), c, cE);
-                }),
+                })
             );
         }
         case 'short hsva': {
@@ -146,7 +151,7 @@ function interpolateColor(colorStart, colorEnd, alpha, type = 'rgba', easing) {
                     }
                     const cE = typeof cEnd[i] === 'number' ? cEnd[i] : c;
                     return lerp(easing(alpha), c, cE);
-                }),
+                })
             );
         }
         default: {
