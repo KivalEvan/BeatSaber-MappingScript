@@ -1,7 +1,10 @@
 import * as bsmap from '../../depsLocal.ts';
 import { generateEnvironment } from '../../environment-enhancement/lotus/environment.ts';
+import { sword } from './sword.ts';
 
 bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+
+const { at, between, where } = bsmap.ext.selector;
 
 const INPUT_FILE = 'Lightshow.dat';
 const OUTPUT_FILE = 'EasyLightshow.dat';
@@ -21,7 +24,7 @@ const env = generateEnvironment().map((e) => {
         _rotation: e.rotation,
         _localPosition: e.localPosition?.map((n) => n / 0.6) as bsmap.types.Vector3,
         _localRotation: e.localRotation,
-        _lightID: e.lightID,
+        _lightID: e.components?.ILightWithId?.lightID,
     } as bsmap.types.v2.IChromaEnvironment;
 });
 
@@ -170,6 +173,21 @@ lightshow.addEvents(
     },
 );
 lightshow.customData._environment = env;
+const makeWhite = (e: bsmap.v2.Event, mult = 1) => {
+    if (!e.isOff()) {
+        e.value += e.value <= 4 ? 8 : 4;
+        e.floatValue *= mult;
+    }
+};
+where(between(lightshow.events, 258, 261.999), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0.875));
+where(at(lightshow.events, 277.749), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
+where(at(lightshow.events, 278), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0.5));
+lightshow.addEvents({ _time: 280, _type: 0, _value: 8, _floatValue: 1 });
+where(between(lightshow.events, 599, 611), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
+where(between(lightshow.events, 862, 864), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.25));
+where(between(lightshow.events, 870, 880), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.75));
+where(at(lightshow.events, [886, 888, 890, 892]), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.875));
+at(lightshow.events, 901).forEach((e) => makeWhite(e, 0.75));
 
 const info = bsmap.load.infoSync();
 for (const set of info._difficultyBeatmapSets) {
@@ -180,6 +198,27 @@ for (const set of info._difficultyBeatmapSets) {
         difficulty.customData._environment = lightshow.customData!._environment;
         difficulty.customData._customEvents = lightshow.customData!._customEvents;
 
+        const bookmarks = difficulty.customData._bookmarks;
+        if (bookmarks) {
+            for (const b of bookmarks) {
+                if (b._time < 262) {
+                    b._color = bsmap.utils.interpolateColor(
+                        [185, 0, 0.375],
+                        [175, 0.25, 0.5],
+                        bsmap.utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
+                        'hsva',
+                    );
+                    continue;
+                }
+                b._color = bsmap.utils.interpolateColor(
+                    [30, 1, 1],
+                    [390, 1, 1],
+                    bsmap.utils.normalize(b._time, 262, bookmarks.at(-1)!._time),
+                    'hsva',
+                );
+            }
+        }
+
         difficulty.events = lightshow.events;
 
         bsmap.save.difficultySync(difficulty);
@@ -187,3 +226,5 @@ for (const set of info._difficultyBeatmapSets) {
 }
 
 bsmap.save.difficultySync(lightshow, { filePath: OUTPUT_FILE });
+
+sword();
