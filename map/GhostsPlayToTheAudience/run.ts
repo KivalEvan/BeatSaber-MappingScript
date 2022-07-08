@@ -6,12 +6,8 @@ bsmap.globals.directory =
 const { where, at, between } = bsmap.ext.selector;
 
 const lightshow = bsmap.load.difficultySync('Expert.dat');
-const osExpertP = bsmap.load
-    .difficultySync('HardOneSaber.dat')
-    .setFileName('ExpertPlusOneSaber.dat');
-const osExpert = bsmap.load
-    .difficultySync('NormalOneSaber.dat')
-    .setFileName('ExpertOneSaber.dat');
+const osExpertP = bsmap.load.difficultySync('HardOneSaber.dat').setFileName('ExpertPlusOneSaber.dat');
+const osExpert = bsmap.load.difficultySync('NormalOneSaber.dat').setFileName('ExpertOneSaber.dat');
 
 const pointDefinitions: bsmap.types.v3.IHeckPointDefinition[] = [
     {
@@ -78,12 +74,8 @@ for (const it of introTime) {
     ];
     let i = 0;
     for (const bt of booTime) {
-        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach(
-            (n) => (n.customData.track = 'ghostTrack'),
-        );
-        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach(
-            (n) => (n.customData.track = 'ghostTrack'),
-        );
+        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
+        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
         const walls = i % 2
             ? bsmap.v3.Obstacle.create(
                 { b: it + bt[0], d: 0.125, x: 3, y: 0 },
@@ -460,9 +452,7 @@ osExpert.addSliders(
 );
 
 const sliderApplyColor = (s: bsmap.v3.Slider | bsmap.v3.BurstSlider) => {
-    const note = osExpert.colorNotes.filter(
-        (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
-    );
+    const note = osExpert.colorNotes.filter((n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY);
     if (note.length > 1) {
         throw new Error('too many result');
     }
@@ -473,125 +463,141 @@ const sliderApplyColor = (s: bsmap.v3.Slider | bsmap.v3.BurstSlider) => {
     s.customData.color = n.customData.color;
 };
 
+let done = false;
 where(at(osExpert.colorNotes, 551), { include: { x: 0 } })
     .concat(where(at(osExpertP.colorNotes, 551), { include: { x: 0 } }))
     .forEach((n) => {
         n.customData.track = 'baaaaaaaaa0';
-        osExpert.customData.customEvents?.push({
-            b: n.time - 1.25,
-            t: 'AnimateTrack',
-            d: {
-                track: 'baaaaaaaaa0',
-                duration: 0.5,
-                color: [
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        0,
+        if (!done) {
+            customEvents.push({
+                b: n.time - 1.25,
+                t: 'AnimateTrack',
+                d: {
+                    track: 'baaaaaaaaa0',
+                    duration: 0.5,
+                    color: [
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            0,
+                        ],
+                        [0.3125, 0.3125, 0.3125, 1, 0.5],
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            1,
+                        ],
                     ],
-                    [0.3125, 0.3125, 0.3125, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        1,
-                    ],
-                ],
-            },
-        });
+                },
+            });
+        }
+        done = true;
     });
+done = false;
 where(at(osExpert.colorNotes, 551), { include: { x: 1 } })
     .concat(where(at(osExpertP.colorNotes, 551), { include: { x: 1 } }))
     .forEach((n) => {
         n.customData.track = 'baaaaaaaaa1';
-        osExpert.customData.customEvents?.push({
-            b: n.time - 1.125,
-            t: 'AnimateTrack',
-            d: {
-                track: 'baaaaaaaaa1',
-                duration: 0.5,
-                color: [
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        0,
+        if (!done) {
+            customEvents.push({
+                b: n.time - 1.125,
+                t: 'AnimateTrack',
+                d: {
+                    track: 'baaaaaaaaa1',
+                    duration: 0.5,
+                    color: [
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            0,
+                        ],
+                        [0.3125, 0.3125, 0.3125, 1, 0.5],
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            1,
+                        ],
                     ],
-                    [0.3125, 0.3125, 0.3125, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        1,
-                    ],
-                ],
-            },
-        });
+                },
+            });
+        }
+        done = true;
     });
+done = false;
 where(at(osExpert.colorNotes, 551), { include: { x: 2 } })
     .concat(where(at(osExpertP.colorNotes, 551), { include: { x: 2 } }))
     .forEach((n) => {
         n.customData.track = 'baaaaaaaaa2';
-        osExpert.customData.customEvents?.push({
-            b: n.time - 1,
-            t: 'AnimateTrack',
-            d: {
-                track: 'baaaaaaaaa2',
-                duration: 0.5,
-                color: [
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        0,
+        if (!done) {
+            customEvents.push({
+                b: n.time - 1,
+                t: 'AnimateTrack',
+                d: {
+                    track: 'baaaaaaaaa2',
+                    duration: 0.5,
+                    color: [
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            0,
+                        ],
+                        [0.3125, 0.3125, 0.3125, 1, 0.5],
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            1,
+                        ],
                     ],
-                    [0.3125, 0.3125, 0.3125, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        1,
-                    ],
-                ],
-            },
-        });
+                },
+            });
+        }
+        done = true;
     });
+done = false;
 where(at(osExpert.colorNotes, 551), { include: { x: 3 } })
     .concat(where(at(osExpertP.colorNotes, 551), { include: { x: 3 } }))
     .forEach((n) => {
         n.customData.track = 'baaaaaaaaa3';
-        osExpert.customData.customEvents?.push({
-            b: n.time - 0.875,
-            t: 'AnimateTrack',
-            d: {
-                track: 'baaaaaaaaa3',
-                duration: 0.5,
-                color: [
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        0,
+        if (!done) {
+            customEvents.push({
+                b: n.time - 0.875,
+                t: 'AnimateTrack',
+                d: {
+                    track: 'baaaaaaaaa3',
+                    duration: 0.5,
+                    color: [
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            0,
+                        ],
+                        [0.3125, 0.3125, 0.3125, 1, 0.5],
+                        [
+                            n.customData.color?.[0] ?? 1,
+                            n.customData.color?.[1] ?? 1,
+                            n.customData.color?.[2] ?? 1,
+                            1,
+                            1,
+                        ],
                     ],
-                    [0.3125, 0.3125, 0.3125, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 1,
-                        n.customData.color?.[2] ?? 1,
-                        1,
-                        1,
-                    ],
-                ],
-            },
-        });
+                },
+            });
+        }
+        done = true;
     });
 
 osExpert.sliders.forEach(sliderApplyColor);
