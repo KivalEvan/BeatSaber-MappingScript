@@ -1,8 +1,11 @@
-import * as bsmap from '../../deps.ts';
+import * as bsmap from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
-export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
-    const events = d.events;
+export const convertLight = (
+    d: bsmap.v3.DifficultyData,
+    environment: bsmap.types.EnvironmentAllName,
+) => {
+    const events = d.basicBeatmapEvents;
     const newEvents = [];
 
     // default color (for no chroma)
@@ -31,7 +34,9 @@ export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.type
     for (const ev of events) {
         let noChromaColor = false;
         if (ev.value >= 2000000000) {
-            currentColor[ev.type] = oldChromaColorConvert(ev.value) as bsmap.types.ColorArray;
+            currentColor[ev.type] = oldChromaColorConvert(
+                ev.value,
+            ) as bsmap.types.ColorArray;
         }
         if (!currentColor[ev.type]) {
             noChromaColor = true;
@@ -41,11 +46,11 @@ export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.type
             ev.value = 0;
         }
         if (ev.value !== 0 && !(ev.value >= 2000000000)) {
-            if (ev.customData && !ev.customData._color) {
-                ev.customData = { _color: currentColor[ev.type] };
+            if (ev.customData && !ev.customData.color) {
+                ev.customData = { color: currentColor[ev.type] };
             }
             if (!ev.customData) {
-                ev.customData = { _color: currentColor[ev.type] };
+                ev.customData = { color: currentColor[ev.type] };
             }
         }
         if (!(ev.value >= 2000000000)) {
@@ -97,16 +102,22 @@ export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.type
             continue;
         }
         if (
-            (ev.type === 5 || ev.type === 6 || ev.type === 7 || ev.type === 10 || ev.type === 11) &&
-            ev.customData!._color
+            (ev.type === 5 ||
+                ev.type === 6 ||
+                ev.type === 7 ||
+                ev.type === 10 ||
+                ev.type === 11) &&
+            ev.customData!.color
         ) {
-            ev.customData!._color = ev.customData!._color.map((n: number) => (n * 1) / 10);
+            ev.customData!.color = ev.customData!.color.map(
+                (n: number) => (n * 1) / 10,
+            );
             ev.floatValue = 10;
         }
-        ev.customData!._lightID = typeLightIDMap[ev.type];
+        ev.customData!.lightID = typeLightIDMap[ev.type];
         ev.type = switchType[ev.type];
     }
 
-    d.events = newEvents;
+    d.basicBeatmapEvents = newEvents;
     //#endregion
 };

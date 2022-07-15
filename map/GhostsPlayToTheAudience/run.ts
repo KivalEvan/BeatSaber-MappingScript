@@ -6,10 +6,14 @@ bsmap.globals.directory =
 const { where, at, between } = bsmap.ext.selector;
 
 const lightshow = bsmap.load.difficultySync('Expert.dat');
-const osExpertP = bsmap.load.difficultySync('HardOneSaber.dat').setFileName('ExpertPlusOneSaber.dat');
-const osExpert = bsmap.load.difficultySync('NormalOneSaber.dat').setFileName('ExpertOneSaber.dat');
+const osExpertP = bsmap.load
+    .difficultySync('HardOneSaber.dat')
+    .setFileName('ExpertPlusOneSaber.dat');
+const osExpert = bsmap.load
+    .difficultySync('NormalOneSaber.dat')
+    .setFileName('ExpertOneSaber.dat');
 
-const pointDefinitions: bsmap.types.v3.IHeckPointDefinition[] = [
+const pointDefinitions: bsmap.types.v3.IPointDefinition[] = [
     {
         name: 'ghostPoint',
         points: [
@@ -74,8 +78,12 @@ for (const it of introTime) {
     ];
     let i = 0;
     for (const bt of booTime) {
-        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
-        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
+        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach(
+            (n) => (n.customData.track = 'ghostTrack'),
+        );
+        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach(
+            (n) => (n.customData.track = 'ghostTrack'),
+        );
         const walls = i % 2
             ? bsmap.v3.Obstacle.create(
                 { b: it + bt[0], d: 0.125, x: 3, y: 0 },
@@ -452,7 +460,9 @@ osExpert.addSliders(
 );
 
 const sliderApplyColor = (s: bsmap.v3.Slider | bsmap.v3.BurstSlider) => {
-    const note = osExpert.colorNotes.filter((n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY);
+    const note = osExpert.colorNotes.filter(
+        (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
+    );
     if (note.length > 1) {
         throw new Error('too many result');
     }

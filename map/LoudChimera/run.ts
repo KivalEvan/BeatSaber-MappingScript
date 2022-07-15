@@ -1,33 +1,50 @@
 import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE, selector } = bsmap.ext;
+import { counter } from '../../utility/counter.ts';
+import { main } from './main.ts';
+const { noodleExtensions: NE } = bsmap.ext;
+
+counter(import.meta.url);
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
 
-const INPUT_FILE = 'ExpertStandard.dat';
-const OUTPUT_FILE = 'HardStandard.dat';
+bsmap.globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/loudchimera/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
 
 const info = bsmap.load.infoSync();
 const BPM = bsmap.BeatPerMinute.create(info._beatsPerMinute);
 const NJS = bsmap.NoteJumpSpeed.create(BPM, 19.5, 0.25);
-const difficulty = bsmap.load.difficultySync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
 NE.settings.BPM = BPM;
 NE.settings.NJS = NJS;
 
-difficulty.colorNotes.forEach((n) => {
-    n.customData.noteJumpMovementSpeed = NJS.value;
-    n.customData.noteJumpStartBeatOffset = NJS.offset;
-});
-difficulty.bombNotes.forEach((b) => {
-    b.customData.noteJumpMovementSpeed = NJS.value;
-    b.customData.noteJumpStartBeatOffset = NJS.offset;
-});
-difficulty.obstacles.forEach((o) => {
-    o.customData.noteJumpMovementSpeed = NJS.value;
-    o.customData.noteJumpStartBeatOffset = NJS.offset;
-});
+main(
+    bsmap.load
+        .difficultySync('HardStandard.dat', 3)
+        .setFileName('ExpertPlusStandard.dat'),
+    BPM,
+    NJS,
+);
 
-bsmap.save.difficultySync(difficulty);
+NJS.value = 16;
+NJS.offset = -1;
+main(
+    bsmap.load
+        .difficultySync('NormalStandard.dat', 3)
+        .setFileName('ExpertStandard.dat'),
+    BPM,
+    NJS,
+);
+
+for (const set of info._difficultyBeatmapSets) {
+    for (const d of set._difficultyBeatmaps) {
+        if (d._customData) {
+            d._customData._requirements = ['Noodle Extensions'];
+            d._customData._suggestions = ['Chroma'];
+        }
+    }
+}
+
+bsmap.save.infoSync(info);
 
 console.timeEnd('Runtime');

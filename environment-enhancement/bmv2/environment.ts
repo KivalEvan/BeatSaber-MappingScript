@@ -1,12 +1,12 @@
-import * as bsmap from '../../deps.ts';
+import * as bsmap from '../../depsLocal.ts';
 
 export const roadCount = 5;
 export const roadRepeat = 4;
 export const idOffsetType0 = 101;
 export const idOffsetType4 = 101;
 
-export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
-    const environment: bsmap.types.v2.IChromaEnvironment[] = [];
+export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
+    const environment: bsmap.types.v3.IChromaEnvironment[] = [];
 
     let internalIdOffsetType0 = idOffsetType0;
     let internalIdOffsetType4 = idOffsetType4;
@@ -27,7 +27,6 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
     const regexBigRingLights =
         `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
-    const regexFrontLights = `\\[\\d+\\]FrontLights.\\[0\\]NeonTube$`;
     const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
     const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
@@ -54,32 +53,32 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     //#region yeet
     environment.push(
         {
-            _id: regexSpectrogram,
-            _lookupMethod: 'Regex',
-            _active: false,
+            id: regexSpectrogram,
+            lookupMethod: 'Regex',
+            active: false,
         },
         {
-            _id: regexFloor,
-            _lookupMethod: 'Regex',
-            _active: false,
+            id: regexFloor,
+            lookupMethod: 'Regex',
+            active: false,
         },
         {
-            _id: regexConstruction,
-            _lookupMethod: 'Regex',
-            _position: [0, -1, -10],
+            id: regexConstruction,
+            lookupMethod: 'Regex',
+            position: [0, -1, -10],
         },
         {
-            _id: regexNearBuilding,
-            _lookupMethod: 'Regex',
-            _active: false,
+            id: regexNearBuilding,
+            lookupMethod: 'Regex',
+            active: false,
         },
     );
     //#endregion
     //#region extra thicc ring
     environment.push({
-        _id: regexBigRingLights,
-        _lookupMethod: 'Regex',
-        _scale: [1, 2, 1],
+        id: regexBigRingLights,
+        lookupMethod: 'Regex',
+        scale: [1, 2, 1],
     });
     //#endregion
     //#region road
@@ -90,44 +89,72 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     for (let i = 0; i < roadCount * roadRepeat; i++) {
         environment.push(
             {
-                _id: regexFrontLights,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: centerRoadScale,
-                _position: posMirrorX(posAddZ(centerRoadPos, i * roadGap)),
-                _rotation: [0, 0, -78],
-                _lightID: internalIdOffsetType4++,
+                geometry: {
+                    type: 'Cube',
+                    material: {
+                        shaderPreset: 'OpaqueLight',
+                        shaderKeywords: ['ENABLE_LIGHTNING'],
+                    },
+                    spawnCount: 1,
+                },
+                scale: centerRoadScale,
+                position: posMirrorX(posAddZ(centerRoadPos, i * roadGap)),
+                rotation: [0, 0, -78],
+                components: {
+                    ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
+                },
             },
             {
-                _id: regexFrontLights,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: centerRoadScale,
-                _position: posAddZ(centerRoadPos, i * roadGap),
-                _rotation: [0, 0, 78],
-                _lightID: internalIdOffsetType4++,
+                geometry: {
+                    type: 'Cube',
+                    material: {
+                        shaderPreset: 'OpaqueLight',
+                        shaderKeywords: ['ENABLE_LIGHTNING'],
+                    },
+                    spawnCount: 1,
+                },
+                scale: centerRoadScale,
+                position: posAddZ(centerRoadPos, i * roadGap),
+                rotation: [0, 0, 78],
+                components: {
+                    ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
+                },
             },
         );
     }
     for (let i = 0; i < roadCount * roadRepeat; i++) {
         environment.push(
             {
-                _id: regexFrontLights,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: farRoadScale,
-                _position: posMirrorX(posAddZ(farRoadPos, i * roadGap)),
-                _rotation: [0, 0, -114],
-                _lightID: internalIdOffsetType4++,
+                geometry: {
+                    type: 'Cube',
+                    material: {
+                        shaderPreset: 'OpaqueLight',
+                        shaderKeywords: ['ENABLE_LIGHTNING'],
+                    },
+                    spawnCount: 1,
+                },
+                scale: farRoadScale,
+                position: posMirrorX(posAddZ(farRoadPos, i * roadGap)),
+                rotation: [0, 0, -114],
+                components: {
+                    ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
+                },
             },
             {
-                _id: regexFrontLights,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: farRoadScale,
-                _position: posAddZ(farRoadPos, i * roadGap),
-                _rotation: [0, 0, 114],
-                _lightID: internalIdOffsetType4++,
+                geometry: {
+                    type: 'Cube',
+                    material: {
+                        shaderPreset: 'OpaqueLight',
+                        shaderKeywords: ['ENABLE_LIGHTNING'],
+                    },
+                    spawnCount: 1,
+                },
+                scale: farRoadScale,
+                position: posAddZ(farRoadPos, i * roadGap),
+                rotation: [0, 0, 114],
+                components: {
+                    ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
+                },
             },
         );
     }
@@ -143,64 +170,65 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     const centerLaneLightScale: bsmap.types.Vector3 = [2.5, 4, 2.5];
     environment.push(
         {
-            _id: regexNeonTubeL,
-            _lookupMethod: 'Regex',
-            _duplicate: 1,
-            _scale: botLaneLightScale,
-            _position: posMirrorX(botLaneLightPos),
+            id: regexNeonTubeL,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            scale: botLaneLightScale,
+            position: posMirrorX(botLaneLightPos),
         },
         {
-            _id: regexNeonTubeR,
-            _lookupMethod: 'Regex',
-            _duplicate: 1,
-            _scale: botLaneLightScale,
-            _position: botLaneLightPos,
+            id: regexNeonTubeR,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            scale: botLaneLightScale,
+            position: botLaneLightPos,
         },
         {
-            _id: regexNeonTubeL,
-            _lookupMethod: 'Regex',
-            _duplicate: 1,
-            _scale: centerLaneLightScale,
-            _position: posMirrorX(centerLaneLightPos),
+            id: regexNeonTubeL,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            scale: centerLaneLightScale,
+            position: posMirrorX(centerLaneLightPos),
         },
         {
-            _id: regexNeonTubeR,
-            _lookupMethod: 'Regex',
-            _duplicate: 1,
-            _scale: centerLaneLightScale,
-            _position: centerLaneLightPos,
+            id: regexNeonTubeR,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            scale: centerLaneLightScale,
+            position: centerLaneLightPos,
         },
         {
-            _id: regexNeonTubeL,
-            _lookupMethod: 'Regex',
-            _scale: midLaneLightScale,
-            _position: posMirrorX(midLaneLightPos),
+            id: regexNeonTubeL,
+            lookupMethod: 'Regex',
+            scale: midLaneLightScale,
+            position: posMirrorX(midLaneLightPos),
         },
         {
-            _id: regexNeonTubeR,
-            _lookupMethod: 'Regex',
-            _scale: midLaneLightScale,
-            _position: midLaneLightPos,
+            id: regexNeonTubeR,
+            lookupMethod: 'Regex',
+            scale: midLaneLightScale,
+            position: midLaneLightPos,
         },
         {
-            _id: regexNeonTubeFL,
-            _lookupMethod: 'Regex',
-            _scale: farLaneLightScale,
-            _position: posMirrorX(farLaneLightPos),
+            id: regexNeonTubeFL,
+            lookupMethod: 'Regex',
+            scale: farLaneLightScale,
+            position: posMirrorX(farLaneLightPos),
         },
         {
-            _id: regexNeonTubeFR,
-            _lookupMethod: 'Regex',
-            _scale: farLaneLightScale,
-            _position: farLaneLightPos,
+            id: regexNeonTubeFR,
+            lookupMethod: 'Regex',
+            scale: farLaneLightScale,
+            position: farLaneLightPos,
         },
     );
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        _id: regexDoubleColorLaser.replace(/\$$/, '') + `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
-        _lookupMethod: 'Regex',
-        _active: false,
+        id: regexDoubleColorLaser.replace(/\$$/, '') +
+            `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
+        lookupMethod: 'Regex',
+        active: false,
     });
     //#endregion
     //#region replace with chad backtop thing
@@ -209,69 +237,86 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: backTopFarScale,
-                _position: posMirrorX(posAddZ(backTopFarPos, i * 16)),
-                _rotation: [60 - i * 5, 0, 195 + i * 6],
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: backTopFarScale,
+                position: posMirrorX(posAddZ(backTopFarPos, i * 16)),
+                rotation: [60 - i * 5, 0, 195 + i * 6],
             },
             {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: backTopFarScale,
-                _position: posAddZ(backTopFarPos, i * 16),
-                _rotation: [60 - i * 5, 0, 165 - i * 6],
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: backTopFarScale,
+                position: posAddZ(backTopFarPos, i * 16),
+                rotation: [60 - i * 5, 0, 165 - i * 6],
             },
         );
     }
     //#endregion
     //#region fabled extra light
-    const extraMirrorLightPos: bsmap.types.Vector3 = [extraMirrorLightMirrorOffsetX, -1.625, extraMirrorLightOffset];
+    const extraMirrorLightPos: bsmap.types.Vector3 = [
+        extraMirrorLightMirrorOffsetX,
+        -1.625,
+        extraMirrorLightOffset,
+    ];
     const extraMirrorLightScale: bsmap.types.Vector3 = [0.5, 0.5, 0.5];
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: extraMirrorLightScale,
-                _position: posMirrorX(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)),
-                _rotation: [0 + i * 2.5, 0, 320 + i * 11],
-                _lightID: internalIdOffsetType0++,
-            },
-            {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: extraMirrorLightScale,
-                _position: posMirrorX(
-                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: extraMirrorLightScale,
+                position: posMirrorX(
+                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
                 ),
-                _rotation: [0 - i * 2.5, 0, 220 - i * 11],
-                _lightID: internalIdOffsetType0++,
+                rotation: [0 + i * 2.5, 0, 320 + i * 11],
+                components: {
+                    ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
+                },
             },
             {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: extraMirrorLightScale,
-                _position: posAddY(
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: extraMirrorLightScale,
+                position: posMirrorX(
+                    posAddY(
+                        posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
+                        extraMirrorLightMirrorOffsetY,
+                    ),
+                ),
+                rotation: [0 - i * 2.5, 0, 220 - i * 11],
+                components: {
+                    ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
+                },
+            },
+            {
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: extraMirrorLightScale,
+                position: posAddY(
                     posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
                     extraMirrorLightMirrorOffsetY,
                 ),
-                _rotation: [0 - i * 2.5, 0, 140 + i * 11],
-                _lightID: internalIdOffsetType0++,
+                rotation: [0 - i * 2.5, 0, 140 + i * 11],
+                components: {
+                    ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
+                },
             },
             {
-                _id: regexDoubleColorLaser,
-                _lookupMethod: 'Regex',
-                _duplicate: 1,
-                _scale: extraMirrorLightScale,
-                _position: posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                _rotation: [0 + i * 2.5, 0, 40 - i * 11],
-                _lightID: internalIdOffsetType0++,
+                id: regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                duplicate: 1,
+                scale: extraMirrorLightScale,
+                position: posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
+                rotation: [0 + i * 2.5, 0, 40 - i * 11],
+                components: {
+                    ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
+                },
             },
         );
     }
@@ -279,9 +324,9 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v2.DifficultyData) => {
+export const insertEnvironment = (d: bsmap.v3.DifficultyData) => {
     if (d.customData.environment?.length) {
         bsmap.logger.warn('Environment enhancement previously existed, replacing');
     }
-    d.customData._environment = generateEnvironment();
+    d.customData.environment = generateEnvironment();
 };

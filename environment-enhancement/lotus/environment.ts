@@ -235,9 +235,14 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
 
     const lightBlock = bsmap.ext.chroma.EnvironmentBlock.create(
         {
-            id: regexSideLaser,
-            lookupMethod: 'Regex',
-            scale: [10, 0.0004, 10],
+            geometry: {
+                type: 'Cube',
+                material: {
+                    shaderPreset: 'OpaqueLight',
+                    shaderKeywords: ['ENABLE_LIGHTNING'],
+                },
+                spawnCount: 1,
+            },
         },
         [0, 0, 0],
     );

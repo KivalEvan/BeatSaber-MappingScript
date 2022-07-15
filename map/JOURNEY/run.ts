@@ -12,21 +12,7 @@ const OUTPUT_FILE = 'EasyLightshow.dat';
 const lightshow = bsmap.load.difficultySync(INPUT_FILE, 2);
 lightshow.notes = [];
 lightshow.obstacles = [];
-const env = generateEnvironment().map((e) => {
-    return {
-        _id: e.id,
-        _lookupMethod: e.lookupMethod,
-        _track: e.track,
-        _duplicate: e.duplicate,
-        _active: e.active,
-        _scale: e.scale,
-        _position: e.position?.map((n) => n / 0.6) as bsmap.types.Vector3,
-        _rotation: e.rotation,
-        _localPosition: e.localPosition?.map((n) => n / 0.6) as bsmap.types.Vector3,
-        _localRotation: e.localRotation,
-        _lightID: e.components?.ILightWithId?.lightID,
-    } as bsmap.types.v2.IChromaEnvironment;
-});
+const env = bsmap.ext.chroma.envV3toV2(generateEnvironment());
 
 env.push({ _id: 'Environment$', _lookupMethod: 'Regex', _track: 'everythinglmao' });
 
@@ -76,7 +62,22 @@ lightshow.addEvents(
         _value: 5,
         _floatValue: 0.5,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -85,7 +86,22 @@ lightshow.addEvents(
         _value: 8,
         _floatValue: 0.75,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -95,7 +111,22 @@ lightshow.addEvents(
         _floatValue: 1,
         _customData: {
             _easing: 'easeInQuad',
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -105,7 +136,22 @@ lightshow.addEvents(
         _floatValue: 0.375,
         _customData: {
             _easing: 'easeOutQuad',
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -114,7 +160,22 @@ lightshow.addEvents(
         _value: 4,
         _floatValue: 0,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -123,7 +184,22 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -132,7 +208,22 @@ lightshow.addEvents(
         _value: 4,
         _floatValue: 1,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -141,7 +232,22 @@ lightshow.addEvents(
         _value: 0,
         _floatValue: 1,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -150,7 +256,22 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0.75,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -159,7 +280,22 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0.25,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
     {
@@ -168,7 +304,22 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 1,
         _customData: {
-            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+            _lightID: [
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+            ],
         },
     },
 );
@@ -186,13 +337,17 @@ lightshow.addEvents({ _time: 280, _type: 0, _value: 8, _floatValue: 1 });
 where(between(lightshow.events, 599, 611), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
 where(between(lightshow.events, 862, 864), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.25));
 where(between(lightshow.events, 870, 880), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.75));
-where(at(lightshow.events, [886, 888, 890, 892]), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.875));
+where(at(lightshow.events, [886, 888, 890, 892]), { include: { _type: 4 } }).forEach(
+    (e) => makeWhite(e, 0.875),
+);
 at(lightshow.events, 901).forEach((e) => makeWhite(e, 0.75));
 
 const info = bsmap.load.infoSync();
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {
-        console.log(`Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`);
+        console.log(
+            `Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`,
+        );
         const difficulty = bsmap.load.difficultySync(d._beatmapFilename, 2);
 
         difficulty.customData._environment = lightshow.customData!._environment;
@@ -205,7 +360,11 @@ for (const set of info._difficultyBeatmapSets) {
                     b._color = bsmap.utils.interpolateColor(
                         [185, 0, 0.375],
                         [175, 0.25, 0.5],
-                        bsmap.utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
+                        bsmap.utils.normalize(
+                            b._time,
+                            bookmarks.at(0)!._time,
+                            bookmarks.at(3)!._time,
+                        ),
                         'hsva',
                     );
                     continue;
@@ -222,9 +381,14 @@ for (const set of info._difficultyBeatmapSets) {
         difficulty.events = lightshow.events;
 
         bsmap.save.difficultySync(difficulty);
+        if (d._customData) {
+            delete d._customData._requirements;
+            d._customData._suggestions = ['Chroma'];
+        }
     }
 }
 
+bsmap.save.infoSync(info);
 bsmap.save.difficultySync(lightshow, { filePath: OUTPUT_FILE });
 
 sword();

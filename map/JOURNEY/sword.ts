@@ -5,8 +5,8 @@ import { walls } from './walls.ts';
 const { at, between, where } = bsmap.ext.selector;
 
 export function sword() {
-    const INPUT_FILE = 'ExpertPlusOneSaber.dat';
-    const OUTPUT_FILE = 'ExpertOneSaber.dat';
+    const INPUT_FILE = 'HardOneSaber.dat';
+    const OUTPUT_FILE = 'ExpertPlusOneSaber.dat';
 
     const data = bsmap.load.difficultySync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
 
@@ -21,7 +21,7 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [0.375, 0.375, 0.375, 1, 0],
+                    [0.375, 0.375, 0.375, 1, 1],
                 ],
             },
         });
@@ -138,31 +138,8 @@ export function sword() {
         },
     );
 
-    data.customData.customEvents
-        ?.filter((e) => e.t === 'AnimateTrack')
-        .forEach((e) => {
-            if (
-                e.t === 'AnimateTrack' &&
-                e.d.track === 'everythinglmao' &&
-                Array.isArray(e.d.position)
-            ) {
-                e.d.position.forEach((p) => {
-                    (p[0] as number) *= 0.6;
-                    (p[1] as number) *= 0.6;
-                    (p[2] as number) *= 0.6;
-                });
-            }
-        });
     walls(data);
     sliders(data);
-
-    // temporary patch
-    data.customData.environment?.forEach((e) => {
-        if (e.components?.ILightWithId?.lightID) {
-            e['lightID' as 'duplicate'] = e.components.ILightWithId.lightID;
-            delete e.components;
-        }
-    });
 
     bsmap.save.difficultySync(data);
 }
