@@ -8,9 +8,10 @@ counter(import.meta.url);
 console.log('Running script...');
 console.time('Runtime');
 
-bsmap.globals.directory = Deno.build.os === 'linux'
-    ? '/home/kival/CustomWIPLevels/loudchimera/'
-    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
+bsmap.globals.directory =
+    Deno.build.os === 'linux'
+        ? '/home/kival/CustomWIPLevels/loudchimera/'
+        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
 
 const info = bsmap.load.infoSync();
 const BPM = bsmap.BeatPerMinute.create(info._beatsPerMinute);
@@ -23,17 +24,25 @@ main(
         .difficultySync('HardStandard.dat', 3)
         .setFileName('ExpertPlusStandard.dat'),
     BPM,
-    NJS,
+    NJS
 );
 
-NJS.value = 16;
-NJS.offset = -1;
+main(
+    bsmap.load
+        .difficultySync('ExpertOneSaber.dat', 3)
+        .setFileName('ExpertPlusOneSaber.dat'),
+    BPM,
+    NJS
+);
+
+NJS.value = 17;
+NJS.offset = -1.25;
 main(
     bsmap.load
         .difficultySync('NormalStandard.dat', 3)
         .setFileName('ExpertStandard.dat'),
     BPM,
-    NJS,
+    NJS
 );
 
 for (const set of info._difficultyBeatmapSets) {
@@ -41,6 +50,7 @@ for (const set of info._difficultyBeatmapSets) {
         if (d._customData) {
             d._customData._requirements = ['Noodle Extensions'];
             d._customData._suggestions = ['Chroma'];
+            d._customData = { ...d._customData, ...bsmap.ColorScheme.Weave };
         }
     }
 }

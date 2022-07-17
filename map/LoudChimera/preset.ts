@@ -1,28 +1,37 @@
 import * as bsmap from '../../depsLocal.ts';
+import UFO from './ufo.ts';
 
 export function preset(data: bsmap.v3.DifficultyData) {
     bsmap.logger.info('Run Preset');
     data.customData.pointDefinitions = data.customData.pointDefinitions ?? {};
     data.customData.customEvents = data.customData.customEvents ?? [];
+    data.customData.environment = [];
+    data.customData.materials = {};
+    data.customData.fakeColorNotes = [];
+    data.customData.fakeBombNotes = [];
+    data.customData.fakeObstacles = [];
+    data.customData.fakeBurstSliders = [];
+    UFO.reset();
 
-    data.customData.pointDefinitions.pointZero = [[0, 0]];
-    data.customData.pointDefinitions.pointOne = [[1, 0]];
-    data.customData.pointDefinitions.pointGoZero = [
+    data.customData.materials!.lightMaterial = { shader: 'TransparentLight' };
+    data.customData.pointDefinitions.pZero = [[0, 0]];
+    data.customData.pointDefinitions.pOne = [[1, 0]];
+    data.customData.pointDefinitions.pGoZero = [
         [1, 0],
         [1, 0.9, 'easeStep'],
         [0, 1, 'easeOutQuint'],
     ];
-    data.customData.pointDefinitions.pointAPAGoZero = [
+    data.customData.pointDefinitions.pAPAGoZero = [
         [1, 0],
         [1, 0.45, 'easeStep'],
         [0, 0.5, 'easeOutQuint'],
     ];
-    data.customData.pointDefinitions.pointGoOne = [
+    data.customData.pointDefinitions.pGoOne = [
         [0, 0],
         [0, 0.9, 'easeStep'],
         [1, 1, 'easeOutQuint'],
     ];
-    data.customData.pointDefinitions.pointAPAGoOne = [
+    data.customData.pointDefinitions.pAPAGoOne = [
         [0, 0],
         [0, 0.45, 'easeStep'],
         [1, 0.5, 'easeOutQuint'],
@@ -32,7 +41,7 @@ export function preset(data: bsmap.v3.DifficultyData) {
         {
             b: 0,
             t: 'AnimateTrack',
-            d: { duration: 0, track: 'trackInvisible', dissolve: 'pointZero' },
+            d: { duration: 0, track: 'trackInvisible', dissolve: 'pZero' },
         },
         {
             b: 0,
@@ -40,13 +49,13 @@ export function preset(data: bsmap.v3.DifficultyData) {
             d: {
                 duration: 0,
                 track: 'trackArrowInvisible',
-                dissolveArrow: 'pointZero',
+                dissolveArrow: 'pZero',
             },
         },
         {
             b: 0,
             t: 'AnimateTrack',
-            d: { duration: 0, track: 'trackVisible', dissolve: 'pointOne' },
+            d: { duration: 0, track: 'trackVisible', dissolve: 'pOne' },
         },
         {
             b: 0,
@@ -54,7 +63,7 @@ export function preset(data: bsmap.v3.DifficultyData) {
             d: {
                 duration: 0,
                 track: 'trackArrowVisible',
-                dissolveArrow: 'pointOne',
+                dissolveArrow: 'pOne',
             },
         },
         {
@@ -62,7 +71,7 @@ export function preset(data: bsmap.v3.DifficultyData) {
             t: 'AssignPathAnimation',
             d: {
                 track: 'trackAPAGoingInvisible',
-                dissolve: 'pointAPAGoZero',
+                dissolve: 'pAPAGoZero',
             },
         },
         {
@@ -70,7 +79,7 @@ export function preset(data: bsmap.v3.DifficultyData) {
             t: 'AssignPathAnimation',
             d: {
                 track: 'trackAPAArrowGoingInvisible',
-                dissolveArrow: 'pointAPAGoZero',
+                dissolveArrow: 'pAPAGoZero',
             },
         },
         {
@@ -78,7 +87,7 @@ export function preset(data: bsmap.v3.DifficultyData) {
             t: 'AssignPathAnimation',
             d: {
                 track: 'trackAPAGoingVisible',
-                dissolve: 'pointAPAGoOne',
+                dissolve: 'pAPAGoOne',
             },
         },
         {
@@ -86,8 +95,8 @@ export function preset(data: bsmap.v3.DifficultyData) {
             t: 'AssignPathAnimation',
             d: {
                 track: 'trackAPAArrowGoingVisible',
-                dissolveArrow: 'pointAPAGoOne',
+                dissolveArrow: 'pAPAGoOne',
             },
-        },
+        }
     );
 }

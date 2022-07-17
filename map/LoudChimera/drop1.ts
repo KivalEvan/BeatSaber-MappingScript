@@ -1,7 +1,7 @@
 import * as bsmap from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
 const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+const { at, between } = bsmap.ext.selector;
 
 function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
     if (duration < 0.25) {
@@ -21,7 +21,7 @@ function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
                 noteJumpMovementSpeed: 10,
                 noteJumpStartBeatOffset: -4 + duration,
                 animation: {
-                    dissolve: [[0, 0]],
+                    dissolve: 'pZero',
                     dissolveArrow: [
                         [0, 0],
                         [1, 1 / 64],
@@ -37,11 +37,19 @@ function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
     });
 }
 
-export function drop1(data: bsmap.v3.DifficultyData, BPM: bsmap.BeatPerMinute, NJS: bsmap.NoteJumpSpeed, nerf = false) {
+export function drop1(
+    data: bsmap.v3.DifficultyData,
+    BPM: bsmap.BeatPerMinute,
+    NJS: bsmap.NoteJumpSpeed,
+    nerf = false,
+) {
     bsmap.logger.info('Run Drop 1');
     const fakeNotes: bsmap.v3.ColorNote[] = [];
 
-    const fastPewPew: number[] = [...getRepeatArray(394, 16, 8), ...getRepeatArray(906, 16, 8)];
+    const fastPewPew: number[] = [
+        ...getRepeatArray(394, 16, 8),
+        ...getRepeatArray(906, 16, 8),
+    ];
     for (const fpp of fastPewPew) {
         const obs = bsmap.v3.Obstacle.create({
             b: fpp - 1.5,
@@ -71,11 +79,15 @@ export function drop1(data: bsmap.v3.DifficultyData, BPM: bsmap.BeatPerMinute, N
                 },
             },
         });
-        data.customData.fakeObstacles!.push(obs, obs.clone().mirror());
-        const notes = between(data.colorNotes, fpp, fpp + 5.999);
+        // data.customData.fakeObstacles!.push(
+        //     obs.toObject(),
+        //     obs.clone().mirror().toObject()
+        // );
+
+        const fastPewPewNotes = between(data.colorNotes, fpp, fpp + 5.999);
         fakeNotes.push(
-            ...notes.map((n) => {
-                const randX = bsmap.utils.random(3, 5, true);
+            ...fastPewPewNotes.map((n) => {
+                const randX = bsmap.utils.random(4, 6, true);
                 const randY = bsmap.utils.random(-1, 1, true);
                 return n
                     .clone()
@@ -89,22 +101,29 @@ export function drop1(data: bsmap.v3.DifficultyData, BPM: bsmap.BeatPerMinute, N
                             ],
                             offsetPosition: [
                                 [0, 0, 0, 0],
-                                [n.getPosition()[0] + (n.time % 1 ? randX : -randX), randY, 0, 0.125, 'easeOutQuart'],
+                                [
+                                    n.time % 1 ? randX : -randX,
+                                    randY,
+                                    0,
+                                    0.125,
+                                    'easeOutQuart',
+                                ],
                                 [
                                     0,
                                     0,
-                                    bsmap.NoteJumpSpeed.create(BPM, n.customData.noteJumpMovementSpeed).calcDistance(
-                                        0.0024,
-                                    ),
-                                    0.3125,
+                                    bsmap.NoteJumpSpeed.create(
+                                        BPM,
+                                        n.customData.noteJumpMovementSpeed,
+                                    ).calcDistance(0.0024),
+                                    0.375,
                                     'easeInElastic',
                                 ],
                             ],
                         },
                     });
             }),
-            ...notes.map((n) => {
-                const randX = bsmap.utils.random(3, 5, true);
+            ...fastPewPewNotes.map((n) => {
+                const randX = bsmap.utils.random(4, 6, true);
                 const randY = bsmap.utils.random(-1, 1, true);
                 return n
                     .clone()
@@ -118,44 +137,51 @@ export function drop1(data: bsmap.v3.DifficultyData, BPM: bsmap.BeatPerMinute, N
                             ],
                             offsetPosition: [
                                 [0, 0, 0, 0],
-                                [n.getPosition()[0] + (n.time % 1 ? -randX : randX), randY, 0, 0.125, 'easeOutQuart'],
+                                [
+                                    n.time % 1 ? -randX : randX,
+                                    randY,
+                                    0,
+                                    0.125,
+                                    'easeOutQuart',
+                                ],
                                 [
                                     0,
                                     0,
-                                    bsmap.NoteJumpSpeed.create(BPM, n.customData.noteJumpMovementSpeed).calcDistance(
-                                        0.0074,
-                                    ),
-                                    0.3125,
+                                    bsmap.NoteJumpSpeed.create(
+                                        BPM,
+                                        n.customData.noteJumpMovementSpeed,
+                                    ).calcDistance(0.0074),
+                                    0.375,
                                     'easeInElastic',
                                 ],
                             ],
                         },
                     });
             }),
-            ...doArrowthing(notes, 0.495),
+            ...doArrowthing(fastPewPewNotes, 0.495),
             ...doArrowthing(
-                notes.map((n) => n.clone().setTime(n.time + 0.03125)),
+                fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.03125)),
                 0.485 - 0.03125,
             ),
             ...doArrowthing(
-                notes.map((n) => n.clone().setTime(n.time + 0.0625)),
+                fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.0625)),
                 0.475 - 0.0625,
             ),
             ...doArrowthing(
-                notes.map((n) => n.clone().setTime(n.time + 0.09375)),
+                fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.09375)),
                 0.465 - 0.09375,
             ),
             ...doArrowthing(
-                notes.map((n) => n.clone().setTime(n.time + 0.125)),
+                fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.125)),
                 0.455 - 0.125,
             ),
         );
-        notes.forEach((n) => {
+        fastPewPewNotes.forEach((n) => {
             n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
             n.direction = 8;
             n.addCustomData({
                 animation: {
-                    dissolveArrow: [[0, 0]],
+                    dissolveArrow: 'pZero',
                     dissolve: [
                         [0, 0],
                         [1, 0.0625, 'easeInOutBounce'],
@@ -165,5 +191,16 @@ export function drop1(data: bsmap.v3.DifficultyData, BPM: bsmap.BeatPerMinute, N
         });
     }
 
-    data.colorNotes.push(...fakeNotes);
+    const slapNotes = at(data.colorNotes, [390, 454, 902, 966]);
+    slapNotes.forEach((n) => {
+        n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
+        n.direction = 8;
+        n.addCustomData({
+            animation: {
+                dissolveArrow: 'pZero',
+            },
+        });
+    });
+
+    data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toObject()));
 }
