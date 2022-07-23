@@ -1,5 +1,5 @@
 // holy shit image are so tedious to work with and optimise
-import * as bsmap from '../../deps.ts';
+import * as bsmap from '../../depsLocal.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 
 console.log('Running script...');
@@ -448,7 +448,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
         ignoreBlack: options.ignoreBlack ?? false,
         save: options.save ?? true,
         override: options.override ?? false,
-        easings: options.easings ?? bsmap.easings.method.easeLinear,
+        easings: options.easings ?? bsmap.utils.easings.easeLinear,
     };
     const gifFile = Deno.readFileSync(WORKING_DIRECTORY + imagePath);
     const gif = await imagescript.GIF.decode(gifFile, !opt.animated);
@@ -3047,7 +3047,7 @@ for (const t of chorus1Timing) {
         time: t + 10.3125,
         endTime: t + 10.75,
         animated: true,
-        easings: bsmap.easings.method.easeOutQuad,
+        easings: bsmap.utils.easings.easeOutQuad,
     });
     screenClear(t + 10.875);
 

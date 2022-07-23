@@ -7,11 +7,11 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     // regex for environment enhancement
     const regexRingRight = `\\[\\d+\\]PillarTrackLaneRingsR$`;
     const regexRingLeft = `\\[\\d+\\]PillarTrackLaneRingsR.?\\(1\\)$`;
-    const regexSideLaser = `\\[42\\]SideLaser$`;
     const regexGlowLine = `\\[\\d+\\]GlowLineL$`;
     const regexPillarL = `\\[\\d+\\]PillarPair\\.\\[\\d+\\]PillarL$`;
     const regexPillarR = `\\[\\d+\\]PillarPair\\.\\[\\d+\\]PillarR$`;
     const regexDoor = `\\[\\d+\\]MagicDoorSprite$`;
+    const regexCloudGeometry = '\\[\\d+\\]HighCloudsGenerator.\\[\\d+\\]OpaqueGeometry$';
 
     //#region haha ring go brr; remove this if u dont want ring tower (this was made specifically for FELT - Journey)
     // resize default column box
@@ -36,16 +36,10 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         for (let i = 0; i < 10; i++) {
             const posXRight = (i + 1) * 12 + 96 - z * 8;
             const posZRight = 32 + Math.random() * 64;
-            const posYRight = Math.max(
-                -36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25,
-                2,
-            );
+            const posYRight = Math.max(-36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25, 2);
             const posXLeft = (i + 1) * 12 + 96 - z * 8;
             const posZLeft = 32 + Math.random() * 64;
-            const posYLeft = Math.max(
-                -36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25,
-                2,
-            );
+            const posYLeft = Math.max(-36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25, 2);
             environment.push(
                 {
                     id: regexRingRight,
@@ -64,7 +58,6 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             );
         }
     }
-    const regexCloudGeometry = '\\[\\d+\\]HighCloudsGenerator.\\[\\d+\\]OpaqueGeometry$';
 
     for (let i = 0; i < 12; i++) {
         // environment.push({
@@ -150,50 +143,42 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     }
     //#endregion
     //#region front
-    for (let i = 0; i < 5; i++) {
-        const posX = 16 + i * 4;
-        const posY = 0;
-        const posZ = i * 8 + 24;
-        environment.push(
-            {
-                id: regexSideLaser,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [posX, posY, posZ],
-                rotation: [15 + i * 2.5, 0, -16 - i * 8],
-            },
-            {
-                id: regexSideLaser,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [-posX, posY, posZ],
-                rotation: [15 + i * 2.5, 0, 16 + i * 8],
-            },
-        );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     const posX = 16 + i * 4;
+    //     const posY = 0;
+    //     const posZ = i * 8 + 24;
+    //     environment.push(
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [posX, posY, posZ],
+    //             rotation: [15 + i * 2.5, 0, -16 - i * 8],
+    //         },
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [-posX, posY, posZ],
+    //             rotation: [15 + i * 2.5, 0, 16 + i * 8],
+    //         }
+    //     );
+    // }
     //#endregion
     //#region backtop
-    for (let i = 0; i < 5; i++) {
-        const posX = 54 + i * 4;
-        const posY = i * 2;
-        const posZ = i * 4 + 80;
-        environment.push(
-            {
-                id: regexSideLaser,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [posX, posY, posZ],
-                rotation: [-15, 0, 60 - i * 2.5],
-            },
-            {
-                id: regexSideLaser,
-                lookupMethod: 'Regex',
-                duplicate: 1,
-                position: [-posX, posY, posZ],
-                rotation: [-15, 0, -60 + i * 2.5],
-            },
-        );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     const posX = 54 + i * 4;
+    //     const posY = i * 2;
+    //     const posZ = i * 4 + 80;
+    //     environment.push(
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [posX, posY, posZ],
+    //             rotation: [-15, 0, 60 - i * 2.5],
+    //         },
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [-posX, posY, posZ],
+    //             rotation: [-15, 0, -60 + i * 2.5],
+    //         }
+    //     );
+    // }
     //#endregion
     //#region pillar
     for (let i = 0; i < 5; i++) {
@@ -236,38 +221,20 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const lightBlock = bsmap.ext.chroma.EnvironmentBlock.create(
         {
             geometry: {
-                type: 'Cube',
-                material: {
-                    shaderPreset: 'OpaqueLight',
-                    shaderKeywords: ['ENABLE_LIGHTNING'],
-                },
-                spawnCount: 1,
+                type: 'Plane',
+                material: 'genericTransparentLight',
             },
         },
         [0, 0, 0],
+        0,
     );
     const logo: bsmap.types.v3.IChromaEnvironment[] = [];
     //F
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] },
-        logo,
-    );
+    lightBlock.place({ position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] }, logo);
     //E
     lightBlock.place(
         {
@@ -305,14 +272,8 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         logo,
     );
     //L
-    lightBlock.place(
-        { position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] },
-        logo,
-    );
+    lightBlock.place({ position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] }, logo);
     //T
     lightBlock.place(
         {
@@ -335,9 +296,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map(
-                (n) => n * 0.6,
-            ) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
         }
     });
 
@@ -346,7 +305,6 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         {
             position: [0, 1, 180],
             scale: [0.0625, 0.0625, 0.0625],
-            lightID: 100,
         },
         environment,
     );

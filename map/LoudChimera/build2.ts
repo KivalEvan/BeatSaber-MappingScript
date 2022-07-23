@@ -6,14 +6,13 @@ export function build2(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false
 ) {
     bsmap.logger.info('Run Build 2');
     const fakeNotes = [];
     const slowBuildTiming = [264, 778];
 
     for (const sbt of slowBuildTiming) {
-        const notes = between(data.colorNotes, sbt, sbt + 112);
+        const notes = between(data.colorNotes, sbt, sbt + 120);
 
         notes.forEach((n) => n.addCustomData({ track: 'tBuild' }));
 
@@ -35,7 +34,7 @@ export function build2(
                 },
             });
         }
-        for (let t = sbt + 64; t < sbt + 112; t += 2) {
+        for (let t = sbt + 64; t < sbt + 120; t += 2) {
             data.customData.customEvents?.push(
                 {
                     b: t,
@@ -46,8 +45,8 @@ export function build2(
                         dissolve: [
                             [
                                 bsmap.utils.random(0.8, 0.9) -
-                                    bsmap.utils.normalize(t, sbt + 64, sbt + 112) *
-                                        0.25,
+                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
+                                    0.25,
                                 0,
                             ],
                             [1, 1],
@@ -55,8 +54,8 @@ export function build2(
                         dissolveArrow: [
                             [
                                 bsmap.utils.random(0.45, 0.55) -
-                                    bsmap.utils.normalize(t, sbt + 64, sbt + 112) *
-                                        0.25,
+                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
+                                    0.25,
                                 0,
                             ],
                             [1, 1],
@@ -72,8 +71,8 @@ export function build2(
                         dissolve: [
                             [
                                 bsmap.utils.random(0.95, 1) -
-                                    bsmap.utils.normalize(t, sbt + 64, sbt + 112) *
-                                        0.25,
+                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
+                                    0.25,
                                 0,
                             ],
                             [1, 1],
@@ -81,14 +80,14 @@ export function build2(
                         dissolveArrow: [
                             [
                                 bsmap.utils.random(0.95, 1) -
-                                    bsmap.utils.normalize(t, sbt + 64, sbt + 112) *
-                                        0.75,
+                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
+                                    0.75,
                                 0,
                             ],
                             [1, 1],
                         ],
                     },
-                }
+                },
             );
         }
 

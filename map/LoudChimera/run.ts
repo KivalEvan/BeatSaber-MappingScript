@@ -8,10 +8,11 @@ counter(import.meta.url);
 console.log('Running script...');
 console.time('Runtime');
 
-bsmap.globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/CustomWIPLevels/loudchimera/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
+bsmap.globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/loudchimera/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
+
+// bsmap.logger.setLevel(5);
 
 const info = bsmap.load.infoSync();
 const BPM = bsmap.BeatPerMinute.create(info._beatsPerMinute);
@@ -24,7 +25,7 @@ main(
         .difficultySync('HardStandard.dat', 3)
         .setFileName('ExpertPlusStandard.dat'),
     BPM,
-    NJS
+    NJS,
 );
 
 main(
@@ -32,7 +33,7 @@ main(
         .difficultySync('ExpertOneSaber.dat', 3)
         .setFileName('ExpertPlusOneSaber.dat'),
     BPM,
-    NJS
+    NJS,
 );
 
 NJS.value = 17;
@@ -42,7 +43,7 @@ main(
         .difficultySync('NormalStandard.dat', 3)
         .setFileName('ExpertStandard.dat'),
     BPM,
-    NJS
+    NJS,
 );
 
 for (const set of info._difficultyBeatmapSets) {

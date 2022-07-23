@@ -1,5 +1,5 @@
-import jankySliderConvert from 'https://deno.land/x/bsmap@1.0.0/example/jankySliderConvert.ts';
-import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
+import jankySliderConvert from '../../utility/jankySliderConvert.ts';
+import * as bsmap from '../../depsLocal.ts';
 
 console.log('Running script...');
 console.time('Runtime');
@@ -11,10 +11,10 @@ const difficultyList = bsmap.load.difficultyFromInfoSync(info);
 const diffFile: string[] = [];
 
 difficultyList.forEach((d) => {
-    if (!bsmap.version.isV3(d.data)) {
+    if (!bsmap.isV3(d.data)) {
         d.data = bsmap.convert.V2toV3(d.data, true);
     }
-    diffFile.push(bsmap.globals.directory + d.fileName);
+    diffFile.push(bsmap.globals.directory + d.data.fileName);
 
     d.data.basicBeatmapEvents = lightshow.basicBeatmapEvents;
     d.data.customData.environment = lightshow.customData.environment;

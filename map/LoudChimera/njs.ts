@@ -7,7 +7,6 @@ export function njsVibe(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false
 ) {
     bsmap.logger.info('Run NJS Vibe');
     data.colorNotes.forEach((o) => {
@@ -90,25 +89,25 @@ export function njsVibe(
             bpm: BPM,
             njsStart: NJS.value * 0.975,
             njsEnd: NJS.value * 0.625,
-            jd: NJS.calcJD() + 0.5,
+            jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
         NE.gradientNJS(between(data.obstacles, sp + 0.001, sp + 16), {
             bpm: BPM,
             njsStart: NJS.value * 0.975,
             njsEnd: NJS.value * 0.625,
-            jd: NJS.calcJD() + 0.5,
+            jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
         NE.simultaneousSpawn(between(data.colorNotes, sp + 16.001, sp + 63.999), {
             speed: 1.0625,
             bpm: BPM,
             njs: bsmap.NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
-            jd: NJS.calcJD() + 0.5,
+            jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
         NE.simultaneousSpawn(between(data.obstacles, sp + 16.001, sp + 63.999), {
             speed: 1.0625,
             bpm: BPM,
             njs: bsmap.NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
-            jd: NJS.calcJD() + 0.5,
+            jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
     }
     NE.setNJS(between(data.colorNotes, 8, 70), {

@@ -6,7 +6,6 @@ export function build1(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false,
 ) {
     bsmap.logger.info('Run Build 1');
 }

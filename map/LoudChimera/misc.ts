@@ -1,56 +1,90 @@
+import { random } from '../../../BeatSaber-Deno/utils/math.ts';
 import * as bsmap from '../../depsLocal.ts';
-import UFO from './ufo.ts';
-const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+const { at } = bsmap.ext.selector;
 
 export function misc(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false
 ) {
     bsmap.logger.info('Run Misc');
 
-    const circles = NE.createCircle(6, 8, 90);
-    for (let i = 0; i < 8; i++) {
-        const ufo = new UFO(data, 'Circle' + i);
-        ufo.hide(0);
-        ufo.animate(260 + i * 2, 292 + i * 2, {
-            localRotation: 'ufoSpinLoop',
+    const slapTiming = [392, 456, 584, 904, 968, 1096];
+
+    const slapNotes = at(
+        data.colorNotes,
+        slapTiming.map((n) => n - 2),
+    );
+    slapNotes.forEach((n) => {
+        n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
+        n.direction = 8;
+        n.addCustomData({
+            animation: {
+                dissolveArrow: 'pZero',
+            },
         });
-        ufo.animate(292 + i * 2, 324 + i * 2, {
-            localRotation: 'ufoSpinLoop',
+    });
+    const fwoompNotes = at(data.colorNotes, slapTiming);
+    const fwoompNJS = bsmap.NoteJumpSpeed.create(BPM, NJS.value * 0.875);
+    fwoompNJS.offset = bsmap.NoteJumpSpeed.HJD_START - (fwoompNJS.calcHJDRaw() + 1);
+    fwoompNotes.forEach((n) => {
+        n.addCustomData({
+            noteJumpMovementSpeed: fwoompNJS.value,
+            noteJumpStartBeatOffset: fwoompNJS.offset,
+            animation: {
+                offsetPosition: [
+                    [0, 0, -fwoompNJS.calcDistance(0.25), 0],
+                    [
+                        0,
+                        0,
+                        -fwoompNJS.calcDistance(0.5),
+                        1 / (fwoompNJS.calcHJD() * 2),
+                        'easeOutCubic',
+                    ],
+                    [
+                        random(-1.5, 1.5),
+                        random(-1.5, 1.5),
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 1 / (fwoompNJS.calcHJD() * 32),
+                        'easeOutExpo',
+                    ],
+                    [
+                        random(-1, 1),
+                        random(-1, 1),
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 2 / (fwoompNJS.calcHJD() * 32),
+                        'easeInOutElastic',
+                    ],
+                    [
+                        random(-0.75, 0.75),
+                        random(-0.75, 0.75),
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 3 / (fwoompNJS.calcHJD() * 32),
+                        'easeInOutElastic',
+                    ],
+                    [
+                        random(-0.5, 0.5),
+                        random(-0.5, 0.5),
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 4 / (fwoompNJS.calcHJD() * 32),
+                        'easeInOutElastic',
+                    ],
+                    [
+                        random(-0.25, 0.25),
+                        random(-0.25, 0.25),
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 5 / (fwoompNJS.calcHJD() * 32),
+                        'easeInOutElastic',
+                    ],
+                    [
+                        0,
+                        0,
+                        0,
+                        1 / (fwoompNJS.calcHJD() * 2) + 6 / (fwoompNJS.calcHJD() * 32),
+                        'easeInOutElastic',
+                    ],
+                ],
+            },
         });
-        ufo.animate(260 + i * 2, 264 + i * 2, {
-            position: [
-                [circles[i][1], 32, circles[i][0] + 8, 0],
-                [circles[i][1], 3, circles[i][0] + 12, 1, 'easeOutCubic'],
-            ],
-        });
-        ufo.animate(264 + i * 2, 279 + i * 2, {
-            position: [
-                [circles[i][1], 3, circles[i][0] + 12, 0],
-                [circles[i][1], 4, circles[i][0] + 12, 1, 'easeInOutCubic'],
-            ],
-        });
-        ufo.animate(279 + i * 2, 281 + i * 2, {
-            position: [
-                [circles[i][1], 4, circles[i][0] + 12, 0],
-                [circles[i][1], 2, circles[i][0] + 12, 1, 'easeInOutCubic'],
-            ],
-        });
-        ufo.animate(281 + i * 2, 295 + i * 2, {
-            position: [
-                [circles[i][1], 2, circles[i][0] + 12, 0],
-                [circles[i][1], 3, circles[i][0] + 12, 1, 'easeInOutCubic'],
-            ],
-        });
-        ufo.animate(295 + i * 2, 299 + i * 2, {
-            position: [
-                [circles[i][1], 3, circles[i][0] + 12, 0],
-                [circles[i][1], -64, circles[i][0] + 12, 1, 'easeInOutCubic'],
-            ],
-        });
-        ufo.hide(299 + i * 2);
-    }
+    });
 }

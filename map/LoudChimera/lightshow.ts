@@ -25,13 +25,12 @@ export function lightshow() {
                 .replace(/^\.\*/, '');
         }
         if (e.lookupMethod === 'Exact') {
-            e.id =
-                e.id
-                    .replace('.', '\\.')
-                    .replace('[', '\\[')
-                    .replace(']', '\\]')
-                    .replace('(', '\\(')
-                    .replace(')', '\\)') + '$';
+            e.id = e.id
+                .replace('.', '\\.')
+                .replace('[', '\\[')
+                .replace(']', '\\]')
+                .replace('(', '\\(')
+                .replace(')', '\\)') + '$';
             e.lookupMethod = 'Regex';
         }
         delete e.track;
@@ -40,8 +39,7 @@ export function lightshow() {
     data.customData.environment
         ?.filter((e) => e.duplicate)
         .filter(
-            (e) =>
-                !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction')
+            (e) => !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction'),
         )
         .forEach((e) => {
             delete e.id;
@@ -53,7 +51,13 @@ export function lightshow() {
                 e.scale[2] *= 0.025;
             }
             e.geometry = { type: 'Cube', material: 'lightMaterial' };
-            e.components = { ILightWithId: { type: 0, lightID: lightIDType0++ } };
+            e.components = {
+                ILightWithId: { type: 0, lightID: lightIDType0++ },
+                TubeBloomPrePassLight: {
+                    colorAlphaMultiplier: 1.5,
+                    bloomFogIntensityMultiplier: 1 / 4,
+                },
+            };
         });
     data.customData.environment = data.customData.environment?.filter(
         (e) =>
@@ -63,7 +67,7 @@ export function lightshow() {
                 e.rotation[0] === 90 &&
                 e.scale &&
                 e.scale[1] === 0
-            )
+            ),
     );
     data.customData.environment
         ?.filter((e) => e.geometry)
@@ -73,19 +77,19 @@ export function lightshow() {
             }
         });
 
-    // data.basicBeatmapEvents
-    //     .filter((e) => e.type === 1)
-    //     .forEach((e) => {
-    //         if (e.customData.lightID) {
-    //             if (typeof e.customData.lightID === 'number') {
-    //                 e.customData.lightID += 2;
-    //             } else {
-    //                 e.customData.lightID = e.customData.lightID.map(
-    //                     (l: number) => l + 2
-    //                 );
-    //             }
-    //         }
-    //     });
+    data.basicBeatmapEvents
+        .filter((e) => e.type === 1)
+        .forEach((e) => {
+            if (e.isLightEvent() && e.customData.lightID) {
+                if (typeof e.customData.lightID === 'number') {
+                    e.customData.lightID += 2;
+                } else {
+                    e.customData.lightID = e.customData.lightID.map(
+                        (l: number) => l + 2,
+                    );
+                }
+            }
+        });
     data.basicBeatmapEvents = data.basicBeatmapEvents.filter(
         (e) =>
             !(
@@ -94,22 +98,20 @@ export function lightshow() {
                 (typeof e.customData.lightID === 'number'
                     ? e.customData.lightID > 100
                     : e.customData.lightID.some((l: number) => l > 100))
-            )
+            ),
     );
     data.basicBeatmapEvents.forEach((e) => {
         if (e.type === 0 && e.customData.lightID) {
             if (typeof e.customData.lightID === 'number') {
                 e.customData.lightID += e.customData.lightID < 5 ? 0 : 96;
             } else {
-                e.customData.lightID = e.customData.lightID.map((l: number) =>
-                    l < 5 ? l : l + 96
-                );
+                e.customData.lightID = e.customData.lightID.map((l: number) => l < 5 ? l : l + 96);
             }
         }
     });
     Deno.writeTextFileSync(
         'env.json',
-        JSON.stringify(data.customData.environment!, null, 2)
+        JSON.stringify(data.customData.environment!, null, 2),
     );
     return data;
 }

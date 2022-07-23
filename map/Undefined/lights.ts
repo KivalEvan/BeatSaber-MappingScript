@@ -47,72 +47,272 @@ export default (d: bsmap.v3.DifficultyData) => {
                 s: 0,
             },
         ];
-        d.addLightColorEventBoxGroups(
-            {
-                b: 2 + i * 4,
-                g: i % 4 === 2 ? (i % 4 ? 4 : 0) + Math.floor(i / 4) * 2 : (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
-                e: [
-                    {
-                        w: 3,
-                        e,
-                    },
-                ],
-            },
-            {
-                b: 2 + i * 4,
-                g: i % 4 === 2 ? (i % 4 ? 5 : 1) + Math.floor(i / 4) * 2 : (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
-                e: [
-                    {
-                        w: 3,
-                        e,
-                    },
-                ],
-            },
-        );
-        d.addLightRotationEventBoxGroups(
-            {
-                b: 2 + i * 4,
-                g: i % 4 === 2 ? (i % 4 ? 4 : 0) + Math.floor(i / 4) * 2 : (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
-                e: [
-                    {
-                        s: i % 4 > 1 ? 20 : -60,
-                        w: 3.25,
-                        l: [
-                            {
-                                e: -1,
-                                r: i % 4 > 1 ? 105 : 225,
-                            },
-                            {
-                                b: 3,
-                                e: 2,
-                                r: i % 4 > 1 ? 90 : 255,
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                b: 2 + i * 4,
-                g: i % 4 === 2 ? (i % 4 ? 5 : 1) + Math.floor(i / 4) * 2 : (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
-                e: [
-                    {
-                        s: i % 4 > 1 ? 20 : -60,
-                        w: 3.25,
-                        l: [
-                            {
-                                e: -1,
-                                r: i % 4 > 1 ? 105 : 225,
-                            },
-                            {
-                                b: 3,
-                                e: 2,
-                                r: i % 4 > 1 ? 90 : 255,
-                            },
-                        ],
-                    },
-                ],
-            },
-        );
+        if (i % 4 < 2) {
+            d.addLightColorEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+            );
+            d.addLightRotationEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: (i % 4 ? 6 : 2) - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -90,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 225,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 270,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: (i % 4 ? 7 : 3) - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -90,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 225,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 270,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            );
+        }
+        if (i % 4 === 2) {
+            d.addLightColorEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: 0 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 1 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 8 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 9 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+            );
+            d.addLightRotationEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: 0 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -45,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 255,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 315,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 1 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -45,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 255,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 315,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 8 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: 45,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 105,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 45,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 9 + Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: 45,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 105,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 45,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            );
+        }
+        if (i % 4 === 3) {
+            d.addLightColorEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: 6 - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 7 - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            w: 3,
+                            e,
+                        },
+                    ],
+                },
+            );
+            d.addLightRotationEventBoxGroups(
+                {
+                    b: 2 + i * 4,
+                    g: 6 - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -90,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 135,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 180,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    b: 2 + i * 4,
+                    g: 7 - Math.floor(i / 4) * 2,
+                    e: [
+                        {
+                            s: -90,
+                            w: 3.25,
+                            l: [
+                                {
+                                    e: -1,
+                                    r: 135,
+                                },
+                                {
+                                    b: 3,
+                                    e: 2,
+                                    r: 180,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            );
+        }
     }
     for (let i = 0; i < 2; i++) {
         for (let t = 0; t < 4; t++) {

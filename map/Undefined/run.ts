@@ -5,9 +5,22 @@ import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Undefined';
+bsmap.globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/Undefined/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Undefined';
 
 const info = bsmap.load.infoSync();
+info._songName = '!' + info._songName;
+info._environmentName = 'WeaveEnvironment';
+for (const set of info._difficultyBeatmapSets) {
+    for (const d of set._difficultyBeatmaps) {
+        if (d._customData) {
+            delete d._customData._requirements;
+            delete d._customData._suggestions;
+        }
+    }
+}
+
 const difficultyList = bsmap.load.difficultyFromInfoSync(info);
 
 difficultyList.forEach((d) => {
@@ -22,6 +35,21 @@ difficultyList.forEach((d) => {
         const n = d.data.colorNotes[i];
         if (n.direction === 8) {
             n.angleOffset = 45;
+        }
+        if (d.characteristic === 'OneSaber') {
+            if (n.time >= 98.25 + j * 4 && n.time <= 100.5 + j * 4) {
+                n.angleOffset = Math.round(
+                    bsmap.utils.lerp(
+                        bsmap.utils.normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
+                        -22.5,
+                        22.5,
+                    ) * (j % 2 ? 1 : -1),
+                );
+            }
+            if (n.time >= 100.5 + j * 4) {
+                j++;
+            }
+            continue;
         }
         if (d.difficulty === 'ExpertPlus' || d.difficulty === 'Expert') {
             if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
@@ -54,8 +82,10 @@ difficultyList.forEach((d) => {
     lights(d.data);
 });
 
-bsmap.save.difficultyListSync(difficultyList, {
-    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined/',
-});
+bsmap.globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined';
+bsmap.save.difficultyListSync(difficultyList);
+bsmap.save.infoSync(info);
 
 console.timeEnd('Runtime');

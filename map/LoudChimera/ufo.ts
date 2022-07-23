@@ -44,21 +44,12 @@ export default class UFO {
         mapData.customData.environment?.push(
             {
                 geometry: {
-                    type: 'Cube',
-                    material: this.ufoMaterial,
-                },
-                track: this.ufoParent,
-                position: [0, 2.125, 0],
-                scale: [0.001, 0.001, 0.001],
-            },
-            {
-                geometry: {
                     type: 'Sphere',
                     material: this.ufoMaterial,
                 },
-                track: 'ufoHead_' + name,
-                position: [0, 2.125, 0],
-                scale: [1.25, 0.75, 1.25],
+                track: this.ufoParent,
+                position: [0, 0, 0],
+                scale: [1.3125, 0.75, 1.3125],
             },
             {
                 geometry: {
@@ -66,7 +57,7 @@ export default class UFO {
                     material: this.ufoMaterial,
                 },
                 track: 'ufoSaucer_' + name,
-                position: [0, 2, 0],
+                position: [0, -0.0625, 0],
                 scale: [2.125, 0.125, 2.125],
             },
             {
@@ -75,7 +66,7 @@ export default class UFO {
                     material: 'lightMaterial',
                 },
                 track: 'ufoBeam_' + name,
-                position: [0, 2 - 64, 0],
+                position: [0, -64, 0],
                 scale: [0.5, 64, 0.5],
                 components: {
                     ILightWithId: {
@@ -83,9 +74,9 @@ export default class UFO {
                         lightID: UFO.startID + UFO.index++,
                     },
                 },
-            }
+            },
         );
-        const ufoLegPoint = NE.createCircle(0.4375, 4);
+        const ufoLegPoint = NE.createCircle(0.375, 4);
         const ufoLegTrack = [];
         for (const p in ufoLegPoint) {
             const partName = `ufoLeg${p}_${name}`;
@@ -95,7 +86,7 @@ export default class UFO {
                     material: this.ufoMaterial,
                 },
                 track: partName,
-                position: [0 + ufoLegPoint[p][0], 1.9, 0 + ufoLegPoint[p][1]],
+                position: [ufoLegPoint[p][0], -0.1875, ufoLegPoint[p][1]],
                 scale: [0.5, 0.5, 0.5],
             });
             ufoLegTrack.push(partName);
@@ -107,15 +98,18 @@ export default class UFO {
             mapData.customData.environment?.push({
                 geometry: {
                     type: 'Sphere',
-                    material: { shader: 'TransparentLight' },
+                    material: 'lightMaterialOpaque',
                 },
                 track: partName,
-                position: [0 + ufoBulbPoint[p][0], 2.2, 0 + ufoBulbPoint[p][1]],
-                scale: [0.25, 0.25, 0.25],
+                position: [ufoBulbPoint[p][0], 0.09375, ufoBulbPoint[p][1]],
+                scale: [0.21875, 0.21875, 0.21875],
                 components: {
                     ILightWithId: {
                         type: UFO.type,
                         lightID: UFO.startID + UFO.index++,
+                    },
+                    TubeBloomPrePassLight: {
+                        bloomFogIntensityMultiplier: 1 / 64,
                     },
                 },
             });
@@ -129,17 +123,16 @@ export default class UFO {
                 childrenTracks: [
                     ...ufoBulbTrack,
                     ...ufoLegTrack,
-                    'ufoHead_' + name,
                     'ufoSaucer_' + name,
                     'ufoBeam_' + name,
                 ],
             },
         });
 
+        UFO.list.push(this);
+
         bsmap.logger.info(
-            `Created UFO ${name} with light type ${UFO.type} ID ${this.lightID}-${
-                UFO.startID + UFO.index - 1
-            }`
+            `Created UFO ${name} with light type ${UFO.type} ID ${this.lightID}-${UFO.startID + UFO.index - 1}`,
         );
     }
     static reset() {
@@ -162,14 +155,20 @@ export default class UFO {
             customData: { lightID: this.lightID },
         });
     }
-    light(time: number, color: bsmap.EventLightValue) {
+    light(
+        time: number,
+        value: bsmap.EventLightValue,
+        brightness: number,
+        easing?: bsmap.types.Easings,
+    ) {
         this.mapData.addBasicEvents({
             b: time,
             et: this.type,
-            i: color === 0 ? 7 : color === 1 ? 3 : 11,
-            f: 0.5,
+            i: value,
+            f: brightness,
             customData: {
                 lightID: Array.from(Array(8), (_, i) => i + this.lightID + 1),
+                easing,
             },
         });
     }
@@ -180,7 +179,7 @@ export default class UFO {
             Omit<bsmap.types.v3.ICustomEventDataAnimateTrack, 'duration'>,
             'track'
         >,
-        material?: boolean
+        material?: boolean,
     ) {
         this.mapData.customData.customEvents?.push({
             b: from,

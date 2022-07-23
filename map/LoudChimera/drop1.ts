@@ -1,5 +1,6 @@
 import * as bsmap from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
+const { normalize, lerp, random } = bsmap.utils;
 const { noodleExtensions: NE } = bsmap.ext;
 const { at, between } = bsmap.ext.selector;
 
@@ -22,10 +23,7 @@ function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
                 noteJumpStartBeatOffset: -4 + duration,
                 animation: {
                     dissolve: 'pZero',
-                    dissolveArrow: [
-                        [0, 0],
-                        [1, 1 / 64],
-                    ],
+                    dissolveArrow: 'pqOne',
                     scale: [[3, 3, 3, 0]],
                     definitePosition: [
                         [1.5, -3.5, 16, 0],
@@ -41,7 +39,6 @@ export function drop1(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false,
 ) {
     bsmap.logger.info('Run Drop 1');
     const fakeNotes: bsmap.v3.ColorNote[] = [];
@@ -50,7 +47,103 @@ export function drop1(
         ...getRepeatArray(394, 16, 8),
         ...getRepeatArray(906, 16, 8),
     ];
+    let flipFlop = true;
     for (const fpp of fastPewPew) {
+        for (let min = 0, max = 4, x = min; x < max; x++) {
+            const bomb = bsmap.v3.BombNote.create({
+                b: fpp -
+                    2 +
+                    1.5 -
+                    lerp(
+                        normalize(x, min, max),
+                        0,
+                        0.25,
+                        bsmap.utils.easings.easeInCirc,
+                    ),
+                customData: {
+                    coordinates: [
+                        x,
+                        -0.25 -
+                        lerp(
+                            normalize(x, min, max),
+                            0,
+                            1.25,
+                            bsmap.utils.easings.easeInQuad,
+                        ),
+                    ],
+                    color: [1, 1, 1],
+                    noteJumpMovementSpeed: NJS.value,
+                    noteJumpStartBeatOffset: lerp(
+                        normalize(x, min, max),
+                        0,
+                        8 - bsmap.NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                        bsmap.utils.easings.easeInCirc,
+                    ),
+                    spawnEffect: true,
+                    uninteractable: true,
+                    animation: {
+                        color: [
+                            [0, 0, 0, 1, 0],
+                            [0, 0, 0, 1, 0.25],
+                            flipFlop
+                                ? [
+                                    lerp(normalize(x, min, max), 1, 0),
+                                    0,
+                                    0,
+                                    1,
+                                    lerp(
+                                        normalize(x, min, max),
+                                        0,
+                                        8 -
+                                            bsmap.NoteJumpSpeed.HJD_START -
+                                            NJS.calcHJDRaw(),
+                                        bsmap.utils.easings.easeInCirc,
+                                    ) * 0.375,
+                                    'easeOutQuad',
+                                ]
+                                : [
+                                    0,
+                                    0,
+                                    lerp(normalize(x, min, max), 1, 0),
+                                    1,
+                                    lerp(
+                                        normalize(x, min, max),
+                                        0,
+                                        8 -
+                                            bsmap.NoteJumpSpeed.HJD_START -
+                                            NJS.calcHJDRaw(),
+                                        bsmap.utils.easings.easeInCirc,
+                                    ) * 0.375,
+                                    'easeOutQuad',
+                                ],
+                        ],
+                        offsetPosition: [
+                            [(2 + x) * 2, 0, 0, 0],
+                            [
+                                0,
+                                0,
+                                0,
+                                lerp(
+                                    normalize(x, min, max),
+                                    0,
+                                    8 -
+                                        bsmap.NoteJumpSpeed.HJD_START -
+                                        NJS.calcHJDRaw(),
+                                    bsmap.utils.easings.easeInCirc,
+                                ) * 0.1875,
+                                'easeInCirc',
+                            ],
+                        ],
+                    },
+                },
+            });
+            data.customData.fakeBombNotes?.push(
+                bomb.toObject(),
+                bomb.clone().mirror().toObject(),
+            );
+        }
+        flipFlop = !flipFlop;
+
         const obs = bsmap.v3.Obstacle.create({
             b: fpp - 1.5,
             customData: {
@@ -177,6 +270,11 @@ export function drop1(
             ),
         );
         fastPewPewNotes.forEach((n) => {
+            const noteNJS = bsmap.NoteJumpSpeed.create(
+                BPM,
+                n.customData.noteJumpMovementSpeed,
+                n.customData.noteJumpStartBeatOffset,
+            );
             n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
             n.direction = 8;
             n.addCustomData({
@@ -184,23 +282,21 @@ export function drop1(
                     dissolveArrow: 'pZero',
                     dissolve: [
                         [0, 0],
-                        [1, 0.0625, 'easeInOutBounce'],
+                        [1, 1 / 32],
+                    ],
+                    offsetPosition: [
+                        [0, 0, NJS.calcJD() - noteNJS.calcJD(), 0],
+                        [0, 0, 0, 1 / 8, 'easeOutElastic'],
+                    ],
+                    scale: [
+                        [1, 1, 1, 0],
+                        [4, 0.75, 0.75, 1 / 64, 'easeOutElastic'],
+                        [1, 1, 1, 1 / 32, 'easeInElastic'],
                     ],
                 },
             });
         });
     }
-
-    const slapNotes = at(data.colorNotes, [390, 454, 902, 966]);
-    slapNotes.forEach((n) => {
-        n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
-        n.direction = 8;
-        n.addCustomData({
-            animation: {
-                dissolveArrow: 'pZero',
-            },
-        });
-    });
 
     data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toObject()));
 }

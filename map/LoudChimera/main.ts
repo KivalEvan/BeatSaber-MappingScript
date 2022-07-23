@@ -3,42 +3,50 @@ import { postProcess } from './postProcess.ts';
 import { lightshow } from './lightshow.ts';
 import { preset } from './preset.ts';
 import { njsVibe } from './njs.ts';
+import { intro } from './intro.ts';
+import { outro } from './outro.ts';
 import { slow } from './slow.ts';
 import { build1 } from './build1.ts';
 import { build2 } from './build2.ts';
 import { drop1 } from './drop1.ts';
 import { drop2 } from './drop2.ts';
 import { misc } from './misc.ts';
+import { text } from './text.ts';
+import { sus } from './sus.ts';
+import { color } from './color.ts';
 
 export function main(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false
 ) {
     bsmap.logger.info('Processing ' + data.fileName);
 
     preset(data);
 
-    njsVibe(data, BPM, NJS, nerf);
-    slow(data, BPM, NJS, nerf);
-    build1(data, BPM, NJS, nerf);
-    build2(data, BPM, NJS, nerf);
-    drop1(data, BPM, NJS, nerf);
-    drop2(data, BPM, NJS, nerf);
-    misc(data, BPM, NJS, nerf);
+    njsVibe(data, BPM, NJS);
+    color(data, BPM, NJS);
+    misc(data, BPM, NJS);
+    text(data, BPM, NJS);
+
+    intro(data, BPM, NJS);
+    slow(data, BPM, NJS);
+    build1(data, BPM, NJS);
+    build2(data, BPM, NJS);
+    drop1(data, BPM, NJS);
+    drop2(data, BPM, NJS);
+    outro(data, BPM, NJS);
+    // sus(data, BPM, NJS);
     // data.burstSliders = [];
 
     const lightData = lightshow();
     data.basicBeatmapEvents = data.basicBeatmapEvents.concat(
-        lightData.basicBeatmapEvents
+        lightData.basicBeatmapEvents,
     );
     data.customData.environment = data.customData.environment?.concat(
-        lightData.customData.environment!
+        lightData.customData.environment!,
     );
-    // data.customData.environment
-    //     ?.filter((e) => e.geometry && e.components)
-    //     .forEach((e) => console.log(e));
+
     postProcess(data);
     bsmap.save.difficultySync(data);
 }

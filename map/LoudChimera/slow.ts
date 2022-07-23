@@ -1,121 +1,85 @@
 import * as bsmap from '../../depsLocal.ts';
-import { lerpVec3 } from './helpers.ts';
+import { connectSlider, lerpVec3 } from './helpers.ts';
 import UFO from './ufo.ts';
 const { noodleExtensions: NE, selector } = bsmap.ext;
-const { normalize } = bsmap.utils;
+const { normalize, clamp } = bsmap.utils;
 const { between } = selector;
 
 export function slow(
     data: bsmap.v3.DifficultyData,
     BPM: bsmap.BeatPerMinute,
     NJS: bsmap.NoteJumpSpeed,
-    nerf = false
 ) {
     bsmap.logger.info('Run Slow');
     const slowTiming = [136, 648];
     const ufoSlow = new UFO(data, 'Slow');
     ufoSlow.hide(0);
+    ufoSlow.light(0, 0, 0);
 
     for (const st of slowTiming) {
+        ufoSlow.light(st, 0, 0);
+        ufoSlow.light(st + 8, 12, 1);
+        ufoSlow.light(st + 56, 9, 1);
+        ufoSlow.light(st + 60, 12, 0);
+
         const notes = between(data.colorNotes, st + 0.001, st + 63.999);
         const obstacles = between(data.obstacles, st + 0.001, st + 63.999);
         notes.forEach((n) => {
             const noteNJS = bsmap.NoteJumpSpeed.create(
                 BPM,
                 n.customData.noteJumpMovementSpeed,
-                n.customData.noteJumpStartBeatOffset
+                n.customData.noteJumpStartBeatOffset,
             );
             ufoSlow.beam(n.time - noteNJS.calcHJD(), n.color);
+            const pos = n.getPosition();
+            const distance = bsmap.unityToGridUnit(18.25) - noteNJS.calcJD();
+            const offsetPosition: bsmap.types.Vector3PointDefinition = [
+                -0.5 -
+                pos[0] +
+                bsmap.unityToGridUnit(
+                    lerpVec3(
+                        normalize(
+                            clamp(n.time - noteNJS.calcHJD() / 2, st, st + 64),
+                            st,
+                            st + 64,
+                        ),
+                        [
+                            [0, 4, 16, 0],
+                            [4, 4, 16, 0.25, 'easeOutCubic'],
+                            [0, 4, 16, 0.5, 'easeInCubic'],
+                            [-4, 4, 16, 0.75, 'easeOutCubic'],
+                            [0, 4, 16, 1, 'easeInCubic'],
+                        ],
+                    )[0],
+                ),
+                bsmap.unityToGridUnit(3.375),
+                distance,
+                0,
+            ];
             n.customData.animation = {
-                offsetPosition: [
-                    [
-                        -(n.getPosition()[0] + 0.5) * 0.6 +
-                            lerpVec3(
-                                normalize(
-                                    n.time - noteNJS.calcHJD(),
-                                    st - noteNJS.calcHJD(),
-                                    st + 60 + noteNJS.calcHJD()
-                                ),
-                                [
-                                    [0, 2, 16, 0],
-                                    [2, 2, 16, 0.25, 'easeOutCubic'],
-                                    [0, 2, 16, 0.5, 'easeInCubic'],
-                                    [-2, 2, 16, 0.75, 'easeOutCubic'],
-                                    [0, 2, 16, 1, 'easeInCubic'],
-                                ]
-                            )[0] /
-                                0.6,
-                        -(n.getPosition()[1] - 2) * 0.6 + 5.5,
-                        14 / 0.6 - noteNJS.calcJD(),
-                        0,
-                    ],
-                    [0, 0, 0, 0.25, 'easeOutQuad'],
-                ],
+                offsetPosition: [offsetPosition, [0, 0, 0, 0.25, 'easeOutQuad']],
                 localRotation: [
-                    [0, 0, 180, 0],
+                    [180, 0, 0, 0],
                     [0, 0, 0, 0.25, 'easeOutCubic'],
                 ],
                 dissolve: [
                     [0, 0],
                     [0, 1 / 64, 'easeStep'],
                     [0.5, 1 / 32, 'easeOutCubic'],
-                    [1, 0.25, 'easeInCubic'],
+                    [1, 0.375, 'easeInOutBounce'],
                 ],
                 dissolveArrow: [
                     [0, 0],
-                    [1, 1 / 64, 'easeStep'],
-                    [1, 0.25, 'easeInCubic'],
-                ],
-            };
-        });
-        obstacles.forEach((o) => {
-            const noteNJS = bsmap.NoteJumpSpeed.create(
-                BPM,
-                o.customData.noteJumpMovementSpeed,
-                o.customData.noteJumpStartBeatOffset
-            );
-            o.customData.animation = {
-                offsetPosition: [
-                    [
-                        -(o.getPosition()[0] + 0.5) * 0.6 +
-                            lerpVec3(
-                                normalize(
-                                    o.time - noteNJS.calcHJD(),
-                                    st - noteNJS.calcHJD(),
-                                    st + 60 + noteNJS.calcHJD()
-                                ),
-                                [
-                                    [0, 2, 16, 0],
-                                    [2, 2, 16, 0.25, 'easeOutCubic'],
-                                    [0, 2, 16, 0.5, 'easeInCubic'],
-                                    [-2, 2, 16, 0.75, 'easeOutCubic'],
-                                    [0, 2, 16, 1, 'easeInCubic'],
-                                ]
-                            )[0] /
-                                0.6,
-                        -(o.getPosition()[1] - 2) * 0.6 + 5.5,
-                        18 / 0.6 - noteNJS.calcJD(),
-                        0,
-                    ],
-                    [0, 0, 0, 0.25, 'easeOutQuad'],
-                ],
-                scale: [
-                    [0.5, 0, 0, 0],
-                    [1, 1, 1, 0.5, 'easeOutCubic'],
-                ],
-                dissolve: [
-                    [0, 0],
-                    [0, 1 / 64, 'easeStep'],
-                    [0.5, 1 / 32, 'easeOutCubic'],
-                    [1, 0.25, 'easeInCubic'],
+                    [0, 1 / 64],
+                    [1, 1 / 32],
                 ],
             };
         });
 
         ufoSlow.animate(st - 4, st - 2, {
             position: [
-                [-64, 2.25, 16, 0],
-                [0, 2.25, 16, 1, 'easeOutCubic'],
+                [-64, 4, 16, 0],
+                [0, 4, 16, 1, 'easeOutCubic'],
             ],
             localRotation: [
                 [-60, -20, 0, 0],
@@ -124,28 +88,28 @@ export function slow(
         });
         ufoSlow.animate(st - 2, st + 29, {
             position: [
-                [0, 2.25, 16, 0],
-                [2, 2.25, 16, 0.5, 'easeOutCubic'],
-                [0, 2.25, 16, 1, 'easeInCubic'],
+                [0, 4, 16, 0],
+                [4, 4, 16, 0.5, 'easeOutCubic'],
+                [0, 4, 16, 1, 'easeInCubic'],
             ],
             localRotation: 'ufoSpinLoop',
         });
         ufoSlow.animate(st + 29, st + 60, {
             position: [
-                [0, 2.25, 16, 0],
-                [-2, 2.25, 16, 0.5, 'easeOutCubic'],
-                [0, 2.25, 16, 1, 'easeInCubic'],
+                [0, 4, 16, 0],
+                [-4, 4, 16, 0.5, 'easeOutCubic'],
+                [0, 4, 16, 1, 'easeInCubic'],
             ],
             localRotation: 'ufoSpinLoop',
         });
         ufoSlow.animate(st + 60, st + 64, {
             position: [
-                [0, 2.25, 16, 0],
-                [64, 2.25, 16, 1, 'easeInExpo'],
+                [0, 4, 16, 0],
+                [128, 4, 16, 1, 'easeInCirc'],
             ],
             localRotation: [
                 [0, 0, 0, 0],
-                [60, 30, 0, 1, 'easeInExpo'],
+                [60, 30, 0, 1, 'easeInCirc'],
             ],
         });
         ufoSlow.animate(
@@ -162,8 +126,35 @@ export function slow(
                     [0, 0, 1, 1, 1],
                 ],
             },
-            true
+            true,
         );
         ufoSlow.hide(st + 64);
     }
+    connectSlider(data, between(data.colorNotes, 136, 138));
+    connectSlider(data, between(data.colorNotes, 140, 142));
+    connectSlider(data, between(data.colorNotes, 144, 146));
+    connectSlider(data, between(data.colorNotes, 148, 150));
+    connectSlider(data, between(data.colorNotes, 152, 154));
+    connectSlider(data, between(data.colorNotes, 156, 158));
+    connectSlider(data, between(data.colorNotes, 160, 162));
+
+    connectSlider(data, between(data.colorNotes, 168, 170));
+    connectSlider(data, between(data.colorNotes, 172, 174));
+    connectSlider(data, between(data.colorNotes, 176, 178));
+    connectSlider(data, between(data.colorNotes, 180, 182));
+    connectSlider(data, between(data.colorNotes, 184, 186));
+    connectSlider(data, between(data.colorNotes, 188, 190));
+    connectSlider(
+        data,
+        between(
+            data.colorNotes,
+            192,
+            data.fileName === 'ExpertPlusOneSaber.dat' ? 194 : 200,
+        ),
+    );
+    connectSlider(data, between(data.colorNotes, 196, 200));
+
+    connectSlider(data, between(data.colorNotes, 672, 684));
+    connectSlider(data, between(data.colorNotes, 688, 692));
+    connectSlider(data, between(data.colorNotes, 696, 712));
 }
