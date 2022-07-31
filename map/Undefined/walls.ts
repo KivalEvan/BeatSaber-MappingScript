@@ -1,183 +1,142 @@
 import * as bsmap from '../../depsLocal.ts';
+import { utils, v3 } from '../../depsLocal.ts';
 
-export default (d: bsmap.v3.DifficultyData) => {
-    for (let i = 0; i < 8; i++) {
-        if (i % 4 > 1) {
-            d.addObstacles(
-                {
-                    b: 2 + i * 4,
-                    x: 0,
-                    y: 0,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.5 + i * 4,
-                    x: -1,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.75 + i * 4,
-                    x: -4,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 2,
-                },
-                {
-                    b: 3 + i * 4,
-                    x: -3,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-                {
-                    b: 2 + i * 4,
-                    x: 3,
-                    y: 0,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.75 + i * 4,
-                    x: 8,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 2,
-                },
-                {
-                    b: 2.5 + i * 4,
-                    x: 4,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 3 + i * 4,
-                    x: 6,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-            );
-        } else {
-            d.addObstacles(
-                {
-                    b: 2 + i * 4,
-                    x: -1,
-                    y: 0,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.5 + i * 4,
-                    x: 0,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.75 + i * 4,
-                    x: -6,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-                {
-                    b: 3 + i * 4,
-                    x: -3,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-                {
-                    b: 2 + i * 4,
-                    x: 4,
-                    y: 0,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.5 + i * 4,
-                    x: 3,
-                    y: 2,
-                    d: 1.5,
-                    w: 1,
-                    h: 1,
-                },
-                {
-                    b: 2.75 + i * 4,
-                    x: 7,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-                {
-                    b: 3 + i * 4,
-                    x: 6,
-                    y: 1,
-                    d: 1.5,
-                    w: 2,
-                    h: 1,
-                },
-            );
-        }
-    }
-    for (let i = 0; i < 3; i++) {
-        d.addObstacles(
-            {
-                b: 28 + i * 2,
-                x: -4 + i,
-                y: 0 + i,
-                d: 2.5 - i * 0.25,
-                w: 1,
-                h: 5 - i,
-            },
-            {
-                b: 28 + i * 2,
-                x: 7 - i,
-                y: 0 + i,
-                d: 2.5 - i * 0.25,
-                w: 1,
-                h: 5 - i,
-            },
-        );
-    }
+export default (d: bsmap.v3.Difficulty) => {
+    let obs: v3.Obstacle[] = [];
+    obs = bsmap.v3.Obstacle.create(
+        {
+            b: 33.5,
+            d: 0.25,
+            w: 1,
+            h: 3,
+            x: 5,
+            y: 2,
+        },
+        {
+            b: 33.75,
+            d: 0.25,
+            w: 1,
+            h: 5,
+            x: 4,
+            y: 0,
+        },
+        {
+            b: 33,
+            d: 0.25,
+            w: 3,
+            h: 1,
+            x: 6,
+            y: 0,
+        },
+        {
+            b: 33.25,
+            d: 0.25,
+            w: 7,
+            h: 1,
+            x: 5,
+            y: 2,
+        },
+    );
+    obs = obs.concat(obs.map((w) => w.clone().mirror()));
+    d.obstacles.push(...obs);
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 2; j++) {
-            d.addObstacles(
-                {
-                    b: 37 + i * 16 + j * 4,
-                    x: -2 + j,
-                    y: 1 - j,
-                    d: 1,
-                    w: 1,
-                    h: 3 + j * 2,
-                },
-                {
-                    b: 37 + i * 16 + j * 4,
-                    x: 5 - j,
-                    y: 1 - j,
-                    d: 1,
-                    w: 1,
-                    h: 3 + j * 2,
-                },
-            );
+            for (let x = 0; x < 4; x++) {
+                obs = v3.Obstacle.create({
+                    b: 37 + i * 16 + j * 4 + x * 0.25,
+                    x: -2 + j - utils.random(0, 2, true),
+                    y: utils.random(0, 2, true),
+                    d: 0.1875,
+                    w: 2 - j,
+                    h: 1 + j * 2,
+                });
+                d.addObstacles(
+                    ...obs,
+                    ...obs.map((o) =>
+                        o
+                            .clone()
+                            .setPosX(o.posX - utils.random(0, 2, true))
+                            .setPosY(utils.random(0, 2, true))
+                            .mirror()
+                    ),
+                );
+            }
         }
     }
+    obs = bsmap.v3.Obstacle.create(
+        {
+            b: 97.5,
+            d: 0.25,
+            w: 1,
+            h: 3,
+            x: 5,
+            y: 1,
+        },
+        {
+            b: 97.75,
+            d: 0.25,
+            w: 1,
+            h: 5,
+            x: 4,
+            y: 0,
+        },
+        {
+            b: 95.5,
+            d: 0.09375,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 95.625,
+            d: 0.09375,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 95.75,
+            d: 0.1875,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 96,
+            d: 1,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 97,
+            d: 0.1875,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 97.25,
+            d: 0.09375,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+        {
+            b: 97.375,
+            d: 0.09375,
+            w: 2,
+            h: 1,
+            x: 6,
+            y: 1,
+        },
+    );
+    obs = obs.concat(obs.map((w) => w.clone().mirror()));
+    d.obstacles.push(...obs);
 };

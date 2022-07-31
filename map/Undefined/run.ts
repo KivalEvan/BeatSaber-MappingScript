@@ -10,11 +10,45 @@ bsmap.globals.directory = Deno.build.os === 'linux'
     : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Undefined';
 
 const info = bsmap.load.infoSync();
-info._songName = '!' + info._songName;
 info._environmentName = 'WeaveEnvironment';
+info._customData!._contributors = [
+    {
+        _role: 'Mapper',
+        _name: 'Kival Evan',
+        _iconPath: 'iconKivalEvan.png',
+    },
+];
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {
         if (d._customData) {
+            d._customData._information = [
+                'Yuuka Kazami',
+                'Gensokyo, Past and Present ~ Flower Land',
+                '6th track of album Parallel Cross',
+                'Illustration by Yuuki Shironeko',
+            ];
+            if (d._difficulty === 'Expert') {
+                d._customData._information.splice(
+                    1,
+                    0,
+                    'Flower Sign "Blossoming of Gensokyo"',
+                );
+            }
+            if (d._difficulty === 'ExpertPlus') {
+                if (set._beatmapCharacteristicName === 'Standard') {
+                    d._customData._information.splice(
+                        1,
+                        0,
+                        'Fantasy "The Beauties of Nature"',
+                    );
+                } else {
+                    d._customData._information.splice(
+                        1,
+                        0,
+                        '"Fantastic Spring Flowers"',
+                    );
+                }
+            }
             delete d._customData._requirements;
             delete d._customData._suggestions;
         }
