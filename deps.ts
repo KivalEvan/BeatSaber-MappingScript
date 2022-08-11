@@ -1,2 +1,2 @@
-export * from 'https://deno.land/x/bsmap/mod.ts';
-export * as ext from 'https://deno.land/x/bsmap/extensions/mod.ts';
+export * from 'https://deno.land/x/bsmap@1.2.0/mod.ts';
+export * as ext from 'https://deno.land/x/bsmap@1.2.0/extensions/mod.ts';

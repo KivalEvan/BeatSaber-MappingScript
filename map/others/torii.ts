@@ -1,9 +1,9 @@
-import * as bsmap from '../../depsLocal.ts';
+import { BeatPerMinute, convert, ext, globals, NoteJumpSpeed, save, types, v3 } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
 
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/START';
+globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/START';
 
-const d3 = bsmap.v3.DifficultyData.create().setFileName('ExpertPlusStandard.dat');
+const d3 = v3.Difficulty.create().setFileName('ExpertPlusStandard.dat');
 insertEnvironment(d3);
 d3.addColorBoostEvents({ o: true });
 d3.addBasicEvents(
@@ -17,9 +17,9 @@ d3.addBasicEvents(
     { et: 10, i: 1 },
     { et: 11, i: 1 },
 );
-const BPM = bsmap.BeatPerMinute.create(175);
-const NJS = bsmap.NoteJumpSpeed.create(BPM, 17.5);
-const points: bsmap.types.Vector2[][] = [
+const BPM = BeatPerMinute.create(175);
+const NJS = NoteJumpSpeed.create(BPM, 17.5);
+const points: types.Vector2[][] = [
     [
         [943.5000610351562, 1498.278076171875],
         [920.8560180664062, 1479.4080810546875],
@@ -42,7 +42,7 @@ const points: bsmap.types.Vector2[][] = [
 ].map((n) => n.map((m) => [m[0] / 250 - 5, -m[1] / 250 + 8]));
 for (const p of points) {
     console.log(p.length);
-    const { coordinates, rotations, sizes } = bsmap.ext.noodleExtensions.drawPath(p);
+    const { coordinates, rotations, sizes } = ext.NE.drawPath(p);
     for (const j in coordinates) {
         d3.addObstacles({
             b: 4,
@@ -56,9 +56,9 @@ for (const p of points) {
 }
 d3.customData.customEvents = [
     {
-        beat: 61,
-        type: 'AnimateTrack',
-        data: {
+        b: 61,
+        t: 'AnimateTrack',
+        d: {
             duration: 32,
             track: 'everythinglmao',
             position: [
@@ -68,9 +68,9 @@ d3.customData.customEvents = [
         },
     },
     {
-        beat: 253,
-        type: 'AnimateTrack',
-        data: {
+        b: 253,
+        t: 'AnimateTrack',
+        d: {
             duration: 12,
             track: 'everythinglmao',
             position: [
@@ -119,4 +119,4 @@ for (let b = 61, i = 0; b < 93; b++, i = ++i % 3) {
         },
     );
 }
-bsmap.save.difficultySync(bsmap.convert.V3toV2(d3, true));
+save.difficultySync(convert.V3toV2(d3, true));

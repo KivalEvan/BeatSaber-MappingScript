@@ -1,6 +1,6 @@
-import * as bsmap from '../deps.ts';
+import { EventList, types, v2 } from '../depsLocal.ts';
 
-export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
+export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
     // you can modify these variable as you prefer
     // uses beat time instead of real time
     const eventStackTol = 0.001;
@@ -19,7 +19,7 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
     const reduceRingStack = false;
     const reduceLightId = true;
 
-    const matchColor = (c1: bsmap.types.ColorArray | null, c2: bsmap.types.ColorArray | null) => {
+    const matchColor = (c1: types.ColorArray | null, c2: types.ColorArray | null) => {
         if (c1 == null || c2 == null) {
             return false;
         }
@@ -37,9 +37,9 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
     };
 
     const matchLightID = (
-        ev: bsmap.v2.Event,
+        ev: v2.Event,
         lightIDList: {
-            [key: number]: { value: number; color: bsmap.types.ColorArray | null };
+            [key: number]: { value: number; color: types.ColorArray | null };
         },
     ) => {
         if (Array.isArray(ev.customData?._lightID)) {
@@ -62,21 +62,21 @@ export default (d: bsmap.v2.DifficultyData, environment: bsmap.types.Environment
 
     console.log(`Initiating light optimisation script`);
 
-    const prevEvent: { [key: number]: bsmap.v2.Event } = {};
-    for (let i = [...bsmap.EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
-        prevEvent[i] = bsmap.v2.Event.create();
+    const prevEvent: { [key: number]: v2.Event } = {};
+    for (let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
+        prevEvent[i] = v2.Event.create()[0];
     }
 
     // not to be confused as above, this keep index of any same type event at same time
     const eventAtTime: { [key: number]: number[] } = {};
-    for (let i = [...bsmap.EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
+    for (let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
         eventAtTime[i] = [];
     }
 
     // this stores lightID
     const eventLightID: {
         [key: number]: {
-            [key: number]: { value: number; color: bsmap.types.ColorArray | null };
+            [key: number]: { value: number; color: types.ColorArray | null };
         };
     } = {};
     for (let i = 0; i < lightEvent.length; i++) {

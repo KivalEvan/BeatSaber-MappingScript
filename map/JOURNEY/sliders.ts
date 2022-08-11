@@ -1,6 +1,6 @@
-import * as bsmap from '../../depsLocal.ts';
+import { v3 } from '../../depsLocal.ts';
 
-export function sliders(data: bsmap.v3.DifficultyData) {
+export function sliders(data: v3.Difficulty) {
     data.addSliders({ b: 193.5, tb: 198, c: 1, d: 2, tc: 1, x: 0, y: 1, tx: 2, ty: 2 });
 
     //#region
@@ -79,9 +79,7 @@ export function sliders(data: bsmap.v3.DifficultyData) {
     );
 
     data.sliders.forEach((s) => {
-        const note = data.colorNotes.filter(
-            (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
-        );
+        const note = data.colorNotes.filter((n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY);
         if (note.length > 1) {
             throw new Error('too many result');
         }

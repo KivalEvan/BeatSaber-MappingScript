@@ -3,7 +3,7 @@ import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Imbalance/';
+bsmap.globals.path = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Imbalance/';
 
 const info = bsmap.load.infoSync();
 const difficultyList = bsmap.load.difficultyFromInfoSync(info);
@@ -23,7 +23,7 @@ difficultyList.forEach((d) => {
 });
 
 bsmap.save.difficultyListSync(difficultyList, {
-    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Imbalance/',
+    path: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Imbalance/',
 });
 
 console.timeEnd('Runtime');

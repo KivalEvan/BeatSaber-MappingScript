@@ -1,41 +1,31 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ext, globals, load, save, types, utils, v3 } from '../../depsLocal.ts';
 
-bsmap.globals.directory =
+globals.directory =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/GhostsPlayToTheAudience';
 
-const { where, at, between } = bsmap.ext.selector;
+const { where, at, between } = ext.selector;
 
-const lightshow = bsmap.load.difficultySync('Expert.dat');
-const osExpertP = bsmap.load
-    .difficultySync('HardOneSaber.dat')
-    .setFileName('ExpertPlusOneSaber.dat');
-const osExpert = bsmap.load
-    .difficultySync('NormalOneSaber.dat')
-    .setFileName('ExpertOneSaber.dat');
+const lightshow = load.difficultySync('Expert.dat');
+const osExpertP = load.difficultySync('HardOneSaber.dat').setFileName('ExpertPlusOneSaber.dat');
+const osExpert = load.difficultySync('NormalOneSaber.dat').setFileName('ExpertOneSaber.dat');
 
-const pointDefinitions: bsmap.types.v3.IPointDefinition[] = [
-    {
-        name: 'ghostPoint',
-        points: [
-            [0.875, 0.875, 0.875, 1, 0],
-            [0.3125, 0.3125, 0.3125, 1, 0.25],
-            [0.875, 0.875, 0.875, 1, 0.5],
-            [0.3125, 0.3125, 0.3125, 1, 0.75],
-            [0.875, 0.875, 0.875, 1, 1],
-        ],
-    },
-    {
-        name: 'ghostPointR',
-        points: [
-            [0.3125, 0.3125, 0.3125, 1, 0],
-            [0.875, 0.875, 0.875, 1, 0.25],
-            [0.3125, 0.3125, 0.3125, 1, 0.5],
-            [0.875, 0.875, 0.875, 1, 0.75],
-            [0.3125, 0.3125, 0.3125, 1, 1],
-        ],
-    },
-];
-const customEvents: bsmap.types.v3.ICustomEvent[] = [
+const pointDefinitions: types.v3.IPointDefinition = {
+    ghostPoint: [
+        [0.875, 0.875, 0.875, 1, 0],
+        [0.3125, 0.3125, 0.3125, 1, 0.25],
+        [0.875, 0.875, 0.875, 1, 0.5],
+        [0.3125, 0.3125, 0.3125, 1, 0.75],
+        [0.875, 0.875, 0.875, 1, 1],
+    ],
+    ghostPointR: [
+        [0.3125, 0.3125, 0.3125, 1, 0],
+        [0.875, 0.875, 0.875, 1, 0.25],
+        [0.3125, 0.3125, 0.3125, 1, 0.5],
+        [0.875, 0.875, 0.875, 1, 0.75],
+        [0.3125, 0.3125, 0.3125, 1, 1],
+    ],
+};
+const customEvents: types.v3.ICustomEvent[] = [
     {
         b: 0,
         t: 'AnimateTrack',
@@ -78,14 +68,10 @@ for (const it of introTime) {
     ];
     let i = 0;
     for (const bt of booTime) {
-        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach(
-            (n) => (n.customData.track = 'ghostTrack'),
-        );
-        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach(
-            (n) => (n.customData.track = 'ghostTrack'),
-        );
+        between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
+        between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach((n) => (n.customData.track = 'ghostTrack'));
         const walls = i % 2
-            ? bsmap.v3.Obstacle.create(
+            ? v3.Obstacle.create(
                 { b: it + bt[0], d: 0.125, x: 3, y: 0 },
                 { b: it + bt[0] + 0.25, d: 0.125, x: 4, y: 2 },
                 { b: it + bt[0] + 0.5, d: 0.125, x: 5, y: 1, w: 2 },
@@ -93,7 +79,7 @@ for (const it of introTime) {
                 { b: it + bt[0] + 1.25, d: 0.125, x: -1, y: 2 },
                 { b: it + bt[0] + 1.5, d: 0.125, x: -3, y: 1, w: 2 },
             )
-            : bsmap.v3.Obstacle.create(
+            : v3.Obstacle.create(
                 { b: it + bt[0], d: 0.125, x: 2, y: 2 },
                 { b: it + bt[0] + 0.25, d: 0.125, x: 3, y: 0 },
                 { b: it + bt[0] + 0.5, d: 0.125, x: 4, y: 1, w: 2 },
@@ -112,7 +98,7 @@ for (const it of introTime) {
             walls.forEach((w) => w.mirror());
         }
         if (i === 3) {
-            let temp = bsmap.v3.Obstacle.create(
+            let temp = v3.Obstacle.create(
                 { b: it + bt[0] + 2, d: 1, x: 5, y: 1, w: 2 },
                 { b: it + bt[0] + 3, d: 1, x: 4, y: 0 },
                 { b: it + bt[0] + 3, d: 1, x: 4, y: 2 },
@@ -322,7 +308,7 @@ for (const it of introTime) {
     flipFlop = !flipFlop;
 }
 for (const ct of chorusTime) {
-    let walls = bsmap.v3.Obstacle.create(
+    let walls = v3.Obstacle.create(
         {
             b: ct - 1,
             d: 0.5,
@@ -353,20 +339,20 @@ for (const ct of chorusTime) {
     );
     walls = walls.concat(walls.concat(walls.map((w) => w.clone().mirror())));
     const arr = [0, 1, 2, 3];
-    bsmap.utils.shuffle(arr);
+    utils.shuffle(arr);
     for (let i = 0; i < 3; i++) {
         for (const a in arr) {
             walls.push(
-                bsmap.v3.Obstacle.create({
+                v3.Obstacle.create({
                     b: ct - 4 + i + parseInt(a) * 0.25,
                     d: 0.25,
                     x: arr[a],
                     y: 0,
                     customData: { color: [0, 0, 0, 1] },
-                }),
+                })[0],
             );
         }
-        bsmap.utils.shuffle(arr);
+        utils.shuffle(arr);
     }
     osExpertP.obstacles.push(...walls);
     osExpert.obstacles.push(...walls);
@@ -381,7 +367,7 @@ for (let i = 0; i < 6; i++) {
 }
 
 {
-    const walls = bsmap.v3.Obstacle.create(
+    const walls = v3.Obstacle.create(
         {
             b: 404,
             d: 4,
@@ -459,10 +445,8 @@ osExpert.addSliders(
     { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
 );
 
-const sliderApplyColor = (s: bsmap.v3.Slider | bsmap.v3.BurstSlider) => {
-    const note = osExpert.colorNotes.filter(
-        (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
-    );
+const sliderApplyColor = (s: v3.Slider | v3.BurstSlider) => {
+    const note = osExpert.colorNotes.filter((n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY);
     if (note.length > 1) {
         throw new Error('too many result');
     }
@@ -615,5 +599,5 @@ osExpert.burstSliders.forEach(sliderApplyColor);
 osExpertP.sliders.forEach(sliderApplyColor);
 osExpertP.burstSliders.forEach(sliderApplyColor);
 
-bsmap.save.difficultySync(osExpertP);
-bsmap.save.difficultySync(osExpert);
+save.difficultySync(osExpertP);
+save.difficultySync(osExpert);

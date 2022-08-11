@@ -1,11 +1,10 @@
-import * as bsmap from '../../depsLocal.ts';
-import { types } from '../../depsLocal.ts';
+import { types, v3 } from '../../depsLocal.ts';
 
-export default (d: bsmap.v3.Difficulty) => {
+export default (d: v3.Difficulty) => {
     //#region intro
     d.addColorBoostEvents({ b: 0, o: true });
     for (let i = 0; i < 8; i++) {
-        const e: Partial<bsmap.types.v3.ILightColorBase>[] = [
+        const e: Partial<types.v3.ILightColorBase>[] = [
             {
                 b: 0,
                 c: 2,
@@ -587,13 +586,13 @@ export default (d: bsmap.v3.Difficulty) => {
                 p: 2,
                 t: 1,
                 r: 1,
-            } as bsmap.types.v3.IIndexFilter;
+            } as types.v3.IIndexFilter;
             const fltrR = {
                 f: 1,
                 p: 2,
                 t: 1,
                 r: 0,
-            } as bsmap.types.v3.IIndexFilter;
+            } as types.v3.IIndexFilter;
             d.addLightRotationEventBoxGroups(
                 {
                     b: 34 + i * 32,
@@ -682,7 +681,7 @@ export default (d: bsmap.v3.Difficulty) => {
                 { c: 2, s: 2 },
                 { c: 2, s: 1, i: 1, b: 1 / 8 },
                 { c: 2, s: 0, i: 1, b: 1.5 },
-            ] as Partial<bsmap.types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorBase>[];
             d.addLightColorEventBoxGroups(
                 {
                     b: 34 + i * 32,
@@ -1061,13 +1060,13 @@ export default (d: bsmap.v3.Difficulty) => {
             p: t % 2 ? 2 : 8,
             t: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
             r: 1,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         const fltrR = {
             f: 1,
             p: t % 2 ? 2 : 8,
             t: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
             r: 0,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         const e = [
             { c: 2, s: t % 2 ? 1.25 : 1 },
             { b: 0.0625 + 0.03125, c: 2, s: t % 2 ? 1 : 0.75, i: 1 },
@@ -1075,7 +1074,7 @@ export default (d: bsmap.v3.Difficulty) => {
             { b: 0.25, i: 2 },
             { c: t % 2 ? 0 : 1, b: 0.3125 + 0.03125, s: 0.25, i: 1 },
             { c: t % 2 ? 0 : 1, b: 0.375, s: 0 },
-        ] as Partial<bsmap.types.v3.ILightColorBase>[];
+        ] as Partial<types.v3.ILightColorBase>[];
         const w = t % 2 ? 0.5 : 0;
         d.addLightColorEventBoxGroups(
             {
@@ -1102,13 +1101,13 @@ export default (d: bsmap.v3.Difficulty) => {
             p: t % 2 ? 2 : 8,
             t: t % 2 ? 1 : 4 - ((t - 128) % 16 > 7 ? 2 : 0),
             r: 1,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         const fltrR = {
             f: 1,
             p: t % 2 ? 2 : 8,
             t: t % 2 ? 1 : 4 - ((t - 128) % 16 > 7 ? 2 : 0),
             r: 0,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         const e = [
             { c: 2, s: t % 2 ? 1.25 : 1 },
             { b: 0.0625 + 0.03125, c: 2, s: t % 2 ? 1 : 0.75, i: 1 },
@@ -1116,7 +1115,7 @@ export default (d: bsmap.v3.Difficulty) => {
             { b: 0.25, i: 2 },
             { c: t % 2 ? 0 : 1, b: 0.3125 + 0.03125, s: 0.25, i: 1 },
             { c: t % 2 ? 0 : 1, b: 0.375, s: 0 },
-        ] as Partial<bsmap.types.v3.ILightColorBase>[];
+        ] as Partial<types.v3.ILightColorBase>[];
         const w = t % 2 ? 0.5 : 0;
         d.addLightColorEventBoxGroups(
             {
@@ -1143,13 +1142,13 @@ export default (d: bsmap.v3.Difficulty) => {
             p: 2,
             t: 1,
             r: 1,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         const fltrR = {
             f: 1,
             p: 2,
             t: 1,
             r: 0,
-        } as bsmap.types.v3.IIndexFilter;
+        } as types.v3.IIndexFilter;
         d.addLightRotationEventBoxGroups(
             {
                 b: 98,
@@ -1446,7 +1445,7 @@ export default (d: bsmap.v3.Difficulty) => {
                 { c: 2, b: 0.125 },
                 { b: 0.1875, i: 1 },
                 { b: 0.375, c: 1, i: 1, s: 0.75 },
-            ] as Partial<bsmap.types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorBase>[];
             for (let i = 0; i < 3; i++) {
                 d.addLightColorEventBoxGroups(
                     {
@@ -1609,7 +1608,7 @@ export default (d: bsmap.v3.Difficulty) => {
                 { c: 2, b: 0.125 },
                 { b: 0.1875, i: 1 },
                 { b: 0.375, c: 1, i: 1, s: 0.75 },
-            ] as Partial<bsmap.types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorBase>[];
             for (let i = 0; i < 3; i++) {
                 d.addLightColorEventBoxGroups(
                     {
@@ -1787,7 +1786,7 @@ export default (d: bsmap.v3.Difficulty) => {
                 { c: 2, b: 0.125 },
                 { b: 0.1875, i: 1 },
                 { b: 0.375, c: 1, i: 1, s: 0.75 },
-            ] as Partial<bsmap.types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorBase>[];
             for (let i = 0; i < 6; i++) {
                 if (i === 0) {
                     d.addLightColorEventBoxGroups(
@@ -1937,7 +1936,7 @@ export default (d: bsmap.v3.Difficulty) => {
                     { c: 2, b: 0.125 },
                     { b: 0.1875, i: 1 },
                     { b: 0.375, c: 1, i: 1, s: 0.75 },
-                ] as Partial<bsmap.types.v3.ILightColorBase>[];
+                ] as Partial<types.v3.ILightColorBase>[];
                 d.addLightColorEventBoxGroups({
                     b: time + t[i],
                     g: g[i],
@@ -2943,7 +2942,7 @@ export default (d: bsmap.v3.Difficulty) => {
                 { c: 2, b: 0.125 },
                 { b: 0.1875, i: 1 },
                 { b: 0.375, c: 1, i: 1, s: 0.75 },
-            ] as Partial<bsmap.types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorBase>[];
             d.addLightColorEventBoxGroups({
                 b: time + t[i],
                 g: g[i],

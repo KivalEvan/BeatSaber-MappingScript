@@ -1,11 +1,11 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ext, globals, load, save, utils } from '../../depsLocal.ts';
 
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/crescent moon';
+globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/crescent moon';
 
-const { convertColorInput, interpolateColor, normalize } = bsmap.utils;
-const { where, at, between } = bsmap.ext.selector;
+const { convertColorInput, interpolateColor, normalize } = utils;
+const { where, at, between } = ext.selector;
 
-const data = bsmap.load.difficultySync('ExpertPlusStandard.dat', 2);
+const data = load.difficultySync('ExpertPlusStandard.dat', 2);
 
 const bookmarks = data.customData._bookmarks;
 if (bookmarks) {
@@ -20,30 +20,16 @@ if (bookmarks) {
             b._color = convertColorInput([0, 0, 0.75], 'hsva');
             continue;
         }
-        if (
-            b._time === 74 ||
-            (b._time >= 534 && b._time <= 590) ||
-            (b._time >= 742 && b._time <= 774)
-        ) {
+        if (b._time === 74 || (b._time >= 534 && b._time <= 590) || (b._time >= 742 && b._time <= 774)) {
             b._color = convertColorInput([30, 1, 1], 'hsva');
             continue;
         }
         if (b._time >= 174 && b._time <= 206) {
-            b._color = interpolateColor(
-                [285, 0.75, 0.75],
-                [315, 0.875, 0.875],
-                normalize(b._time, 174, 206),
-                'hsva',
-            );
+            b._color = interpolateColor([285, 0.75, 0.75], [315, 0.875, 0.875], normalize(b._time, 174, 206), 'hsva');
             continue;
         }
         if (b._time >= 374 && b._time <= 406) {
-            b._color = interpolateColor(
-                [165, 0.75, 0.75],
-                [195, 0.875, 0.875],
-                normalize(b._time, 374, 406),
-                'hsva',
-            );
+            b._color = interpolateColor([165, 0.75, 0.75], [195, 0.875, 0.875], normalize(b._time, 374, 406), 'hsva');
             continue;
         }
         if (b._time === 206 || b._time === 406 || b._time === 734) {
@@ -64,4 +50,4 @@ if (bookmarks) {
     }
 }
 
-bsmap.save.difficultySync(data);
+save.difficultySync(data);

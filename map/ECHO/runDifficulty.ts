@@ -1,20 +1,20 @@
+import { convert, globals, isV3, load, save } from '../../depsLocal.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
-import * as bsmap from '../../depsLocal.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
+globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
 
-const info = bsmap.load.infoSync();
-const lightshow = bsmap.load.difficultySync('EasyLightshow.dat', 3);
-const difficultyList = bsmap.load.difficultyFromInfoSync(info);
+const info = load.infoSync();
+const lightshow = load.difficultySync('EasyLightshow.dat', 3);
+const difficultyList = load.difficultyFromInfoSync(info);
 const diffFile: string[] = [];
 
 difficultyList.forEach((d) => {
-    if (!bsmap.isV3(d.data)) {
-        d.data = bsmap.convert.V2toV3(d.data, true);
+    if (!isV3(d.data)) {
+        d.data = convert.V2toV3(d.data, true);
     }
-    diffFile.push(bsmap.globals.directory + d.data.fileName);
+    diffFile.push(globals.directory + d.data.fileName);
 
     d.data.basicBeatmapEvents = lightshow.basicBeatmapEvents;
     d.data.customData.environment = lightshow.customData.environment;
@@ -140,8 +140,8 @@ difficultyList.forEach((d) => {
     );
 });
 
-bsmap.save.difficultyListSync(difficultyList, {
-    directory: bsmap.globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
+save.difficultyListSync(difficultyList, {
+    directory: globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
 });
 
 console.timeEnd('Runtime');

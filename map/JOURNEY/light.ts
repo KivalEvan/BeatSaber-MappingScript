@@ -1,11 +1,11 @@
-import * as bsmap from '../../depsLocal.ts';
+import { globals, load, save } from '../../depsLocal.ts';
 
-bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
 
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
-const difficulty = bsmap.load.difficultySync(INPUT_FILE, 2);
+const difficulty = load.difficultySync(INPUT_FILE, 2);
 const _events = difficulty.events;
 
 const isLight = (t: number) => {
@@ -533,4 +533,4 @@ _events.forEach((e) => {
     }
 });
 
-bsmap.save.difficultySync(difficulty, { filePath: OUTPUT_FILE });
+save.difficultySync(difficulty, { filePath: OUTPUT_FILE });

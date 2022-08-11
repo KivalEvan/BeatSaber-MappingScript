@@ -1,16 +1,16 @@
-import * as bsmap from '../../depsLocal.ts';
+import { convert, globals, load, save } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/cathedral/mod.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 
-bsmap.globals.directory = Deno.build.os === 'linux'
+globals.directory = Deno.build.os === 'linux'
     ? '/home/kival/CustomWIPLevels/Cathedrarhythm/'
     : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm';
 
-const d2 = bsmap.load.difficultySync('ExpertPlusStandard.dat', 2);
-const d3 = bsmap.convert.V2toV3(d2, true);
+const d2 = load.difficultySync('ExpertPlusStandard.dat', 2);
+const d3 = convert.V2toV3(d2, true);
 
-const d2light = bsmap.load.difficultySync('ExpertPlusLightshow.dat', 2);
-const d3light = bsmap.convert.V2toV3(d2light, true);
+const d2light = load.difficultySync('ExpertPlusLightshow.dat', 2);
+const d3light = convert.V2toV3(d2light, true);
 
 insertEnvironment(d3);
 jankySliderConvert(d3);
@@ -22,7 +22,7 @@ d3light.basicBeatmapEvents.forEach((e) => {
     }
     if (e.customData?.color) {
         if (e.value !== 0) {
-            e.value = e.customData.color[0] ? e.value <= 4 ? 4 : e.value <= 8 ? 8 : 12 : e.value;
+            e.value = e.customData.color[0] ? (e.value <= 4 ? 4 : e.value <= 8 ? 8 : 12) : e.value;
         }
         e.floatValue = e.customData.color[3] ?? 1;
     }
@@ -35,11 +35,11 @@ d3light.basicBeatmapEvents.forEach((e) => {
 d3.basicBeatmapEvents = d3light.basicBeatmapEvents;
 d3.colorBoostBeatmapEvents = d3light.colorBoostBeatmapEvents;
 
-bsmap.save.difficultySync(d3, {
+save.difficultySync(d3, {
     filePath: 'ExpertStandard.dat',
 });
 
-const info = bsmap.load.infoSync();
+const info = load.infoSync();
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {
         if (d._customData) {
@@ -48,4 +48,4 @@ for (const set of info._difficultyBeatmapSets) {
         }
     }
 }
-bsmap.save.infoSync(info);
+save.infoSync(info);

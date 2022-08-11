@@ -1,9 +1,8 @@
-import * as bsmap from '../../depsLocal.ts';
 import { utils, v3 } from '../../depsLocal.ts';
 
-export default (d: bsmap.v3.Difficulty) => {
+export default (d: v3.Difficulty) => {
     let obs: v3.Obstacle[] = [];
-    obs = bsmap.v3.Obstacle.create(
+    obs = v3.Obstacle.create(
         {
             b: 33.5,
             d: 0.25,
@@ -63,7 +62,7 @@ export default (d: bsmap.v3.Difficulty) => {
             }
         }
     }
-    obs = bsmap.v3.Obstacle.create(
+    obs = v3.Obstacle.create(
         {
             b: 97.5,
             d: 0.25,

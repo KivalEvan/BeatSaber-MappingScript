@@ -2,7 +2,7 @@ import * as bsmap from 'https://deno.land/x/bsmap@1.0.0/mod.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-bsmap.globals.directory =
+bsmap.globals.path =
     'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Black Eye-Burnt Thumb/';
 const INPUT_FILE = 'ExpertPlusStandard.dat';
 const OUTPUT_FILE = INPUT_FILE;
@@ -206,6 +206,6 @@ difficulty.colorNotes.forEach((n) => n.deleteCustomData());
 
 bsmap.save.difficultySync(difficulty, {
     filePath: OUTPUT_FILE,
-    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Black Eye-Burnt Thumb/',
+    path: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Black Eye-Burnt Thumb/',
 });
 console.timeEnd('Runtime');

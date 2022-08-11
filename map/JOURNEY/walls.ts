@@ -1,7 +1,7 @@
-import * as bsmap from '../../depsLocal.ts';
+import { utils, v3 } from '../../depsLocal.ts';
 
-export function walls(data: bsmap.v3.DifficultyData) {
-    let tempWall = bsmap.v3.Obstacle.create(
+export function walls(data: v3.Difficulty) {
+    let tempWall = v3.Obstacle.create(
         {
             b: 68.75,
             d: 0.09375,
@@ -68,7 +68,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 195,
             d: 0.9375,
@@ -118,7 +118,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 245.5,
             d: 0.1875,
@@ -159,7 +159,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 258,
             d: 0.875,
@@ -213,7 +213,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 261.5,
             d: 0.25,
@@ -352,7 +352,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
         },
     );
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 270.25,
             d: 0.09375,
@@ -470,7 +470,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
         ),
     );
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 277.75,
             d: 0.25,
@@ -559,7 +559,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 317.25,
             d: 0.125,
@@ -642,14 +642,14 @@ export function walls(data: bsmap.v3.DifficultyData) {
     tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
     data.obstacles.push(...tempWall);
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 834.5,
             d: 0.1875,
             x: -5,
             y: 0,
             customData: {
-                color: bsmap.utils.convertColorInput([0, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([0, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -658,7 +658,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: -4,
             y: 1,
             customData: {
-                color: bsmap.utils.convertColorInput([30, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([30, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -667,7 +667,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: -3,
             y: 2,
             customData: {
-                color: bsmap.utils.convertColorInput([90, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([90, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -676,7 +676,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: -3,
             y: 0,
             customData: {
-                color: bsmap.utils.convertColorInput([60, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([60, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -685,7 +685,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: -2,
             y: 1,
             customData: {
-                color: bsmap.utils.convertColorInput([120, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([120, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -694,7 +694,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: -1,
             y: 2,
             customData: {
-                color: bsmap.utils.convertColorInput([120, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([120, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -703,7 +703,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 4,
             y: 2,
             customData: {
-                color: bsmap.utils.convertColorInput([180, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([180, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -712,7 +712,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 5,
             y: 1,
             customData: {
-                color: bsmap.utils.convertColorInput([210, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([210, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -721,7 +721,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 6,
             y: 0,
             customData: {
-                color: bsmap.utils.convertColorInput([270, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([270, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -730,7 +730,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 6,
             y: 2,
             customData: {
-                color: bsmap.utils.convertColorInput([240, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([240, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -739,7 +739,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 7,
             y: 1,
             customData: {
-                color: bsmap.utils.convertColorInput([300, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([300, 1, 1], 'hsva', 'rgba'),
             },
         },
         {
@@ -748,19 +748,15 @@ export function walls(data: bsmap.v3.DifficultyData) {
             x: 8,
             y: 0,
             customData: {
-                color: bsmap.utils.convertColorInput([330, 1, 1], 'hsva', 'rgba'),
+                color: utils.convertColorInput([330, 1, 1], 'hsva', 'rgba'),
             },
         },
     );
     data.obstacles.push(
-        ...tempWall.map((w) =>
-            w.setTime(
-                bsmap.utils.lerp(bsmap.utils.normalize(w.time, 834.5, 835.75), 835, 836),
-            )
-        ),
+        ...tempWall.map((w) => w.setTime(utils.lerp(utils.normalize(w.time, 834.5, 835.75), 835, 836))),
     );
 
-    tempWall = bsmap.v3.Obstacle.create(
+    tempWall = v3.Obstacle.create(
         {
             b: 836.75,
             d: 0.125,
@@ -848,7 +844,7 @@ export function walls(data: bsmap.v3.DifficultyData) {
         [983, true],
     ];
     for (const wt of wallTime) {
-        tempWall = bsmap.v3.Obstacle.create(
+        tempWall = v3.Obstacle.create(
             {
                 b: wt[0],
                 d: 0.25,

@@ -1,14 +1,14 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ext, globals, load, save } from '../../depsLocal.ts';
 import { sliders } from './sliders.ts';
 import { walls } from './walls.ts';
 
-const { at, between, where } = bsmap.ext.selector;
+const { at, between, where } = ext.selector;
 
 export function sword() {
     const INPUT_FILE = 'HardOneSaber.dat';
     const OUTPUT_FILE = 'ExpertPlusOneSaber.dat';
 
-    const data = bsmap.load.difficultySync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
+    const data = load.difficultySync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
 
     where(at(data.colorNotes, 262), { include: { x: 0 } }).forEach((n) => {
         n.customData.track = 'swordBit0';
@@ -37,13 +37,7 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 0.5,
-                        n.customData.color?.[2] ?? 0,
-                        1,
-                        1,
-                    ],
+                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
                 ],
             },
         });
@@ -59,13 +53,7 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 0.5,
-                        n.customData.color?.[2] ?? 0,
-                        1,
-                        1,
-                    ],
+                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
                 ],
             },
         });
@@ -81,33 +69,19 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [
-                        n.customData.color?.[0] ?? 1,
-                        n.customData.color?.[1] ?? 0.5,
-                        n.customData.color?.[2] ?? 0,
-                        1,
-                        1,
-                    ],
+                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
                 ],
             },
         });
     });
 
-    between(data.colorNotes, 259, 261.5).forEach(
-        (n) => (n.customData.track = 'noteBuildUpJourney'),
-    );
+    between(data.colorNotes, 259, 261.5).forEach((n) => (n.customData.track = 'noteBuildUpJourney'));
     data.customData.customEvents?.push(
         {
             b: 0,
             t: 'AnimateTrack',
             d: {
-                track: [
-                    'swordBit0',
-                    'swordBit1',
-                    'swordBit2',
-                    'swordBit3',
-                    'noteBuildUpJourney',
-                ],
+                track: ['swordBit0', 'swordBit1', 'swordBit2', 'swordBit3', 'noteBuildUpJourney'],
                 duration: 0,
                 color: [[0, 0, 0, 1, 0]],
             },
@@ -137,14 +111,43 @@ export function sword() {
             },
         },
     );
+    between(data.colorNotes, 262, 293.999).forEach(
+        (n) => (n.customData.animation = {
+            color: [
+                [1, 1, 1, 1, 0],
+                [n.customData.color![0], n.customData.color![1], n.customData.color![2], 1, 1 / 16],
+            ],
+        }),
+    );
+
+    const towerHitTiming: [number, boolean][] = [
+        [311.5, true],
+        [314.5, true],
+        [439.5, false],
+        [442.5, false],
+        [631.5, false],
+        [634.5, false],
+        [823.5, false],
+        [826.5, false],
+    ];
+    for (const tht of towerHitTiming) {
+        at(data.colorNotes, tht[0]).forEach(
+            (n) => (n.customData.animation = {
+                color: [
+                    [0.25, 0.25, 0.25, 1, 0],
+                    [n.customData.color![0], n.customData.color![1], n.customData.color![2], 1, 1 / 4],
+                ],
+            }),
+        );
+    }
 
     walls(data);
     sliders(data);
 
-    bsmap.save.difficultySync(data);
+    save.difficultySync(data);
 }
 
 if (import.meta.main) {
-    bsmap.globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+    globals.directory = 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
     sword();
 }
