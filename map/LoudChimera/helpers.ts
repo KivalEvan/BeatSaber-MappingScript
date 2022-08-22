@@ -1,6 +1,6 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ext, types, utils, v3 } from '../../depsLocal.ts';
 
-const { lerp, normalize, easings } = bsmap.utils;
+const { lerp, normalize, easings } = utils;
 
 export function getRepeatArray(start: number, gap: number, repeat: number) {
     const arr = new Array(repeat).fill(start);
@@ -10,10 +10,7 @@ export function getRepeatArray(start: number, gap: number, repeat: number) {
     return arr;
 }
 
-export function lerpVec3(
-    alpha: number,
-    points: bsmap.types.Vector3PointDefinition[],
-): bsmap.types.Vector3 {
+export function lerpVec3(alpha: number, points: types.Vector3PointDefinition[]): types.Vector3 {
     const pointBefore = [...points].reverse().find((p) => alpha >= p[3]);
     const pointAfter = points.slice(1).find((p) => alpha <= p[3]);
     if (!pointAfter) {
@@ -31,12 +28,9 @@ export function lerpVec3(
     ];
 }
 
-export function connectSlider(
-    data: bsmap.v3.DifficultyData,
-    notes: bsmap.v3.ColorNote[],
-) {
+export function connectSlider(data: v3.Difficulty, notes: v3.ColorNote[]) {
     const prevSlider: {
-        [key: number]: bsmap.v3.ColorNote;
+        [key: number]: v3.ColorNote;
     } = {};
     for (let i = 0, len = notes.length; i < len; i++) {
         const n = notes[i];
@@ -59,13 +53,7 @@ export function connectSlider(
             });
         }
         if (prevSlider[n.color] && prevSlider[n.color].time === n.time) {
-            if (
-                bsmap.ext.placement.isEnd(
-                    n,
-                    prevSlider[n.color],
-                    prevSlider[n.color].direction,
-                )
-            ) {
+            if (ext.placement.isEnd(n, prevSlider[n.color], prevSlider[n.color].direction)) {
                 prevSlider[n.color] = n;
             }
             continue;

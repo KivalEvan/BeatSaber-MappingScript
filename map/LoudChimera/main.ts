@@ -1,4 +1,3 @@
-import * as bsmap from '../../depsLocal.ts';
 import { postProcess } from './postProcess.ts';
 import { lightshow } from './lightshow.ts';
 import { preset } from './preset.ts';
@@ -14,13 +13,10 @@ import { misc } from './misc.ts';
 import { text } from './text.ts';
 import { sus } from './sus.ts';
 import { color } from './color.ts';
+import { BeatPerMinute, logger, NoteJumpSpeed, save, v3 } from '../../depsLocal.ts';
 
-export function main(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Processing ' + data.fileName);
+export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Processing ' + data.fileName);
 
     preset(data);
 
@@ -40,13 +36,9 @@ export function main(
     // data.burstSliders = [];
 
     const lightData = lightshow();
-    data.basicBeatmapEvents = data.basicBeatmapEvents.concat(
-        lightData.basicBeatmapEvents,
-    );
-    data.customData.environment = data.customData.environment?.concat(
-        lightData.customData.environment!,
-    );
+    // data.basicBeatmapEvents = data.basicBeatmapEvents.concat(lightData.basicBeatmapEvents);
+    data.customData.environment = data.customData.environment?.concat(lightData.customData.environment!);
 
     postProcess(data);
-    bsmap.save.difficultySync(data);
+    save.difficultySync(data);
 }

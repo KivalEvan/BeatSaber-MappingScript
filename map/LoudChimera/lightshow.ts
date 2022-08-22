@@ -1,16 +1,16 @@
-import * as bsmap from '../../depsLocal.ts';
+import { convert, load, v3 } from '../../depsLocal.ts';
 
 let init = false;
-let data: bsmap.v3.DifficultyData;
+let data: v3.Difficulty;
 
 export function lightshow() {
     if (init) {
         return data;
     }
     init = true;
-    const d2 = bsmap.load.difficultySync('Lightshow.dat', 2);
-    bsmap.convert.chromaLightGradientToVanillaGradient(d2, true);
-    data = bsmap.convert.V2toV3(d2, true);
+    const d2 = load.difficultySync('Lightshow.dat', 2);
+    convert.chromaLightGradientToVanillaGradient(d2, true);
+    data = convert.V2toV3(d2, true);
 
     // const e = data.customData.environment?.filter((e) => e.id).map((e) => e.id);
     // console.log(data.customData.environment);
@@ -38,9 +38,7 @@ export function lightshow() {
     let lightIDType0 = 101;
     data.customData.environment
         ?.filter((e) => e.duplicate)
-        .filter(
-            (e) => !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction'),
-        )
+        .filter((e) => !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction'))
         .forEach((e) => {
             delete e.id;
             delete e.lookupMethod;
@@ -60,14 +58,7 @@ export function lightshow() {
             };
         });
     data.customData.environment = data.customData.environment?.filter(
-        (e) =>
-            !(
-                e.geometry &&
-                e.rotation &&
-                e.rotation[0] === 90 &&
-                e.scale &&
-                e.scale[1] === 0
-            ),
+        (e) => !(e.geometry && e.rotation && e.rotation[0] === 90 && e.scale && e.scale[1] === 0),
     );
     data.customData.environment
         ?.filter((e) => e.geometry)
@@ -84,9 +75,7 @@ export function lightshow() {
                 if (typeof e.customData.lightID === 'number') {
                     e.customData.lightID += 2;
                 } else {
-                    e.customData.lightID = e.customData.lightID.map(
-                        (l: number) => l + 2,
-                    );
+                    e.customData.lightID = e.customData.lightID.map((l: number) => l + 2);
                 }
             }
         });
@@ -105,13 +94,10 @@ export function lightshow() {
             if (typeof e.customData.lightID === 'number') {
                 e.customData.lightID += e.customData.lightID < 5 ? 0 : 96;
             } else {
-                e.customData.lightID = e.customData.lightID.map((l: number) => l < 5 ? l : l + 96);
+                e.customData.lightID = e.customData.lightID.map((l: number) => (l < 5 ? l : l + 96));
             }
         }
     });
-    Deno.writeTextFileSync(
-        'env.json',
-        JSON.stringify(data.customData.environment!, null, 2),
-    );
+    Deno.writeTextFileSync('env.json', JSON.stringify(data.customData.environment!, null, 2));
     return data;
 }

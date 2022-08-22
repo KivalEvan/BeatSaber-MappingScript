@@ -1,5 +1,6 @@
-import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE } = bsmap.ext;
+import { EventLightValue, ext, logger, types, v3 } from '../../depsLocal.ts';
+
+const { NE } = ext;
 
 export default class UFO {
     static bulbCount = 8;
@@ -15,7 +16,7 @@ export default class UFO {
     private mapData;
     private ufoMaterial;
     private ufoParent;
-    constructor(mapData: bsmap.v3.DifficultyData, name = '') {
+    constructor(mapData: v3.Difficulty, name = '') {
         if (UFO.nameList.includes(name)) {
             throw new Error('UFO name ' + name + ' already existed');
         }
@@ -120,18 +121,13 @@ export default class UFO {
             t: 'AssignTrackParent',
             d: {
                 parentTrack: this.ufoParent,
-                childrenTracks: [
-                    ...ufoBulbTrack,
-                    ...ufoLegTrack,
-                    'ufoSaucer_' + name,
-                    'ufoBeam_' + name,
-                ],
+                childrenTracks: [...ufoBulbTrack, ...ufoLegTrack, 'ufoSaucer_' + name, 'ufoBeam_' + name],
             },
         });
 
         UFO.list.push(this);
 
-        bsmap.logger.info(
+        logger.info(
             `Created UFO ${name} with light type ${UFO.type} ID ${this.lightID}-${UFO.startID + UFO.index - 1}`,
         );
     }
@@ -155,12 +151,7 @@ export default class UFO {
             customData: { lightID: this.lightID },
         });
     }
-    light(
-        time: number,
-        value: bsmap.EventLightValue,
-        brightness: number,
-        easing?: bsmap.types.Easings,
-    ) {
+    light(time: number, value: EventLightValue, brightness: number, easing?: types.Easings) {
         this.mapData.addBasicEvents({
             b: time,
             et: this.type,
@@ -175,10 +166,7 @@ export default class UFO {
     animate(
         from: number,
         to: number,
-        animation: Omit<
-            Omit<bsmap.types.v3.ICustomEventDataAnimateTrack, 'duration'>,
-            'track'
-        >,
+        animation: Omit<types.v3.ICustomEventDataAnimateTrack, 'duration' | 'track'>,
         material?: boolean,
     ) {
         this.mapData.customData.customEvents?.push({

@@ -1,10 +1,10 @@
-import * as bsmap from '../../depsLocal.ts';
+import { BeatPerMinute, ext, logger, NoteDirectionAngle, NoteJumpSpeed, utils, v3 } from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
-const { normalize, lerp, random } = bsmap.utils;
-const { noodleExtensions: NE } = bsmap.ext;
-const { at, between } = bsmap.ext.selector;
+const { normalize, lerp, random } = utils;
+const { NE } = ext;
+const { at, between } = ext.selector;
 
-function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
+function doArrowthing(fakeNotes: v3.ColorNote[], duration: number) {
     if (duration < 0.25) {
         throw new Error('re');
     }
@@ -35,49 +35,25 @@ function doArrowthing(fakeNotes: bsmap.v3.ColorNote[], duration: number) {
     });
 }
 
-export function drop1(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Run Drop 1');
-    const fakeNotes: bsmap.v3.ColorNote[] = [];
+export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Run Drop 1');
+    const fakeNotes: v3.ColorNote[] = [];
 
-    const fastPewPew: number[] = [
-        ...getRepeatArray(394, 16, 8),
-        ...getRepeatArray(906, 16, 8),
-    ];
+    const fastPewPew: number[] = [...getRepeatArray(394, 16, 8), ...getRepeatArray(906, 16, 8)];
     let flipFlop = true;
     for (const fpp of fastPewPew) {
         for (let min = 0, max = 4, x = min; x < max; x++) {
-            const bomb = bsmap.v3.BombNote.create({
-                b: fpp -
-                    2 +
-                    1.5 -
-                    lerp(
-                        normalize(x, min, max),
-                        0,
-                        0.25,
-                        bsmap.utils.easings.easeInCirc,
-                    ),
+            const bomb = v3.BombNote.create({
+                b: fpp - 2 + 1.5 - lerp(normalize(x, min, max), 0, 0.25, utils.easings.easeInCirc),
                 customData: {
-                    coordinates: [
-                        x,
-                        -0.25 -
-                        lerp(
-                            normalize(x, min, max),
-                            0,
-                            1.25,
-                            bsmap.utils.easings.easeInQuad,
-                        ),
-                    ],
+                    coordinates: [x, -0.25 - lerp(normalize(x, min, max), 0, 1.25, utils.easings.easeInQuad)],
                     color: [1, 1, 1],
                     noteJumpMovementSpeed: NJS.value,
                     noteJumpStartBeatOffset: lerp(
                         normalize(x, min, max),
                         0,
-                        8 - bsmap.NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
-                        bsmap.utils.easings.easeInCirc,
+                        8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                        utils.easings.easeInCirc,
                     ),
                     spawnEffect: true,
                     uninteractable: true,
@@ -94,10 +70,8 @@ export function drop1(
                                     lerp(
                                         normalize(x, min, max),
                                         0,
-                                        8 -
-                                            bsmap.NoteJumpSpeed.HJD_START -
-                                            NJS.calcHJDRaw(),
-                                        bsmap.utils.easings.easeInCirc,
+                                        8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                                        utils.easings.easeInCirc,
                                     ) * 0.375,
                                     'easeOutQuad',
                                 ]
@@ -109,10 +83,8 @@ export function drop1(
                                     lerp(
                                         normalize(x, min, max),
                                         0,
-                                        8 -
-                                            bsmap.NoteJumpSpeed.HJD_START -
-                                            NJS.calcHJDRaw(),
-                                        bsmap.utils.easings.easeInCirc,
+                                        8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                                        utils.easings.easeInCirc,
                                     ) * 0.375,
                                     'easeOutQuad',
                                 ],
@@ -126,10 +98,8 @@ export function drop1(
                                 lerp(
                                     normalize(x, min, max),
                                     0,
-                                    8 -
-                                        bsmap.NoteJumpSpeed.HJD_START -
-                                        NJS.calcHJDRaw(),
-                                    bsmap.utils.easings.easeInCirc,
+                                    8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                                    utils.easings.easeInCirc,
                                 ) * 0.1875,
                                 'easeInCirc',
                             ],
@@ -137,14 +107,11 @@ export function drop1(
                     },
                 },
             });
-            data.customData.fakeBombNotes?.push(
-                bomb.toObject(),
-                bomb.clone().mirror().toObject(),
-            );
+            data.customData.fakeBombNotes?.push(bomb[0].toJSON(), bomb[0].clone().mirror().toJSON());
         }
         flipFlop = !flipFlop;
 
-        const obs = bsmap.v3.Obstacle.create({
+        const obs = v3.Obstacle.create({
             b: fpp - 1.5,
             customData: {
                 uninteractible: true,
@@ -173,15 +140,15 @@ export function drop1(
             },
         });
         // data.customData.fakeObstacles!.push(
-        //     obs.toObject(),
-        //     obs.clone().mirror().toObject()
+        //     obs.toJSON(),
+        //     obs.clone().mirror().toJSON()
         // );
 
         const fastPewPewNotes = between(data.colorNotes, fpp, fpp + 5.999);
         fakeNotes.push(
             ...fastPewPewNotes.map((n) => {
-                const randX = bsmap.utils.random(4, 6, true);
-                const randY = bsmap.utils.random(-1, 1, true);
+                const randX = utils.random(4, 6, true);
+                const randY = utils.random(-1, 1, true);
                 return n
                     .clone()
                     .setTime(n.time - 0.0025)
@@ -194,20 +161,11 @@ export function drop1(
                             ],
                             offsetPosition: [
                                 [0, 0, 0, 0],
-                                [
-                                    n.time % 1 ? randX : -randX,
-                                    randY,
-                                    0,
-                                    0.125,
-                                    'easeOutQuart',
-                                ],
+                                [n.time % 1 ? randX : -randX, randY, 0, 0.125, 'easeOutQuart'],
                                 [
                                     0,
                                     0,
-                                    bsmap.NoteJumpSpeed.create(
-                                        BPM,
-                                        n.customData.noteJumpMovementSpeed,
-                                    ).calcDistance(0.0024),
+                                    NoteJumpSpeed.create(BPM, n.customData.noteJumpMovementSpeed).calcDistance(0.0024),
                                     0.375,
                                     'easeInElastic',
                                 ],
@@ -216,8 +174,8 @@ export function drop1(
                     });
             }),
             ...fastPewPewNotes.map((n) => {
-                const randX = bsmap.utils.random(4, 6, true);
-                const randY = bsmap.utils.random(-1, 1, true);
+                const randX = utils.random(4, 6, true);
+                const randY = utils.random(-1, 1, true);
                 return n
                     .clone()
                     .setTime(n.time - 0.0075)
@@ -230,20 +188,11 @@ export function drop1(
                             ],
                             offsetPosition: [
                                 [0, 0, 0, 0],
-                                [
-                                    n.time % 1 ? -randX : randX,
-                                    randY,
-                                    0,
-                                    0.125,
-                                    'easeOutQuart',
-                                ],
+                                [n.time % 1 ? -randX : randX, randY, 0, 0.125, 'easeOutQuart'],
                                 [
                                     0,
                                     0,
-                                    bsmap.NoteJumpSpeed.create(
-                                        BPM,
-                                        n.customData.noteJumpMovementSpeed,
-                                    ).calcDistance(0.0074),
+                                    NoteJumpSpeed.create(BPM, n.customData.noteJumpMovementSpeed).calcDistance(0.0074),
                                     0.375,
                                     'easeInElastic',
                                 ],
@@ -270,12 +219,12 @@ export function drop1(
             ),
         );
         fastPewPewNotes.forEach((n) => {
-            const noteNJS = bsmap.NoteJumpSpeed.create(
+            const noteNJS = NoteJumpSpeed.create(
                 BPM,
                 n.customData.noteJumpMovementSpeed,
                 n.customData.noteJumpStartBeatOffset,
             );
-            n.angleOffset = bsmap.NoteCutAngle[n.direction] || 0;
+            n.angleOffset = NoteDirectionAngle[n.direction] || 0;
             n.direction = 8;
             n.addCustomData({
                 animation: {
@@ -298,5 +247,5 @@ export function drop1(
         });
     }
 
-    data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toObject()));
+    data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toJSON()));
 }

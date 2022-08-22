@@ -1,12 +1,9 @@
-import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+import { BeatPerMinute, ext, NoteJumpSpeed, types, v3 } from '../../depsLocal.ts';
 
-export function text(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
+const { NE } = ext;
+const { between } = ext.selector;
+
+export function text(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
     const diffText = {
         danmakuX: [
             [
@@ -240,7 +237,7 @@ export function text(
                 [285.0055, 160.4697],
                 [255.0605, 204.6238],
             ],
-        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as bsmap.types.Vector2[][],
+        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as types.Vector2[][],
         unidentified: [
             [
                 [39.5021, 190.4564],
@@ -409,7 +406,7 @@ export function text(
                 [254.1909, 130.3734],
                 [274.6058, 130.3734],
             ],
-        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as bsmap.types.Vector2[][],
+        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as types.Vector2[][],
         unknown: [
             [
                 [52.7976, 140.0641],
@@ -549,7 +546,7 @@ export function text(
                 [273.6968, 138.699],
                 [272.6737, 138.0124],
             ],
-        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as bsmap.types.Vector2[][],
+        ].map((n) => n.map((m) => m.map((o) => (o *= 0.01)))) as types.Vector2[][],
     };
 
     const mapText = {
@@ -558,9 +555,7 @@ export function text(
         'ExpertPlusOneSaber.dat': 'unknown',
     };
 
-    const t = diffText[
-        mapText[data.fileName as keyof typeof mapText] as keyof typeof diffText
-    ];
+    const t = diffText[mapText[data.fileName as keyof typeof mapText] as keyof typeof diffText];
     if (t) {
         for (const dx of t) {
             let { coordinates, rotations, sizes } = NE.drawPath(dx);

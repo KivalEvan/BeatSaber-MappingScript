@@ -1,14 +1,10 @@
-import * as bsmap from '../../depsLocal.ts';
+import { BeatPerMinute, ext, logger, NoteJumpSpeed, v3 } from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
-const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+const { NE } = ext;
+const { between } = ext.selector;
 
-export function njsVibe(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Run NJS Vibe');
+export function njsVibe(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Run NJS Vibe');
     data.colorNotes.forEach((o) => {
         o.customData.noteJumpMovementSpeed = NJS.value;
         o.customData.noteJumpStartBeatOffset = NJS.offset;
@@ -61,10 +57,7 @@ export function njsVibe(
         });
     }
 
-    const fastPewPew: number[] = [
-        ...getRepeatArray(394, 16, 8),
-        ...getRepeatArray(906, 16, 8),
-    ];
+    const fastPewPew: number[] = [...getRepeatArray(394, 16, 8), ...getRepeatArray(906, 16, 8)];
     for (const fpp of fastPewPew) {
         const notes = between(data.colorNotes, fpp, fpp + 6);
         NE.setNoteGravity(notes, false);
@@ -100,13 +93,13 @@ export function njsVibe(
         NE.simultaneousSpawn(between(data.colorNotes, sp + 16.001, sp + 63.999), {
             speed: 1.0625,
             bpm: BPM,
-            njs: bsmap.NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
+            njs: NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
             jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
         NE.simultaneousSpawn(between(data.obstacles, sp + 16.001, sp + 63.999), {
             speed: 1.0625,
             bpm: BPM,
-            njs: bsmap.NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
+            njs: NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
             jd: NJS.calcJD() + NJS.calcDistance(0.5),
         });
     }

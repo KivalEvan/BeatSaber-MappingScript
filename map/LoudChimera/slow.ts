@@ -1,16 +1,12 @@
-import * as bsmap from '../../depsLocal.ts';
+import { BeatPerMinute, ext, logger, NoteJumpSpeed, types, unityToGridUnit, utils, v3 } from '../../depsLocal.ts';
 import { connectSlider, lerpVec3 } from './helpers.ts';
 import UFO from './ufo.ts';
-const { noodleExtensions: NE, selector } = bsmap.ext;
-const { normalize, clamp } = bsmap.utils;
+const { NE, selector } = ext;
+const { normalize, clamp } = utils;
 const { between } = selector;
 
-export function slow(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Run Slow');
+export function slow(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Run Slow');
     const slowTiming = [136, 648];
     const ufoSlow = new UFO(data, 'Slow');
     ufoSlow.hide(0);
@@ -25,34 +21,27 @@ export function slow(
         const notes = between(data.colorNotes, st + 0.001, st + 63.999);
         const obstacles = between(data.obstacles, st + 0.001, st + 63.999);
         notes.forEach((n) => {
-            const noteNJS = bsmap.NoteJumpSpeed.create(
+            const noteNJS = NoteJumpSpeed.create(
                 BPM,
                 n.customData.noteJumpMovementSpeed,
                 n.customData.noteJumpStartBeatOffset,
             );
             ufoSlow.beam(n.time - noteNJS.calcHJD(), n.color);
             const pos = n.getPosition();
-            const distance = bsmap.unityToGridUnit(18.25) - noteNJS.calcJD();
-            const offsetPosition: bsmap.types.Vector3PointDefinition = [
+            const distance = unityToGridUnit(18.25) - noteNJS.calcJD();
+            const offsetPosition: types.Vector3PointDefinition = [
                 -0.5 -
                 pos[0] +
-                bsmap.unityToGridUnit(
-                    lerpVec3(
-                        normalize(
-                            clamp(n.time - noteNJS.calcHJD() / 2, st, st + 64),
-                            st,
-                            st + 64,
-                        ),
-                        [
-                            [0, 4, 16, 0],
-                            [4, 4, 16, 0.25, 'easeOutCubic'],
-                            [0, 4, 16, 0.5, 'easeInCubic'],
-                            [-4, 4, 16, 0.75, 'easeOutCubic'],
-                            [0, 4, 16, 1, 'easeInCubic'],
-                        ],
-                    )[0],
+                unityToGridUnit(
+                    lerpVec3(normalize(clamp(n.time - noteNJS.calcHJD() / 2, st, st + 64), st, st + 64), [
+                        [0, 4, 16, 0],
+                        [4, 4, 16, 0.25, 'easeOutCubic'],
+                        [0, 4, 16, 0.5, 'easeInCubic'],
+                        [-4, 4, 16, 0.75, 'easeOutCubic'],
+                        [0, 4, 16, 1, 'easeInCubic'],
+                    ])[0],
                 ),
-                bsmap.unityToGridUnit(3.375),
+                unityToGridUnit(3.375),
                 distance,
                 0,
             ];
@@ -144,14 +133,7 @@ export function slow(
     connectSlider(data, between(data.colorNotes, 180, 182));
     connectSlider(data, between(data.colorNotes, 184, 186));
     connectSlider(data, between(data.colorNotes, 188, 190));
-    connectSlider(
-        data,
-        between(
-            data.colorNotes,
-            192,
-            data.fileName === 'ExpertPlusOneSaber.dat' ? 194 : 200,
-        ),
-    );
+    connectSlider(data, between(data.colorNotes, 192, data.fileName === 'ExpertPlusOneSaber.dat' ? 194 : 200));
     connectSlider(data, between(data.colorNotes, 196, 200));
 
     connectSlider(data, between(data.colorNotes, 672, 684));

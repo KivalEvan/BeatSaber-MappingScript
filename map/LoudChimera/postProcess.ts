@@ -1,8 +1,9 @@
-import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE } = bsmap.ext;
+import { ext, logger, v3 } from '../../depsLocal.ts';
 
-export function postProcess(data: bsmap.v3.DifficultyData) {
-    bsmap.logger.info('Run Post Process');
+const { NE } = ext;
+
+export function postProcess(data: v3.Difficulty) {
+    logger.info('Run Post Process');
     NE.setUninteractible(data.obstacles, true);
     NE.setUninteractible(data.bombNotes, true);
 }

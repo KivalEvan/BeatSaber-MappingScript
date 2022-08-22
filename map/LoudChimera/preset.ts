@@ -1,8 +1,8 @@
-import * as bsmap from '../../depsLocal.ts';
+import { logger, v3 } from '../../depsLocal.ts';
 import UFO from './ufo.ts';
 
-export function preset(data: bsmap.v3.DifficultyData) {
-    bsmap.logger.info('Run Preset');
+export function preset(data: v3.Difficulty) {
+    logger.info('Run Preset');
     data.customData.pointDefinitions = data.customData.pointDefinitions ?? {};
     data.customData.customEvents = data.customData.customEvents ?? [];
     data.customData.environment = [];

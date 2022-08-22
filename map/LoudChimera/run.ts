@@ -1,61 +1,43 @@
-import * as bsmap from '../../depsLocal.ts';
+import { BeatPerMinute, ColorScheme, ext, globals, load, NoteJumpSpeed, save } from '../../depsLocal.ts';
 import { counter } from '../../utility/counter.ts';
 import { main } from './main.ts';
-const { noodleExtensions: NE } = bsmap.ext;
+const { NE } = ext;
 
 counter(import.meta.url);
 
 console.log('Running script...');
 console.time('Runtime');
 
-bsmap.globals.directory = Deno.build.os === 'linux'
+globals.directory = Deno.build.os === 'linux'
     ? '/home/kival/CustomWIPLevels/loudchimera/'
     : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
 
-// bsmap.logger.setLevel(5);
+// logger.setLevel(5);
 
-const info = bsmap.load.infoSync();
-const BPM = bsmap.BeatPerMinute.create(info._beatsPerMinute);
-const NJS = bsmap.NoteJumpSpeed.create(BPM, 19.5, 0.25);
+const info = load.infoSync();
+const BPM = BeatPerMinute.create(info._beatsPerMinute);
+const NJS = NoteJumpSpeed.create(BPM, 19.5, 0.25);
 NE.settings.BPM = BPM;
 NE.settings.NJS = NJS;
 
-main(
-    bsmap.load
-        .difficultySync('HardStandard.dat', 3)
-        .setFileName('ExpertPlusStandard.dat'),
-    BPM,
-    NJS,
-);
+main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
 
-main(
-    bsmap.load
-        .difficultySync('ExpertOneSaber.dat', 3)
-        .setFileName('ExpertPlusOneSaber.dat'),
-    BPM,
-    NJS,
-);
+main(load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'), BPM, NJS);
 
 NJS.value = 17;
 NJS.offset = -1.25;
-main(
-    bsmap.load
-        .difficultySync('NormalStandard.dat', 3)
-        .setFileName('ExpertStandard.dat'),
-    BPM,
-    NJS,
-);
+main(load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'), BPM, NJS);
 
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {
         if (d._customData) {
             d._customData._requirements = ['Noodle Extensions'];
             d._customData._suggestions = ['Chroma'];
-            d._customData = { ...d._customData, ...bsmap.ColorScheme.Weave };
+            d._customData = { ...d._customData, ...ColorScheme.Weave };
         }
     }
 }
 
-bsmap.save.infoSync(info);
+save.infoSync(info);
 
 console.timeEnd('Runtime');

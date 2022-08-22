@@ -1,14 +1,11 @@
-import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+import { BeatPerMinute, ext, logger, NoteJumpSpeed, utils, v3 } from '../../depsLocal.ts';
 
-export function build2(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Run Build 2');
-    const fakeNotes = [];
+const { NE } = ext;
+const { between } = ext.selector;
+
+export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Run Build 2');
+    const fakeNotes: v3.ColorNote[] = [];
     const slowBuildTiming = [264, 778];
 
     for (const sbt of slowBuildTiming) {
@@ -24,11 +21,11 @@ export function build2(
                     track: 'tBuild',
                     duration: 0.75,
                     dissolve: [
-                        [bsmap.utils.random(0.8, 0.9), 0],
+                        [utils.random(0.8, 0.9), 0],
                         [1, 1],
                     ],
                     dissolveArrow: [
-                        [bsmap.utils.random(0.45, 0.55), 0],
+                        [utils.random(0.45, 0.55), 0],
                         [1, 1],
                     ],
                 },
@@ -43,21 +40,11 @@ export function build2(
                         track: 'tBuild',
                         duration: 0.75,
                         dissolve: [
-                            [
-                                bsmap.utils.random(0.8, 0.9) -
-                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
-                                    0.25,
-                                0,
-                            ],
+                            [utils.random(0.8, 0.9) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                         dissolveArrow: [
-                            [
-                                bsmap.utils.random(0.45, 0.55) -
-                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
-                                    0.25,
-                                0,
-                            ],
+                            [utils.random(0.45, 0.55) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                     },
@@ -69,21 +56,11 @@ export function build2(
                         track: 'tBuild',
                         duration: 0.75,
                         dissolve: [
-                            [
-                                bsmap.utils.random(0.95, 1) -
-                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
-                                    0.25,
-                                0,
-                            ],
+                            [utils.random(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                         dissolveArrow: [
-                            [
-                                bsmap.utils.random(0.95, 1) -
-                                bsmap.utils.normalize(t, sbt + 64, sbt + 120) *
-                                    0.75,
-                                0,
-                            ],
+                            [utils.random(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.75, 0],
                             [1, 1],
                         ],
                     },
@@ -94,5 +71,5 @@ export function build2(
         // fakeNotes.push(...notes)
     }
 
-    data.customData.fakeColorNotes!.push(...fakeNotes.map((n) => n.toObject()));
+    data.customData.fakeColorNotes!.push(...fakeNotes.map((n) => n.toJSON()));
 }

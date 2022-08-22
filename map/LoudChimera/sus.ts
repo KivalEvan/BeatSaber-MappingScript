@@ -1,13 +1,10 @@
-import * as bsmap from '../../depsLocal.ts';
-const { noodleExtensions: NE } = bsmap.ext;
-const { between } = bsmap.ext.selector;
+import { BeatPerMinute, ext, logger, NoteJumpSpeed, v3 } from '../../depsLocal.ts';
 
-export function sus(
-    data: bsmap.v3.DifficultyData,
-    BPM: bsmap.BeatPerMinute,
-    NJS: bsmap.NoteJumpSpeed,
-) {
-    bsmap.logger.info('Run Sus');
+const { NE } = ext;
+const { between } = ext.selector;
+
+export function sus(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+    logger.info('Run Sus');
     data.customData.environment?.push(
         {
             geometry: {
