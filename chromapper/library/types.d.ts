@@ -243,6 +243,7 @@ export interface IBaseObject {
     /** Beat time `<float>` of beatmap object. */
     _time: number;
     _customData?: ICustomDataBase;
+    readonly selected: boolean;
 }
 
 export interface INote extends IBaseObject {
@@ -453,7 +454,7 @@ export type Run = (
     global: { params: Parameter[] },
     data: any,
     customEvents?: ICustomEvent[],
-    bpmChanges?: IBPMChange[],
+    bpmChanges?: IBPMChange[]
 ) => void;
 
 export type Main = {
@@ -468,7 +469,7 @@ export type Main = {
         global: { params: Parameter[] },
         data: any,
         customEvents?: ICustomEvent[],
-        bpmChanges?: IBPMChange[],
+        bpmChanges?: IBPMChange[]
     ): void;
     errorCheck?: boolean;
 };

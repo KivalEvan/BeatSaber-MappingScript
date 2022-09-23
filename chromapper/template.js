@@ -8,7 +8,7 @@
 // const {} = require('./library/helpers.js');
 
 /**
- * @type {Run} run
+ * @type {Run}
  */
 function run(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
     return;

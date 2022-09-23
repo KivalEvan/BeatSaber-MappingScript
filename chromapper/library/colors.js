@@ -48,7 +48,7 @@ function RGBAtoHSVA(r, g, b, a = 1) {
             h /= 6 * d;
             break;
     }
-    return [h, s, v, a];
+    return [h * 360, s, v, a];
 }
 
 /**
