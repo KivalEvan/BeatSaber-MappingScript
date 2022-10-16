@@ -8,6 +8,7 @@ export default (d: v3.Difficulty) => {
     const kTiming = [8.5, 10, 11.5, 24.5, 26, 27.5];
     const repeatTiming = [38, 422];
     for (const rt of repeatTiming) {
+        d.addColorBoostEvents({ b: rt, o: true });
         //#region clap
         for (let g = 14; g < 16; g++) {
             const fltr = {
@@ -64,11 +65,11 @@ export default (d: v3.Difficulty) => {
                             l: [{ e: EaseType.NONE, r: 90 }],
                         },
                     ],
-                }
+                },
             );
             const e = [
                 { c: EventBoxColor.WHITE, s: Brightness.FULL },
-                { c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE, b: 0.25 },
+                { c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE, b: 0.25 },
             ] as Partial<types.v3.ILightColorBase>[];
             for (let b = rt; b <= rt + 28; b++) {
                 d.addLightColorEventBoxGroups({
@@ -93,10 +94,11 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { s: Brightness.EXTRA, c: EventBoxColor.WHITE },
                                 { b: 0.125, i: TransitionType.EXTEND },
-                                { b: 0.499, s: Brightness.HALF, i: TransitionType.INTERPOLATE },
+                                { b: 0.375, s: Brightness.FULL, i: TransitionType.INTERPOLATE },
+                                { b: 0.499, c: EventBoxColor.BLUE, s: Brightness.HALF, i: TransitionType.INTERPOLATE },
                                 { b: 0.5, s: Brightness.EXTRA },
                                 { b: 0.625, i: TransitionType.EXTEND },
-                                { b: 0.999, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                { b: 0.999, c: EventBoxColor.BLUE, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
                             ],
                         },
                     ],
@@ -127,7 +129,7 @@ export default (d: v3.Difficulty) => {
                                 l: [{ p: 1 }, { b: 0.125, r: (utils.random(-3, 3, true) * 90) % 360 }],
                             },
                         ],
-                    }
+                    },
                 );
             }
         }
@@ -142,7 +144,7 @@ export default (d: v3.Difficulty) => {
                     b: rt,
                     g,
                     e: [{ l: [{ r: -90 }] }, { a: Axis.Y, s: 180, t: 2, b: 1, l: [{}] }],
-                }
+                },
             );
             for (let i = 0; i < (rt === 38 ? 56 : 60); i++) {
                 d.addLightColorEventBoxGroups({
@@ -152,11 +154,11 @@ export default (d: v3.Difficulty) => {
                         {
                             f: { f: 2, p: synthGroup[i % synthGroup.length], t: 999 },
                             e: [
-                                { c: EventBoxColor.WHITE, s: Brightness.OFF },
+                                { c: EventBoxColor.WHITE, s: Brightness.ZERO },
                                 { b: 0.0625, c: EventBoxColor.WHITE, s: Brightness.MODERATE },
                                 { b: 0.1875, i: TransitionType.EXTEND },
                                 { b: 0.25, s: Brightness.FULL, i: TransitionType.INTERPOLATE },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -171,53 +173,19 @@ export default (d: v3.Difficulty) => {
                     g: 0 + i,
                     e: [
                         {
-                            f: { f: 2, t: 2 },
-                            w: 1,
-                            e: [
-                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 4 + i,
-                    e: [
-                        {
-                            f: { f: 2, t: 2 },
-                            w: 1,
-                            e: [
-                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 10 + i,
-                    e: [
-                        {
-                            f: { f: 2, t: 2 },
-                            w: 1,
-                            e: [
-                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
-                            ],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 0 + i,
-                    e: [
-                        {
                             f: { f: 2, t: 2, p: 1 },
                             e: [
                                 { i: TransitionType.EXTEND },
                                 { b: 0.874, i: TransitionType.INTERPOLATE },
-                                { b: 0.875, s: Brightness.OFF },
+                                { b: 0.875, s: Brightness.ZERO },
+                            ],
+                        },
+                        {
+                            f: { f: 2, t: 2 },
+                            w: 1,
+                            e: [
+                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
+                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -231,7 +199,15 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { i: TransitionType.EXTEND },
                                 { b: 0.874, i: TransitionType.INTERPOLATE },
-                                { b: 0.875, s: Brightness.OFF },
+                                { b: 0.875, s: Brightness.ZERO },
+                            ],
+                        },
+                        {
+                            f: { f: 2, t: 2 },
+                            w: 1,
+                            e: [
+                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
+                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -245,7 +221,15 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { i: TransitionType.EXTEND },
                                 { b: 0.874, i: TransitionType.INTERPOLATE },
-                                { b: 0.875, s: Brightness.OFF },
+                                { b: 0.875, s: Brightness.ZERO },
+                            ],
+                        },
+                        {
+                            f: { f: 2, t: 2 },
+                            w: 1,
+                            e: [
+                                { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
+                                { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -259,7 +243,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
                                 { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -273,7 +257,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
                                 { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -287,7 +271,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
                                 { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -302,17 +286,24 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { b: 0, c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
                                 { b: 0.25, c: EventBoxColor.WHITE },
-                                { b: 4, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                { b: 4, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
                             ],
                         },
                     ],
-                }
+                },
             );
             d.addLightRotationEventBoxGroups(
                 {
                     b: rt - 1,
                     g: 0 + i,
                     e: [
+                        {
+                            f: { f: 2, t: 2, p: 1 },
+                            w: 1,
+                            s: 180,
+                            t: 2,
+                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
+                        },
                         {
                             f: { f: 2, t: 2 },
                             w: 1,
@@ -331,6 +322,13 @@ export default (d: v3.Difficulty) => {
                     g: 4 + i,
                     e: [
                         {
+                            f: { f: 2, t: 2, p: 1 },
+                            w: 1,
+                            s: 180,
+                            t: 2,
+                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
+                        },
+                        {
                             f: { f: 2, t: 2 },
                             w: 1,
                             s: 45,
@@ -345,6 +343,13 @@ export default (d: v3.Difficulty) => {
                     g: 10 + i,
                     e: [
                         {
+                            f: { f: 2, t: 2, p: 1 },
+                            w: 1,
+                            s: 180,
+                            t: 2,
+                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
+                        },
+                        {
                             f: { f: 2, t: 2 },
                             w: 1,
                             s: 45,
@@ -354,45 +359,6 @@ export default (d: v3.Difficulty) => {
                                 { e: EaseType.NONE, r: 90 },
                                 { b: 0.25, r: 90 },
                             ],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 0 + i,
-                    e: [
-                        {
-                            f: { f: 2, t: 2, p: 1 },
-                            w: 1,
-                            s: 180,
-                            t: 2,
-                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 4 + i,
-                    e: [
-                        {
-                            f: { f: 2, t: 2, p: 1 },
-                            w: 1,
-                            s: 180,
-                            t: 2,
-                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
-                        },
-                    ],
-                },
-                {
-                    b: rt - 1,
-                    g: 10 + i,
-                    e: [
-                        {
-                            f: { f: 2, t: 2, p: 1 },
-                            w: 1,
-                            s: 180,
-                            t: 2,
-                            l: [{ e: EaseType.NONE, p: 1 }, { b: 0.25 }],
                         },
                     ],
                 },
@@ -480,7 +446,7 @@ export default (d: v3.Difficulty) => {
                             l: [{ r: 135, e: EaseType.OUT_QUAD }],
                         },
                     ],
-                }
+                },
             );
 
             d.addLightColorEventBoxGroups(
@@ -492,7 +458,7 @@ export default (d: v3.Difficulty) => {
                             f: { f: 2, t: 2, p: 1 },
                             e: [
                                 { b: 0, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -505,7 +471,7 @@ export default (d: v3.Difficulty) => {
                             f: { f: 2, t: 2, p: 1 },
                             e: [
                                 { b: 0, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -518,7 +484,7 @@ export default (d: v3.Difficulty) => {
                             f: { f: 2, t: 2, p: 1 },
                             e: [
                                 { b: 0, s: Brightness.DOUBLE, f: 12 },
-                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.OFF, f: 6 },
+                                { b: 6, i: TransitionType.INTERPOLATE, s: Brightness.ZERO, f: 6 },
                             ],
                         },
                     ],
@@ -533,11 +499,11 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { b: 0, c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
                                 { b: 0.25, c: EventBoxColor.WHITE },
-                                { b: 4, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                { b: 4, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
                             ],
                         },
                     ],
-                }
+                },
             );
             d.addLightRotationEventBoxGroups(
                 {
@@ -621,7 +587,7 @@ export default (d: v3.Difficulty) => {
                             l: [{ r: 135, e: EaseType.OUT_QUAD }],
                         },
                     ],
-                }
+                },
             );
         }
 
@@ -693,7 +659,7 @@ export default (d: v3.Difficulty) => {
                         l: [{ r: 90 }, { b: 30, p: 1 }],
                     },
                 ],
-            }
+            },
         );
         d.addLightColorEventBoxGroups({
             b: rt + 22,
@@ -707,7 +673,7 @@ export default (d: v3.Difficulty) => {
                     b: 1,
                     e: [
                         { c: EventBoxColor.WHITE },
-                        { b: 1 / 6, c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                        { b: 1 / 6, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                     ],
                 },
                 {
@@ -718,7 +684,7 @@ export default (d: v3.Difficulty) => {
                     b: 1,
                     e: [
                         { c: EventBoxColor.WHITE },
-                        { b: 1 / 6, c: EventBoxColor.WHITE, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                        { b: 1 / 6, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                     ],
                 },
             ],
@@ -728,13 +694,13 @@ export default (d: v3.Difficulty) => {
                 b: t,
                 g: 13,
                 e: [
-                    { f: { f: 2, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.OFF }] },
-                    { f: { f: 2, r: 1, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.OFF }] },
-                    { f: { f: 2, p: 5, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.OFF }] },
-                    { f: { f: 2, r: 1, p: 5, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.OFF }] },
+                    { f: { f: 2, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.ZERO }] },
+                    { f: { f: 2, r: 1, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.ZERO }] },
+                    { f: { f: 2, p: 5, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.ZERO }] },
+                    { f: { f: 2, r: 1, p: 5, t: 999 }, e: [{ f: 8 }, { b: 1.999, s: Brightness.ZERO }] },
                 ],
             });
-            if (t === 28) {
+            if (t === 450) {
                 continue;
             }
             d.addLightColorEventBoxGroups(
@@ -747,7 +713,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                         {
@@ -755,7 +721,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -769,7 +735,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                         {
@@ -777,7 +743,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -791,7 +757,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                         {
@@ -799,7 +765,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
@@ -813,7 +779,7 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                         {
@@ -821,11 +787,11 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: Brightness.EXTRA },
                                 { b: 0.125, c: EventBoxColor.WHITE, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                                { b: 0.4375, s: Brightness.OFF, i: TransitionType.INTERPOLATE },
+                                { b: 0.4375, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
                             ],
                         },
                     ],
-                }
+                },
             );
         }
     }

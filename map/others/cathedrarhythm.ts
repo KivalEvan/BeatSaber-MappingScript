@@ -2,10 +2,9 @@ import { BeatPerMinute, convert, globals, load, save } from '../../depsLocal.ts'
 import { insertEnvironment } from '../../environment-enhancement/cathedral/mod.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/CustomWIPLevels/Cathedrarhythm/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/Cathedrarhythm/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Cathedrarhythm';
 
 const d2 = load.difficultySync('OriginalStandard.dat', 2);
 const d3 = convert.V2toV3(d2, true);

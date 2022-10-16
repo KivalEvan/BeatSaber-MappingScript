@@ -8,6 +8,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const regexRingRight = `\\[\\d+\\]PillarTrackLaneRingsR$`;
     const regexRingLeft = `\\[\\d+\\]PillarTrackLaneRingsR.?\\(1\\)$`;
     const regexGlowLine = `\\[\\d+\\]GlowLineL$`;
+    const regexSideLaser = '\\[42\\]SideLaser$';
     const regexPillarL = `\\[\\d+\\]PillarPair\\.\\[\\d+\\]PillarL$`;
     const regexPillarR = `\\[\\d+\\]PillarPair\\.\\[\\d+\\]PillarR$`;
     const regexDoor = `\\[\\d+\\]MagicDoorSprite$`;
@@ -36,10 +37,16 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         for (let i = 0; i < 10; i++) {
             const posXRight = (i + 1) * 12 + 96 - z * 8;
             const posZRight = 32 + Math.random() * 64;
-            const posYRight = Math.max(-36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25, 2);
+            const posYRight = Math.max(
+                -36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25,
+                2,
+            );
             const posXLeft = (i + 1) * 12 + 96 - z * 8;
             const posZLeft = 32 + Math.random() * 64;
-            const posYLeft = Math.max(-36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25, 2);
+            const posYLeft = Math.max(
+                -36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25,
+                2,
+            );
             environment.push(
                 {
                     id: regexRingRight,
@@ -220,21 +227,43 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
 
     const lightBlock = bsmap.ext.chroma.EnvironmentBlock.create(
         {
-            geometry: {
-                type: 'Plane',
-                material: 'genericTransparentLight',
+            id: regexSideLaser,
+            lookupMethod: 'Regex',
+            duplicate: 1,
+            scale: [10, 0.0004, 10],
+            rotation: [0, 0, 0],
+            components: {
+                TubeBloomPrePassLight: {
+                    colorAlphaMultiplier: 1.5,
+                    bloomFogIntensityMultiplier: 0.5,
+                },
             },
         },
         [0, 0, 0],
-        0,
+        1,
     );
     const logo: bsmap.types.v3.IChromaEnvironment[] = [];
     //F
-    lightBlock.place({ position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] }, logo);
-    lightBlock.place({ position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] }, logo);
-    lightBlock.place({ position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] }, logo);
-    lightBlock.place({ position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] }, logo);
-    lightBlock.place({ position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] }, logo);
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] },
+        logo,
+    );
     //E
     lightBlock.place(
         {
@@ -272,8 +301,14 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         logo,
     );
     //L
-    lightBlock.place({ position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] }, logo);
-    lightBlock.place({ position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] }, logo);
+    lightBlock.place(
+        { position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] },
+        logo,
+    );
+    lightBlock.place(
+        { position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] },
+        logo,
+    );
     //T
     lightBlock.place(
         {
@@ -296,7 +331,9 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map(
+                (n) => n * 0.6,
+            ) as typeof e.localPosition;
         }
     });
 
@@ -311,7 +348,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v3.DifficultyData) => {
+export const insertEnvironment = (d: bsmap.v3.Difficulty) => {
     if (d.customData.environment?.length) {
         bsmap.logger.warn('Environment enhancement previously existed, replacing');
     }

@@ -225,8 +225,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        id: regexDoubleColorLaser.replace(/\$$/, '') +
-            `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
+        id: regexDoubleColorLaser.replace(/\$$/, '') + `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
         lookupMethod: 'Regex',
         active: false,
     });
@@ -256,11 +255,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     }
     //#endregion
     //#region fabled extra light
-    const extraMirrorLightPos: bsmap.types.Vector3 = [
-        extraMirrorLightMirrorOffsetX,
-        -1.625,
-        extraMirrorLightOffset,
-    ];
+    const extraMirrorLightPos: bsmap.types.Vector3 = [extraMirrorLightMirrorOffsetX, -1.625, extraMirrorLightOffset];
     const extraMirrorLightScale: bsmap.types.Vector3 = [0.5, 0.5, 0.5];
     for (let i = 0; i < 5; i++) {
         environment.push(
@@ -269,9 +264,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posMirrorX(
-                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                ),
+                position: posMirrorX(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)),
                 rotation: [0 + i * 2.5, 0, 320 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -283,10 +276,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 scale: extraMirrorLightScale,
                 position: posMirrorX(
-                    posAddY(
-                        posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                        extraMirrorLightMirrorOffsetY,
-                    ),
+                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
                 ),
                 rotation: [0 - i * 2.5, 0, 220 - i * 11],
                 components: {
@@ -298,10 +288,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posAddY(
-                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                    extraMirrorLightMirrorOffsetY,
-                ),
+                position: posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
                 rotation: [0 - i * 2.5, 0, 140 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -324,7 +311,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v3.DifficultyData) => {
+export const insertEnvironment = (d: bsmap.v3.Difficulty) => {
     if (d.customData.environment?.length) {
         bsmap.logger.warn('Environment enhancement previously existed, replacing');
     }

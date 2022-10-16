@@ -20,12 +20,16 @@ export function intro(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
                     .addCustomData({
                         uninteractable: true,
                         spawnEffect: true,
-                        localRotation: [0, 0, (180 + (NoteDirectionAngle[n.direction] || 0)) % 360],
+                        localRotation: [
+                            0,
+                            0,
+                            (180 + (NoteDirectionAngle[n.direction] || 0)) % 360,
+                        ],
                         noteJumpMovementSpeed: 10,
                         noteJumpStartBeatOffset: -NoteJumpSpeed.HJD_START + 2,
                         animation: {
                             definitePosition: 'slashPosition',
-                            dissolve: 'slashGlitch',
+                            dissolve: 'slashGlitchEffect',
                             dissolveArrow: 'pZero',
                         },
                     })

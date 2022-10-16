@@ -17,8 +17,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const regexPillarR = '\\[\\d+\\]PillarPair\\.\\[\\d+\\]PillarR$';
     const regexSmallPillarL = '\\[\\d+\\]SmallPillarPair\\.\\[\\d+\\]PillarL$';
     const regexSmallPillarR = '\\[\\d+\\]SmallPillarPair\\.\\[\\d+\\]PillarR$';
-    const regexCloudGeometry =
-        '\\[\\d+\\]HighCloudsGenerator.\\[\\d+\\]OpaqueGeometry$';
+    const regexCloudGeometry = '\\[\\d+\\]HighCloudsGenerator.\\[\\d+\\]OpaqueGeometry$';
 
     for (let i = 0; i < 12; i++) {
         environment.push({
@@ -131,44 +130,36 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [-64, 20, 160],
             rotation: [0, 180, 45],
             scale: [0.25, 0.25, 1],
-        }
+        },
     );
 
     //#region cringe pillar
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
-                id: i
-                    ? regexPillarL.replace('PillarPair', `PillarPair \\(${i}\\)`)
-                    : regexPillarL,
+                id: i ? regexPillarL.replace('PillarPair', `PillarPair \\(${i}\\)`) : regexPillarL,
                 lookupMethod: 'Regex',
                 rotation: [45, 315, 210 - i * 7.5],
                 position: [-30, 12, 76 + i * 8],
             },
             {
-                id: i
-                    ? regexPillarR.replace('PillarPair', `PillarPair \\(${i}\\)`)
-                    : regexPillarR,
+                id: i ? regexPillarR.replace('PillarPair', `PillarPair \\(${i}\\)`) : regexPillarR,
                 lookupMethod: 'Regex',
                 rotation: [45, 45, 150 + i * 7.5],
                 position: [30, 12, 76 + i * 8],
             },
             {
-                id: i
-                    ? regexSmallPillarL.replace('PillarPair', `PillarPair \\(${i}\\)`)
-                    : regexSmallPillarL,
+                id: i ? regexSmallPillarL.replace('PillarPair', `PillarPair \\(${i}\\)`) : regexSmallPillarL,
                 lookupMethod: 'Regex',
                 rotation: [135, 165, -7.5],
                 position: [-24, 28 - i * 2, 74 + i * 8],
             },
             {
-                id: i
-                    ? regexSmallPillarR.replace('PillarPair', `PillarPair \\(${i}\\)`)
-                    : regexSmallPillarR,
+                id: i ? regexSmallPillarR.replace('PillarPair', `PillarPair \\(${i}\\)`) : regexSmallPillarR,
                 lookupMethod: 'Regex',
                 rotation: [135, 195, 7.5],
                 position: [24, 28 - i * 2, 74 + i * 8],
-            }
+            },
         );
     }
     //#endregion
@@ -201,7 +192,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                         bloomFogIntensityMultiplier: 0.1875,
                     },
                 },
-            }
+            },
         );
     }
 
@@ -493,7 +484,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     bloomFogIntensityMultiplier: 0.5,
                 },
             },
-        }
+        },
     );
     //#endregion
 
@@ -514,7 +505,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [18.2, 0, 48],
             scale: [4.75, 0.00075, 22],
             rotation: [0, 0, 0],
-        }
+        },
     );
     //#endregion
 
@@ -919,7 +910,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [3, 5.875, 112],
             scale: [0.125, 0.125, 0.125],
             rotation: [180, 0, 30],
-        }
+        },
     );
     //#endregion
 
@@ -961,7 +952,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     position: [x, 3, z],
                     scale: [0.75, 0.005, 0.3105],
                     rotation: [180, rotationAmount / 2 + i * rotationAmount, 0],
-                }
+                },
             );
         }
         for (let i = 0; i < 8; i++) {
@@ -1046,16 +1037,16 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     duplicate: 1,
                     position: [
                         x +
-                            Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
-                                37.5 *
-                                xShift +
-                            xShift * 36.125,
+                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
+                            37.5 *
+                            xShift +
+                        xShift * 36.125,
                         15 + Math.sin(bsmap.utils.degToRad(160 - j * 12)) * 50,
                         z +
-                            Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
-                                37.5 *
-                                zShift +
-                            zShift * 36.125,
+                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
+                            37.5 *
+                            zShift +
+                        zShift * 36.125,
                     ],
                     scale: [0.3125, 0.0575, 0.3125],
                     rotation: [160 - j * 12, i * rotationAmount, 0],
@@ -1184,7 +1175,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 position: [2.125 + x, 1.28125, 0.1875 + z],
                 scale: [0.015625, 0.00375, 0.015625],
                 rotation: [90, 0, 0],
-            }
+            },
         );
     };
 
@@ -1243,7 +1234,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     ],
                     scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
-                }
+                },
             );
         }
     }
@@ -1255,7 +1246,7 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         }
         if (e.localPosition) {
             e.localPosition = e.localPosition.map(
-                (n) => n * 0.6
+                (n) => n * 0.6,
             ) as typeof e.localPosition;
         }
         return e;

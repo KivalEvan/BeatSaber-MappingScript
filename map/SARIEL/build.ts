@@ -31,7 +31,12 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: 2.5 },
                                 { b: 0.0625, i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    c: EventBoxColor.WHITE,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -46,7 +51,12 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: 2.5 },
                                 { b: 0.0625, i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    c: EventBoxColor.WHITE,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -60,7 +70,11 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -105,7 +119,12 @@ export default (d: v3.Difficulty) => {
                             e: [
                                 { c: EventBoxColor.WHITE, s: 2.5 },
                                 { b: 0.0625, i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    c: EventBoxColor.WHITE,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -119,7 +138,11 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -133,7 +156,11 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -192,7 +219,11 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -206,7 +237,11 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
@@ -220,14 +255,22 @@ export default (d: v3.Difficulty) => {
                             w: 1,
                             e: [
                                 { i: TransitionType.EXTEND },
-                                { b: 0.5, i: TransitionType.INTERPOLATE, s: Brightness.OFF },
+                                {
+                                    b: 0.5,
+                                    i: TransitionType.INTERPOLATE,
+                                    s: Brightness.ZERO,
+                                },
                             ],
                         },
                     ],
                 }
             );
             d.addLightRotationEventBoxGroups(
-                { b: rt, g: 0 + i, e: [{ s: -45, b: 1, l: [{ r: 165, e: EaseType.NONE }] }] },
+                {
+                    b: rt,
+                    g: 0 + i,
+                    e: [{ s: -45, b: 1, l: [{ r: 165, e: EaseType.INOUT_QUAD }] }],
+                },
                 {
                     b: rt - 6 + 7 + 0.125,
                     g: 0 + i,
@@ -236,7 +279,12 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 3.5,
                             b: 1,
-                            l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 270 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -248,7 +296,12 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 7,
                             b: 1,
-                            l: [{ r: 255 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 255 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -260,7 +313,12 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 7,
                             b: 1,
-                            l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 270 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -272,7 +330,12 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 7,
                             b: 1,
-                            l: [{ r: 255 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 255 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -284,7 +347,12 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 7,
                             b: 1,
-                            l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 270 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -296,11 +364,17 @@ export default (d: v3.Difficulty) => {
                             s: -60 - utils.random(0, 5),
                             w: 2,
                             b: 1,
-                            l: [{ r: 262.5 + utils.random(-5, 5), e: EaseType.IN_QUAD }],
+                            l: [
+                                { r: 262.5 + utils.random(-5, 5), e: EaseType.IN_QUAD },
+                            ],
                         },
                     ],
                 },
-                { b: rt, g: 4 + i, e: [{ s: -30, b: 1, l: [{ r: 165, e: EaseType.NONE }] }] },
+                {
+                    b: rt,
+                    g: 4 + i,
+                    e: [{ s: -30, b: 1, l: [{ r: 165, e: EaseType.INOUT_QUAD }] }],
+                },
                 {
                     b: rt - 6 + 7 + 0.25,
                     g: 4 + i,
@@ -309,7 +383,12 @@ export default (d: v3.Difficulty) => {
                             s: -45 - utils.random(0, 5),
                             w: 4,
                             b: 1,
-                            l: [{ r: 240 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 240 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -321,7 +400,12 @@ export default (d: v3.Difficulty) => {
                             s: -45 - utils.random(0, 5),
                             w: 8,
                             b: 1,
-                            l: [{ r: 225 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 225 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -333,7 +417,12 @@ export default (d: v3.Difficulty) => {
                             s: -45 - utils.random(0, 5),
                             w: 8,
                             b: 1,
-                            l: [{ r: 240 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 240 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -345,7 +434,12 @@ export default (d: v3.Difficulty) => {
                             s: -45 - utils.random(0, 5),
                             w: 8,
                             b: 1,
-                            l: [{ r: 225 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 225 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -361,7 +455,11 @@ export default (d: v3.Difficulty) => {
                         },
                     ],
                 },
-                { b: rt, g: 10 + i, e: [{ s: 45, b: 1, l: [{ r: 285, e: EaseType.NONE }] }] },
+                {
+                    b: rt,
+                    g: 10 + i,
+                    e: [{ s: 45, b: 1, l: [{ r: 285, e: EaseType.INOUT_QUAD }] }],
+                },
                 {
                     b: rt - 6 + 7,
                     g: 10 + i,
@@ -370,7 +468,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 3,
                             b: 1,
-                            l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 150 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -382,7 +485,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 6,
                             b: 1,
-                            l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 165 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -394,7 +502,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 6,
                             b: 1,
-                            l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 150 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -406,7 +519,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 6,
                             b: 1,
-                            l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 165 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -418,7 +536,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 6,
                             b: 1,
-                            l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 150 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 },
@@ -430,7 +553,12 @@ export default (d: v3.Difficulty) => {
                             s: 75 + utils.random(0, 5),
                             w: 6,
                             b: 1,
-                            l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                            l: [
+                                {
+                                    r: 165 + utils.random(-5, 5),
+                                    e: EaseType.INOUT_QUAD,
+                                },
+                            ],
                         },
                     ],
                 }

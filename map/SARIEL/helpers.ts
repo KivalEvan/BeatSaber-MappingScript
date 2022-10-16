@@ -20,7 +20,7 @@ export function eventBoxTimeScale(
 }
 
 export const enum Brightness {
-    OFF = 0,
+    ZERO = 0,
     DIM = 0.25,
     HALF = 0.5,
     MODERATE = 0.75,

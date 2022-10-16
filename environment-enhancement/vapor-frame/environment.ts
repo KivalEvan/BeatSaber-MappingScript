@@ -438,7 +438,7 @@ export const generateEnvironment = (): bsmap.types.v2.IChromaEnvironment[] => {
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v2.DifficultyData) => {
+export const insertEnvironment = (d: bsmap.v2.Difficulty) => {
     if (d.customData._environment?.length) {
         bsmap.logger.warn('Environment enhancement previously existed, replacing');
     }

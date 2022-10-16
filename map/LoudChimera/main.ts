@@ -11,7 +11,7 @@ import { drop1 } from './drop1.ts';
 import { drop2 } from './drop2.ts';
 import { misc } from './misc.ts';
 import { text } from './text.ts';
-import { sus } from './sus.ts';
+import { sus } from './imposter.ts';
 import { color } from './color.ts';
 import { BeatPerMinute, logger, NoteJumpSpeed, save, v3 } from '../../depsLocal.ts';
 
@@ -35,9 +35,13 @@ export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed
     // sus(data, BPM, NJS);
     // data.burstSliders = [];
 
-    const lightData = lightshow();
-    // data.basicBeatmapEvents = data.basicBeatmapEvents.concat(lightData.basicBeatmapEvents);
-    data.customData.environment = data.customData.environment?.concat(lightData.customData.environment!);
+    // const lightData = lightshow();
+    // data.basicBeatmapEvents = data.basicBeatmapEvents.concat(
+    //     lightData.basicBeatmapEvents,
+    // );
+    // data.customData.environment = data.customData.environment?.concat(
+    //     lightData.customData.environment!,
+    // );
 
     postProcess(data);
     save.difficultySync(data);

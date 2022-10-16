@@ -1,7 +1,7 @@
 import * as bsmap from '../../deps.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './environment.ts';
 
-export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.types.EnvironmentAllName) => {
+export const convertLight = (d: bsmap.v2.Difficulty, environment: bsmap.types.EnvironmentAllName) => {
     const events = d.events;
     const newEvents = [];
 
@@ -86,17 +86,6 @@ export const convertLight = (d: bsmap.v2.DifficultyData, environment: bsmap.type
     for (const ev of newEvents) {
         if (ignoreConversion.includes(ev.type)) {
             continue;
-        }
-        if (ev.type === 4 && ev.customData!._color) {
-            ev.customData!._color = ev.customData!._color.map((n: number) => (n * 1) / 3);
-            ev.floatValue = 3;
-        }
-        if (
-            (ev.type === 5 || ev.type === 6 || ev.type === 7 || ev.type === 10 || ev.type === 11) &&
-            ev.customData!._color
-        ) {
-            ev.customData!._color = ev.customData!._color.map((n: number) => (n * 1) / 20);
-            ev.floatValue = 20;
         }
         ev.customData!._lightID = typeLightIDMap[ev.type];
         ev.type = switchType[ev.type];

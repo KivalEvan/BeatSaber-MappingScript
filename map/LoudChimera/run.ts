@@ -16,17 +16,29 @@ globals.directory = Deno.build.os === 'linux'
 
 const info = load.infoSync();
 const BPM = BeatPerMinute.create(info._beatsPerMinute);
-const NJS = NoteJumpSpeed.create(BPM, 19.5, 0.25);
+const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
 NE.settings.BPM = BPM;
 NE.settings.NJS = NJS;
 
-main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
+main(
+    load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'),
+    BPM,
+    NJS,
+);
 
-main(load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'), BPM, NJS);
+main(
+    load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'),
+    BPM,
+    NJS,
+);
 
-NJS.value = 17;
+NJS.value = 16;
 NJS.offset = -1.25;
-main(load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'), BPM, NJS);
+main(
+    load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'),
+    BPM,
+    NJS,
+);
 
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {

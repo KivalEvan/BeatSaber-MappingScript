@@ -1,12 +1,21 @@
-import { convert, globals, isV3, load, save } from '../../depsLocal.ts';
+import {
+    BeatPerMinute,
+    convert,
+    globals,
+    isV3,
+    load,
+    save,
+    v3,
+} from '../../depsLocal.ts';
 import { copySync } from 'https://deno.land/std@0.153.0/fs/mod.ts';
 import lights from './lights.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-globals.directory = Deno.build.os === 'linux'
-    ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
-    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
+globals.directory =
+    Deno.build.os === 'linux'
+        ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
+        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
 
 const info = load.infoSync();
 info._songName = '!' + info._songName;
@@ -24,13 +33,64 @@ for (const set of info._difficultyBeatmapSets) {
             d._customData._information = [
                 'Sariel',
                 'Now, Until the Moment You Die',
-                '1st track of album Civilization of Magic',
+                'Civilization of Magic',
+                '1st track of album S.A.R.I.E.L. -Request Song Jukebox Vol.01-',
             ];
+            d._customData = {
+                ...d._customData,
+                _envColorLeft: {
+                    r: 0.875,
+                    g: 0.5,
+                    b: 0,
+                },
+                _envColorRight: {
+                    r: 0,
+                    g: 0.5,
+                    b: 0.8125,
+                },
+                _envColorLeftBoost: {
+                    r: 0.875,
+                    g: 0,
+                    b: 0.1875,
+                },
+                _envColorRightBoost: {
+                    r: 0.4375,
+                    g: 0,
+                    b: 0.8125,
+                },
+            };
             delete d._customData._requirements;
             delete d._customData._suggestions;
+        } else {
+            d._customData = {
+                _envColorLeft: {
+                    r: 0.875,
+                    g: 0.5,
+                    b: 0,
+                },
+                _envColorRight: {
+                    r: 0,
+                    g: 0.5,
+                    b: 0.8125,
+                },
+                _envColorLeftBoost: {
+                    r: 0.875,
+                    g: 0,
+                    b: 0.1875,
+                },
+                _envColorRightBoost: {
+                    r: 0.4375,
+                    g: 0,
+                    b: 0.8125,
+                },
+            };
         }
     }
 }
+const bpm = BeatPerMinute.create(info._beatsPerMinute);
+
+const lightshow = v3.Difficulty.create();
+lights(lightshow, bpm);
 
 const difficultyList = load.difficultyFromInfoSync(info);
 
@@ -40,16 +100,25 @@ difficultyList.forEach((d) => {
     }
 
     d.data.basicBeatmapEvents = [];
+    d.data.colorBoostBeatmapEvents = lightshow.colorBoostBeatmapEvents;
+    d.data.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
+    d.data.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
     d.data.useNormalEventsAsCompatibleEvents = false;
-    lights(d.data);
 });
 
 const oldDirectory = globals.directory;
-globals.directory = Deno.build.os === 'linux'
-    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
-    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
-copySync(oldDirectory + info._songFilename, globals.directory + info._songFilename, { overwrite: true });
-copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
+globals.directory =
+    Deno.build.os === 'linux'
+        ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
+        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
+copySync(oldDirectory + info._songFilename, globals.directory + info._songFilename, {
+    overwrite: true,
+});
+copySync(
+    oldDirectory + info._coverImageFilename,
+    globals.directory + info._coverImageFilename,
+    { overwrite: true }
+);
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
 
