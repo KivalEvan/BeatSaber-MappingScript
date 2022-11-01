@@ -1,18 +1,21 @@
-import * as bsmap from '../../deps.ts';
+import { ColorScheme, EnvironmentSchemeName, v3, types } from '../../depsLocal.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './environment.ts';
 
-export const convertLight = (d: bsmap.v2.Difficulty, environment: bsmap.types.EnvironmentAllName) => {
-    const events = d.events;
+export const convertLight = (
+    d: v3.Difficulty,
+    environment: types.EnvironmentAllName
+) => {
+    const events = d.basicEvents;
     const newEvents = [];
 
     // default color (for no chroma)
-    const colorScheme = bsmap.ColorScheme[bsmap.EnvironmentSchemeName[environment]];
-    const defaultLeftLight: bsmap.types.ColorArray = [
+    const colorScheme = ColorScheme[EnvironmentSchemeName[environment]];
+    const defaultLeftLight: types.ColorArray = [
         colorScheme._envColorLeft!.r,
         colorScheme._envColorLeft!.g,
         colorScheme._envColorLeft!.b,
     ];
-    const defaultRightLight: bsmap.types.ColorArray = [
+    const defaultRightLight: types.ColorArray = [
         colorScheme._envColorRight!.r,
         colorScheme._envColorRight!.g,
         colorScheme._envColorRight!.b,
@@ -20,32 +23,33 @@ export const convertLight = (d: bsmap.v2.Difficulty, environment: bsmap.types.En
 
     //#region lighting
     // convert chroma 1 to chroma 2
-    const oldChromaColorConvert = (rgb: number): bsmap.types.ColorArray => {
+    const oldChromaColorConvert = (rgb: number): types.ColorArray => {
         rgb = rgb - 2000000000;
         const red = (rgb >> 16) & 0x0ff;
         const green = (rgb >> 8) & 0x0ff;
         const blue = rgb & 0x0ff;
         return [red / 255, green / 255, blue / 255];
     };
-    const currentColor: { [key: number]: bsmap.types.ColorArray | null } = {};
+    const currentColor: { [key: number]: types.ColorArray | null } = {};
     for (const ev of events) {
         let noChromaColor = false;
         if (ev.value >= 2000000000) {
-            currentColor[ev.type] = oldChromaColorConvert(ev.value) as bsmap.types.ColorArray;
+            currentColor[ev.type] = oldChromaColorConvert(ev.value) as types.ColorArray;
         }
         if (!currentColor[ev.type]) {
             noChromaColor = true;
-            currentColor[ev.type] = ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
+            currentColor[ev.type] =
+                ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
         }
         if (ev.value === 4) {
             ev.value = 0;
         }
         if (ev.value !== 0 && !(ev.value >= 2000000000)) {
-            if (ev.customData && !ev.customData._color) {
-                ev.customData = { _color: currentColor[ev.type] };
+            if (ev.customData && !ev.customData.color) {
+                ev.customData = { color: currentColor[ev.type] };
             }
             if (!ev.customData) {
-                ev.customData = { _color: currentColor[ev.type] };
+                ev.customData = { color: currentColor[ev.type] };
             }
         }
         if (!(ev.value >= 2000000000)) {
@@ -73,7 +77,10 @@ export const convertLight = (d: bsmap.v2.Difficulty, environment: bsmap.types.En
     };
     // 0 doesnt need conversion as there's no extra light
     const typeLightIDMap: { [key: number]: number[] } = {
-        4: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
+        4: [
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+            30,
+        ],
         5: tempID,
         6: tempID.map((val) => val + 4),
         7: tempID.map((val) => val + 8),
@@ -87,10 +94,10 @@ export const convertLight = (d: bsmap.v2.Difficulty, environment: bsmap.types.En
         if (ignoreConversion.includes(ev.type)) {
             continue;
         }
-        ev.customData!._lightID = typeLightIDMap[ev.type];
+        ev.customData.lightID = typeLightIDMap[ev.type];
         ev.type = switchType[ev.type];
     }
 
-    d.events = newEvents;
+    d.basicEvents = newEvents;
     //#endregion
 };

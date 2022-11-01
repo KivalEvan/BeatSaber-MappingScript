@@ -1,12 +1,12 @@
-import * as bsmap from '../../depsLocal.ts';
+import { logger, v3, types } from '../../depsLocal.ts';
 
 export const roadCount = 5;
 export const roadRepeat = 4;
 export const idOffsetType0 = 101;
 export const idOffsetType4 = 101;
 
-export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
-    const environment: bsmap.types.v3.IChromaEnvironment[] = [];
+export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+    const environment: types.v3.IChromaEnvironment[] = [];
 
     let internalIdOffsetType0 = idOffsetType0;
     let internalIdOffsetType4 = idOffsetType4;
@@ -17,16 +17,15 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     // extra light
     const extraMirrorLightOffset = roadOffset + roadGap * 2;
     const extraMirrorLightGap = roadGap;
-    const extraMirrorLightMirrorOffsetX = 8.8;
+    const extraMirrorLightMirrorOffsetX = 8;
     const extraMirrorLightMirrorOffsetY = -4;
 
     // regex for environment enhancement
     const regexSpectrogram = `(\\[\\d+\\]Spectrogram(s|\\.|\\d)?)+$`;
     const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
-    const regexConstruction = `\\[\\d+\\]Construction$`;
+    const regexConstruction = `Environment.\\[\\d+\\]Construction$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-    const regexBigRingLights =
-        `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
     const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
@@ -34,18 +33,18 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     const regexNeonTubeFR = `\\[\\d+\\]NeonTubeDirectionalFR$`;
 
     // beyond you're on your own
-    const posAddY = (posArr: bsmap.types.Vector3, y: number): bsmap.types.Vector3 => {
-        const arr: bsmap.types.Vector3 = [...posArr];
+    const posAddY = (posArr: types.Vector3, y: number): types.Vector3 => {
+        const arr: types.Vector3 = [...posArr];
         arr[1] += y;
         return arr;
     };
-    const posAddZ = (posArr: bsmap.types.Vector3, z: number): bsmap.types.Vector3 => {
-        const arr: bsmap.types.Vector3 = [...posArr];
+    const posAddZ = (posArr: types.Vector3, z: number): types.Vector3 => {
+        const arr: types.Vector3 = [...posArr];
         arr[2] += z;
         return arr;
     };
-    const posMirrorX = (posArr: bsmap.types.Vector3): bsmap.types.Vector3 => {
-        const arr: bsmap.types.Vector3 = [...posArr];
+    const posMirrorX = (posArr: types.Vector3): types.Vector3 => {
+        const arr: types.Vector3 = [...posArr];
         arr[0] = -arr[0];
         return arr;
     };
@@ -65,13 +64,30 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
         {
             id: regexConstruction,
             lookupMethod: 'Regex',
-            position: [0, -1, -10],
+            position: [0, -0.3125, -7.5],
+            scale: [1.1875, 1.1875, 1.1875],
         },
         {
             id: regexNearBuilding,
             lookupMethod: 'Regex',
             active: false,
-        },
+        }
+        // {
+        //     geometry: {
+        //         type: 'Cube',
+        //         material: { shader: 'Standard' },
+        //     },
+        //     position: [7.375, -1, 0],
+        //     scale: [4.5625, 0.015625, 1000],
+        // },
+        // {
+        //     geometry: {
+        //         type: 'Cube',
+        //         material: { shader: 'Standard' },
+        //     },
+        //     position: [-7.375, -1, 0],
+        //     scale: [4.5625, 0.015625, 1000],
+        // }
     );
     //#endregion
     //#region extra thicc ring
@@ -82,44 +98,44 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     });
     //#endregion
     //#region road
-    const centerRoadPos: bsmap.types.Vector3 = [1.1875, -2.75, roadOffset];
-    const centerRoadScale: bsmap.types.Vector3 = [0.4375, 0.453125, 0.4375];
-    const farRoadPos: bsmap.types.Vector3 = [3.5625, -2.15625, roadOffset];
-    const farRoadScale: bsmap.types.Vector3 = [0.5, 0.265625, 0.5];
+    const centerRoadPos: types.Vector3 = [1.71875, -2.5, roadOffset];
+    const centerRoadScale: types.Vector3 = [1.4375, 0.125, 0.125];
+    const farRoadPos: types.Vector3 = [4.4375, -1.375, roadOffset];
+    const farRoadScale: types.Vector3 = [1.46875, 0.125, 0.125];
     for (let i = 0; i < roadCount * roadRepeat; i++) {
         environment.push(
             {
                 geometry: {
                     type: 'Cube',
-                    material: {
-                        shaderPreset: 'OpaqueLight',
-                        shaderKeywords: ['ENABLE_LIGHTNING'],
-                    },
-                    spawnCount: 1,
+                    material: { shader: 'OpaqueLight' },
                 },
                 scale: centerRoadScale,
                 position: posMirrorX(posAddZ(centerRoadPos, i * roadGap)),
-                rotation: [0, 0, -78],
+                rotation: [0, 0, 18],
                 components: {
+                    TubeBloomPrePassLight: {
+                        bloomFogIntensityMultiplier: 0.25,
+                        colorAlphaMultiplier: 1.5,
+                    },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
             {
                 geometry: {
                     type: 'Cube',
-                    material: {
-                        shaderPreset: 'OpaqueLight',
-                        shaderKeywords: ['ENABLE_LIGHTNING'],
-                    },
-                    spawnCount: 1,
+                    material: { shader: 'OpaqueLight' },
                 },
                 scale: centerRoadScale,
                 position: posAddZ(centerRoadPos, i * roadGap),
-                rotation: [0, 0, 78],
+                rotation: [0, 0, -18],
                 components: {
+                    TubeBloomPrePassLight: {
+                        bloomFogIntensityMultiplier: 0.25,
+                        colorAlphaMultiplier: 1.5,
+                    },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            },
+            }
         );
     }
     for (let i = 0; i < roadCount * roadRepeat; i++) {
@@ -127,73 +143,77 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             {
                 geometry: {
                     type: 'Cube',
-                    material: {
-                        shaderPreset: 'OpaqueLight',
-                        shaderKeywords: ['ENABLE_LIGHTNING'],
-                    },
-                    spawnCount: 1,
+                    material: { shader: 'OpaqueLight' },
                 },
                 scale: farRoadScale,
                 position: posMirrorX(posAddZ(farRoadPos, i * roadGap)),
-                rotation: [0, 0, -114],
+                rotation: [0, 0, -25],
                 components: {
+                    TubeBloomPrePassLight: {
+                        bloomFogIntensityMultiplier: 0.25,
+                        colorAlphaMultiplier: 1.5,
+                    },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
             {
                 geometry: {
                     type: 'Cube',
-                    material: {
-                        shaderPreset: 'OpaqueLight',
-                        shaderKeywords: ['ENABLE_LIGHTNING'],
-                    },
-                    spawnCount: 1,
+                    material: { shader: 'OpaqueLight' },
                 },
                 scale: farRoadScale,
                 position: posAddZ(farRoadPos, i * roadGap),
-                rotation: [0, 0, 114],
+                rotation: [0, 0, 25],
                 components: {
+                    TubeBloomPrePassLight: {
+                        bloomFogIntensityMultiplier: 0.25,
+                        colorAlphaMultiplier: 1.5,
+                    },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            },
+            }
         );
     }
     //#endregion
     //#region road other lights
-    const farLaneLightPos: bsmap.types.Vector3 = [4.4375, -1.625, 0];
-    const farLaneLightScale: bsmap.types.Vector3 = [2, 1, 2];
-    const midLaneLightPos: bsmap.types.Vector3 = [3.5, -2.140625, -255];
-    const midLaneLightScale: bsmap.types.Vector3 = [2.5, 4, 2.5];
-    const botLaneLightPos: bsmap.types.Vector3 = [3, -3.1015625, -255];
-    const botLaneLightScale: bsmap.types.Vector3 = [2, 4, 2];
-    const centerLaneLightPos: bsmap.types.Vector3 = [1.125, -2.75, -255];
-    const centerLaneLightScale: bsmap.types.Vector3 = [2.5, 4, 2.5];
+    const farLaneLightPos: types.Vector3 = [5.0625, -1, 0];
+    const farLaneLightScale: types.Vector3 = [2, 1, 2];
+    const midLaneLightPos: types.Vector3 = [3.75, -1.625, -255];
+    const midLaneLightScale: types.Vector3 = [2.5, 4, 2.5];
+    const botLaneLightPos: types.Vector3 = [3.375, -2.5, -255];
+    const botLaneLightScale: types.Vector3 = [0.09375, 0.09375, 1000];
+    const centerLaneLightPos: types.Vector3 = [1, -2.25, -255];
+    const centerLaneLightScale: types.Vector3 = [0.125, 0.125, 1000];
     environment.push(
         {
-            id: regexNeonTubeL,
-            lookupMethod: 'Regex',
-            duplicate: 1,
+            geometry: {
+                type: 'Cube',
+                material: { shader: 'Standard' },
+            },
             scale: botLaneLightScale,
             position: posMirrorX(botLaneLightPos),
         },
         {
-            id: regexNeonTubeR,
-            lookupMethod: 'Regex',
-            duplicate: 1,
+            geometry: {
+                type: 'Cube',
+                material: { shader: 'Standard' },
+            },
             scale: botLaneLightScale,
             position: botLaneLightPos,
         },
         {
-            id: regexNeonTubeL,
-            lookupMethod: 'Regex',
-            duplicate: 1,
+            geometry: {
+                type: 'Cube',
+                material: { shader: 'Standard' },
+            },
             scale: centerLaneLightScale,
             position: posMirrorX(centerLaneLightPos),
         },
         {
-            id: regexNeonTubeR,
-            lookupMethod: 'Regex',
-            duplicate: 1,
+            geometry: {
+                type: 'Cube',
+                material: { shader: 'Standard' },
+            },
             scale: centerLaneLightScale,
             position: centerLaneLightPos,
         },
@@ -220,19 +240,40 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             lookupMethod: 'Regex',
             scale: farLaneLightScale,
             position: farLaneLightPos,
-        },
+        }
     );
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        id: regexDoubleColorLaser.replace(/\$$/, '') + `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
+        id:
+            regexDoubleColorLaser.replace(/\$$/, '') +
+            `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
         lookupMethod: 'Regex',
         active: false,
     });
     //#endregion
     //#region replace with chad backtop thing
-    const backTopFarPos: bsmap.types.Vector3 = [2.90625, -3.3125, 96];
-    const backTopFarScale: bsmap.types.Vector3 = [1.5, 1, 1.5];
+    const backTopFarPosNear: types.Vector3 = [5.0625, -1, 96];
+    const backTopFarPos: types.Vector3 = [3.75, -1.625, 96];
+    const backTopFarScale: types.Vector3 = [1.5, 1, 1.5];
+    for (let i = 0; i < 5; i++) {
+        environment.push(
+            {
+                id: i
+                    ? regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i}\\)$`
+                    : regexDoubleColorLaser,
+                lookupMethod: 'Regex',
+                position: posMirrorX(posAddZ(backTopFarPosNear, (i + 1) * -8)),
+                rotation: [-7.5, 180, -345],
+            },
+            {
+                id: regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i + 5}\\)$`,
+                lookupMethod: 'Regex',
+                position: posAddZ(backTopFarPosNear, (i + 1) * -8),
+                rotation: [-7.5, 180, -15],
+            }
+        );
+    }
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
@@ -250,13 +291,17 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 scale: backTopFarScale,
                 position: posAddZ(backTopFarPos, i * 16),
                 rotation: [60 - i * 5, 0, 165 - i * 6],
-            },
+            }
         );
     }
     //#endregion
     //#region fabled extra light
-    const extraMirrorLightPos: bsmap.types.Vector3 = [extraMirrorLightMirrorOffsetX, -1.625, extraMirrorLightOffset];
-    const extraMirrorLightScale: bsmap.types.Vector3 = [0.5, 0.5, 0.5];
+    const extraMirrorLightPos: types.Vector3 = [
+        extraMirrorLightMirrorOffsetX,
+        -1,
+        extraMirrorLightOffset,
+    ];
+    const extraMirrorLightScale: types.Vector3 = [0.5, 0.5, 0.5];
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
@@ -264,7 +309,9 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posMirrorX(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)),
+                position: posMirrorX(
+                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)
+                ),
                 rotation: [0 + i * 2.5, 0, 320 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -276,7 +323,10 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 scale: extraMirrorLightScale,
                 position: posMirrorX(
-                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
+                    posAddY(
+                        posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
+                        extraMirrorLightMirrorOffsetY
+                    )
                 ),
                 rotation: [0 - i * 2.5, 0, 220 - i * 11],
                 components: {
@@ -288,7 +338,10 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
+                position: posAddY(
+                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
+                    extraMirrorLightMirrorOffsetY
+                ),
                 rotation: [0 - i * 2.5, 0, 140 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -304,16 +357,16 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
                 },
-            },
+            }
         );
     }
     //#endregion
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v3.Difficulty) => {
+export const insertEnvironment = (d: v3.Difficulty) => {
     if (d.customData.environment?.length) {
-        bsmap.logger.warn('Environment enhancement previously existed, replacing');
+        logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
 };

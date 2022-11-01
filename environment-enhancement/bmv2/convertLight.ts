@@ -1,18 +1,21 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, v3, types } from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
-export const convertLight = (d: bsmap.v3.Difficulty, environment: bsmap.types.EnvironmentAllName) => {
-    const events = d.basicBeatmapEvents;
+export const convertLight = (
+    d: v3.Difficulty,
+    environment: types.EnvironmentAllName
+) => {
+    const events = d.basicEvents;
     const newEvents = [];
 
     // default color (for no chroma)
-    const colorScheme = bsmap.ColorScheme[bsmap.EnvironmentSchemeName[environment]];
-    const defaultLeftLight: bsmap.types.ColorArray = [
+    const colorScheme = ColorScheme[EnvironmentSchemeName[environment]];
+    const defaultLeftLight: types.ColorArray = [
         colorScheme._envColorLeft!.r,
         colorScheme._envColorLeft!.g,
         colorScheme._envColorLeft!.b,
     ];
-    const defaultRightLight: bsmap.types.ColorArray = [
+    const defaultRightLight: types.ColorArray = [
         colorScheme._envColorRight!.r,
         colorScheme._envColorRight!.g,
         colorScheme._envColorRight!.b,
@@ -20,22 +23,23 @@ export const convertLight = (d: bsmap.v3.Difficulty, environment: bsmap.types.En
 
     //#region lighting
     // convert chroma 1 to chroma 2
-    const oldChromaColorConvert = (rgb: number): bsmap.types.ColorArray => {
+    const oldChromaColorConvert = (rgb: number): types.ColorArray => {
         rgb = rgb - 2000000000;
         const red = (rgb >> 16) & 0x0ff;
         const green = (rgb >> 8) & 0x0ff;
         const blue = rgb & 0x0ff;
         return [red / 255, green / 255, blue / 255];
     };
-    const currentColor: { [key: number]: bsmap.types.ColorArray | null } = {};
+    const currentColor: { [key: number]: types.ColorArray | null } = {};
     for (const ev of events) {
         let noChromaColor = false;
         if (ev.value >= 2000000000) {
-            currentColor[ev.type] = oldChromaColorConvert(ev.value) as bsmap.types.ColorArray;
+            currentColor[ev.type] = oldChromaColorConvert(ev.value) as types.ColorArray;
         }
         if (!currentColor[ev.type]) {
             noChromaColor = true;
-            currentColor[ev.type] = ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
+            currentColor[ev.type] =
+                ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
         }
         if (ev.value === 4) {
             ev.value = 0;
@@ -83,10 +87,10 @@ export const convertLight = (d: bsmap.v3.Difficulty, environment: bsmap.types.En
         10: tempID.map((val) => val + 6),
         11: tempID.map((val) => val + 8),
         14: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val) => val + idOffsetType0 - 1,
+            (val, i) => val + idOffsetType0 + i
         ),
         15: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val) => val + idOffsetType0 - 1,
+            (val, i) => val + idOffsetType0 + i
         ),
     };
 
@@ -100,6 +104,6 @@ export const convertLight = (d: bsmap.v3.Difficulty, environment: bsmap.types.En
         ev.type = switchType[ev.type];
     }
 
-    d.basicBeatmapEvents = newEvents;
+    d.basicEvents = newEvents;
     //#endregion
 };
