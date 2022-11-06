@@ -37,7 +37,13 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
+                    [
+                        n.customData.color?.[0] ?? 1,
+                        n.customData.color?.[1] ?? 0.5,
+                        n.customData.color?.[2] ?? 0,
+                        1,
+                        1,
+                    ],
                 ],
             },
         });
@@ -53,13 +59,19 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
+                    [
+                        n.customData.color?.[0] ?? 1,
+                        n.customData.color?.[1] ?? 0.5,
+                        n.customData.color?.[2] ?? 0,
+                        1,
+                        1,
+                    ],
                 ],
             },
         });
     });
     where(at(data.colorNotes, 262), { include: { x: 3 } }).forEach((n) => {
-        n.customData.track = 'baaaaaaaaa3';
+        n.customData.track = 'swordBit3';
         data.customData.customEvents?.push({
             b: 260.5,
             t: 'AnimateTrack',
@@ -69,19 +81,33 @@ export function sword() {
                 color: [
                     [0.375, 0.375, 0.375, 1, 0],
                     [2, 2, 2, 1, 0.5],
-                    [n.customData.color?.[0] ?? 1, n.customData.color?.[1] ?? 0.5, n.customData.color?.[2] ?? 0, 1, 1],
+                    [
+                        n.customData.color?.[0] ?? 1,
+                        n.customData.color?.[1] ?? 0.5,
+                        n.customData.color?.[2] ?? 0,
+                        1,
+                        1,
+                    ],
                 ],
             },
         });
     });
 
-    between(data.colorNotes, 259, 261.5).forEach((n) => (n.customData.track = 'noteBuildUpJourney'));
+    between(data.colorNotes, 259, 261.5).forEach(
+        (n) => (n.customData.track = 'noteBuildUpJourney'),
+    );
     data.customData.customEvents?.push(
         {
             b: 0,
             t: 'AnimateTrack',
             d: {
-                track: ['swordBit0', 'swordBit1', 'swordBit2', 'swordBit3', 'noteBuildUpJourney'],
+                track: [
+                    'swordBit0',
+                    'swordBit1',
+                    'swordBit2',
+                    'swordBit3',
+                    'noteBuildUpJourney',
+                ],
                 duration: 0,
                 color: [[0, 0, 0, 1, 0]],
             },
@@ -115,7 +141,13 @@ export function sword() {
         (n) => (n.customData.animation = {
             color: [
                 [1, 1, 1, 1, 0],
-                [n.customData.color![0], n.customData.color![1], n.customData.color![2], 1, 1 / 16],
+                [
+                    n.customData.color![0],
+                    n.customData.color![1],
+                    n.customData.color![2],
+                    1,
+                    1 / 16,
+                ],
             ],
         }),
     );
@@ -135,7 +167,13 @@ export function sword() {
             (n) => (n.customData.animation = {
                 color: [
                     [0.25, 0.25, 0.25, 1, 0],
-                    [n.customData.color![0], n.customData.color![1], n.customData.color![2], 1, 1 / 4],
+                    [
+                        n.customData.color![0],
+                        n.customData.color![1],
+                        n.customData.color![2],
+                        1,
+                        1 / 4,
+                    ],
                 ],
             }),
         );

@@ -1,9 +1,9 @@
-import { ColorScheme, EnvironmentSchemeName, v3, types } from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
 export const convertLight = (
     d: v3.Difficulty,
-    environment: types.EnvironmentAllName
+    environment: types.EnvironmentAllName,
 ) => {
     const events = d.basicEvents;
     const newEvents = [];
@@ -38,8 +38,7 @@ export const convertLight = (
         }
         if (!currentColor[ev.type]) {
             noChromaColor = true;
-            currentColor[ev.type] =
-                ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
+            currentColor[ev.type] = ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
         }
         if (ev.value === 4) {
             ev.value = 0;
@@ -87,10 +86,10 @@ export const convertLight = (
         10: tempID.map((val) => val + 6),
         11: tempID.map((val) => val + 8),
         14: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val, i) => val + idOffsetType0 + i
+            (val, i) => val + idOffsetType0 + i,
         ),
         15: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val, i) => val + idOffsetType0 + i
+            (val, i) => val + idOffsetType0 + i,
         ),
     };
 

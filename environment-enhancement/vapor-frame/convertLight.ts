@@ -1,9 +1,9 @@
-import { ColorScheme, EnvironmentSchemeName, v3, types } from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './environment.ts';
 
 export const convertLight = (
     d: v3.Difficulty,
-    environment: types.EnvironmentAllName
+    environment: types.EnvironmentAllName,
 ) => {
     const events = d.basicEvents;
     const newEvents = [];
@@ -38,8 +38,7 @@ export const convertLight = (
         }
         if (!currentColor[ev.type]) {
             noChromaColor = true;
-            currentColor[ev.type] =
-                ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
+            currentColor[ev.type] = ev.value >= 1 && ev.value <= 3 ? defaultRightLight : defaultLeftLight;
         }
         if (ev.value === 4) {
             ev.value = 0;
@@ -78,7 +77,25 @@ export const convertLight = (
     // 0 doesnt need conversion as there's no extra light
     const typeLightIDMap: { [key: number]: number[] } = {
         4: [
-            11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
             30,
         ],
         5: tempID,

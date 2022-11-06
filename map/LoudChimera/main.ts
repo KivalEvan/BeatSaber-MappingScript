@@ -35,13 +35,9 @@ export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed
     // sus(data, BPM, NJS);
     // data.burstSliders = [];
 
-    // const lightData = lightshow();
-    // data.basicBeatmapEvents = data.basicBeatmapEvents.concat(
-    //     lightData.basicBeatmapEvents,
-    // );
-    // data.customData.environment = data.customData.environment?.concat(
-    //     lightData.customData.environment!,
-    // );
+    const lightData = lightshow();
+    data.basicEvents = data.basicEvents.concat(lightData.basicEvents);
+    data.customData.environment = data.customData.environment?.concat(lightData.customData.environment!);
 
     postProcess(data);
     save.difficultySync(data);

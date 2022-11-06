@@ -1,4 +1,4 @@
-import { v3, types, logger } from '../../depsLocal.ts';
+import { logger, types, v3 } from '../../depsLocal.ts';
 
 export const ringCount = 5;
 export const ringRepeat = 2;
@@ -19,7 +19,8 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     const regexConstruction = `Environment\.\\[\\d+\\]Construction$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
     const regexNeonTubeDirectional = `\\[\\d+\\]NeonTubeDirectionalF(L|R)$`;
-    const regexBigRingLight = `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLight =
+        `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
     const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
     const regexFrontLights = `\\[\\d+\\]FrontLights$`;
@@ -43,7 +44,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     };
     const translatePos = (
         posArr: types.Vector3,
-        translate = [0, 0, 0]
+        translate = [0, 0, 0],
     ): types.Vector3 => {
         const arr: types.Vector3 = [...posArr];
         arr[0] += translate[0];
@@ -82,7 +83,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             id: regexNeonTubeDirectional,
             lookupMethod: 'Regex',
             active: false,
-        }
+        },
     );
     //#endregion
     //#region extra thicc ring
@@ -127,7 +128,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: centerLightScale,
             position: translatePos(
                 posMirrorX(posMirrorY(rightCenterLightPos)),
-                posOffset
+                posOffset,
             ),
             components: {
                 TubeBloomPrePassLight: {
@@ -190,7 +191,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: centerLightScale,
             position: translatePos(
                 posMirrorX(posMirrorY(topCenterLightPos)),
-                posOffset
+                posOffset,
             ),
             components: {
                 TubeBloomPrePassLight: {
@@ -211,7 +212,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 },
                 ILightWithId: { type: 4 },
             },
-        }
+        },
     );
     environment.push(
         {
@@ -258,7 +259,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     bloomFogIntensityMultiplier: 0.5,
                 },
             },
-        }
+        },
     );
     environment.push(
         {
@@ -270,7 +271,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     2.21875 * scaleSizeMult,
                     0,
                 ]),
-                posOffset
+                posOffset,
             ),
         },
         {
@@ -287,9 +288,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     -2.21875 * scaleSizeMult,
                     0,
                 ]),
-                posOffset
+                posOffset,
             ),
-        }
+        },
     );
     environment.push(
         {
@@ -297,7 +298,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: bigStuffScale,
             position: translatePos(
                 translatePos(rightBigStuffPos, [0, 2.21875 * scaleSizeMult, 0]),
-                posOffset
+                posOffset,
             ),
         },
         {
@@ -310,9 +311,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: bigStuffScale,
             position: translatePos(
                 translatePos(rightBigStuffPos, [0, -2.21875 * scaleSizeMult, 0]),
-                posOffset
+                posOffset,
             ),
-        }
+        },
     );
     environment.push(
         {
@@ -320,7 +321,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: bigStuffScale,
             position: translatePos(
                 translatePos(topBigStuffPos, [2.21875 * scaleSizeMult, 0, 0]),
-                posOffset
+                posOffset,
             ),
         },
         {
@@ -333,9 +334,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             scale: bigStuffScale,
             position: translatePos(
                 translatePos(topBigStuffPos, [-2.21875 * scaleSizeMult, 0, 0]),
-                posOffset
+                posOffset,
             ),
-        }
+        },
     );
     environment.push(
         {
@@ -347,7 +348,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     0,
                     0,
                 ]),
-                posOffset
+                posOffset,
             ),
         },
         {
@@ -364,9 +365,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     0,
                     0,
                 ]),
-                posOffset
+                posOffset,
             ),
-        }
+        },
     );
     //#endregion
     //#region static ring
@@ -381,7 +382,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: ringScale,
                 position: translatePos(
                     posAddZ(posMirrorX(ringPos), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, -135],
                 components: {
@@ -397,7 +398,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: ringScale,
                 position: translatePos(
                     posAddZ(posMirrorY(posMirrorX(ringPos)), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, -45],
                 components: {
@@ -426,7 +427,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: ringScale,
                 position: translatePos(
                     posAddZ(posMirrorY(ringPos), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, 45],
                 components: {
@@ -436,7 +437,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            }
+            },
         );
     }
     for (let i = 0; i < ringCount * ringRepeat; i++) {
@@ -446,7 +447,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: outerRingScale,
                 position: translatePos(
                     posAddZ(posMirrorX(outerRingPos), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, 45],
             },
@@ -455,7 +456,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: outerRingScale,
                 position: translatePos(
                     posAddZ(posMirrorY(posMirrorX(outerRingPos)), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, 135],
             },
@@ -470,17 +471,16 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: outerRingScale,
                 position: translatePos(
                     posAddZ(posMirrorY(outerRingPos), i * ringGap),
-                    posOffset
+                    posOffset,
                 ),
                 rotation: [0, 0, -135],
-            }
+            },
         );
     }
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        id:
-            regexDoubleColorLaser.replace(/\$$/, '') +
+        id: regexDoubleColorLaser.replace(/\$$/, '') +
             `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
         lookupMethod: 'Regex',
         active: false,
@@ -495,9 +495,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
-                id: i
-                    ? regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i}\\)$`
-                    : regexDoubleColorLaser,
+                id: i ? regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i}\\)$` : regexDoubleColorLaser,
                 lookupMethod: 'Regex',
                 position: translatePos(
                     scaleArray(
@@ -506,9 +504,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                             -i * 1.625,
                             0,
                         ]),
-                        scaleSizeMult
+                        scaleSizeMult,
                     ),
-                    translatePos(posOffset, [0, 0, i * ringGap])
+                    translatePos(posOffset, [0, 0, i * ringGap]),
                 ),
                 rotation: [12 - i * 8, 180, 348 - i * 8],
             },
@@ -518,12 +516,12 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 position: translatePos(
                     scaleArray(
                         translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]),
-                        scaleSizeMult
+                        scaleSizeMult,
                     ),
-                    translatePos(posOffset, [0, 0, i * ringGap])
+                    translatePos(posOffset, [0, 0, i * ringGap]),
                 ),
                 rotation: [12 - i * 8, 180, 12 + i * 8],
-            }
+            },
         );
     }
     for (let i = 0; i < 5; i++) {
@@ -539,9 +537,9 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                             i * 1.625,
                             0,
                         ]),
-                        scaleSizeMult
+                        scaleSizeMult,
                     ),
-                    translatePos(posOffset, [0, 0, i * ringGap])
+                    translatePos(posOffset, [0, 0, i * ringGap]),
                 ),
                 rotation: [12 - i * 8, 0, 168 - i * 8],
             },
@@ -556,12 +554,12 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                             i * 1.625,
                             0,
                         ]),
-                        scaleSizeMult
+                        scaleSizeMult,
                     ),
-                    translatePos(posOffset, [0, 0, i * ringGap])
+                    translatePos(posOffset, [0, 0, i * ringGap]),
                 ),
                 rotation: [12 - i * 8, 0, 192 + i * 8],
-            }
+            },
         );
     }
     //#endregion

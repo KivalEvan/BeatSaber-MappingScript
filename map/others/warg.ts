@@ -1,13 +1,9 @@
 import { globals, load, save } from '../../depsLocal.ts';
-import {
-    convertLight,
-    insertEnvironment,
-} from '../../environment-enhancement/bmv2/mod.ts';
+import { convertLight, insertEnvironment } from '../../environment-enhancement/bmv2/mod.ts';
 
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Warg/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/5495_Warg_-_AaltopahWi_Skeelie';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Warg/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/5495_Warg_-_AaltopahWi_Skeelie';
 
 const d2 = load.difficultySync('LightshowOriginal.dat', 2);
 const d3 = load.difficultySync('LightshowOriginal.dat', 3);

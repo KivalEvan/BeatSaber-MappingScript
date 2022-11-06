@@ -1,6 +1,8 @@
 import * as bsmap from '../../depsLocal.ts';
 
-export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
+export const generateEnvironment = (
+    includeFELT = false,
+): bsmap.types.v3.IChromaEnvironment[] => {
     const environment: bsmap.types.v3.IChromaEnvironment[] = [];
 
     // environment related
@@ -150,42 +152,62 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     }
     //#endregion
     //#region front
-    // for (let i = 0; i < 5; i++) {
-    //     const posX = 16 + i * 4;
-    //     const posY = 0;
-    //     const posZ = i * 8 + 24;
-    //     environment.push(
-    //         {
-    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-    //             position: [posX, posY, posZ],
-    //             rotation: [15 + i * 2.5, 0, -16 - i * 8],
-    //         },
-    //         {
-    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-    //             position: [-posX, posY, posZ],
-    //             rotation: [15 + i * 2.5, 0, 16 + i * 8],
-    //         }
-    //     );
-    // }
+    for (let i = 0; i < 5; i++) {
+        const posX = 16 + i * 4;
+        const posY = 0;
+        const posZ = i * 8 + 24;
+        environment.push(
+            {
+                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+                position: [posX, posY, posZ],
+                rotation: [15 + i * 2.5, 0, -16 - i * 8],
+                components: {
+                    ILightWithId: {
+                        type: 6,
+                    },
+                },
+            },
+            {
+                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+                position: [-posX, posY, posZ],
+                rotation: [15 + i * 2.5, 0, 16 + i * 8],
+                components: {
+                    ILightWithId: {
+                        type: 6,
+                    },
+                },
+            },
+        );
+    }
     //#endregion
     //#region backtop
-    // for (let i = 0; i < 5; i++) {
-    //     const posX = 54 + i * 4;
-    //     const posY = i * 2;
-    //     const posZ = i * 4 + 80;
-    //     environment.push(
-    //         {
-    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-    //             position: [posX, posY, posZ],
-    //             rotation: [-15, 0, 60 - i * 2.5],
-    //         },
-    //         {
-    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-    //             position: [-posX, posY, posZ],
-    //             rotation: [-15, 0, -60 + i * 2.5],
-    //         }
-    //     );
-    // }
+    for (let i = 0; i < 5; i++) {
+        const posX = 54 + i * 4;
+        const posY = i * 2;
+        const posZ = i * 4 + 80;
+        environment.push(
+            {
+                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+                position: [posX, posY, posZ],
+                rotation: [-15, 0, 60 - i * 2.5],
+                components: {
+                    ILightWithId: {
+                        type: 7,
+                    },
+                },
+            },
+            {
+                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+                position: [-posX, posY, posZ],
+                rotation: [-15, 0, -60 + i * 2.5],
+                components: {
+                    ILightWithId: {
+                        type: 7,
+                    },
+                },
+            },
+        );
+    }
     //#endregion
     //#region pillar
     for (let i = 0; i < 5; i++) {
@@ -211,16 +233,26 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             id: regexDoor,
             lookupMethod: 'Regex',
             rotation: [0, 0, 60],
-            position: [-4.625, 28, 192],
+            position: [-4.625, 33, 240],
             scale: [1, 1.5, 1],
+            components: {
+                TubeBloomPrePassLight: {
+                    bloomFogIntensityMultiplier: 12,
+                },
+            },
         },
         {
             id: regexDoor,
             lookupMethod: 'Regex',
             duplicate: 1,
             rotation: [0, 0, -60],
-            position: [4.625, 28, 192],
+            position: [4.625, 33, 240],
             scale: [1, 1.5, 1],
+            components: {
+                TubeBloomPrePassLight: {
+                    bloomFogIntensityMultiplier: 12,
+                },
+            },
         },
     );
     //#endregion
@@ -232,12 +264,6 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             duplicate: 1,
             scale: [10, 0.0004, 10],
             rotation: [0, 0, 0],
-            components: {
-                TubeBloomPrePassLight: {
-                    colorAlphaMultiplier: 1.5,
-                    bloomFogIntensityMultiplier: 0.5,
-                },
-            },
         },
         [0, 0, 0],
         1,
@@ -338,13 +364,15 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     });
 
     const logoGroup = bsmap.ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
-    logoGroup.place(
-        {
-            position: [0, 1, 180],
-            scale: [0.0625, 0.0625, 0.0625],
-        },
-        environment,
-    );
+    if (includeFELT) {
+        logoGroup.place(
+            {
+                position: [0, 1, 180],
+                scale: [0.0625, 0.0625, 0.0625],
+            },
+            environment,
+        );
+    }
     return environment;
 };
 

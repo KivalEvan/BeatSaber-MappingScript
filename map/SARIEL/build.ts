@@ -263,7 +263,7 @@ export default (d: v3.Difficulty) => {
                             ],
                         },
                     ],
-                }
+                },
             );
             d.addLightRotationEventBoxGroups(
                 {
@@ -561,7 +561,7 @@ export default (d: v3.Difficulty) => {
                             ],
                         },
                     ],
-                }
+                },
             );
         }
     }

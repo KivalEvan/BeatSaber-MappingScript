@@ -68,7 +68,7 @@ export function lightshow() {
             }
         });
 
-    data.basicBeatmapEvents
+    data.basicEvents
         .filter((e) => e.type === 1)
         .forEach((e) => {
             if (e.isLightEvent() && e.customData.lightID) {
@@ -79,7 +79,7 @@ export function lightshow() {
                 }
             }
         });
-    data.basicBeatmapEvents = data.basicBeatmapEvents.filter(
+    data.basicEvents = data.basicEvents.filter(
         (e) =>
             !(
                 e.type === 0 &&
@@ -89,7 +89,7 @@ export function lightshow() {
                     : e.customData.lightID.some((l: number) => l > 100))
             ),
     );
-    data.basicBeatmapEvents.forEach((e) => {
+    data.basicEvents.forEach((e) => {
         if (e.type === 0 && e.customData.lightID) {
             if (typeof e.customData.lightID === 'number') {
                 e.customData.lightID += e.customData.lightID < 5 ? 0 : 96;
