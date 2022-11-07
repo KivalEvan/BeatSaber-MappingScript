@@ -390,10 +390,10 @@ if (import.meta.main) {
             version: '1.0.0',
             name: 'Lotus',
             author: 'Kival Evan',
-            environmentVersion: '1.0.0',
+            environmentVersion: '1.0.1',
             environmentName: 'BTSEnvironment',
             description: 'Vanilla-compatible environment.',
-            features: {},
+            features: { basicBeatmapEvents: [{ b: 0, et: 0, i: 0, f: 0 }] },
             environment: generateEnvironment(),
         } as types.external.IEnvironmentJSON),
     );
