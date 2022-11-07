@@ -1,9 +1,9 @@
-import * as bsmap from '../../depsLocal.ts';
+import { ext, logger, types, v3 } from '../../depsLocal.ts';
 
 export const generateEnvironment = (
     includeFELT = false,
-): bsmap.types.v3.IChromaEnvironment[] => {
-    const environment: bsmap.types.v3.IChromaEnvironment[] = [];
+): types.v3.IChromaEnvironment[] => {
+    const environment: types.v3.IChromaEnvironment[] = [];
 
     // environment related
     // regex for environment enhancement
@@ -76,9 +76,9 @@ export const generateEnvironment = (
         //     position: [0, 16, -112 + i * 24],
         //     rotation: [i % 2 ? 270 : 90, 0, 0],
         //     scale: [
-        //         0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+        //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
         //         0.25 + Math.random() * 0.375,
-        //         0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+        //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
         //     ],
         // });
     }
@@ -152,62 +152,62 @@ export const generateEnvironment = (
     }
     //#endregion
     //#region front
-    for (let i = 0; i < 5; i++) {
-        const posX = 16 + i * 4;
-        const posY = 0;
-        const posZ = i * 8 + 24;
-        environment.push(
-            {
-                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-                position: [posX, posY, posZ],
-                rotation: [15 + i * 2.5, 0, -16 - i * 8],
-                components: {
-                    ILightWithId: {
-                        type: 6,
-                    },
-                },
-            },
-            {
-                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-                position: [-posX, posY, posZ],
-                rotation: [15 + i * 2.5, 0, 16 + i * 8],
-                components: {
-                    ILightWithId: {
-                        type: 6,
-                    },
-                },
-            },
-        );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     const posX = 16 + i * 4;
+    //     const posY = 0;
+    //     const posZ = i * 8 + 24;
+    //     environment.push(
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [posX, posY, posZ],
+    //             rotation: [15 + i * 2.5, 0, -16 - i * 8],
+    //             components: {
+    //                 ILightWithId: {
+    //                     type: 6,
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [-posX, posY, posZ],
+    //             rotation: [15 + i * 2.5, 0, 16 + i * 8],
+    //             components: {
+    //                 ILightWithId: {
+    //                     type: 6,
+    //                 },
+    //             },
+    //         },
+    //     );
+    // }
     //#endregion
     //#region backtop
-    for (let i = 0; i < 5; i++) {
-        const posX = 54 + i * 4;
-        const posY = i * 2;
-        const posZ = i * 4 + 80;
-        environment.push(
-            {
-                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-                position: [posX, posY, posZ],
-                rotation: [-15, 0, 60 - i * 2.5],
-                components: {
-                    ILightWithId: {
-                        type: 7,
-                    },
-                },
-            },
-            {
-                geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
-                position: [-posX, posY, posZ],
-                rotation: [-15, 0, -60 + i * 2.5],
-                components: {
-                    ILightWithId: {
-                        type: 7,
-                    },
-                },
-            },
-        );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     const posX = 54 + i * 4;
+    //     const posY = i * 2;
+    //     const posZ = i * 4 + 80;
+    //     environment.push(
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [posX, posY, posZ],
+    //             rotation: [-15, 0, 60 - i * 2.5],
+    //             components: {
+    //                 ILightWithId: {
+    //                     type: 7,
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             geometry: { type: 'Cube', material: { shader: 'TransparentLight' } },
+    //             position: [-posX, posY, posZ],
+    //             rotation: [-15, 0, -60 + i * 2.5],
+    //             components: {
+    //                 ILightWithId: {
+    //                     type: 7,
+    //                 },
+    //             },
+    //         },
+    //     );
+    // }
     //#endregion
     //#region pillar
     for (let i = 0; i < 5; i++) {
@@ -257,7 +257,7 @@ export const generateEnvironment = (
     );
     //#endregion
 
-    const lightBlock = bsmap.ext.chroma.EnvironmentBlock.create(
+    const lightBlock = ext.chroma.EnvironmentBlock.create(
         {
             id: regexSideLaser,
             lookupMethod: 'Regex',
@@ -268,7 +268,7 @@ export const generateEnvironment = (
         [0, 0, 0],
         1,
     );
-    const logo: bsmap.types.v3.IChromaEnvironment[] = [];
+    const logo: types.v3.IChromaEnvironment[] = [];
     //F
     lightBlock.place(
         { position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] },
@@ -363,7 +363,7 @@ export const generateEnvironment = (
         }
     });
 
-    const logoGroup = bsmap.ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
+    const logoGroup = ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
     if (includeFELT) {
         logoGroup.place(
             {
@@ -376,9 +376,26 @@ export const generateEnvironment = (
     return environment;
 };
 
-export const insertEnvironment = (d: bsmap.v3.Difficulty) => {
+export const insertEnvironment = (d: v3.Difficulty) => {
     if (d.customData.environment?.length) {
-        bsmap.logger.warn('Environment enhancement previously existed, replacing');
+        logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
 };
+
+if (import.meta.main) {
+    Deno.writeTextFileSync(
+        import.meta.url.replace('file://', '').replace('environment.ts', './Lotus.dat'),
+        JSON.stringify({
+            version: '1.0.0',
+            name: 'Lotus',
+            author: 'Kival Evan',
+            environmentVersion: '1.0.0',
+            environmentName: 'BTSEnvironment',
+            description: 'Vanilla-compatible environment.',
+            features: {},
+            environment: generateEnvironment(),
+        } as types.external.IEnvironmentJSON),
+    );
+    console.log('Written Lotus environment JSON');
+}

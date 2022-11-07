@@ -114,10 +114,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 position: posMirrorX(posAddZ(centerRoadPos, i * roadGap)),
                 rotation: [0, 0, 18],
                 components: {
-                    TubeBloomPrePassLight: {
-                        bloomFogIntensityMultiplier: 0.25,
-                        colorAlphaMultiplier: 1.5,
-                    },
+                    TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
@@ -130,10 +127,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 position: posAddZ(centerRoadPos, i * roadGap),
                 rotation: [0, 0, -18],
                 components: {
-                    TubeBloomPrePassLight: {
-                        bloomFogIntensityMultiplier: 0.25,
-                        colorAlphaMultiplier: 1.5,
-                    },
+                    TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
@@ -150,10 +144,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 position: posMirrorX(posAddZ(farRoadPos, i * roadGap)),
                 rotation: [0, 0, -25],
                 components: {
-                    TubeBloomPrePassLight: {
-                        bloomFogIntensityMultiplier: 0.25,
-                        colorAlphaMultiplier: 1.5,
-                    },
+                    TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
@@ -166,10 +157,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 position: posAddZ(farRoadPos, i * roadGap),
                 rotation: [0, 0, 25],
                 components: {
-                    TubeBloomPrePassLight: {
-                        bloomFogIntensityMultiplier: 0.25,
-                        colorAlphaMultiplier: 1.5,
-                    },
+                    TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
             },
@@ -368,3 +356,21 @@ export const insertEnvironment = (d: v3.Difficulty) => {
     }
     d.customData.environment = generateEnvironment();
 };
+
+if (import.meta.main) {
+    Deno.writeTextFileSync(
+        import.meta.url.replace('file://', '').replace('environment.ts', './BMv2.dat'),
+        JSON.stringify({
+            version: '1.0.0',
+            name: 'Big Mirror V2',
+            author: 'Kival Evan',
+            environmentVersion: '1.0.0',
+            environmentName: 'BigMirrorEnvironment',
+            description:
+                'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
+            features: {},
+            environment: generateEnvironment(),
+        } as types.external.IEnvironmentJSON),
+    );
+    console.log('Written BMv2 environment JSON');
+}

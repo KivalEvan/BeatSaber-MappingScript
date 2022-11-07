@@ -572,3 +572,23 @@ export const insertEnvironment = (d: v3.Difficulty) => {
     }
     d.customData.environment = generateEnvironment();
 };
+
+if (import.meta.main) {
+    Deno.writeTextFileSync(
+        import.meta.url
+            .replace('file://', '')
+            .replace('environment.ts', './VaporFrame.dat'),
+        JSON.stringify({
+            version: '1.0.0',
+            name: 'Vapor Frame',
+            author: 'Kival Evan',
+            environmentVersion: '1.0.0',
+            environmentName: 'BigMirrorEnvironment',
+            description:
+                'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
+            features: {},
+            environment: generateEnvironment(),
+        } as types.external.IEnvironmentJSON),
+    );
+    console.log('Written Vapor Frame environment JSON');
+}

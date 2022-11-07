@@ -1,7 +1,7 @@
-import * as bsmap from '../../depsLocal.ts';
+import { logger, types, utils, v3 } from '../../depsLocal.ts';
 
-export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
-    const environment: bsmap.types.v3.IChromaEnvironment[] = [];
+export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+    const environment: types.v3.IChromaEnvironment[] = [];
 
     //#region environment declaration stuff
     // regex for environment enhancement
@@ -27,9 +27,9 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
             position: [0, 16, -112 + i * 24],
             rotation: [i % 2 ? 270 : 90, 0, 0],
             scale: [
-                0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+                0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
                 0.25 + Math.random() * 0.375,
-                0.125 + 0.375 * Math.cos(bsmap.utils.degToRad(i * 8)),
+                0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
             ],
         });
     }
@@ -1037,13 +1037,13 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     duplicate: 1,
                     position: [
                         x +
-                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
+                        Math.sin(utils.degToRad(90 + 160 - j * 12)) *
                             37.5 *
                             xShift +
                         xShift * 36.125,
-                        15 + Math.sin(bsmap.utils.degToRad(160 - j * 12)) * 50,
+                        15 + Math.sin(utils.degToRad(160 - j * 12)) * 50,
                         z +
-                        Math.sin(bsmap.utils.degToRad(90 + 160 - j * 12)) *
+                        Math.sin(utils.degToRad(90 + 160 - j * 12)) *
                             37.5 *
                             zShift +
                         zShift * 36.125,
@@ -1217,10 +1217,10 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     duplicate: 1,
                     position: [
                         -4.875 - x * 0.625,
-                        -0.1 + bsmap.utils.random(0, 0.1),
+                        -0.1 + utils.random(0, 0.1),
                         (x % 2 ? -8 : 0) + 6 * z,
                     ],
-                    scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
+                    scale: [0.125, 0.0005, 22 / 8 + utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
                 },
                 {
@@ -1229,10 +1229,10 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
                     duplicate: 1,
                     position: [
                         4.875 + x * 0.625,
-                        -0.1 + bsmap.utils.random(0, 0.1),
+                        -0.1 + utils.random(0, 0.1),
                         (x % 2 ? -8 : 0) + 6 * z,
                     ],
-                    scale: [0.125, 0.0005, 22 / 8 + bsmap.utils.random(0, 0.25)],
+                    scale: [0.125, 0.0005, 22 / 8 + utils.random(0, 0.25)],
                     rotation: [180, 0, 0],
                 },
             );
@@ -1253,9 +1253,28 @@ export const generateEnvironment = (): bsmap.types.v3.IChromaEnvironment[] => {
     });
 };
 
-export const insertEnvironment = (d: bsmap.v3.Difficulty) => {
+export const insertEnvironment = (d: v3.Difficulty) => {
     if (d.customData.environment?.length) {
-        bsmap.logger.warn('Environment enhancement previously existed, replacing');
+        logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
 };
+
+if (import.meta.main) {
+    Deno.writeTextFileSync(
+        import.meta.url
+            .replace('file://', '')
+            .replace('environment.ts', './Cathedral.dat'),
+        JSON.stringify({
+            version: '1.0.0',
+            name: 'Cathedral',
+            author: 'Kival Evan',
+            environmentVersion: '1.0.0',
+            environmentName: 'BTSEnvironment',
+            description: 'Vanilla-compatible environment.',
+            features: {},
+            environment: generateEnvironment(),
+        } as types.external.IEnvironmentJSON),
+    );
+    console.log('Written Cathedral environment JSON');
+}
