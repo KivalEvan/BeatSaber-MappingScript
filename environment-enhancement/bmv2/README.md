@@ -2,6 +2,8 @@
 
 ## Incompatible with vanilla lighting
 
+Used in [Warg](https://youtu.be/23Zpmpfy9C0)
+
 <img src="./environment.png">
 
 ### Event Light ID

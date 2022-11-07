@@ -2,6 +2,8 @@
 
 ## Incompatible with vanilla lighting
 
+Used in [Listen Up](https://youtu.be/L9ZixwKNlcU)
+
 <img src="./environment.png">
 
 ### Event Light ID

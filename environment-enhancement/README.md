@@ -14,13 +14,19 @@ Environment is designed for beatmap V3 as it uses Chroma component, copy the `en
 
 ### [Lotus](./lotus/) (Vanilla-compatible)
 
+Used in Vagueness & JOURNEY
+
 <img src="./lotus/environment.png">
 
 ### [Vapor Frame](./vapor-frame/) (Partial Vanilla Support)
 
+Used in [Listen Up](https://youtu.be/L9ZixwKNlcU)
+
 <img src="./vapor-frame/environment.png">
 
 ### [Big Mirror V2](./bmv2/) (Partial Vanilla Support)
+
+Used in [Warg](https://youtu.be/23Zpmpfy9C0)
 
 <img src="./bmv2/environment.png">
 
