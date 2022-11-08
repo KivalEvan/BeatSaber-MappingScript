@@ -1,6 +1,6 @@
 # Big Mirror v2 Environment
 
-## Incompatible with vanilla lighting
+## Partially-compatible with vanilla lighting
 
 Used in [Warg](https://youtu.be/23Zpmpfy9C0)
 

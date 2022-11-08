@@ -1,6 +1,6 @@
 # Vapor Frame Environment
 
-## Incompatible with vanilla lighting
+## Partially-compatible with vanilla lighting
 
 Used in [Listen Up](https://youtu.be/L9ZixwKNlcU)
 

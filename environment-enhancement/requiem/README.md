@@ -2,4 +2,4 @@
 
 <img src="./environment.png">
 
-Kinda lame
+kinda lame

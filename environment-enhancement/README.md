@@ -29,10 +29,18 @@ Used in [Warg](https://youtu.be/23Zpmpfy9C0)
 
 <img src="./bmv2/environment.png">
 
+### [ECHO](./echo/) (Partial Vanilla Support)
+
+Used in [ECHO](https://youtu.be/99Z7XqKOnOw)
+
+<img src="./echo/environment.png">
+
 ### [Cathedral](./cathedral/) (Vanilla-compatible)
 
 <img src="./cathedral/environment.png">
 
 ### [Requiem](./requiem/) (Vanilla-compatible)
+
+very lame first environment enhancement
 
 <img src="./requiem/environment.png">
