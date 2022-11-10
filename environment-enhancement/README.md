@@ -13,17 +13,35 @@ Script to deal with environment enhancement.
 
 ### [Lotus](./lotus/) (Vanilla-compatible)
 
+#### Based on BTS Environment
+
 Used in Vagueness & JOURNEY
 
 <img src="./lotus/environment.png">
 
 ### [Vapor Frame](./vapor-frame/) (Partial Vanilla Support)
 
+#### Based on Big Mirror Environment
+
+**Original design by Liquid Popsicle**
+
 Used in [Listen Up](https://youtu.be/L9ZixwKNlcU)
 
 <img src="./vapor-frame/environment.png">
 
+### [Prayers](./prayers/) (Partial Vanilla Support)
+
+**Original design by Halcyon12**
+
+Used in Clockup Flowers
+
+<img src="./prayers/environment.png">
+
 ### [Big Mirror V2](./bmv2/) (Partial Vanilla Support)
+
+#### Based on Big Mirror Environment
+
+**Original design by Liquid Popsicle**
 
 Used in [Warg](https://youtu.be/23Zpmpfy9C0)
 
@@ -31,15 +49,21 @@ Used in [Warg](https://youtu.be/23Zpmpfy9C0)
 
 ### [ECHO](./echo/) (Partial Vanilla Support)
 
+#### Based on KDA Environment
+
 Used in [ECHO](https://youtu.be/99Z7XqKOnOw)
 
 <img src="./echo/environment.png">
 
 ### [Cathedral](./cathedral/) (Vanilla-compatible)
 
+#### Based on BTS Environment
+
 <img src="./cathedral/environment.png">
 
 ### [Requiem](./requiem/) (Vanilla-compatible)
+
+#### Based on Panic Environment
 
 very lame first environment enhancement
 
