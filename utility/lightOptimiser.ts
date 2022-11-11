@@ -7,7 +7,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
     const ringStackTol = 0.05; // 1/20 precision
 
     // beyond you're on your own
-    const events = d.events;
+    const events = d.basicEvents;
 
     // constant variable, best to not touch unless you know what you're doing
     // light value for static event such as OFF and ON event
@@ -317,7 +317,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
         eventAtTime[evType].push(i);
     }
 
-    d.events = d.basicEvents.filter((el) => el != null);
+    d.basicEvents = d.basicEvents.filter((el) => el != null);
 
     // do the funny message
     let message = `Light Optimiser`;

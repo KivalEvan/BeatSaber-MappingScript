@@ -42,14 +42,14 @@ const customEvents: types.v3.ICustomEvent[] = [
     },
 ];
 
-osExpertP.basicBeatmapEvents = lightshow.basicBeatmapEvents;
-osExpertP.colorBoostBeatmapEvents = lightshow.colorBoostBeatmapEvents;
+osExpertP.basicEvents = lightshow.basicEvents;
+osExpertP.colorBoostEvents = lightshow.colorBoostEvents;
 osExpertP.customData.environment = lightshow.customData.environment;
 osExpertP.customData.pointDefinitions = pointDefinitions;
 osExpertP.customData.customEvents = customEvents;
 
-osExpert.basicBeatmapEvents = lightshow.basicBeatmapEvents;
-osExpert.colorBoostBeatmapEvents = lightshow.colorBoostBeatmapEvents;
+osExpert.basicEvents = lightshow.basicEvents;
+osExpert.colorBoostEvents = lightshow.colorBoostEvents;
 osExpert.customData.environment = lightshow.customData.environment;
 osExpert.customData.pointDefinitions = pointDefinitions;
 osExpert.customData.customEvents = customEvents;
@@ -358,7 +358,7 @@ for (const ct of chorusTime) {
     osExpert.obstacles.push(...walls);
 }
 
-for (const ct of chorus2Time) {
+for (const _ of chorus2Time) {
     flipFlop = !flipFlop;
 }
 for (let i = 0; i < 6; i++) {

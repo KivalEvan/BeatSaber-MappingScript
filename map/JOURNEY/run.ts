@@ -10,7 +10,7 @@ const INPUT_FILE = 'Lightshow.dat';
 const OUTPUT_FILE = 'EasyLightshow.dat';
 
 const lightshow = load.difficultySync(INPUT_FILE, 2);
-lightshow.notes = [];
+lightshow.colorNotes = [];
 lightshow.obstacles = [];
 const envV3 = generateEnvironment();
 const animatedFELT = envV3
@@ -47,10 +47,7 @@ lightshow.customData._customEvents = [
     },
 ];
 animatedFELT
-    .map((e) => [
-        e.track,
-        [e.position![0] / 0.6, e.position![1] / 0.6, e.position![2] / 0.6],
-    ])
+    .map((e) => [e.track, [e.position![0] / 0.6, e.position![1] / 0.6, e.position![2] / 0.6]])
     .forEach((e) =>
         lightshow.customData._customEvents?.push({
             _time: 1036,
@@ -60,13 +57,7 @@ animatedFELT
                 _track: e[0] as string,
                 _position: [
                     [...(e[1] as types.Vector3), 0],
-                    [
-                        (e[1] as types.Vector3)[0],
-                        (e[1] as types.Vector3)[1],
-                        32 / 0.6,
-                        1,
-                        'easeInExpo',
-                    ],
+                    [(e[1] as types.Vector3)[0], (e[1] as types.Vector3)[1], 32 / 0.6, 1, 'easeInExpo'],
                 ],
             },
         })
@@ -76,28 +67,13 @@ lightshow.basicEvents.forEach((e) => {
         e.customData._lightID = ext.chroma.LightIDList.BTSEnvironment[1];
     }
 });
-lightshow.addEvents(
+lightshow.addBasicEvents(
     {
         _type: 1,
         _value: 5,
         _floatValue: 0.5,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -106,22 +82,7 @@ lightshow.addEvents(
         _value: 8,
         _floatValue: 0.75,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -131,22 +92,7 @@ lightshow.addEvents(
         _floatValue: 1,
         _customData: {
             _easing: 'easeInQuad',
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -156,22 +102,7 @@ lightshow.addEvents(
         _floatValue: 0.375,
         _customData: {
             _easing: 'easeOutQuad',
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -180,22 +111,7 @@ lightshow.addEvents(
         _value: 4,
         _floatValue: 0,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -204,22 +120,7 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -228,22 +129,7 @@ lightshow.addEvents(
         _value: 4,
         _floatValue: 1,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -252,22 +138,7 @@ lightshow.addEvents(
         _value: 0,
         _floatValue: 1,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -276,22 +147,7 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0.75,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -300,22 +156,7 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0.25,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
     {
@@ -324,22 +165,7 @@ lightshow.addEvents(
         _value: 1,
         _floatValue: 0.875,
         _customData: {
-            _lightID: [
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-            ],
+            _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
         },
     },
 );
@@ -350,38 +176,26 @@ const makeWhite = (e: v2.Event, mult = 1) => {
         e.floatValue *= mult;
     }
 };
-where(between(lightshow.events, 258, 261.999), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0));
-where(at(lightshow.events, 262), { include: { _type: [0, 2, 3] } }).forEach((e) => makeWhite(e, 2.5));
-where(between(lightshow.events, 262, 264), { include: { _type: 4 } }).forEach((e) => makeWhite(e));
-where(between(lightshow.events, 262, 274), { include: { _type: [1, 4] } }).forEach(
+where(between(lightshow.basicEvents, 258, 261.999), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0));
+where(at(lightshow.basicEvents, 262), { include: { _type: [0, 2, 3] } }).forEach((e) => makeWhite(e, 2.5));
+where(between(lightshow.basicEvents, 262, 264), { include: { _type: 4 } }).forEach((e) => makeWhite(e));
+where(between(lightshow.basicEvents, 262, 274), { include: { _type: [1, 4] } }).forEach(
     (e) => (e.floatValue *= utils.lerp(utils.normalize(e.time, 262, 274), 5, 1)),
 );
-where(at(lightshow.events, 277.749), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
-where(at(lightshow.events, 278), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0.5));
-lightshow.addEvents({ _time: 280, _type: 0, _value: 8, _floatValue: 1 });
-where(between(lightshow.events, 599, 611), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
-where(between(lightshow.events, 614, 616), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 1));
-where(between(lightshow.events, 614, 622), { include: { _type: [1, 4] } }).forEach(
-    (e) => (e.floatValue *= utils.lerp(
-        utils.normalize(e.time, 614, 622),
-        4,
-        1,
-        utils.easings.easeOutQuad,
-    )),
+where(at(lightshow.basicEvents, 277.749), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
+where(at(lightshow.basicEvents, 278), { include: { _type: 0 } }).forEach((e) => makeWhite(e, 0.5));
+lightshow.addBasicEvents({ _time: 280, _type: 0, _value: 8, _floatValue: 1 });
+where(between(lightshow.basicEvents, 599, 611), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.5));
+where(between(lightshow.basicEvents, 614, 616), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 1));
+where(between(lightshow.basicEvents, 614, 622), { include: { _type: [1, 4] } }).forEach(
+    (e) => (e.floatValue *= utils.lerp(utils.normalize(e.time, 614, 622), 4, 1, utils.easings.easeOutQuad)),
 );
-where(between(lightshow.events, 862, 864), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.25));
-where(between(lightshow.events, 870, 880), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.75));
-where(at(lightshow.events, [886, 888, 890, 892]), { include: { _type: 4 } }).forEach(
-    (e) => makeWhite(e, 0.875),
-);
-at(lightshow.events, 901).forEach((e) => makeWhite(e, 0.75));
-where(between(lightshow.events, 966, 974), { include: { _type: [1, 4] } }).forEach(
-    (e) => (e.floatValue *= utils.lerp(
-        utils.normalize(e.time, 966, 974),
-        4,
-        1,
-        utils.easings.easeOutQuad,
-    )),
+where(between(lightshow.basicEvents, 862, 864), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.25));
+where(between(lightshow.basicEvents, 870, 880), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.75));
+where(at(lightshow.basicEvents, [886, 888, 890, 892]), { include: { _type: 4 } }).forEach((e) => makeWhite(e, 0.875));
+at(lightshow.basicEvents, 901).forEach((e) => makeWhite(e, 0.75));
+where(between(lightshow.basicEvents, 966, 974), { include: { _type: [1, 4] } }).forEach(
+    (e) => (e.floatValue *= utils.lerp(utils.normalize(e.time, 966, 974), 4, 1, utils.easings.easeOutQuad)),
 );
 
 const info = load.infoSync();
@@ -392,9 +206,7 @@ for (const set of info._difficultyBeatmapSets) {
             d._customData._suggestions = ['Chroma'];
         }
         if (set._beatmapCharacteristicName == 'OneSaber') continue;
-        console.log(
-            `Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`,
-        );
+        console.log(`Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`);
         const difficulty = load.difficultySync(d._beatmapFilename, 2);
 
         difficulty.customData._environment = lightshow.customData!._environment;
@@ -406,11 +218,7 @@ for (const set of info._difficultyBeatmapSets) {
                     b._color = utils.interpolateColor(
                         [185, 0, 0.375],
                         [175, 0.25, 0.5],
-                        utils.normalize(
-                            b._time,
-                            bookmarks.at(0)!._time,
-                            bookmarks.at(3)!._time,
-                        ),
+                        utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
                         'hsva',
                     );
                     continue;
@@ -423,7 +231,7 @@ for (const set of info._difficultyBeatmapSets) {
                 );
             }
         }
-        difficulty.events = lightshow.events;
+        difficulty.basicEvents = lightshow.basicEvents;
 
         save.difficultySync(difficulty);
     }
@@ -448,12 +256,7 @@ if (bookmarks) {
             );
             continue;
         }
-        b.c = utils.interpolateColor(
-            [30, 1, 1],
-            [390, 1, 1],
-            utils.normalize(b.b, 262, bookmarks.at(-1)!.b),
-            'hsva',
-        );
+        b.c = utils.interpolateColor([30, 1, 1], [390, 1, 1], utils.normalize(b.b, 262, bookmarks.at(-1)!.b), 'hsva');
     }
 }
 oneSaberV3.basicEvents = lightshowV3.basicEvents;

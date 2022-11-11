@@ -39,22 +39,27 @@ export default (d: v3.Difficulty) => {
     for (const dt of dingTiming) {
         for (let g = 0; g < 2; g++) {
             d.addLightColorEventBoxGroups({
-                b: dt,
-                g: 2 + g,
-                e: [
+                time: dt,
+                id: 2 + g,
+                events: [
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        w: 0.5,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                            { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        beatDistribution: 0.5,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            {
+                                time: 0.25,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ZERO,
+                                transition: TransitionType.INTERPOLATE,
+                            },
                         ],
                     },
                 ],
             });
             d.addLightRotationEventBoxGroups({
-                b: dt,
-                g: 2 + g,
+                time: dt,
+                id: 2 + g,
                 e: [
                     {
                         f: { f: 2, t: 2, r: 1 },
@@ -72,8 +77,8 @@ export default (d: v3.Difficulty) => {
 
     for (let g = 0; g < 12; g++) {
         d.addLightRotationEventBoxGroups({
-            b: 66.5 + g * 0.0625,
-            g,
+            time: 66.5 + g * 0.0625,
+            id: g,
             e: [
                 {
                     f: { r: 1 },
@@ -137,8 +142,8 @@ export default (d: v3.Difficulty) => {
             ],
         });
         d.addLightColorEventBoxGroups({
-            b: 66.5 + g * 0.09375,
-            g,
+            time: 66.5 + g * 0.09375,
+            id: g,
             e: [
                 {
                     f: { r: 1 },
@@ -156,8 +161,8 @@ export default (d: v3.Difficulty) => {
         });
 
         d.addLightRotationEventBoxGroups({
-            b: 452 + g * 0.03125,
-            g,
+            time: 452 + g * 0.03125,
+            id: g,
             e: [
                 {
                     f: { r: 1 },
@@ -276,8 +281,8 @@ export default (d: v3.Difficulty) => {
         });
         d.addLightColorEventBoxGroups(
             {
-                b: 452 + g * 0.0625,
-                g,
+                time: 452 + g * 0.0625,
+                id: g,
                 e: [
                     {
                         f: { r: 1 },
@@ -287,8 +292,8 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                b: 454,
-                g,
+                time: 454,
+                id: g,
                 e: [
                     {
                         e: [{ s: 0 }],

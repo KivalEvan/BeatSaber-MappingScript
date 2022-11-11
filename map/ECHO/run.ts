@@ -13,9 +13,9 @@ const difficulty = v2.Difficulty.create();
 difficulty.customData._environment = [];
 difficulty.customData._time = difficulty.customData._time ?? 0;
 difficulty.customData._time++;
-difficulty.events = [];
+difficulty.basicEvents = [];
 const envEnh = difficulty.customData._environment;
-const { addEvents } = difficulty;
+const { addBasicEvents } = difficulty;
 
 //#region environment and events order declaration stuff
 let itFrame = 0;
@@ -496,7 +496,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
         }
         if (!itFrame && opt.fadeInDuration && opt.eventValue) {
             for (const color in prevColor) {
-                addEvents({
+                addBasicEvents({
                     _time: opt.time,
                     _type: 4,
                     _value: opt.eventValue > 4 ? 5 : 1,
@@ -508,7 +508,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
             }
         }
         for (const color in colorID) {
-            addEvents({
+            addBasicEvents({
                 _time: (opt.animated
                     ? utils.lerp(opt.easings(utils.normalize(itFrame, 0, gif.length)), opt.time, opt.endTime)
                     : opt.time) + opt.fadeInDuration,
@@ -539,7 +539,7 @@ const screenClear = (time: number, fade = 0) => {
     }
     if (fade) {
         for (const color in colorID) {
-            addEvents({
+            addBasicEvents({
                 _time: time,
                 _type: 4,
                 _value: 1,
@@ -550,7 +550,7 @@ const screenClear = (time: number, fade = 0) => {
             });
         }
     }
-    addEvents({
+    addBasicEvents({
         _time: time + fade,
         _type: 4,
         _value: fade ? 4 : 0,
@@ -561,7 +561,7 @@ const screenClear = (time: number, fade = 0) => {
 //#endregion
 
 //#region piano intro
-addEvents(
+addBasicEvents(
     {
         _type: 12,
         _time: 4,
@@ -575,14 +575,14 @@ const introPianoOrder = [3, 6, 5, 3, 5, 7, 6, 3, 1, 2, 3, 6, 4, 6, 4, 6];
 for (let i = 0, paino = 0, painoFlip = false; i < 2; i++) {
     for (const ipo of introPianoOrder) {
         if (ipo < 4) {
-            addEvents({
+            addBasicEvents({
                 _time: 4 + paino * 0.5 + i * 8,
                 _type: painoFlip ? 2 : 3,
                 _value: 7,
                 _customData: { _lightID: [(4 - ipo) * 2, (4 - ipo) * 2 + 1] },
             });
         } else if (ipo === 4) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 4 + paino * 0.5 + i * 8,
                     _type: painoFlip ? 2 : 3,
@@ -597,7 +597,7 @@ for (let i = 0, paino = 0, painoFlip = false; i < 2; i++) {
                 },
             );
         } else {
-            addEvents({
+            addBasicEvents({
                 _time: 4 + paino * 0.5 + i * 8,
                 _type: painoFlip ? 3 : 2,
                 _value: 7,
@@ -609,7 +609,7 @@ for (let i = 0, paino = 0, painoFlip = false; i < 2; i++) {
     paino = 0;
     painoFlip = !painoFlip;
 }
-addEvents(
+addBasicEvents(
     {
         _type: 12,
         _time: 19,
@@ -630,7 +630,7 @@ addEvents(
     },
 );
 for (let i = 1; i <= 7; i++) {
-    addEvents(
+    addBasicEvents(
         {
             _type: 2,
             _time: 19 + i / 10,
@@ -651,7 +651,7 @@ const piano2Notething = [5, 21, 37, 53, 69, 325, 341, 357, 373, 517];
 for (const pnt of piano2Notething) {
     for (let i = 0; i < (pnt === 517 ? 4 : pnt === 373 ? 6 : 7); i++) {
         for (let j = 0; j < 3; j++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: pnt + j * 0.125 + i * 2,
                     _type: 0,
@@ -669,7 +669,7 @@ for (const pnt of piano2Notething) {
             );
         }
         if (pnt >= 325) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: pnt - 1 + i * 2,
                     _type: 2,
@@ -701,7 +701,7 @@ for (const pnt of piano2Notething) {
             );
             if (i >= 6) {
                 for (let j = 0; j < 2; j++) {
-                    addEvents(
+                    addBasicEvents(
                         {
                             _time: pnt + 1 + i * 2 + j,
                             _type: 2,
@@ -774,7 +774,7 @@ const introSynthOrder = [
 for (let i = 0; i < 4; i++) {
     let t = 0;
     for (const iso of introSynthOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 2,
                 _time: 20 + t * 0.5 + i * 16,
@@ -844,7 +844,7 @@ const introVocalTiming: [number, number?][] = [
 for (const ivt of introVocalTiming) {
     const t = ivt[0];
     if (!ivt[1]) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: 19 + t,
@@ -860,7 +860,7 @@ for (const ivt of introVocalTiming) {
         );
     } else {
         for (let i = 0; i < ivt[1]; i += 0.125) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 19 + t + i,
@@ -904,7 +904,7 @@ await screenDraw('smile.gif', {
 screenClear(19.375);
 
 for (const x in roadOrder) {
-    addEvents({
+    addBasicEvents({
         _time: 19.75 - (parseInt(x) / roadOrder.length) * 1,
         _type: 4,
         _value: 3,
@@ -938,7 +938,7 @@ for (const x in roadOrder) {
                 screenLight[pos] = colorAry[0];
             }
             for (const color in colorID) {
-                addEvents({
+                addBasicEvents({
                     _type: 4,
                     _time: 20 + (y + 3) / screenY,
                     _value: 1,
@@ -980,7 +980,7 @@ screenClear(23, 0.5);
             }
         }
         for (const color in colorID) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 23.5 + (itFrame / (img.length - 1)) * 1.5,
@@ -1040,7 +1040,7 @@ screenClear(23, 0.5);
                 screenLight[pos] = colorAry[0];
             }
             for (const color in colorID) {
-                addEvents({
+                addBasicEvents({
                     _type: 4,
                     _time: 29 - (y + 3) / screenY,
                     _value: 1,
@@ -1053,7 +1053,7 @@ screenClear(23, 0.5);
         }
     });
     for (let i = 0; i < 4; i++) {
-        addEvents({
+        addBasicEvents({
             _type: 4,
             _time: 29.25 + i * 0.375,
             _value: 3,
@@ -1087,7 +1087,7 @@ screenClear(23, 0.5);
             }
         }
         for (const color in colorID) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 31.875,
@@ -1208,7 +1208,7 @@ screenClear(49.875, 0.5);
 
 for (let i = 0; i < 7; i++) {
     if (i === 3) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: 52 + i * 4,
                 _type: 4,
@@ -1223,7 +1223,7 @@ for (let i = 0; i < 7; i++) {
             },
         );
         for (let j = 0; j < 5; j++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 54 + i * 4 + j * 0.125,
                     _type: 4,
@@ -1240,7 +1240,7 @@ for (let i = 0; i < 7; i++) {
         }
         continue;
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: 53 + i * 4,
             _type: 4,
@@ -1255,7 +1255,7 @@ for (let i = 0; i < 7; i++) {
         },
     );
     for (let j = 0; j < 5; j++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: 53.5 + i * 4 + j * 0.125,
                 _type: 4,
@@ -1284,7 +1284,7 @@ for (let i = 0; i < 7; i++) {
     }
     if (i === 6) {
         for (let j = 0; j < 16; j++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 56 + i * 4 + j * 0.125,
                     _type: 4,
@@ -1303,7 +1303,7 @@ for (let i = 0; i < 7; i++) {
     }
     if (i === 0 || i === 1 || i === 4 || i === 5) {
         for (const x in roadOrder) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 52 + (parseInt(x) / roadOrder.length) * 0.75 + i * 4,
                     _type: 4,
@@ -1320,7 +1320,7 @@ for (let i = 0; i < 7; i++) {
             );
         }
 
-        addEvents(
+        addBasicEvents(
             {
                 _time: 52 + i * 4,
                 _type: 4,
@@ -1383,7 +1383,7 @@ for (let i = 0; i < 7; i++) {
     if (i === 2 || i === 6) {
         utils.shuffle(roadShuffle);
         for (const x in roadShuffle) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 52 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
                     _type: 4,
@@ -1401,7 +1401,7 @@ for (let i = 0; i < 7; i++) {
         }
         utils.shuffle(roadShuffle);
         for (const x in roadShuffle) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: 56 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
                     _type: 4,
@@ -1417,7 +1417,7 @@ for (let i = 0; i < 7; i++) {
                 },
             );
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: 52 + i * 4,
                 _type: 4,
@@ -1441,7 +1441,7 @@ for (let i = 0; i < 7; i++) {
         );
     }
     for (let j = 0; j < 3; j++) {
-        addEvents({
+        addBasicEvents({
             _time: 52 + i * 4 + j * 0.25,
             _type: 4,
             _value: 7,
@@ -1474,7 +1474,7 @@ for (let i = 0; i < 7; i++) {
             }
         }
         for (const color in colorID) {
-            addEvents({
+            addBasicEvents({
                 _type: 4,
                 _time: 54.5 + (itFrame / (img.length - 1)) * 0.75,
                 _value: 1,
@@ -1505,7 +1505,7 @@ for (let i = 0; i < 2; i++) {
         }
     }
     for (const color in prevColor) {
-        addEvents({
+        addBasicEvents({
             _type: 4,
             _time: 60,
             _value: 1,
@@ -1537,7 +1537,7 @@ for (let i = 0; i < 2; i++) {
             }
         }
         for (const color in colorID) {
-            addEvents({
+            addBasicEvents({
                 _type: 4,
                 _time: 60.25 + itFrame * 0.25,
                 _value: 4,
@@ -1577,7 +1577,7 @@ screenClear(66.75, 0.5);
         }
     }
     for (const color in prevColor) {
-        addEvents({
+        addBasicEvents({
             _type: 4,
             _time: 69,
             _value: 1,
@@ -1603,7 +1603,7 @@ screenClear(66.75, 0.5);
         }
     }
     for (const color in prevColor) {
-        addEvents({
+        addBasicEvents({
             _type: 4,
             _time: 73,
             _value: 1,
@@ -1640,7 +1640,7 @@ screenClear(66.75, 0.5);
         }
     }
     for (const color in prevColor) {
-        addEvents({
+        addBasicEvents({
             _type: 4,
             _time: 76,
             _value: 1,
@@ -1672,7 +1672,7 @@ itFrame = 0;
             }
         }
         for (const color in colorID) {
-            addEvents({
+            addBasicEvents({
                 _type: 4,
                 _time: 76.25 + itFrame * 0.25,
                 _value: 4,
@@ -1734,7 +1734,7 @@ for (let i = 0; i < 5; i++) {
             break;
         }
         if (!svt[1]) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 308 + i * 16 + t,
@@ -1750,7 +1750,7 @@ for (let i = 0; i < 5; i++) {
             );
         } else {
             for (let j = 0; j < svt[1]; j += 0.125) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: 308 + i * 16 + t + j,
@@ -1769,7 +1769,7 @@ for (let i = 0; i < 5; i++) {
         if (i === 2 || i == 3) {
             if (312 + i * 16 + t < 374) {
                 if (!svt[1]) {
-                    addEvents(
+                    addBasicEvents(
                         {
                             _type: 4,
                             _time: 312 + i * 16 + t,
@@ -1789,7 +1789,7 @@ for (let i = 0; i < 5; i++) {
                     );
                 } else {
                     for (let j = 0; j < svt[1]; j += 0.125) {
-                        addEvents(
+                        addBasicEvents(
                             {
                                 _type: 4,
                                 _time: 312 + i * 16 + t + j,
@@ -1813,7 +1813,7 @@ for (let i = 0; i < 5; i++) {
             }
             if (314 + i * 16 + t < 374) {
                 if (!svt[1]) {
-                    addEvents(
+                    addBasicEvents(
                         {
                             _type: 4,
                             _time: 314 + i * 16 + t,
@@ -1833,7 +1833,7 @@ for (let i = 0; i < 5; i++) {
                     );
                 } else {
                     for (let j = 0; j < svt[1]; j += 0.125) {
-                        addEvents(
+                        addBasicEvents(
                             {
                                 _type: 4,
                                 _time: 314 + i * 16 + t + j,
@@ -1872,7 +1872,7 @@ for (let i = 0; i < 4; i++) {
             break;
         }
         if (!anlb[1]) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 376 + i * 2 + t,
@@ -1900,7 +1900,7 @@ for (let i = 0; i < 4; i++) {
             );
         } else {
             for (let j = 0; j < anlb[1]; j += 0.125) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: 376 + i * 2 + t + j,
@@ -1947,7 +1947,7 @@ await screenDraw('back.gif', { time: 386, eventValue: 5, floatValue: 1.5 });
 screenClear(386.375);
 
 for (let i = 0; i < 5; i++) {
-    addEvents(
+    addBasicEvents(
         {
             _type: 12,
             _time: 384 + i * 0.5 - 0.001,
@@ -1972,7 +1972,7 @@ for (let i = 0; i < 5; i++) {
         },
     );
     for (let j = 0; j < 2; j++) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 0,
                 _time: 384 + i * 0.5 + j / 6,
@@ -2057,7 +2057,7 @@ for (const ctp of crystalTimingPeriod) {
     const [start, end] = ctp;
     for (let i = start; i <= end; i++) {
         for (let j = 0; j < (i === 147 || i === 275 || i === 479 ? 3 : 4); j++) {
-            addEvents({
+            addBasicEvents({
                 _type: 3,
                 _time: i + j / 4,
                 _value: 7,
@@ -2135,7 +2135,7 @@ for (let t = 244; t < 276; t++) {
 }
 screenClear(276);
 
-addEvents(
+addBasicEvents(
     {
         _type: 4,
         _time: 83,
@@ -2178,7 +2178,7 @@ for (const bbfp of backtopBassFlashPeriod) {
     for (let i = t; i < m; i++) {
         const ringID = b < 4 ? [3, 5] : b < 8 ? [1, 2] : b < 12 ? [3, 4, 5] : [1, 2, 3, 4, 5];
         const add = b < 4 ? 0 : b < 8 ? 0.0625 : b < 12 ? 0.125 : 0.25;
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: i,
@@ -2194,7 +2194,7 @@ for (const bbfp of backtopBassFlashPeriod) {
             },
         );
         for (let j = 0; j < 3; j++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: i + 0.0625 + j * 0.0625,
                     _type: 0,
@@ -2224,14 +2224,14 @@ for (const bbfp of backtopBassFlashPeriod) {
             );
         }
         for (let j = 0; j < 4; j++) {
-            addEvents({
+            addBasicEvents({
                 _type: 1,
                 _time: i + 0.5 + j / 8,
                 _value: 7,
                 _floatValue: 0.125 + j / 8 + add,
                 _customData: { _lightID: ringID },
             });
-            addEvents({
+            addBasicEvents({
                 _type: 1,
                 _time: i + 0.5 + j / 8 + 1 / 16,
                 _floatValue: 0,
@@ -2254,13 +2254,13 @@ for (const rkfp of ringKickFlashPeriod) {
     const [t, p] = rkfp;
     for (let i = 0; i < p; i++) {
         for (let j = 0; j < 3; j++) {
-            addEvents({
+            addBasicEvents({
                 _type: 1,
                 _time: t + i * 2 + j / 6,
                 _value: 3,
                 _floatValue: 1.5 - j / 3,
             });
-            addEvents({
+            addBasicEvents({
                 _type: 1,
                 _time: t + i * 2 + j / 6 + 1 / 12,
                 _floatValue: 0,
@@ -2279,7 +2279,7 @@ for (const rkfp of ringKickFlashPeriod) {
 //         }
 //         lightArray.push(101 + screenX * y + x);
 //     }
-//     _addEvents({
+//     _addBasicEvents({
 //         _type: 4,
 //         _time: 4 + x / 32,
 //         _value: 1,
@@ -2372,7 +2372,7 @@ for (const t of chorus1Timing) {
     for (const ivt of chorus1Vocal) {
         const e = ivt[0];
         if (!ivt[1]) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: t + e,
@@ -2388,7 +2388,7 @@ for (const t of chorus1Timing) {
             );
         } else {
             for (let i = 0; i < ivt[1]; i += 0.125) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: t + i + e,
@@ -2412,7 +2412,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
             j += utils.random(4, 10, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t - 1 + i / 2,
                 _type: 4,
@@ -2427,7 +2427,7 @@ for (const t of chorus1Timing) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t - 0.1875,
             _type: 4,
@@ -2442,7 +2442,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (const x in roadOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + (parseInt(x) / roadOrder.length) * 0.4375,
                 _type: 4,
@@ -2467,7 +2467,7 @@ for (const t of chorus1Timing) {
 
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 3 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -2483,7 +2483,7 @@ for (const t of chorus1Timing) {
         );
     }
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t - 1,
             _type: 12,
@@ -2520,7 +2520,7 @@ for (const t of chorus1Timing) {
     await screenDraw('what.gif', { time: t - 1 });
     screenClear(t - 0.625);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t - 0.5,
             _type: 2,
@@ -2551,7 +2551,7 @@ for (const t of chorus1Timing) {
     screenClear(t - 0.125);
 
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.5,
                 _type: 2,
@@ -2578,7 +2578,7 @@ for (const t of chorus1Timing) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t - 0.001,
             _type: 12,
@@ -2591,7 +2591,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 0; i < 2; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 0.1875 * i,
                 _type: 4,
@@ -2637,7 +2637,7 @@ for (const t of chorus1Timing) {
     await screenDraw('hellglitch.gif', { time: t + 0.5625 });
     screenClear(t + 0.625);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 1,
             _type: 12,
@@ -2648,7 +2648,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 0; i < 2; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 1,
                 _type: 2 + i,
@@ -2691,7 +2691,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j]);
             j += utils.random(4, 8, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 1 + i / 2,
                 _type: 4,
@@ -2716,7 +2716,7 @@ for (const t of chorus1Timing) {
     await screenDraw('on.gif', { time: t + 2 });
     screenClear(t + 2.5, 0.375);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 2.999,
             _type: 12,
@@ -2729,7 +2729,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 3 + ((i - 1) / 7) * 0.5,
                 _type: 2,
@@ -2776,7 +2776,7 @@ for (const t of chorus1Timing) {
     await screenDraw('can.gif', { time: t + 3.0625 });
     screenClear(t + 3.5, 0.375);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 4,
             _type: 12,
@@ -2841,7 +2841,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j]);
             j += utils.random(4, 8, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 4 + i / 2,
                 _type: 4,
@@ -2870,7 +2870,7 @@ for (const t of chorus1Timing) {
     await screenDraw('me.gif', { time: t + 5.5 });
     screenClear(t + 5.875);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 5.999,
             _type: 12,
@@ -2883,7 +2883,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.25 + 6,
                 _type: chorus1flipFlop ? 3 : 2,
@@ -2909,7 +2909,7 @@ for (const t of chorus1Timing) {
         );
     }
     for (const x in roadOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 6 + (parseInt(x) / roadOrder.length) * 0.5,
                 _type: 4,
@@ -2933,7 +2933,7 @@ for (const t of chorus1Timing) {
     await screenDraw('please.gif', { time: t + 6.0625 });
     screenClear(t + 6.5, 0.375);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 8,
             _type: 12,
@@ -2950,7 +2950,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
             j += utils.random(4, 10, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 8 + i / 2,
                 _type: 4,
@@ -2974,7 +2974,7 @@ for (const t of chorus1Timing) {
         if (random2 < 7) {
             lightIDrand2.push(random2 + 1);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 8 + i / 2,
                 _type: 2,
@@ -3069,7 +3069,7 @@ for (const t of chorus1Timing) {
     await screenDraw('on.gif', { time: t + 13 });
     screenClear(t + 13.375);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 13.999,
             _type: 12,
@@ -3082,7 +3082,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 14 + ((i - 1) / 7) * 0.5,
                 _type: 2,
@@ -3126,7 +3126,7 @@ for (const t of chorus1Timing) {
         );
     }
 
-    addEvents({
+    addBasicEvents({
         _type: 4,
         _time: t + 13.999,
         _value: 5,
@@ -3134,7 +3134,7 @@ for (const t of chorus1Timing) {
     });
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 14 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -3171,7 +3171,7 @@ for (const t of chorus1Timing) {
                     screenLight[pos] = colorAry[0];
                 }
                 for (const color in colorID) {
-                    addEvents({
+                    addBasicEvents({
                         _type: 4,
                         _time: t + 13.5 + y / screenY / 6,
                         _value: 1,
@@ -3206,7 +3206,7 @@ for (const t of chorus1Timing) {
                 }
             }
             for (const color in colorID) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: t + 14.0625,
@@ -3271,7 +3271,7 @@ for (const t of chorus1Timing) {
         });
     }
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 15,
             _type: 12,
@@ -3282,7 +3282,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 0; i < 4; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 15 + i / 6,
                 _type: 2,
@@ -3308,7 +3308,7 @@ for (const t of chorus1Timing) {
         );
     }
     for (let i = 0; i < 3; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 16 + (i / 3) * 0.375,
                 _type: 2,
@@ -3336,7 +3336,7 @@ for (const t of chorus1Timing) {
         );
     }
     for (let i = 0; i < 2; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 17 + i * 0.5,
                 _type: 2,
@@ -3366,7 +3366,7 @@ for (const t of chorus1Timing) {
     for (let j = 0; j < 3; j++) {
         utils.shuffle(roadShuffle);
         for (const x in roadShuffle) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 15 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
@@ -3408,7 +3408,7 @@ for (const t of chorus1Timing) {
                     screenLight[pos] = colorAry[0];
                 }
                 for (const color in colorID) {
-                    addEvents({
+                    addBasicEvents({
                         _type: 4,
                         _time: t + 15.5 + (x + 4) / screenX / 6,
                         _value: 1,
@@ -3434,7 +3434,7 @@ for (const t of chorus1Timing) {
     }
 
     for (let i = 0; i < 3; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 18 + (i / 3) * 0.375,
                 _type: 2,
@@ -3462,7 +3462,7 @@ for (const t of chorus1Timing) {
         );
     }
     for (const x in roadOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 16 + (parseInt(x) / roadOrder.length) * 0.5,
                 _type: 4,
@@ -3483,7 +3483,7 @@ for (const t of chorus1Timing) {
     }
     for (let i = 0; i < 3; i++) {
         for (const x in roadOrder) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + 16.9375 + (parseInt(x) / roadOrder.length) * 0.5 + i / 2,
                     _type: 4,
@@ -3529,7 +3529,7 @@ for (const t of chorus1Timing) {
                     screenLight[pos] = colorAry[0];
                 }
                 for (const color in colorID) {
-                    addEvents({
+                    addBasicEvents({
                         _type: 4,
                         _time: t + 17.5 + (screenX - x + 4) / screenX / 6,
                         _value: 1,
@@ -3551,7 +3551,7 @@ for (const t of chorus1Timing) {
         });
     }
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 18.999,
             _type: 12,
@@ -3565,7 +3565,7 @@ for (const t of chorus1Timing) {
     );
     for (let j = 0; j < 3; j++) {
         for (let i = 1; i <= 7; i++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + (i - 1) / 7 + j * 0.25 + 19,
                     _type: 2,
@@ -3614,7 +3614,7 @@ for (const t of chorus1Timing) {
 
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 19 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -3636,7 +3636,7 @@ for (const t of chorus1Timing) {
         screenClear(t + 19.5625 + j / 8);
     }
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 20,
             _type: 12,
@@ -3655,7 +3655,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
             j += utils.random(4, 10, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 20 + i / 2,
                 _type: 4,
@@ -3681,7 +3681,7 @@ for (const t of chorus1Timing) {
         if (random2 < 7) {
             lightIDrand2.push(random2 + 1);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 20 + i / 2,
                 _type: 2,
@@ -3710,7 +3710,7 @@ for (const t of chorus1Timing) {
     }
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 22 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -3735,7 +3735,7 @@ for (const t of chorus1Timing) {
     screenClear(t + 21.0625);
     await screenDraw('wrong.gif', { time: t + 21.125 });
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 21.999,
             _type: 12,
@@ -3748,7 +3748,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.25 + 22,
                 _type: chorus1flipFlop ? 3 : 2,
@@ -3780,7 +3780,7 @@ for (const t of chorus1Timing) {
     await screenDraw('warning.gif', { time: t + 22.3125 });
     screenClear(t + 22.5);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 23,
             _type: 12,
@@ -3792,7 +3792,7 @@ for (const t of chorus1Timing) {
     );
     for (let j = 0; j < 3; j++) {
         for (let i = 1; i <= 7; i++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + (i - 1) / 7 + j * 0.25 + 23,
                     _type: 2,
@@ -3841,7 +3841,7 @@ for (const t of chorus1Timing) {
     for (let j = 0; j < 3; j++) {
         utils.shuffle(roadShuffle);
         for (const x in roadShuffle) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: 23 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
@@ -3871,7 +3871,7 @@ for (const t of chorus1Timing) {
             _lightID.push(roadOrder[0 + j]);
             j += utils.random(4, 8, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 24 + i / 2,
                 _type: 4,
@@ -3895,7 +3895,7 @@ for (const t of chorus1Timing) {
         if (random2 < 7) {
             lightIDrand2.push(random2 + 1);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 24 + i / 2,
                 _type: 12,
@@ -3958,7 +3958,7 @@ for (const t of chorus1Timing) {
                     screenLight[pos] = colorAry[0];
                 }
                 for (const color in colorID) {
-                    addEvents({
+                    addBasicEvents({
                         _type: 4,
                         _time: t + 24.125 + ((y + 3) / screenY) * 0.75,
                         _value: 1,
@@ -4002,7 +4002,7 @@ for (const t of chorus1Timing) {
                     screenLight[pos] = colorAry[0];
                 }
                 for (const color in colorID) {
-                    addEvents({
+                    addBasicEvents({
                         _type: 4,
                         _time: t + 26 + ((y + 3) / screenY) * 0.5,
                         _value: 1,
@@ -4038,7 +4038,7 @@ for (const t of chorus1Timing) {
     await screenDraw('to.gif', { time: t + 29.5 });
     screenClear(t + 29.9375);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 30,
             _type: 12,
@@ -4051,7 +4051,7 @@ for (const t of chorus1Timing) {
         },
     );
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 30 + ((i - 1) / 7) * 0.5,
                 _type: 2,
@@ -4096,7 +4096,7 @@ for (const t of chorus1Timing) {
     }
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 30 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -4119,7 +4119,7 @@ for (const t of chorus1Timing) {
 let chorus2flipFlop = false;
 for (const t of chorus2Timing) {
     for (const x in roadOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t - 0.5 + (parseInt(x) / roadOrder.length) * 0.5,
                 _type: 4,
@@ -4171,7 +4171,7 @@ for (const t of chorus2Timing) {
         );
     }
     for (let i = 0; i < 2; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 0.1875 * i,
                 _type: 4,
@@ -4195,7 +4195,7 @@ for (const t of chorus2Timing) {
     for (const ivt of chorus2Vocal) {
         const e = ivt[0];
         if (!ivt[1]) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: t + e,
@@ -4211,7 +4211,7 @@ for (const t of chorus2Timing) {
             );
         } else {
             for (let i = 0; i < ivt[1]; i += 0.125) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: t + i + e,
@@ -4229,7 +4229,7 @@ for (const t of chorus2Timing) {
         }
     }
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.375 - 0.5,
                 _type: 2,
@@ -4245,7 +4245,7 @@ for (const t of chorus2Timing) {
         );
     }
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t - 0.5,
             _type: 12,
@@ -4257,7 +4257,7 @@ for (const t of chorus2Timing) {
     );
     for (let j = 0; j < 3; j++) {
         for (let i = 1; i <= 7; i++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + (i - 1) / 7 + j * 0.25,
                     _type: 2,
@@ -4303,7 +4303,7 @@ for (const t of chorus2Timing) {
             );
         }
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t,
             _type: 12,
@@ -4319,7 +4319,7 @@ for (const t of chorus2Timing) {
         for (let j = 0; j < 3; j++) {
             utils.shuffle(roadShuffle);
             for (const x in roadShuffle) {
-                addEvents(
+                addBasicEvents(
                     {
                         _type: 4,
                         _time: t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
@@ -4356,7 +4356,7 @@ for (const t of chorus2Timing) {
     screenClear(t + 2.375);
 
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 2.25 + ((i - 1) / 7) * 0.75,
                 _type: 2,
@@ -4397,7 +4397,7 @@ for (const t of chorus2Timing) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 2.25,
             _type: 12,
@@ -4412,7 +4412,7 @@ for (const t of chorus2Timing) {
     await screenDraw('fear.gif', { time: t + 2.625 });
     screenClear(t + 3.25);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 3.5,
             _type: chorus2flipFlop ? 3 : 2,
@@ -4432,7 +4432,7 @@ for (const t of chorus2Timing) {
 
     for (let j = 0; j < 3; j++) {
         for (let i = 1; i <= 7; i++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + 4 + ((i - 1) / 7) * 0.75 + j * 0.25,
                     _type: chorus2flipFlop ? 3 : 2,
@@ -4476,7 +4476,7 @@ for (const t of chorus2Timing) {
             );
         }
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 3.999,
             _type: 12,
@@ -4505,7 +4505,7 @@ for (const t of chorus2Timing) {
     screenClear(t + 6, 0.375);
 
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 6.25 + ((i - 1) / 7) * 0.5,
                 _type: chorus2flipFlop ? 3 : 2,
@@ -4560,7 +4560,7 @@ for (const t of chorus2Timing) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 6.25,
             _type: 12,
@@ -4574,7 +4574,7 @@ for (const t of chorus2Timing) {
     await screenDraw('take.gif', { time: t + 6.5625 });
     screenClear(t + 7, 0.5);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 8,
             _type: chorus2flipFlop ? 2 : 3,
@@ -4632,7 +4632,7 @@ for (const t of chorus2Timing) {
             _lightID.push(roadOrder[0 + j]);
             j += utils.random(4, 8, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 8 + i / 2,
                 _type: 4,
@@ -4660,7 +4660,7 @@ for (const t of chorus2Timing) {
     await screenDraw('againstglitch.gif', { time: t + 9.875 });
     screenClear(t + 9.9375);
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.375 + 10,
                 _type: 2,
@@ -4677,7 +4677,7 @@ for (const t of chorus2Timing) {
     }
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 10 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -4696,7 +4696,7 @@ for (const t of chorus2Timing) {
     screenClear(t + 10.375, 0.5);
 
     for (let i = 3; i <= 5; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.25 + 11.5,
                 _type: 2,
@@ -4729,7 +4729,7 @@ for (const t of chorus2Timing) {
     await screenDraw('echo.gif', { time: t + 11.625 });
     screenClear(t + 12.25);
     for (let i = 1; i <= 3; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + ((i - 1) / 7) * 0.25 + 12.5,
                 _type: 2,
@@ -4759,7 +4759,7 @@ for (const t of chorus2Timing) {
         );
     }
     for (const x in roadOrder) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 11.5 + (parseInt(x) / roadOrder.length) * 0.5,
                 _type: 4,
@@ -4780,7 +4780,7 @@ for (const t of chorus2Timing) {
     }
     utils.shuffle(roadShuffle);
     for (const x in roadShuffle) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: t + 12.25 + (parseInt(x) / roadShuffle.length) * 0.5,
@@ -4802,7 +4802,7 @@ for (const t of chorus2Timing) {
             _lightID.push(roadOrder[0 + j]);
             j += utils.random(4, 8, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: t + 13 + i / 2,
                 _type: 4,
@@ -4822,7 +4822,7 @@ for (const t of chorus2Timing) {
     await screenDraw('echo.gif', { time: t + 12.625 });
     screenClear(t + 12.875);
 
-    addEvents(
+    addBasicEvents(
         {
             _time: t + 13,
             _type: chorus2flipFlop ? 2 : 3,
@@ -4922,7 +4922,7 @@ await screenDraw('echo.gif', { time: 133.0625 });
 await screenDraw('echo.gif', { time: 133.6875, invert: true });
 screenClear(133.75);
 for (let i = 1; i <= 7; i++) {
-    addEvents(
+    addBasicEvents(
         {
             _time: 132 + ((i - 1) / 7) * 0.5,
             _type: 2,
@@ -5029,7 +5029,7 @@ for (let i = 1; i <= 7; i++) {
         },
     );
 }
-addEvents(
+addBasicEvents(
     {
         _time: 131.999,
         _type: 12,
@@ -5146,7 +5146,7 @@ addEvents(
     },
 );
 for (const x in roadOrder) {
-    addEvents(
+    addBasicEvents(
         {
             _type: 4,
             _time: 132 + (parseInt(x) / roadOrder.length) * 0.875,
@@ -5198,7 +5198,7 @@ for (const e of echoTiming) {
             _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
             j += utils.random(4, 10, true);
         }
-        addEvents(
+        addBasicEvents(
             {
                 _time: e + 134,
                 _type: 4,
@@ -5223,7 +5223,7 @@ for (const e of echoTiming) {
     if (random2 < 7) {
         lightIDrand2.push(random2 + 1);
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: 134 + e,
             _type: 12,
@@ -5283,7 +5283,7 @@ for (const e of echoTiming) {
             _customData: { _lightID: lightIDrand2 },
         },
     );
-    addEvents(
+    addBasicEvents(
         {
             _type: 4,
             _time: 133.875 + e,
@@ -5423,7 +5423,7 @@ await screenDraw('testcard.gif', { time: 162.6875 });
 screenClear(162.75);
 await screenDraw('testcard.gif', { time: 163.25, eventValue: 3, invert: true });
 screenClear(163.375);
-addEvents(
+addBasicEvents(
     {
         _time: 148,
         _type: 12,
@@ -5452,7 +5452,7 @@ for (const et of eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeTiming) {
         }
         const lid = eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeID[et[2]];
         for (let i = 0; i < lid.length; i++) {
-            addEvents(
+            addBasicEvents(
                 {
                     _time: t + i * 0.03125,
                     _type: 2,
@@ -5527,7 +5527,7 @@ const iHateThisSynthTiming = [
     [193.5, 2],
 ];
 for (const ihtst of iHateThisSynthTiming) {
-    addEvents(
+    addBasicEvents(
         {
             _time: ihtst[0],
             _type: 2,
@@ -5636,7 +5636,7 @@ const iHateThisSynthID = [
     [1, 2, 6, 7],
 ];
 for (const ihtsl of iHateThisSynthLaser) {
-    addEvents(
+    addBasicEvents(
         {
             _type: 12,
             _time: ihtsl[0],
@@ -5651,7 +5651,7 @@ for (const ihtsl of iHateThisSynthLaser) {
 }
 for (const ihtst of iHateThisSynthTiming2) {
     for (let t = ihtst[0]; t < ihtst[0] + ihtst[1] - 0.0625; t += 0.0625) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 2,
                 _time: t,
@@ -5684,7 +5684,7 @@ for (const ihtst of iHateThisSynthTiming2) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _type: 12,
             _time: ihtst[0],
@@ -5878,7 +5878,7 @@ const synthTiming = [
 const synthDownTiming = [212, 220, 228, 236, 244, 252, 260, 268, 292, 300, 484, 492, 500, 508];
 for (const sdt of synthDownTiming) {
     for (let i = 1; i <= 7; i++) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: sdt + ((i - 1) / 7) * 0.375,
                 _type: 2,
@@ -5907,7 +5907,7 @@ for (const sdt of synthDownTiming) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _time: sdt,
             _type: 12,
@@ -5932,7 +5932,7 @@ for (const sdt of synthDownTiming) {
 }
 let synthTimingFlipFlop = false;
 for (const st of synthTiming) {
-    addEvents(
+    addBasicEvents(
         {
             _time: st[0],
             _type: 2,
@@ -6058,7 +6058,7 @@ const endingID = [
     [centerOrder[5], centerOrder[0]],
 ];
 for (const eh of endingHa) {
-    addEvents(
+    addBasicEvents(
         {
             _type: 4,
             _time: eh[0],
@@ -6112,7 +6112,7 @@ const synthDrumTiming = [
 ];
 for (const sdt of synthDrumTiming) {
     for (let i = 0; i < 3; i++) {
-        addEvents({
+        addBasicEvents({
             _time: sdt[0] + 0.1875 * i,
             _type: 4,
             _value: 3,
@@ -6136,7 +6136,7 @@ const dootdootTiming = [
 ];
 for (const ddt of dootdootTiming) {
     if (!(ddt[1] % 2)) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 4,
                 _time: ddt[0],
@@ -6176,7 +6176,7 @@ for (const ddt of dootdootTiming) {
         );
     } else {
         for (let t = ddt[0]; t < ddt[0] + 0.875; t += 0.0625) {
-            addEvents(
+            addBasicEvents(
                 {
                     _type: 4,
                     _time: t,
@@ -6224,7 +6224,7 @@ const doondoondodoondoondoonID = [
     [6, 7],
 ];
 for (const ddddt of doondoondodoondoondoonTiming) {
-    addEvents(
+    addBasicEvents(
         {
             _time: ddddt[0],
             _type: 2,
@@ -6277,7 +6277,7 @@ for (const ddddt of doondoondodoondoondoonTiming) {
         },
     );
     if (ddddt[0] >= 288) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: ddddt[0],
                 _type: 0,
@@ -6297,7 +6297,7 @@ for (const ddddt of doondoondodoondoondoonTiming) {
         );
     }
 }
-addEvents(
+addBasicEvents(
     {
         _time: 210,
         _type: 4,
@@ -6363,7 +6363,7 @@ const painoTiming = [
     [207, 2],
 ];
 for (const pt of painoTiming) {
-    addEvents(
+    addBasicEvents(
         {
             _time: pt[0],
             _type: 2,
@@ -6439,7 +6439,7 @@ const painoTiming2 = [
     [207.5, 1],
 ];
 for (const pt of painoTiming2) {
-    addEvents(
+    addBasicEvents(
         {
             _time: pt[0] as number,
             _type: 3,
@@ -6486,7 +6486,7 @@ const painoTiming3 = [
 ].map((n) => [n[0], n[1] + 1]);
 for (const pt of painoTiming3) {
     if (pt[1] < 4) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: pt[0],
                 _type: 2,
@@ -6500,7 +6500,7 @@ for (const pt of painoTiming3) {
             },
         );
     } else if (pt[1] === 4) {
-        addEvents(
+        addBasicEvents(
             {
                 _time: pt[0],
                 _type: 2,
@@ -6525,7 +6525,7 @@ for (const pt of painoTiming3) {
             },
         );
     } else {
-        addEvents(
+        addBasicEvents(
             {
                 _time: pt[0],
                 _type: 3,
@@ -6551,7 +6551,7 @@ const paintTiming4 = [
 ];
 for (const pt of paintTiming4) {
     for (let t = pt[0]; t < pt[0] + pt[1] - 0.0625; t += 0.0625) {
-        addEvents(
+        addBasicEvents(
             {
                 _type: 2,
                 _time: t,
@@ -6584,7 +6584,7 @@ for (const pt of paintTiming4) {
             },
         );
     }
-    addEvents(
+    addBasicEvents(
         {
             _type: 12,
             _time: pt[0],
@@ -6600,7 +6600,7 @@ for (const pt of paintTiming4) {
 
 const finalKickSound = [293, 295, 297, 299, 301, 303, 305, 307];
 for (const fks of finalKickSound) {
-    addEvents(
+    addBasicEvents(
         {
             _time: fks - 0.125,
             _type: 4,
@@ -6631,7 +6631,7 @@ for (const fks of finalKickSound) {
         },
     );
 }
-addEvents(
+addBasicEvents(
     {
         _time: 208,
         _type: 12,
@@ -6741,7 +6741,7 @@ difficulty.customData._customEvents = [
     },
 ];
 
-// for (const e of difficulty.events) {
+// for (const e of difficulty.basicEvents) {
 //     if (e.value >= 1 && e.value <= 4) {
 //         e.value += 8;
 //         e.floatValue *= 0.75;
@@ -6756,5 +6756,5 @@ await save.difficulty(difficulty, {
     filePath: OUTPUT_FILE,
 });
 console.timeEnd('Runtime');
-console.log(difficulty.events.length, 'events');
+console.log(difficulty.basicEvents.length, 'events');
 console.log('Map saved');

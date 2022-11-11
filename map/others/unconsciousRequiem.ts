@@ -4,7 +4,7 @@ const INPUT_FILE = 'ExpertPlusStandardOriginal.dat';
 const OUTPUT_FILE = 'ExpertPlusStandard.dat';
 
 const difficulty = load.difficultySync(INPUT_FILE, 2).setFileName(OUTPUT_FILE);
-const events = difficulty.events;
+const events = difficulty.basicEvents;
 
 events.forEach((e) => {
     e.floatValue = 1;

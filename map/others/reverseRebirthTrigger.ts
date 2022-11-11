@@ -13,7 +13,7 @@ const lightMapper = new ext.chroma.LightMapper('SkrillexEnvironment');
 lightMapper.process(lightshow, false);
 
 const data = load.difficultySync('EasyStandard.dat', 2);
-data.events = lightshow.events;
+data.basicEvents = lightshow.basicEvents;
 const bookmarks = data.customData._bookmarks;
 if (bookmarks) {
     for (const b of bookmarks) {

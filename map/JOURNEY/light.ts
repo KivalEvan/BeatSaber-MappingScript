@@ -6,7 +6,7 @@ const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
 const difficulty = load.difficultySync(INPUT_FILE, 2);
-const _events = difficulty.events;
+const _events = difficulty.basicEvents;
 
 const isLight = (t: number) => {
     return t >= 0 && t <= 4;

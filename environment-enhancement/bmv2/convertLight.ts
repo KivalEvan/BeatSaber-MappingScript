@@ -1,10 +1,7 @@
 import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
-export const convertLight = (
-    d: v3.Difficulty,
-    environment: types.EnvironmentAllName,
-) => {
+export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAllName) => {
     const events = d.basicEvents;
     const newEvents = [];
 

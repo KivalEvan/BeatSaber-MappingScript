@@ -19,7 +19,7 @@ const difficulty = bsmap.load.difficultySync(INPUT_FILE, 2);
 difficulty.version = '2.5.0';
 difficulty.customData._environment = [];
 const _environment = difficulty.customData._environment;
-const _events = difficulty.events;
+const _events = difficulty.basicEvents;
 
 //#region environment and events order declaration stuff
 // regex for environment enhancement

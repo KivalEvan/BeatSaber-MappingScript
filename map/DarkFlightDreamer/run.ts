@@ -33,7 +33,7 @@ if (bookmarks) {
     }
 }
 
-where(between(lightshow.events, 597, 605), { include: { _type: [2, 3] } }).forEach(
+where(between(lightshow.basicEvents, 597, 605), { include: { _type: [2, 3] } }).forEach(
     (ev, i, _) => (ev.floatValue -= i / (_.length * 3)),
 );
 
@@ -48,7 +48,7 @@ const makeWhite = (e: v2.Event, mult = 1) => {
         e.floatValue *= mult;
     }
 };
-const whiteLightCandidate = where(lightshow.events, {
+const whiteLightCandidate = where(lightshow.basicEvents, {
     include: { _value: [1, 2, 3, 4] },
 }).filter((ev) => ev.isLightEvent());
 
@@ -61,7 +61,9 @@ for (const it of introTime) {
 const verseOrSomething = [74, 270];
 for (const vos of verseOrSomething) {
     between(whiteLightCandidate, vos, vos + 1.999).forEach((e) => makeWhite(e));
-    between(where(lightshow.events, { include: { _type: [2, 3] } }), vos + 7, vos + 7.999).forEach((e) => makeWhite(e));
+    between(where(lightshow.basicEvents, { include: { _type: [2, 3] } }), vos + 7, vos + 7.999).forEach((e) =>
+        makeWhite(e)
+    );
     between(whiteLightCandidate, vos + 2, vos + 2.999).forEach((e) => makeWhite(e));
     between(whiteLightCandidate, vos + 10, vos + 10.999).forEach((e) => makeWhite(e));
     between(whiteLightCandidate, vos + 8, vos + 9.999).forEach((e) => makeWhite(e));
@@ -155,7 +157,7 @@ const flashIt = [
     202 + 360,
 ];
 for (const fi of flashIt) {
-    between(where(lightshow.events, { include: { _type: 4 } }), fi, fi + 0.499).forEach((ev) => makeWhite(ev));
+    between(where(lightshow.basicEvents, { include: { _type: 4 } }), fi, fi + 0.499).forEach((ev) => makeWhite(ev));
 }
 
 between(where(whiteLightCandidate, { include: { _type: 1 } }), 97.5, 98.5).forEach((e, i, _) =>
@@ -185,7 +187,7 @@ between(
 between(whiteLightCandidate, 469, 469.999).forEach((e, i, _) =>
     makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 2, 1.25))
 );
-between(where(lightshow.events, { include: { _type: 4 } }), 468, 468.999).forEach((e) => makeWhite(e));
+between(where(lightshow.basicEvents, { include: { _type: 4 } }), 468, 468.999).forEach((e) => makeWhite(e));
 
 const info = load.infoSync();
 info._environmentName = 'NiceEnvironment';
@@ -196,7 +198,7 @@ for (const set of info._difficultyBeatmapSets) {
 
         difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
         difficulty.customData._environment = lightshow.customData!._environment;
-        difficulty.events = lightshow.events;
+        difficulty.basicEvents = lightshow.basicEvents;
 
         save.difficultySync(difficulty);
         if (d._customData) {
