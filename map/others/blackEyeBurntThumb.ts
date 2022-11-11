@@ -8,7 +8,7 @@ const INPUT_FILE = 'ExpertPlusStandard.dat';
 const OUTPUT_FILE = INPUT_FILE;
 
 const old = bsmap.load.difficultySync(INPUT_FILE, 2);
-old.events.forEach((e) => {
+old.basicEvents.forEach((e) => {
     e.floatValue = 1;
     if (e.isLightEvent()) {
         e.floatValue = e.value ? 1 : 0;

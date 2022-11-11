@@ -6,7 +6,7 @@ globals.directory =
 
 const d2 = load.difficultySync('Expert.dat', 2);
 const d3 = load.difficultySync('Expert.dat', 3);
-d2.events.forEach((e) => {
+d2.basicEvents.forEach((e) => {
     if (e.type === 5 || e.type === 14 || e.type === 15) {
         d3.addBasicEvents({ b: e.time, et: e.type, i: e.value });
     }

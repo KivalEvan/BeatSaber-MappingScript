@@ -71,7 +71,7 @@ animatedFELT
             },
         })
     );
-lightshow.events.forEach((e) => {
+lightshow.basicEvents.forEach((e) => {
     if (e.type === 1) {
         e.customData._lightID = ext.chroma.LightIDList.BTSEnvironment[1];
     }

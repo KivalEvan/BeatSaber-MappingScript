@@ -9,14 +9,14 @@ const OUTPUT_FILE = 'EasyOneSaber.dat';
 
 const lightshow = load.difficultySync(INPUT_FILE, 2).setFileName(OUTPUT_FILE);
 
-lightshow.events.forEach((e) => {
+lightshow.basicEvents.forEach((e) => {
     e.floatValue = 1;
     if (e.isLightEvent()) {
         e.floatValue = e.value ? 1 : 0;
     }
     if (e.customData?._color) {
         if (e.value) {
-            e.value = e.customData._color[0] ? (e.value <= 4 ? 4 : e.value <= 8 ? 8 : 12) : e.value;
+            e.value = e.customData._color[0] ? e.value <= 4 ? 4 : e.value <= 8 ? 8 : 12 : e.value;
         }
         e.floatValue = e.customData._color[3] ?? 1;
     }
@@ -26,11 +26,16 @@ lightshow.events.forEach((e) => {
 const info = load.infoSync();
 for (const set of info._difficultyBeatmapSets) {
     for (const d of set._difficultyBeatmaps) {
-        if (set._beatmapCharacteristicName === 'OneSaber' && d._difficulty === 'Normal') {
+        if (
+            set._beatmapCharacteristicName === 'OneSaber' &&
+            d._difficulty === 'Normal'
+        ) {
             continue;
         }
 
-        console.log(`Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`);
+        console.log(
+            `Copying lightshow to ${set._beatmapCharacteristicName} ${d._difficulty}`,
+        );
         const difficulty = load.difficultySync(d._beatmapFilename, 2);
 
         const bookmarks = difficulty.customData._bookmarks;

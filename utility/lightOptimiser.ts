@@ -317,7 +317,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
         eventAtTime[evType].push(i);
     }
 
-    d.events = d.events.filter((el) => el != null);
+    d.events = d.basicEvents.filter((el) => el != null);
 
     // do the funny message
     let message = `Light Optimiser`;
