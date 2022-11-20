@@ -5,811 +5,811 @@ export default (d: v3.Difficulty) => {
     for (let i = 0; i < 2; i++) {
         d.addLightColorEventBoxGroups(
             {
-                b: 6,
-                g: 0 + i,
-                e: [
+                time: 6,
+                id: 0 + i,
+                boxes: [
                     {
-                        f: { r: 1 },
-                        w: 2,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: 2.5 },
+                        filter: { reverse: 1 },
+                        beatDistribution: 2,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: 2.5 },
                             {
-                                b: 0.5,
-                                c: EventBoxColor.BLUE,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.5,
+                                color: EventBoxColor.BLUE,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 6,
-                g: 4 + i,
-                e: [
+                time: 6,
+                id: 4 + i,
+                boxes: [
                     {
-                        f: { r: 1 },
-                        w: 2,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: 2.5 },
+                        filter: { reverse: 1 },
+                        beatDistribution: 2,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: 2.5 },
                             {
-                                b: 0.5,
-                                c: EventBoxColor.BLUE,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.5,
+                                color: EventBoxColor.BLUE,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 6,
-                g: 10 + i,
-                e: [
+                time: 6,
+                id: 10 + i,
+                boxes: [
                     {
-                        f: { r: 1 },
-                        w: 2,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: 2.5 },
+                        filter: { reverse: 1 },
+                        beatDistribution: 2,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: 2.5 },
                             {
-                                b: 0.5,
-                                c: EventBoxColor.BLUE,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.5,
+                                color: EventBoxColor.BLUE,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
-            },
+            }
         );
         for (let x = 7.75; x < 36; x += 0.5) {
             d.addLightColorEventBoxGroups(
                 {
-                    b: x + utils.random(0, 0.375),
-                    g: 0 + i,
-                    e: [
+                    time: x + utils.pRandom(0, 0.375),
+                    id: 0 + i,
+                    boxes: [
                         {
-                            f: { f: 2, p: utils.random(0, 7, true), t: 8 },
-                            e: [
-                                { i: TransitionType.EXTEND },
+                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            events: [
+                                { transition: TransitionType.EXTEND },
                                 {
-                                    b: 0.125,
-                                    c: EventBoxColor.WHITE,
-                                    i: TransitionType.INTERPOLATE,
-                                    s: Brightness.FLASH,
+                                    time: 0.125,
+                                    color: EventBoxColor.WHITE,
+                                    transition: TransitionType.INTERPOLATE,
+                                    brightness: Brightness.FLASH,
                                 },
                                 {
-                                    b: 0.375,
-                                    c: EventBoxColor.BLUE,
-                                    i: TransitionType.INTERPOLATE,
+                                    time: 0.375,
+                                    color: EventBoxColor.BLUE,
+                                    transition: TransitionType.INTERPOLATE,
                                 },
                             ],
                         },
                     ],
                 },
                 {
-                    b: x + utils.random(0, 0.375),
-                    g: 4 + i,
-                    e: [
+                    time: x + utils.pRandom(0, 0.375),
+                    id: 4 + i,
+                    boxes: [
                         {
-                            f: { f: 2, p: utils.random(0, 7, true), t: 8 },
-                            e: [
-                                { i: TransitionType.EXTEND },
+                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            events: [
+                                { transition: TransitionType.EXTEND },
                                 {
-                                    b: 0.125,
-                                    c: EventBoxColor.WHITE,
-                                    i: TransitionType.INTERPOLATE,
-                                    s: Brightness.FLASH,
+                                    time: 0.125,
+                                    color: EventBoxColor.WHITE,
+                                    transition: TransitionType.INTERPOLATE,
+                                    brightness: Brightness.FLASH,
                                 },
                                 {
-                                    b: 0.375,
-                                    c: EventBoxColor.BLUE,
-                                    i: TransitionType.INTERPOLATE,
+                                    time: 0.375,
+                                    color: EventBoxColor.BLUE,
+                                    transition: TransitionType.INTERPOLATE,
                                 },
                             ],
                         },
                     ],
                 },
                 {
-                    b: x + utils.random(0, 0.375),
-                    g: 10 + i,
-                    e: [
+                    time: x + utils.pRandom(0, 0.375),
+                    id: 10 + i,
+                    boxes: [
                         {
-                            f: { f: 2, p: utils.random(0, 7, true), t: 8 },
-                            e: [
-                                { i: TransitionType.EXTEND },
+                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            events: [
+                                { transition: TransitionType.EXTEND },
                                 {
-                                    b: 0.125,
-                                    c: EventBoxColor.WHITE,
-                                    i: TransitionType.INTERPOLATE,
-                                    s: Brightness.FLASH,
+                                    time: 0.125,
+                                    color: EventBoxColor.WHITE,
+                                    transition: TransitionType.INTERPOLATE,
+                                    brightness: Brightness.FLASH,
                                 },
                                 {
-                                    b: 0.375,
-                                    c: EventBoxColor.BLUE,
-                                    i: TransitionType.INTERPOLATE,
+                                    time: 0.375,
+                                    color: EventBoxColor.BLUE,
+                                    transition: TransitionType.INTERPOLATE,
                                 },
                             ],
                         },
                     ],
-                },
+                }
             );
         }
         d.addLightRotationEventBoxGroups(
             {
-                b: 5 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 5 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -45,
-                        w: 1,
-                        l: [{ r: 180 }, { b: 0.5, r: 165, e: EaseType.OUT_QUAD }],
+                        rotationDistribution: -45,
+                        beatDistribution: 1,
+                        events: [{ rotation: 180 }, { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 7 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 7 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 3.5,
-                        b: 1,
-                        l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 3.5,
+                        affectFirst: 1,
+                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 10.5 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 10.5 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 7,
-                        b: 1,
-                        l: [{ r: 255 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 7,
+                        affectFirst: 1,
+                        events: [{ rotation: 255 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 17.5 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 17.5 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 7,
-                        b: 1,
-                        l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 7,
+                        affectFirst: 1,
+                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 24.5 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 24.5 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 7,
-                        b: 1,
-                        l: [{ r: 255 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 7,
+                        affectFirst: 1,
+                        events: [{ rotation: 255 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 31.5 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 31.5 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 7,
-                        b: 1,
-                        l: [{ r: 270 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 7,
+                        affectFirst: 1,
+                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 35 + 0.125,
-                g: 0 + i,
-                e: [
+                time: 35 + 0.125,
+                id: 0 + i,
+                boxes: [
                     {
-                        s: -60 - utils.random(0, 5),
-                        w: 2,
-                        b: 1,
-                        l: [{ r: 262.5 + utils.random(-5, 5), e: EaseType.IN_QUAD }],
+                        rotationDistribution: -60 - utils.pRandom(0, 5),
+                        beatDistribution: 2,
+                        affectFirst: 1,
+                        events: [{ rotation: 262.5 + utils.pRandom(-5, 5), easing: EaseType.IN_QUAD }],
                     },
                 ],
             },
             {
-                b: 5 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 5 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -30,
-                        w: 0.75,
-                        l: [{ r: 180 }, { b: 0.5, r: 165, e: EaseType.OUT_QUAD }],
+                        rotationDistribution: -30,
+                        beatDistribution: 0.75,
+                        events: [{ rotation: 180 }, { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 7 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 7 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -45 - utils.random(0, 5),
-                        w: 4,
-                        b: 1,
-                        l: [{ r: 240 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -45 - utils.pRandom(0, 5),
+                        beatDistribution: 4,
+                        affectFirst: 1,
+                        events: [{ rotation: 240 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 11 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 11 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -45 - utils.random(0, 5),
-                        w: 8,
-                        b: 1,
-                        l: [{ r: 225 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -45 - utils.pRandom(0, 5),
+                        beatDistribution: 8,
+                        affectFirst: 1,
+                        events: [{ rotation: 225 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 19 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 19 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -45 - utils.random(0, 5),
-                        w: 8,
-                        b: 1,
-                        l: [{ r: 240 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -45 - utils.pRandom(0, 5),
+                        beatDistribution: 8,
+                        affectFirst: 1,
+                        events: [{ rotation: 240 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 27 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 27 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -45 - utils.random(0, 5),
-                        w: 8,
-                        b: 1,
-                        l: [{ r: 225 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: -45 - utils.pRandom(0, 5),
+                        beatDistribution: 8,
+                        affectFirst: 1,
+                        events: [{ rotation: 225 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 35 + 0.25,
-                g: 4 + i,
-                e: [
+                time: 35 + 0.25,
+                id: 4 + i,
+                boxes: [
                     {
-                        s: -45 - utils.random(0, 5),
-                        w: 2,
-                        b: 1,
-                        l: [{ r: 230 + utils.random(-5, 5), e: EaseType.OUT_QUAD }],
+                        rotationDistribution: -45 - utils.pRandom(0, 5),
+                        beatDistribution: 2,
+                        affectFirst: 1,
+                        events: [{ rotation: 230 + utils.pRandom(-5, 5), easing: EaseType.OUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 5,
-                g: 10 + i,
-                e: [
+                time: 5,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 45,
-                        w: 0.5,
-                        l: [{ r: 270 }, { b: 0.5, r: 285, e: EaseType.OUT_QUAD }],
+                        rotationDistribution: 45,
+                        beatDistribution: 0.5,
+                        events: [{ rotation: 270 }, { time: 0.5, rotation: 285, easing: EaseType.OUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 7,
-                g: 10 + i,
-                e: [
+                time: 7,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 3,
-                        b: 1,
-                        l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 3,
+                        affectFirst: 1,
+                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 10,
-                g: 10 + i,
-                e: [
+                time: 10,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 6,
-                        b: 1,
-                        l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 6,
+                        affectFirst: 1,
+                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 16,
-                g: 10 + i,
-                e: [
+                time: 16,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 6,
-                        b: 1,
-                        l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 6,
+                        affectFirst: 1,
+                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 22,
-                g: 10 + i,
-                e: [
+                time: 22,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 6,
-                        b: 1,
-                        l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 6,
+                        affectFirst: 1,
+                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 28,
-                g: 10 + i,
-                e: [
+                time: 28,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 6,
-                        b: 1,
-                        l: [{ r: 150 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 6,
+                        affectFirst: 1,
+                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
             },
             {
-                b: 34,
-                g: 10 + i,
-                e: [
+                time: 34,
+                id: 10 + i,
+                boxes: [
                     {
-                        s: 75 + utils.random(0, 5),
-                        w: 6,
-                        b: 1,
-                        l: [{ r: 165 + utils.random(-5, 5), e: EaseType.INOUT_QUAD }],
+                        rotationDistribution: 75 + utils.pRandom(0, 5),
+                        beatDistribution: 6,
+                        affectFirst: 1,
+                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
                     },
                 ],
-            },
+            }
         );
 
         d.addLightColorEventBoxGroups(
             {
-                b: 5,
-                g: 8 + i,
-                e: [
+                time: 5,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 1, p: 4, t: 0 },
-                        e: [
+                        filter: { type: 1, p0: 4, p1: 0 },
+                        events: [
                             {},
                             {
-                                b: 0.5,
-                                s: Brightness.ZERO,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.5,
+                                brightness: Brightness.ZERO,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 5.25,
-                g: 8 + i,
-                e: [
+                time: 5.25,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 1, p: 4, t: 1 },
-                        e: [
+                        filter: { type: 1, p0: 4, p1: 1 },
+                        events: [
                             {},
                             {
-                                b: 0.417,
-                                s: Brightness.ZERO,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.417,
+                                brightness: Brightness.ZERO,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 5.5,
-                g: 8 + i,
-                e: [
+                time: 5.5,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 1, p: 4, t: 2 },
-                        e: [
+                        filter: { type: 1, p0: 4, p1: 2 },
+                        events: [
                             {},
                             {
-                                b: 0.333,
-                                s: Brightness.ZERO,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.333,
+                                brightness: Brightness.ZERO,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 5.75,
-                g: 8 + i,
-                e: [
+                time: 5.75,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 1, p: 4, t: 3 },
-                        e: [
+                        filter: { type: 1, p0: 4, p1: 3 },
+                        events: [
                             {},
                             {
-                                b: 0.249,
-                                s: Brightness.ZERO,
-                                i: TransitionType.INTERPOLATE,
+                                time: 0.249,
+                                brightness: Brightness.ZERO,
+                                transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
-            },
+            }
         );
         d.addLightRotationEventBoxGroups({
-            b: 5,
-            g: 8 + i,
-            e: [
+            time: 5,
+            id: 8 + i,
+            boxes: [
                 {
-                    a: Axis.Y,
-                    b: 1,
-                    s: 45,
-                    l: [{ r: 45 }],
+                    axis: Axis.Y,
+                    affectFirst: 1,
+                    rotationDistribution: 45,
+                    events: [{ rotation: 45 }],
                 },
                 {
-                    f: { f: 2, p: 1, t: 2 },
-                    b: 1,
-                    s: 45,
-                    l: [{ r: 270 }],
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: 45,
+                    events: [{ rotation: 270 }],
                 },
                 {
-                    f: { f: 2, t: 2 },
-                    b: 1,
-                    s: 45,
-                    l: [{ r: 90 }],
+                    filter: { type: 2, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: 45,
+                    events: [{ rotation: 90 }],
                 },
             ],
         });
 
         d.addLightColorEventBoxGroups(
             {
-                b: 6,
-                g: 6 + i,
-                e: [
+                time: 6,
+                id: 6 + i,
+                boxes: [
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        w: 2.75,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                            { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        beatDistribution: 2.75,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
                             {
-                                b: 2,
-                                c: EventBoxColor.WHITE,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 2,
+                                color: EventBoxColor.WHITE,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 6,
-                g: 8 + i,
-                e: [
+                time: 6,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        w: 2.75,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                            { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        beatDistribution: 2.75,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
                             {
-                                b: 2,
-                                c: EventBoxColor.WHITE,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 2,
+                                color: EventBoxColor.WHITE,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
-            },
+            }
         );
         d.addLightRotationEventBoxGroups(
             {
-                b: 6,
-                g: 6 + i,
-                e: [
+                time: 6,
+                id: 6 + i,
+                boxes: [
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        a: Axis.Y,
-                        l: [{ r: 90 }, { b: 2, r: 135 }],
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        axis: Axis.Y,
+                        events: [{ rotation: 90 }, { time: 2, rotation: 135 }],
                     },
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        s: 15,
-                        l: [{ r: 315 }, { b: 2, r: 75 }],
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        rotationDistribution: 15,
+                        events: [{ rotation: 315 }, { time: 2, rotation: 75 }],
                     },
                 ],
             },
             {
-                b: 6,
-                g: 8 + i,
-                e: [
+                time: 6,
+                id: 8 + i,
+                boxes: [
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        l: [
-                            { r: 90, e: EaseType.NONE },
-                            { b: 2, r: 135 },
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        events: [
+                            { rotation: 90, easing: EaseType.NONE },
+                            { time: 2, rotation: 135 },
                         ],
                     },
                     {
-                        f: { f: 2, t: 2, r: 1 },
-                        a: Axis.Y,
-                        s: 15,
-                        r: 1,
-                        l: [
-                            { r: 315, e: EaseType.NONE },
-                            { b: 2, r: 75 },
+                        filter: { type: 2, p1: 2, reverse: 1 },
+                        axis: Axis.Y,
+                        rotationDistribution: 15,
+                        flip: 1,
+                        events: [
+                            { rotation: 315, easing: EaseType.NONE },
+                            { time: 2, rotation: 75 },
                         ],
                     },
                 ],
-            },
+            }
         );
 
         d.addLightColorEventBoxGroups({
-            b: 11.5,
-            g: 8 + i,
-            e: [
+            time: 11.5,
+            id: 8 + i,
+            boxes: [
                 {
-                    f: { r: 1 },
-                    w: 5.5,
-                    e: [
-                        { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                        { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
-                        { b: 1.5, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                        { b: 4.5, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
+                    filter: { reverse: 1 },
+                    beatDistribution: 5.5,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
+                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
                     ],
                 },
             ],
         });
         d.addLightRotationEventBoxGroups({
-            b: 11.5,
-            g: 8 + i,
-            e: [
-                { a: Axis.Y, b: 1, s: -30, l: [{ r: 120 }] },
+            time: 11.5,
+            id: 8 + i,
+            boxes: [
+                { axis: Axis.Y, affectFirst: 1, rotationDistribution: -30, events: [{ rotation: 120 }] },
                 {
-                    f: { r: 1 },
-                    s: -45,
-                    w: 5.5,
-                    l: [
-                        { e: EaseType.NONE, r: 270 },
-                        { b: 4.5, r: 225 },
+                    filter: { reverse: 1 },
+                    rotationDistribution: -45,
+                    beatDistribution: 5.5,
+                    events: [
+                        { easing: EaseType.NONE, rotation: 270 },
+                        { time: 4.5, rotation: 225 },
                     ],
                 },
             ],
         });
 
         d.addLightColorEventBoxGroups({
-            b: 13.5,
-            g: 2 + i,
-            e: [
+            time: 13.5,
+            id: 2 + i,
+            boxes: [
                 {
-                    w: 5.75,
-                    e: [
-                        { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                        { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
-                        { b: 1.5, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                        { b: 4.5, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
+                    beatDistribution: 5.75,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
+                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
                     ],
                 },
             ],
         });
         d.addLightRotationEventBoxGroups({
-            b: 13.5,
-            g: 2 + i,
-            e: [
-                { a: Axis.Y, l: [{ r: 270 }] },
+            time: 13.5,
+            id: 2 + i,
+            boxes: [
+                { axis: Axis.Y, events: [{ rotation: 270 }] },
                 {
-                    f: { f: 2, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 225 }],
+                    filter: { type: 2, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    f: { f: 2, p: 1, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 315 }],
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
             ],
         });
 
         d.addLightColorEventBoxGroups({
-            b: 22,
-            g: 8 + i,
-            e: [
+            time: 22,
+            id: 8 + i,
+            boxes: [
                 {
-                    w: 5.75,
-                    e: [
-                        { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                        { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
-                        { b: 1.5, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                        { b: 4.5, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
+                    beatDistribution: 5.75,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
+                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
                     ],
                 },
             ],
         });
         d.addLightRotationEventBoxGroups({
-            b: 22,
-            g: 8 + i,
-            e: [
-                { a: Axis.Y, l: [{ r: 90 }] },
+            time: 22,
+            id: 8 + i,
+            boxes: [
+                { axis: Axis.Y, events: [{ rotation: 90 }] },
                 {
-                    f: { f: 2, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 225 }],
+                    filter: { type: 2, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    f: { f: 2, p: 1, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 315 }],
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
             ],
         });
 
         d.addLightColorEventBoxGroups({
-            b: 30,
-            g: 6 + i,
-            e: [
+            time: 30,
+            id: 6 + i,
+            boxes: [
                 {
-                    w: 5.75,
-                    e: [
-                        { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                        { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
-                        { b: 1.5, i: TransitionType.INTERPOLATE, s: Brightness.FULL },
-                        { b: 4.5, i: TransitionType.INTERPOLATE, s: Brightness.ZERO },
+                    beatDistribution: 5.75,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
+                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
                     ],
                 },
             ],
         });
         d.addLightRotationEventBoxGroups({
-            b: 30,
-            g: 6 + i,
-            e: [
-                { a: Axis.Y, s: 60, l: [{ r: 270 }, { r: 240 }] },
+            time: 30,
+            id: 6 + i,
+            boxes: [
+                { axis: Axis.Y, rotationDistribution: 60, events: [{ rotation: 270 }] },
                 {
-                    f: { f: 2, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 225 }],
+                    filter: { type: 2, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    f: { f: 2, p: 1, t: 2 },
-                    w: 5.5,
-                    l: [{ r: 270 }, { b: 4.5, r: 315 }],
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    beatDistribution: 5.5,
+                    events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
             ],
         });
 
         d.addLightColorEventBoxGroups(
             {
-                b: 34,
-                g: 2 + i,
-                e: [
+                time: 34,
+                id: 2 + i,
+                boxes: [
                     {
-                        w: 3.75,
-                        e: [
-                            { c: EventBoxColor.WHITE, s: Brightness.DOUBLE },
-                            { b: 0.25, c: EventBoxColor.WHITE, s: Brightness.EXTRA },
+                        beatDistribution: 3.75,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
                             {
-                                b: 1.5,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.FULL,
+                                time: 1.5,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.FULL,
                             },
                             {
-                                b: 2.5,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 2.5,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 34,
-                g: 8 + i,
-                e: [
+                time: 34,
+                id: 8 + i,
+                boxes: [
                     {
-                        w: 0.749,
-                        e: [
-                            { s: Brightness.EXTRA },
+                        beatDistribution: 0.749,
+                        events: [
+                            { brightness: Brightness.EXTRA },
                             {
-                                b: 0.5,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 0.5,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 34.75,
-                g: 8 + i,
-                e: [
+                time: 34.75,
+                id: 8 + i,
+                boxes: [
                     {
-                        w: 0.749,
-                        e: [
-                            { s: Brightness.EXTRA },
+                        beatDistribution: 0.749,
+                        events: [
+                            { brightness: Brightness.EXTRA },
                             {
-                                b: 0.5,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 0.5,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
             },
             {
-                b: 35.5,
-                g: 8 + i,
-                e: [
+                time: 35.5,
+                id: 8 + i,
+                boxes: [
                     {
-                        w: 0.749,
-                        e: [
-                            { s: Brightness.EXTRA },
+                        beatDistribution: 0.749,
+                        events: [
+                            { brightness: Brightness.EXTRA },
                             {
-                                b: 0.5,
-                                i: TransitionType.INTERPOLATE,
-                                s: Brightness.ZERO,
+                                time: 0.5,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
                             },
                         ],
                     },
                 ],
-            },
+            }
         );
         d.addLightRotationEventBoxGroups(
             {
-                b: 34,
-                g: 2 + i,
-                e: [
-                    { a: Axis.Y, s: -60, l: [{ r: 270 }, { r: 300 }] },
+                time: 34,
+                id: 2 + i,
+                boxes: [
+                    { axis: Axis.Y, rotationDistribution: -60, events: [{ rotation: 270 }] },
                     {
-                        f: { f: 2, t: 2 },
-                        w: 3.5,
-                        l: [{ r: 270 }, { b: 2.5, r: 225 }],
+                        filter: { type: 2, p1: 2 },
+                        beatDistribution: 3.5,
+                        events: [{ rotation: 270 }, { time: 2.5, rotation: 225 }],
                     },
                     {
-                        f: { f: 2, p: 1, t: 2 },
-                        w: 3.5,
-                        l: [{ r: 270 }, { b: 2.5, r: 315 }],
-                    },
-                ],
-            },
-            {
-                b: 34,
-                g: 8 + i,
-                e: [
-                    { a: Axis.Y, l: [{ r: 90 }] },
-                    {
-                        l: [{ r: 270 }],
+                        filter: { type: 2, p0: 1, p1: 2 },
+                        beatDistribution: 3.5,
+                        events: [{ rotation: 270 }, { time: 2.5, rotation: 315 }],
                     },
                 ],
             },
             {
-                b: 36,
-                g: 8 + i,
-                e: [
+                time: 34,
+                id: 8 + i,
+                boxes: [
+                    { axis: Axis.Y, events: [{ rotation: 90 }] },
                     {
-                        f: { f: 2, t: 2 },
-                        a: Axis.Y,
-                        s: -15,
-                        b: 1,
-                        l: [{ r: 90, e: EaseType.INOUT_QUAD }],
-                    },
-                    {
-                        f: { f: 2, p: 1, t: 2 },
-                        a: Axis.Y,
-                        s: 15,
-                        b: 1,
-                        l: [{ r: 90, e: EaseType.INOUT_QUAD }],
-                    },
-                    {
-                        l: [{ r: 270 }],
+                        events: [{ rotation: 270 }],
                     },
                 ],
             },
+            {
+                time: 36,
+                id: 8 + i,
+                boxes: [
+                    {
+                        filter: { type: 2, p1: 2 },
+                        axis: Axis.Y,
+                        rotationDistribution: -15,
+                        affectFirst: 1,
+                        events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                    },
+                    {
+                        filter: { type: 2, p0: 1, p1: 2 },
+                        axis: Axis.Y,
+                        rotationDistribution: 15,
+                        affectFirst: 1,
+                        events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                    },
+                    {
+                        events: [{ rotation: 270 }],
+                    },
+                ],
+            }
         );
     }
 };

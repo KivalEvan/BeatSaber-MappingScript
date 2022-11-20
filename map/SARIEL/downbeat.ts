@@ -19,23 +19,28 @@ export default (d: v3.Difficulty) => {
     const LRTiming = [99];
 
     const fltr = {
-        f: 1,
-        p: 2,
-        t: 1,
-        r: 1,
-    } as types.v3.IIndexFilter;
+        type: 1,
+        p0: 2,
+        p1: 1,
+        reverse: 1,
+    } as types.wrapper.IWrapIndexFilter;
     const fltrR = {
-        f: 1,
-        p: 2,
-        t: 1,
-        r: 0,
-    } as types.v3.IIndexFilter;
-    const e: Partial<types.v3.ILightColorBase>[] = [
-        { c: EventBoxColor.WHITE, s: 1.25 },
-        { b: 0.1875, c: EventBoxColor.WHITE, s: Brightness.FULL, i: TransitionType.INTERPOLATE },
-        { c: EventBoxColor.BLUE, b: 0.25, s: Brightness.FULL },
-        { b: 0.375, i: TransitionType.EXTEND },
-        { c: EventBoxColor.BLUE, b: 0.5, s: Brightness.ZERO, i: TransitionType.INTERPOLATE },
+        type: 1,
+        p0: 2,
+        p1: 1,
+        reverse: 0,
+    } as types.wrapper.IWrapIndexFilter;
+    const e: Partial<types.wrapper.IWrapLightColorBase>[] = [
+        { color: EventBoxColor.WHITE, brightness: 1.25 },
+        {
+            time: 0.1875,
+            color: EventBoxColor.WHITE,
+            brightness: Brightness.FULL,
+            transition: TransitionType.INTERPOLATE,
+        },
+        { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.FULL },
+        { time: 0.375, transition: TransitionType.EXTEND },
+        { color: EventBoxColor.BLUE, time: 0.5, brightness: Brightness.ZERO, transition: TransitionType.INTERPOLATE },
     ];
     const fastBeat = [
         [0, 0],
@@ -45,190 +50,202 @@ export default (d: v3.Difficulty) => {
         [1.5, 1],
     ];
     for (const dbt of downbeatTiming) {
-        for (let g = 14; g < 16; g++) {
+        for (let id = 14; id < 16; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    b: dbt[0],
-                    g,
-                    e: [
+                    time: dbt[0],
+                    id,
+                    boxes: [
                         {
-                            l: [{ r: 120 }],
+                            events: [{ rotation: 120 }],
                         },
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            b: 1,
-                            s: -60,
-                            l: [{ r: 225 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            affectFirst: 1,
+                            rotationDistribution: -60,
+                            events: [{ rotation: 225 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            b: 1,
-                            s: 60,
-                            l: [{ r: 135 }],
-                        },
-                    ],
-                },
-                {
-                    b: dbt[0] + dbt[1] - 0.001,
-                    g,
-                    e: [
-                        {
-                            l: [{ r: 150 }],
-                        },
-                        {
-                            f: fltr,
-                            a: Axis.Y,
-                            b: 1,
-                            s: -75,
-                            l: [{ r: 210 }],
-                        },
-                        {
-                            f: fltrR,
-                            a: Axis.Y,
-                            b: 1,
-                            s: 75,
-                            l: [{ r: 150 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            affectFirst: 1,
+                            rotationDistribution: 60,
+                            events: [{ rotation: 135 }],
                         },
                     ],
                 },
                 {
-                    b: dbt[0] + dbt[1],
-                    g,
-                    e: [
+                    time: dbt[0] + dbt[1] - 0.001,
+                    id,
+                    boxes: [
                         {
-                            l: [{ p: 1 }, { b: 1, r: 90 }],
+                            events: [{ rotation: 150 }],
                         },
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ p: 1 }, { b: 1, r: 270 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            affectFirst: 1,
+                            rotationDistribution: -75,
+                            events: [{ rotation: 210 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ p: 1 }, { b: 1, r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            affectFirst: 1,
+                            rotationDistribution: 75,
+                            events: [{ rotation: 150 }],
                         },
                     ],
                 },
                 {
-                    b: dbt[0] + dbt[1] + dbt[2] * 2 - 0.001,
-                    g,
-                    e: [
+                    time: dbt[0] + dbt[1],
+                    id,
+                    boxes: [
                         {
-                            l: [{ r: 90 }],
+                            events: [{ previous: 1 }, { time: 1, rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ previous: 1 }, { time: 1, rotation: 270 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ previous: 1 }, { time: 1, rotation: 90 }],
                         },
                     ],
                 },
+                {
+                    time: dbt[0] + dbt[1] + dbt[2] * 2 - 0.001,
+                    id,
+                    boxes: [
+                        {
+                            events: [{ rotation: 90 }],
+                        },
+                        {
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 270 }],
+                        },
+                        {
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
+                        },
+                    ],
+                }
             );
         }
-        for (let g = 12; g < 14; g++) {
+        for (let id = 12; id < 14; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    b: dbt[0],
-                    g,
-                    e: [
+                    time: dbt[0],
+                    id,
+                    boxes: [
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
                 },
                 {
-                    b: dbt[0] + dbt[1] + dbt[2] * 2 - 0.001,
-                    g,
-                    e: [
+                    time: dbt[0] + dbt[1] + dbt[2] * 2 - 0.001,
+                    id,
+                    boxes: [
                         {
-                            s: 15,
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            rotationDistribution: 15,
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            s: -15,
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            rotationDistribution: -15,
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            s: -90,
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            rotationDistribution: -90,
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            s: -90,
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            rotationDistribution: -90,
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
-                },
+                }
             );
-            for (let b = dbt[0]; b < dbt[0] + dbt[1]; b++) {
+            for (let time = dbt[0]; time < dbt[0] + dbt[1]; time++) {
                 let en = e;
-                if (b === 70) {
+                if (time === 70) {
                     continue;
                 }
-                if (b === 86) {
+                if (time === 86) {
                     en = eventBoxSwapColor(en);
                 }
-                const doubleHit = !dbt[3] && (b - dbt[0]) % 4 === 2 && dbt[4];
+                const doubleHit = !dbt[3] && (time - dbt[0]) % 4 === 2 && dbt[4];
                 d.addLightColorEventBoxGroups({
-                    b,
-                    g: dbt[3] ? ((b - dbt[0]) % 8 === 1 || (b - dbt[0]) % 8 === 3 ? g + 2 : g) : b % 2 ? g + 2 : g,
-                    e: [
+                    time,
+                    id: dbt[3]
+                        ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3
+                            ? id + 2
+                            : id
+                        : time % 2
+                        ? id + 2
+                        : id,
+                    boxes: [
                         {
-                            f: fltrR,
-                            w: doubleHit ? 0.375 : 0.75,
-                            e: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
+                            filter: fltrR,
+                            beatDistribution: doubleHit ? 0.375 : 0.75,
+                            events: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
                         },
                         {
-                            f: fltr,
-                            w: doubleHit ? 0.375 : 0.75,
-                            e: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
+                            filter: fltr,
+                            beatDistribution: doubleHit ? 0.375 : 0.75,
+                            events: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
                         },
                     ],
                 });
                 if (doubleHit) {
                     d.addLightColorEventBoxGroups({
-                        b: b + 0.5,
-                        g: dbt[3] ? ((b - dbt[0]) % 8 === 1 || (b - dbt[0]) % 8 === 3 ? g + 2 : g) : b % 2 ? g + 2 : g,
-                        e: [
+                        time: time + 0.5,
+                        id: dbt[3]
+                            ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3
+                                ? id + 2
+                                : id
+                            : time % 2
+                            ? id + 2
+                            : id,
+                        boxes: [
                             {
-                                f: fltrR,
-                                w: 0.375,
-                                e: eventBoxTimeScale(en, 0.5),
+                                filter: fltrR,
+                                beatDistribution: 0.375,
+                                events: eventBoxTimeScale(en, 0.5),
                             },
                             {
-                                f: fltr,
-                                w: 0.375,
-                                e: eventBoxTimeScale(en, 0.5),
+                                filter: fltr,
+                                beatDistribution: 0.375,
+                                events: eventBoxTimeScale(en, 0.5),
                             },
                         ],
                     });
@@ -237,18 +254,18 @@ export default (d: v3.Difficulty) => {
             for (let i = 0; i < dbt[2]; i++) {
                 for (const fb of fastBeat) {
                     d.addLightColorEventBoxGroups({
-                        b: dbt[0] + dbt[1] + fb[0] + i * 2,
-                        g: g + fb[1] * 2,
-                        e: [
+                        time: dbt[0] + dbt[1] + fb[0] + i * 2,
+                        id: id + fb[1] * 2,
+                        boxes: [
                             {
-                                f: fltrR,
-                                w: 0.375,
-                                e: eventBoxTimeScale(e, 0.5),
+                                filter: fltrR,
+                                beatDistribution: 0.375,
+                                events: eventBoxTimeScale(e, 0.5),
                             },
                             {
-                                f: fltr,
-                                w: 0.375,
-                                e: eventBoxTimeScale(e, 0.5),
+                                filter: fltr,
+                                beatDistribution: 0.375,
+                                events: eventBoxTimeScale(e, 0.5),
                             },
                         ],
                     });
@@ -258,144 +275,144 @@ export default (d: v3.Difficulty) => {
     }
 
     for (const tbt of TBTiming) {
-        for (let g = 12; g < 14; g++) {
+        for (let id = 12; id < 14; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    b: tbt,
-                    g,
-                    e: [
+                    time: tbt,
+                    id,
+                    boxes: [
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
                 },
                 {
-                    b: tbt + 0.999,
-                    g,
-                    e: [
+                    time: tbt + 0.999,
+                    id,
+                    boxes: [
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
-                },
+                }
             );
             d.addLightColorEventBoxGroups({
-                b: tbt,
-                g,
-                e: [
+                time: tbt,
+                id,
+                boxes: [
                     {
-                        f: fltrR,
-                        w: 0.75,
-                        e,
+                        filter: fltrR,
+                        beatDistribution: 0.75,
+                        events: e,
                     },
                     {
-                        f: fltr,
-                        w: 0.75,
-                        e,
+                        filter: fltr,
+                        beatDistribution: 0.75,
+                        events: e,
                     },
                 ],
             });
         }
     }
     for (const lrt of LRTiming) {
-        for (let g = 14; g < 16; g++) {
+        for (let id = 14; id < 16; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    b: lrt,
-                    g,
-                    e: [
+                    time: lrt,
+                    id,
+                    boxes: [
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
                 },
                 {
-                    b: lrt + 0.999,
-                    g,
-                    e: [
+                    time: lrt + 0.999,
+                    id,
+                    boxes: [
                         {
-                            f: fltr,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltr,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltrR,
-                            a: Axis.Y,
-                            l: [{ r: 90 }],
+                            filter: fltrR,
+                            axis: Axis.Y,
+                            events: [{ rotation: 90 }],
                         },
                         {
-                            f: fltr,
-                            l: [{ r: 270 }],
+                            filter: fltr,
+                            events: [{ rotation: 270 }],
                         },
                         {
-                            r: 1,
-                            f: fltrR,
-                            l: [{ r: 270 }],
+                            flip: 1,
+                            filter: fltrR,
+                            events: [{ rotation: 270 }],
                         },
                     ],
-                },
+                }
             );
             d.addLightColorEventBoxGroups({
-                b: lrt,
-                g,
-                e: [
+                time: lrt,
+                id,
+                boxes: [
                     {
-                        f: fltrR,
-                        w: 0.75,
-                        e,
+                        filter: fltrR,
+                        beatDistribution: 0.75,
+                        events: e,
                     },
                     {
-                        f: fltr,
-                        w: 0.75,
-                        e,
+                        filter: fltr,
+                        beatDistribution: 0.75,
+                        events: e,
                     },
                 ],
             });

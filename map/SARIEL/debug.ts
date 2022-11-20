@@ -2,15 +2,15 @@ import logger from '../../../BeatSaber-Deno/logger.ts';
 import { Axis, BeatPerMinute, EventBoxColor, v3 } from '../../depsLocal.ts';
 
 export function fixRot(d: v3.Difficulty) {
-    for (let g = 0; g < 16; g++) {
+    for (let id = 0; id < 16; id++) {
         d.addLightRotationEventBoxGroups({
-            b: 0,
-            g,
-            e: [
+            time: 0,
+            id,
+            boxes: [
                 {
-                    l: [{}],
+                    events: [{}],
                 },
-                { a: Axis.Y, l: [{}] },
+                { axis: Axis.Y, events: [{}] },
             ],
         });
     }
@@ -18,13 +18,13 @@ export function fixRot(d: v3.Difficulty) {
 
 export function rotation(d: v3.Difficulty) {
     d.lightColorEventBoxGroups = [];
-    for (let g = 0; g < 16; g++) {
+    for (let id = 0; id < 16; id++) {
         d.addLightColorEventBoxGroups({
-            b: 0,
-            g,
-            e: [
+            time: 0,
+            id,
+            boxes: [
                 {
-                    e: [{ c: g < 4 ? EventBoxColor.RED : g < 8 ? EventBoxColor.BLUE : EventBoxColor.WHITE }],
+                    events: [{ color: id < 4 ? EventBoxColor.RED : id < 8 ? EventBoxColor.BLUE : EventBoxColor.WHITE }],
                 },
             ],
         });
@@ -38,7 +38,7 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
         for (let j = i + 1; j < len; j++) {
             if (
                 bpm.toRealTime(d.lightColorEventBoxGroups[j].time) >
-                    bpm.toRealTime(d.lightColorEventBoxGroups[i].time) + 1
+                bpm.toRealTime(d.lightColorEventBoxGroups[i].time) + 1
             ) {
                 break;
             }
@@ -54,7 +54,7 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
         for (let j = i + 1; j < len; j++) {
             if (
                 bpm.toRealTime(d.lightRotationEventBoxGroups[j].time) >
-                    bpm.toRealTime(d.lightRotationEventBoxGroups[i].time) + 1
+                bpm.toRealTime(d.lightRotationEventBoxGroups[i].time) + 1
             ) {
                 break;
             }
@@ -69,13 +69,13 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
     if (lightColorAry.length) {
         logger.error(
             'Stacked Light Color Event Box Group',
-            lightColorAry.map((n) => [n.time, n.id]),
+            lightColorAry.map((n) => [n.time, n.id])
         );
     }
     if (lightRotationAry.length) {
         logger.error(
             'Stacked Light Rotation Event Box Group',
-            lightRotationAry.map((n) => [n.time, n.id]),
+            lightRotationAry.map((n) => [n.time, n.id])
         );
     }
 }

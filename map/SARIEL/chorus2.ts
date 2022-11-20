@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, TransitionType, types, v3 } from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, TransitionType, types, utils, v3 } from '../../depsLocal.ts';
 import { Brightness, eventBoxTimeScale } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {

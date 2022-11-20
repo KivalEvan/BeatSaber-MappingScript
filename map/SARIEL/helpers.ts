@@ -1,22 +1,19 @@
 import { types, utils } from '../../depsLocal.ts';
 
-export function eventBoxSwapColor(obj: Partial<types.v3.ILightColorBase>[]) {
+export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorBase>(obj: Partial<T>[]): T[] {
     return utils.deepCopy(obj).map((o) => {
-        o.c = o.c === 0 ? (o.c = 1) : o.c === 1 ? (o.c = 0) : o.c;
+        o.color = o.color === 0 ? (o.color = 1) : o.color === 1 ? (o.color = 0) : o.color;
         return o;
-    });
+    }) as T[];
 }
 
-export function eventBoxTimeScale(
-    obj: Partial<types.v3.ILightColorBase | types.v3.ILightRotationBase>[],
-    scale: number,
-) {
+export function eventBoxTimeScale<T extends types.wrapper.IWrapBaseObject>(obj: Partial<T>[], scale: number): T[] {
     return utils.deepCopy(obj).map((o) => {
-        if (o.b) {
-            o.b *= scale;
+        if (o.time) {
+            o.time *= scale;
         }
         return o;
-    });
+    }) as T[];
 }
 
 export const enum Brightness {
