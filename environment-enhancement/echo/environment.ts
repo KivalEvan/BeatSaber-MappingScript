@@ -1,92 +1,17 @@
-import { logger, types, v3 } from '../../depsLocal.ts';
+import { logger, types, utils, v3 } from '../../depsLocal.ts';
 
 export const backtopOrder = [1, 3, 5, 6, 4, 2];
 export const roadOrder: number[] = [
-    24,
-    21,
-    39,
-    44,
-    65,
-    48,
-    76,
-    42,
-    30,
-    28,
-    36,
-    53,
-    60,
-    45,
-    17,
-    34,
-    43,
-    41,
-    23,
-    15,
-    49,
-    37,
-    26,
-    47,
-    68,
-    66,
-    40,
-    77,
-    19,
-    62,
-    50,
-    67,
-    64,
-    46,
-    74,
-    71,
-    78,
-    69,
-    57,
-    72,
-    29,
-    54,
-    56,
-    75,
-    33,
-    63,
-    70,
-    55,
-    73,
-    79,
-    51,
-    38,
-    59,
-    16,
-    31,
-    32,
-    52,
-    61,
-    58,
-    80,
-    35,
-    27,
-    7,
-    6,
-    22,
-    14,
-    12,
-    9,
-    8,
-    5,
-    25,
-    18,
-    11,
-    10,
-    13,
-    20,
+    24, 21, 39, 44, 65, 48, 76, 42, 30, 28, 36, 53, 60, 45, 17, 34, 43, 41, 23, 15, 49, 37, 26, 47, 68, 66, 40, 77, 19,
+    62, 50, 67, 64, 46, 74, 71, 78, 69, 57, 72, 29, 54, 56, 75, 33, 63, 70, 55, 73, 79, 51, 38, 59, 16, 31, 32, 52, 61,
+    58, 80, 35, 27, 7, 6, 22, 14, 12, 9, 8, 5, 25, 18, 11, 10, 13, 20,
 ];
 const screenX = 32;
 const screenY = 18;
 let idOffsetType0 = 200;
 let idOffsetType4 = 200;
 export const crystalLeftOrder = [1, 2, 3, 4, 5, 6].map((i) => i * 2 + idOffsetType0);
-export const crystalRightOrder = [1, 2, 3, 4, 5, 6].map(
-    (i) => i * 2 + idOffsetType0 + 1,
-);
+export const crystalRightOrder = [1, 2, 3, 4, 5, 6].map((i) => i * 2 + idOffsetType0 + 1);
 const screenStartID = idOffsetType4 + 1;
 const screenEndID = idOffsetType4 + screenX * screenY;
 export const chevronOrder = [3, 4];
@@ -99,18 +24,10 @@ for (let y = 0, i = idOffsetType4; y < screenY; y++) {
 }
 export const screenOrder = temp;
 
-export const centerOrder = [
-    screenEndID + 1,
-    screenEndID + 2,
-    1,
-    2,
-    screenEndID + 3,
-    screenEndID + 4,
-];
+export const centerOrder = [screenEndID + 1, screenEndID + 2, 1, 2, screenEndID + 3, screenEndID + 4];
 
-export const generateEnvironment = (
-    drawScreen = false,
-): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(drawScreen = false): types.v3.IChromaEnvironment[] {
+    const pRandom = utils.pRandomFn('ECHO');
     const environment: types.v3.IChromaEnvironment[] = [];
 
     //#region environment and events order declaration stuff
@@ -159,7 +76,7 @@ export const generateEnvironment = (
             lookupMethod: 'Regex',
             position: [-7.5, -1.25, 36],
             scale: [1.69, 1.69, 1],
-        },
+        }
     );
 
     const screenLight: { [key: number]: number } = {};
@@ -170,12 +87,8 @@ export const generateEnvironment = (
     if (drawScreen) {
         for (let y = 0; y < screenY; y++) {
             for (let x = 0; x < screenX; x++) {
-                const posX = screenXOffset +
-                    -(((screenX - 1) / 2) * screenSize) +
-                    x * (screenSize + screenGap);
-                const posY = screenYOffset +
-                    -((screenY / 2) * screenSize) -
-                    y * (screenSize + screenGap);
+                const posX = screenXOffset + -(((screenX - 1) / 2) * screenSize) + x * (screenSize + screenGap);
+                const posY = screenYOffset + -((screenY / 2) * screenSize) - y * (screenSize + screenGap);
                 const posZ = 32 - Math.tan(345 * (Math.PI / 180)) * screenSize * y;
                 environment.push({
                     id: regexGlowLine,
@@ -199,18 +112,18 @@ export const generateEnvironment = (
             offset++;
             continue;
         }
-        const posZ = 1.75 + (i - offset) * 1.25 + Math.random() * 0.5;
+        const posZ = 1.75 + (i - offset) * 1.25 + pRandom() * 0.5;
         environment.push({
             id: i ? regexGlowLine.replace('$', ` \\(${i}\\)$`) : regexGlowLine,
             lookupMethod: 'Regex',
             position: [
                 (i - offset) % 2
-                    ? 0.5 + Math.random() * 0.5 + (i - offset) / 48
-                    : -(0.5 + Math.random() * 0.5 + (i - offset) / 48),
+                    ? 0.5 + pRandom() * 0.5 + (i - offset) / 48
+                    : -(0.5 + pRandom() * 0.5 + (i - offset) / 48),
                 -0.25,
                 posZ,
             ],
-            scale: i - offset ? [1, 1.25 + Math.random() * 0.75, 1] : [1, 1, 1],
+            scale: i - offset ? [1, 1.25 + pRandom() * 0.75, 1] : [1, 1, 1],
             rotation: [0, 0, (i - offset) % 2 ? 90 : -90],
         });
     }
@@ -243,7 +156,7 @@ export const generateEnvironment = (
                 id: id.replace('$', '\\.\\[\\d+\\]BaseR\\.\\[\\d+\\]Laser$'),
                 lookupMethod: 'Regex',
                 rotation: [60 + i * 4, 135 + i * 5, 0],
-            },
+            }
         );
     }
     for (let i = 0; i < 6; i++) {
@@ -251,11 +164,7 @@ export const generateEnvironment = (
         environment.push({
             id: fixed ? regexLaser.replace('$', ` \\(${fixed}\\)$`) : regexLaser,
             lookupMethod: 'Regex',
-            position: [
-                (i > 2 ? -1 : 1) * (8 + (i > 2 ? i - 3 : i) * 3),
-                -3,
-                48 - (i > 2 ? i - 3 : i) * 3,
-            ],
+            position: [(i > 2 ? -1 : 1) * (8 + (i > 2 ? i - 3 : i) * 3), -3, 48 - (i > 2 ? i - 3 : i) * 3],
             rotation: [0, 0, 0],
         });
     }
@@ -434,7 +343,7 @@ export const generateEnvironment = (
             position: [24, 2, 50],
             rotation: [0, 210, 45],
             components: { ILightWithId: { type: 0, lightID: ++idOffsetType0 } },
-        },
+        }
     );
 
     // v3 patch for old v2 pos
@@ -444,21 +353,19 @@ export const generateEnvironment = (
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map(
-                (n) => n * 0.6,
-            ) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
         }
     });
 
     return environment;
-};
+}
 
-export const insertEnvironment = (d: v3.Difficulty) => {
+export function insertEnvironment(d: v3.Difficulty) {
     if (d.customData.environment?.length) {
         logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
-};
+}
 
 if (import.meta.main) {
     Deno.writeTextFileSync(
@@ -472,7 +379,7 @@ if (import.meta.main) {
             description: 'Vanilla-compatible but not recommended.',
             features: {},
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written ECHO environment JSON');
 }

@@ -5,7 +5,7 @@ export const roadRepeat = 2;
 export const idOffsetType0 = 101;
 export const idOffsetType4 = 101;
 
-export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(): types.v3.IChromaEnvironment[] {
     const environment: types.v3.IChromaEnvironment[] = [];
 
     let internalIdOffsetType4 = idOffsetType4;
@@ -16,8 +16,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     // regex for environment enhancement
     const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-    const regexBigRingLights =
-        `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser`;
     const regexFrontLights = `\\[\\d+\\]FrontLights$`;
     const regexSmoke = `\\[\\d+\\]BigSmokePS$`;
@@ -164,7 +163,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
                 ILightWithId: { type: 4 },
             },
-        },
+        }
     );
     //#endregion
     //#region extra thicc ring
@@ -359,7 +358,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: roadOuterBlockScale,
                 position: posAddZ(roadOuterBlockPos, i * roadGap),
                 rotation: [0, 0, -20],
-            },
+            }
         );
     }
     //#endregion
@@ -385,12 +384,12 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
                     ILightWithId: { type: 0 },
                 },
-            },
+            }
         );
     }
     //#endregion
     return environment;
-};
+}
 
 export function generateMaterial() {
     return {
@@ -400,19 +399,17 @@ export function generateMaterial() {
     } as Record<string, types.v3.IChromaMaterial>;
 }
 
-export const insertEnvironment = (d: v3.Difficulty) => {
+export function insertEnvironment(d: v3.Difficulty) {
     if (d.customData.environment?.length) {
         logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
     d.customData.materials = generateMaterial();
-};
+}
 
 if (import.meta.main) {
     Deno.writeTextFileSync(
-        import.meta.url
-            .replace('file://', '')
-            .replace('environment.ts', './Prayers.dat'),
+        import.meta.url.replace('file://', '').replace('environment.ts', './Prayers.dat'),
         JSON.stringify({
             version: '1.0.0',
             name: 'Prayers',
@@ -424,7 +421,7 @@ if (import.meta.main) {
             features: {},
             environment: generateEnvironment(),
             materials: generateMaterial(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written Prayers environment JSON');
 }

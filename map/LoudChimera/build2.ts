@@ -21,11 +21,11 @@ export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpe
                     track: 'tBuild',
                     duration: 0.75,
                     dissolve: [
-                        [utils.random(0.8, 0.9), 0],
+                        [utils.pRandom(0.8, 0.9), 0],
                         [1, 1],
                     ],
                     dissolveArrow: [
-                        [utils.random(0.45, 0.55), 0],
+                        [utils.pRandom(0.45, 0.55), 0],
                         [1, 1],
                     ],
                 },
@@ -40,11 +40,11 @@ export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpe
                         track: 'tBuild',
                         duration: 0.75,
                         dissolve: [
-                            [utils.random(0.8, 0.9) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                            [utils.pRandom(0.8, 0.9) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                         dissolveArrow: [
-                            [utils.random(0.45, 0.55) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                            [utils.pRandom(0.45, 0.55) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                     },
@@ -56,15 +56,15 @@ export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpe
                         track: 'tBuild',
                         duration: 0.75,
                         dissolve: [
-                            [utils.random(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                            [utils.pRandom(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
                             [1, 1],
                         ],
                         dissolveArrow: [
-                            [utils.random(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.75, 0],
+                            [utils.pRandom(0.95, 1) - utils.normalize(t, sbt + 64, sbt + 120) * 0.75, 0],
                             [1, 1],
                         ],
                     },
-                },
+                }
             );
         }
 

@@ -29,5 +29,5 @@ export default (d: v3.Difficulty, bpm: BeatPerMinute) => {
     // debug.rotation(d);
     debug.stackedEvent(d, bpm);
 
-    // d.colorBoostBeatmapEvents = [];
+    // d.colorBoostEvents = [];
 };

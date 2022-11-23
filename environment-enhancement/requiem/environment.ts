@@ -1,6 +1,6 @@
 import { logger, types, v3 } from '../../depsLocal.ts';
 
-export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(): types.v3.IChromaEnvironment[] {
     const environment: types.v3.IChromaEnvironment[] = [];
 
     // regex for environment enhancement
@@ -28,10 +28,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         arr[1] = -arr[1];
         return arr;
     };
-    const translatePos = (
-        posArr: types.Vector3,
-        translate = [0, 0, 0],
-    ): types.Vector3 => {
+    const translatePos = (posArr: types.Vector3, translate = [0, 0, 0]): types.Vector3 => {
         const arr: types.Vector3 = [...posArr];
         arr[0] += translate[0];
         arr[1] += translate[1];
@@ -66,7 +63,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             duplicate: 1,
             rotation: [0, 0, -90],
             position: [80, 73, 12].map((p) => p / 0.6) as types.Vector3,
-        },
+        }
     );
     //#endregion
     //#region extra thicc ring
@@ -77,12 +74,8 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     });
     //#endregion
     //#region test
-    const posGlowLine1: types.Vector3 = [40, 14, 0].map(
-        (p) => p / 0.6,
-    ) as types.Vector3;
-    const posGlowLine2: types.Vector3 = [36, 18, 0].map(
-        (p) => p / 0.6,
-    ) as types.Vector3;
+    const posGlowLine1: types.Vector3 = [40, 14, 0].map((p) => p / 0.6) as types.Vector3;
+    const posGlowLine2: types.Vector3 = [36, 18, 0].map((p) => p / 0.6) as types.Vector3;
     environment.push(
         {
             id: regexConstGlowLineRing,
@@ -107,13 +100,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             lookupMethod: 'Regex',
             duplicate: 1,
             position: posGlowLine1,
-        },
+        }
     );
     //#endregion
     //#region test
-    const posGlowLine3: types.Vector3 = [20, -8, 0].map(
-        (p) => p / 0.6,
-    ) as types.Vector3;
+    const posGlowLine3: types.Vector3 = [20, -8, 0].map((p) => p / 0.6) as types.Vector3;
     environment.push(
         {
             id: regexConstGlowLineBacktop,
@@ -128,24 +119,22 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             duplicate: 1,
             rotation: [90, 0, 0],
             position: posGlowLine3,
-        },
+        }
     );
     //#endregion
     return environment;
-};
+}
 
-export const insertEnvironment = (d: v3.Difficulty) => {
+export function insertEnvironment(d: v3.Difficulty) {
     if (d.customData.environment?.length) {
         logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
-};
+}
 
 if (import.meta.main) {
     Deno.writeTextFileSync(
-        import.meta.url
-            .replace('file://', '')
-            .replace('environment.ts', './Requiem.dat'),
+        import.meta.url.replace('file://', '').replace('environment.ts', './Requiem.dat'),
         JSON.stringify({
             version: '1.0.0',
             name: 'Requiem',
@@ -155,7 +144,7 @@ if (import.meta.main) {
             description: 'Vanilla-compatible environment. One of my first hands-on environment enhancement.',
             features: {},
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written Requiem environment JSON');
 }

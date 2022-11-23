@@ -1,4 +1,4 @@
-import { Axis, EventBoxColor, TransitionType, types, v3 } from '../../depsLocal.ts';
+import { Axis, EventBoxColor, IndexFilterType, TransitionType, types, v3 } from '../../depsLocal.ts';
 import { Brightness, eventBoxSwapColor, eventBoxTimeScale } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
@@ -15,17 +15,15 @@ export default (d: v3.Difficulty) => {
         [486, 24, 2, false, true],
         [518, 20, 2, false, true],
     ];
-    const TBTiming = [98];
-    const LRTiming = [99];
 
     const fltr = {
-        type: 1,
+        type: IndexFilterType.DIVISION,
         p0: 2,
         p1: 1,
         reverse: 1,
     } as types.wrapper.IWrapIndexFilter;
     const fltrR = {
-        type: 1,
+        type: IndexFilterType.DIVISION,
         p0: 2,
         p1: 1,
         reverse: 0,
@@ -53,7 +51,7 @@ export default (d: v3.Difficulty) => {
         for (let id = 14; id < 16; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    time: dbt[0],
+                    time: dbt[0] === 70 ? dbt[0] + 1 : dbt[0],
                     id,
                     boxes: [
                         {
@@ -141,7 +139,7 @@ export default (d: v3.Difficulty) => {
         for (let id = 12; id < 14; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    time: dbt[0],
+                    time: dbt[0] === 70 ? dbt[0] + 1 : dbt[0],
                     id,
                     boxes: [
                         {
@@ -200,6 +198,9 @@ export default (d: v3.Difficulty) => {
                 if (time === 70) {
                     continue;
                 }
+                // if (dbt[3] && (time - dbt[0]) % 8 > 4) {
+                //     continue;
+                // }
                 if (time === 86) {
                     en = eventBoxSwapColor(en);
                 }
@@ -271,151 +272,6 @@ export default (d: v3.Difficulty) => {
                     });
                 }
             }
-        }
-    }
-
-    for (const tbt of TBTiming) {
-        for (let id = 12; id < 14; id++) {
-            d.addLightRotationEventBoxGroups(
-                {
-                    time: tbt,
-                    id,
-                    boxes: [
-                        {
-                            filter: fltr,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltrR,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltr,
-                            events: [{ rotation: 270 }],
-                        },
-                        {
-                            flip: 1,
-                            filter: fltrR,
-                            events: [{ rotation: 270 }],
-                        },
-                    ],
-                },
-                {
-                    time: tbt + 0.999,
-                    id,
-                    boxes: [
-                        {
-                            filter: fltr,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltrR,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltr,
-                            events: [{ rotation: 270 }],
-                        },
-                        {
-                            flip: 1,
-                            filter: fltrR,
-                            events: [{ rotation: 270 }],
-                        },
-                    ],
-                }
-            );
-            d.addLightColorEventBoxGroups({
-                time: tbt,
-                id,
-                boxes: [
-                    {
-                        filter: fltrR,
-                        beatDistribution: 0.75,
-                        events: e,
-                    },
-                    {
-                        filter: fltr,
-                        beatDistribution: 0.75,
-                        events: e,
-                    },
-                ],
-            });
-        }
-    }
-    for (const lrt of LRTiming) {
-        for (let id = 14; id < 16; id++) {
-            d.addLightRotationEventBoxGroups(
-                {
-                    time: lrt,
-                    id,
-                    boxes: [
-                        {
-                            filter: fltr,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltrR,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltr,
-                            events: [{ rotation: 270 }],
-                        },
-                        {
-                            flip: 1,
-                            filter: fltrR,
-                            events: [{ rotation: 270 }],
-                        },
-                    ],
-                },
-                {
-                    time: lrt + 0.999,
-                    id,
-                    boxes: [
-                        {
-                            filter: fltr,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltrR,
-                            axis: Axis.Y,
-                            events: [{ rotation: 90 }],
-                        },
-                        {
-                            filter: fltr,
-                            events: [{ rotation: 270 }],
-                        },
-                        {
-                            flip: 1,
-                            filter: fltrR,
-                            events: [{ rotation: 270 }],
-                        },
-                    ],
-                }
-            );
-            d.addLightColorEventBoxGroups({
-                time: lrt,
-                id,
-                boxes: [
-                    {
-                        filter: fltrR,
-                        beatDistribution: 0.75,
-                        events: e,
-                    },
-                    {
-                        filter: fltr,
-                        beatDistribution: 0.75,
-                        events: e,
-                    },
-                ],
-            });
         }
     }
 };

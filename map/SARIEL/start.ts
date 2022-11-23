@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, TransitionType, utils, v3 } from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, TransitionType, utils, v3 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
@@ -66,7 +66,7 @@ export default (d: v3.Difficulty) => {
                     id: 0 + i,
                     boxes: [
                         {
-                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -89,7 +89,7 @@ export default (d: v3.Difficulty) => {
                     id: 4 + i,
                     boxes: [
                         {
-                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -112,7 +112,7 @@ export default (d: v3.Difficulty) => {
                     id: 10 + i,
                     boxes: [
                         {
-                            filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -378,7 +378,7 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 1, p0: 4, p1: 0 },
+                        filter: { type: IndexFilterType.DIVISION, p0: 4, p1: 0 },
                         events: [
                             {},
                             {
@@ -395,7 +395,7 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 1, p0: 4, p1: 1 },
+                        filter: { type: IndexFilterType.DIVISION, p0: 4, p1: 1 },
                         events: [
                             {},
                             {
@@ -412,7 +412,7 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 1, p0: 4, p1: 2 },
+                        filter: { type: IndexFilterType.DIVISION, p0: 4, p1: 2 },
                         events: [
                             {},
                             {
@@ -429,7 +429,7 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 1, p0: 4, p1: 3 },
+                        filter: { type: IndexFilterType.DIVISION, p0: 4, p1: 3 },
                         events: [
                             {},
                             {
@@ -453,13 +453,13 @@ export default (d: v3.Difficulty) => {
                     events: [{ rotation: 45 }],
                 },
                 {
-                    filter: { type: 2, p0: 1, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                     affectFirst: 1,
                     rotationDistribution: 45,
                     events: [{ rotation: 270 }],
                 },
                 {
-                    filter: { type: 2, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                     affectFirst: 1,
                     rotationDistribution: 45,
                     events: [{ rotation: 90 }],
@@ -473,7 +473,7 @@ export default (d: v3.Difficulty) => {
                 id: 6 + i,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         beatDistribution: 2.75,
                         events: [
                             { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
@@ -493,13 +493,33 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         beatDistribution: 2.75,
                         events: [
                             { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
                             { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
                             {
                                 time: 2,
+                                color: EventBoxColor.WHITE,
+                                transition: TransitionType.INTERPOLATE,
+                                brightness: Brightness.ZERO,
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                time: 6,
+                id: 14 + i,
+                boxes: [
+                    {
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: i ? 0 : 1 },
+                        beatDistribution: 4.75,
+                        events: [
+                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                            {
+                                time: 4,
                                 color: EventBoxColor.WHITE,
                                 transition: TransitionType.INTERPOLATE,
                                 brightness: Brightness.ZERO,
@@ -515,12 +535,12 @@ export default (d: v3.Difficulty) => {
                 id: 6 + i,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         axis: Axis.Y,
                         events: [{ rotation: 90 }, { time: 2, rotation: 135 }],
                     },
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         rotationDistribution: 15,
                         events: [{ rotation: 315 }, { time: 2, rotation: 75 }],
                     },
@@ -531,14 +551,14 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         events: [
                             { rotation: 90, easing: EaseType.NONE },
                             { time: 2, rotation: 135 },
                         ],
                     },
                     {
-                        filter: { type: 2, p1: 2, reverse: 1 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
                         axis: Axis.Y,
                         rotationDistribution: 15,
                         flip: 1,
@@ -546,6 +566,37 @@ export default (d: v3.Difficulty) => {
                             { rotation: 315, easing: EaseType.NONE },
                             { time: 2, rotation: 75 },
                         ],
+                    },
+                ],
+            },
+            {
+                time: 6,
+                id: 14 + i,
+                boxes: [
+                    {
+                        events: [{ rotation: 75 }],
+                    },
+                    {
+                        filter: { reverse: i ? 1 : 0 },
+                        axis: Axis.Y,
+                        rotationDistribution: i ? -45 : 45,
+                        affectFirst: 1,
+                        events: [{ rotation: i ? 330 : 30 }],
+                    },
+                ],
+            },
+            {
+                time: 10,
+                id: 14 + i,
+                boxes: [
+                    {
+                        events: [{ rotation: 270 }],
+                    },
+                    {
+                        axis: Axis.Y,
+                        rotationDistribution: 90,
+                        affectFirst: 1,
+                        events: [{ rotation: 315 }],
                     },
                 ],
             }
@@ -605,12 +656,12 @@ export default (d: v3.Difficulty) => {
             boxes: [
                 { axis: Axis.Y, events: [{ rotation: 270 }] },
                 {
-                    filter: { type: 2, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    filter: { type: 2, p0: 1, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
@@ -638,12 +689,12 @@ export default (d: v3.Difficulty) => {
             boxes: [
                 { axis: Axis.Y, events: [{ rotation: 90 }] },
                 {
-                    filter: { type: 2, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    filter: { type: 2, p0: 1, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
@@ -671,12 +722,12 @@ export default (d: v3.Difficulty) => {
             boxes: [
                 { axis: Axis.Y, rotationDistribution: 60, events: [{ rotation: 270 }] },
                 {
-                    filter: { type: 2, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 225 }],
                 },
                 {
-                    filter: { type: 2, p0: 1, p1: 2 },
+                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                     beatDistribution: 5.5,
                     events: [{ rotation: 270 }, { time: 4.5, rotation: 315 }],
                 },
@@ -766,12 +817,12 @@ export default (d: v3.Difficulty) => {
                 boxes: [
                     { axis: Axis.Y, rotationDistribution: -60, events: [{ rotation: 270 }] },
                     {
-                        filter: { type: 2, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         beatDistribution: 3.5,
                         events: [{ rotation: 270 }, { time: 2.5, rotation: 225 }],
                     },
                     {
-                        filter: { type: 2, p0: 1, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                         beatDistribution: 3.5,
                         events: [{ rotation: 270 }, { time: 2.5, rotation: 315 }],
                     },
@@ -792,14 +843,14 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         axis: Axis.Y,
                         rotationDistribution: -15,
                         affectFirst: 1,
                         events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                     },
                     {
-                        filter: { type: 2, p0: 1, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                         axis: Axis.Y,
                         rotationDistribution: 15,
                         affectFirst: 1,

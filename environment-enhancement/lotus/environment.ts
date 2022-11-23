@@ -1,8 +1,7 @@
-import { ext, logger, types, v3 } from '../../depsLocal.ts';
+import { ext, logger, types, v3, utils } from '../../depsLocal.ts';
 
-export const generateEnvironment = (
-    includeFELT = false,
-): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(includeFELT = false): types.v3.IChromaEnvironment[] {
+    const pRandom = utils.pRandomFn('Lotus');
     const environment: types.v3.IChromaEnvironment[] = [];
 
     // environment related
@@ -32,23 +31,17 @@ export const generateEnvironment = (
             position: [-64, 48, 128],
             rotation: [90, 0, 45],
             scale: [0.25, 0.25, 1],
-        },
+        }
     );
     // duplicate this shit everywhere
     for (let z = 0; z < 5; z++) {
         for (let i = 0; i < 10; i++) {
             const posXRight = (i + 1) * 12 + 96 - z * 8;
-            const posZRight = 32 + Math.random() * 64;
-            const posYRight = Math.max(
-                -36 + Math.random() * 32 + posXRight / 8 + posZRight / 1.25,
-                2,
-            );
+            const posZRight = 32 + pRandom(64);
+            const posYRight = Math.max(-36 + pRandom(32) + posXRight / 8 + posZRight / 1.25, 2);
             const posXLeft = (i + 1) * 12 + 96 - z * 8;
-            const posZLeft = 32 + Math.random() * 64;
-            const posYLeft = Math.max(
-                -36 + Math.random() * 32 + posXLeft / 8 + posZLeft / 1.25,
-                2,
-            );
+            const posZLeft = 32 + pRandom(64);
+            const posYLeft = Math.max(-36 + pRandom(32) + posXLeft / 8 + posZLeft / 1.25, 2);
             environment.push(
                 {
                     id: regexRingRight,
@@ -63,7 +56,7 @@ export const generateEnvironment = (
                     duplicate: 1,
                     position: [-posXLeft, posYLeft, -96 + posZLeft + z * 64],
                     rotation: [90, 0, 45],
-                },
+                }
             );
         }
     }
@@ -77,7 +70,7 @@ export const generateEnvironment = (
         //     rotation: [i % 2 ? 270 : 90, 0, 0],
         //     scale: [
         //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
-        //         0.25 + Math.random() * 0.375,
+        //         0.25 + pRandom(0.375),
         //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
         //     ],
         // });
@@ -123,7 +116,7 @@ export const generateEnvironment = (
             position: [-64, 10, 160],
             rotation: [0, 180, 45],
             scale: [0.25, 0.25, 1],
-        },
+        }
     );
     //#endregion
     //#region side
@@ -147,7 +140,7 @@ export const generateEnvironment = (
                 position: [-posX, posY, posZ],
                 rotation: [90, 0, 0],
                 scale: [1.5, 1.5, 1.5],
-            },
+            }
         );
     }
     //#endregion
@@ -223,7 +216,7 @@ export const generateEnvironment = (
                 lookupMethod: 'Regex',
                 rotation: [15, -45, 0 + i * 7.5],
                 position: [32 - i * 4, 5 + i * 4 + Math.pow(i, i / 3), 64 + i * 12],
-            },
+            }
         );
     }
     //#endregion
@@ -253,7 +246,7 @@ export const generateEnvironment = (
                     bloomFogIntensityMultiplier: 12,
                 },
             },
-        },
+        }
     );
     //#endregion
 
@@ -266,89 +259,68 @@ export const generateEnvironment = (
             rotation: [0, 0, 0],
         },
         [0, 0, 0],
-        1,
+        1
     );
     const logo: types.v3.IChromaEnvironment[] = [];
     //F
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] },
-        logo,
-    );
+    lightBlock.place({ position: [-(151 / 2) + 4, 4, 0], scale: [8, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 4, 14.5, 0], scale: [8, 11, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 14.5, 24, 0], scale: [29, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 4, 32.5, 0], scale: [8, 7, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 15.5, 40, 0], scale: [31, 8, 0.015625] }, logo);
     //E
     lightBlock.place(
         {
             position: [-(151 / 2) + 40 + 15.5, 4, 0],
             scale: [31, 8, 0.015625],
         },
-        logo,
+        logo
     );
     lightBlock.place(
         {
             position: [-(151 / 2) + 40 + 4, 14.5, 0],
             scale: [8, 11, 0.015625],
         },
-        logo,
+        logo
     );
     lightBlock.place(
         {
             position: [-(151 / 2) + 40 + 13.5, 24, 0],
             scale: [27, 8, 0.015625],
         },
-        logo,
+        logo
     );
     lightBlock.place(
         {
             position: [-(151 / 2) + 40 + 4, 32.5, 0],
             scale: [8, 7, 0.015625],
         },
-        logo,
+        logo
     );
     lightBlock.place(
         {
             position: [-(151 / 2) + 40 + 14.5, 40, 0],
             scale: [29, 8, 0.015625],
         },
-        logo,
+        logo
     );
     //L
-    lightBlock.place(
-        { position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] },
-        logo,
-    );
-    lightBlock.place(
-        { position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] },
-        logo,
-    );
+    lightBlock.place({ position: [-(151 / 2) + 81 + 15, 4, 0], scale: [30, 8, 0.015625] }, logo);
+    lightBlock.place({ position: [-(151 / 2) + 81 + 4, 26, 0], scale: [8, 36, 0.015625] }, logo);
     //T
     lightBlock.place(
         {
             position: [-(151 / 2) + 113 + 18, 40, 0],
             scale: [38, 8, 0.015625],
         },
-        logo,
+        logo
     );
     lightBlock.place(
         {
             position: [-(151 / 2) + 127 + 4, 18, 0],
             scale: [8, 36, 0.015625],
         },
-        logo,
+        logo
     );
 
     // v3 patch for old v2 pos
@@ -357,9 +329,7 @@ export const generateEnvironment = (
             e.position = e.position.map((n) => n * 0.6) as typeof e.position;
         }
         if (e.localPosition) {
-            e.localPosition = e.localPosition.map(
-                (n) => n * 0.6,
-            ) as typeof e.localPosition;
+            e.localPosition = e.localPosition.map((n) => n * 0.6) as typeof e.localPosition;
         }
     });
 
@@ -370,11 +340,11 @@ export const generateEnvironment = (
                 position: [0, 1, 180],
                 scale: [0.0625, 0.0625, 0.0625],
             },
-            environment,
+            environment
         );
     }
     return environment;
-};
+}
 
 export const insertEnvironment = (d: v3.Difficulty) => {
     if (d.customData.environment?.length) {
@@ -395,7 +365,7 @@ if (import.meta.main) {
             description: 'Vanilla-compatible environment.',
             features: { basicBeatmapEvents: [{ b: 0, et: 0, i: 0, f: 0 }] },
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written Lotus environment JSON');
 }

@@ -4,7 +4,7 @@ export const ringCount = 5;
 export const ringRepeat = 2;
 export const idOffsetType4 = 101;
 
-export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(): types.v3.IChromaEnvironment[] {
     const environment: types.v3.IChromaEnvironment[] = [];
 
     let internalIdOffsetType4 = idOffsetType4;
@@ -19,8 +19,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     const regexConstruction = `Environment\.\\[\\d+\\]Construction$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
     const regexNeonTubeDirectional = `\\[\\d+\\]NeonTubeDirectionalF(L|R)$`;
-    const regexBigRingLight =
-        `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLight = `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
     const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
     const regexFrontLights = `\\[\\d+\\]FrontLights$`;
@@ -42,10 +41,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         arr[1] = -arr[1];
         return arr;
     };
-    const translatePos = (
-        posArr: types.Vector3,
-        translate = [0, 0, 0],
-    ): types.Vector3 => {
+    const translatePos = (posArr: types.Vector3, translate = [0, 0, 0]): types.Vector3 => {
         const arr: types.Vector3 = [...posArr];
         arr[0] += translate[0];
         arr[1] += translate[1];
@@ -83,7 +79,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             id: regexNeonTubeDirectional,
             lookupMethod: 'Regex',
             active: false,
-        },
+        }
     );
     //#endregion
     //#region extra thicc ring
@@ -126,10 +122,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         {
             geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
             scale: centerLightScale,
-            position: translatePos(
-                posMirrorX(posMirrorY(rightCenterLightPos)),
-                posOffset,
-            ),
+            position: translatePos(posMirrorX(posMirrorY(rightCenterLightPos)), posOffset),
             components: {
                 TubeBloomPrePassLight: {
                     bloomFogIntensityMultiplier: 0.25,
@@ -189,10 +182,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         {
             geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
             scale: centerLightScale,
-            position: translatePos(
-                posMirrorX(posMirrorY(topCenterLightPos)),
-                posOffset,
-            ),
+            position: translatePos(posMirrorX(posMirrorY(topCenterLightPos)), posOffset),
             components: {
                 TubeBloomPrePassLight: {
                     bloomFogIntensityMultiplier: 0.25,
@@ -212,7 +202,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 },
                 ILightWithId: { type: 4 },
             },
-        },
+        }
     );
     environment.push(
         {
@@ -259,19 +249,15 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     bloomFogIntensityMultiplier: 0.5,
                 },
             },
-        },
+        }
     );
     environment.push(
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
             position: translatePos(
-                translatePos(posMirrorX(rightBigStuffPos), [
-                    0,
-                    2.21875 * scaleSizeMult,
-                    0,
-                ]),
-                posOffset,
+                translatePos(posMirrorX(rightBigStuffPos), [0, 2.21875 * scaleSizeMult, 0]),
+                posOffset
             ),
         },
         {
@@ -283,23 +269,16 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
             position: translatePos(
-                translatePos(posMirrorX(rightBigStuffPos), [
-                    0,
-                    -2.21875 * scaleSizeMult,
-                    0,
-                ]),
-                posOffset,
+                translatePos(posMirrorX(rightBigStuffPos), [0, -2.21875 * scaleSizeMult, 0]),
+                posOffset
             ),
-        },
+        }
     );
     environment.push(
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
-            position: translatePos(
-                translatePos(rightBigStuffPos, [0, 2.21875 * scaleSizeMult, 0]),
-                posOffset,
-            ),
+            position: translatePos(translatePos(rightBigStuffPos, [0, 2.21875 * scaleSizeMult, 0]), posOffset),
         },
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
@@ -309,20 +288,14 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
-            position: translatePos(
-                translatePos(rightBigStuffPos, [0, -2.21875 * scaleSizeMult, 0]),
-                posOffset,
-            ),
-        },
+            position: translatePos(translatePos(rightBigStuffPos, [0, -2.21875 * scaleSizeMult, 0]), posOffset),
+        }
     );
     environment.push(
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
-            position: translatePos(
-                translatePos(topBigStuffPos, [2.21875 * scaleSizeMult, 0, 0]),
-                posOffset,
-            ),
+            position: translatePos(translatePos(topBigStuffPos, [2.21875 * scaleSizeMult, 0, 0]), posOffset),
         },
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
@@ -332,23 +305,16 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
-            position: translatePos(
-                translatePos(topBigStuffPos, [-2.21875 * scaleSizeMult, 0, 0]),
-                posOffset,
-            ),
-        },
+            position: translatePos(translatePos(topBigStuffPos, [-2.21875 * scaleSizeMult, 0, 0]), posOffset),
+        }
     );
     environment.push(
         {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
             position: translatePos(
-                translatePos(posMirrorY(topBigStuffPos), [
-                    2.21875 * scaleSizeMult,
-                    0,
-                    0,
-                ]),
-                posOffset,
+                translatePos(posMirrorY(topBigStuffPos), [2.21875 * scaleSizeMult, 0, 0]),
+                posOffset
             ),
         },
         {
@@ -360,14 +326,10 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: bigStuffScale,
             position: translatePos(
-                translatePos(posMirrorY(topBigStuffPos), [
-                    -2.21875 * scaleSizeMult,
-                    0,
-                    0,
-                ]),
-                posOffset,
+                translatePos(posMirrorY(topBigStuffPos), [-2.21875 * scaleSizeMult, 0, 0]),
+                posOffset
             ),
-        },
+        }
     );
     //#endregion
     //#region static ring
@@ -380,10 +342,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             {
                 geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
                 scale: ringScale,
-                position: translatePos(
-                    posAddZ(posMirrorX(ringPos), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorX(ringPos), i * ringGap), posOffset),
                 rotation: [0, 0, -135],
                 components: {
                     TubeBloomPrePassLight: {
@@ -396,10 +355,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             {
                 geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
                 scale: ringScale,
-                position: translatePos(
-                    posAddZ(posMirrorY(posMirrorX(ringPos)), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorY(posMirrorX(ringPos)), i * ringGap), posOffset),
                 rotation: [0, 0, -45],
                 components: {
                     TubeBloomPrePassLight: {
@@ -425,10 +381,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             {
                 geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
                 scale: ringScale,
-                position: translatePos(
-                    posAddZ(posMirrorY(ringPos), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorY(ringPos), i * ringGap), posOffset),
                 rotation: [0, 0, 45],
                 components: {
                     TubeBloomPrePassLight: {
@@ -437,7 +390,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            },
+            }
         );
     }
     for (let i = 0; i < ringCount * ringRepeat; i++) {
@@ -445,19 +398,13 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             {
                 geometry: { type: 'Cube', material: { shader: 'Standard' } },
                 scale: outerRingScale,
-                position: translatePos(
-                    posAddZ(posMirrorX(outerRingPos), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorX(outerRingPos), i * ringGap), posOffset),
                 rotation: [0, 0, 45],
             },
             {
                 geometry: { type: 'Cube', material: { shader: 'Standard' } },
                 scale: outerRingScale,
-                position: translatePos(
-                    posAddZ(posMirrorY(posMirrorX(outerRingPos)), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorY(posMirrorX(outerRingPos)), i * ringGap), posOffset),
                 rotation: [0, 0, 135],
             },
             {
@@ -469,44 +416,29 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             {
                 geometry: { type: 'Cube', material: { shader: 'Standard' } },
                 scale: outerRingScale,
-                position: translatePos(
-                    posAddZ(posMirrorY(outerRingPos), i * ringGap),
-                    posOffset,
-                ),
+                position: translatePos(posAddZ(posMirrorY(outerRingPos), i * ringGap), posOffset),
                 rotation: [0, 0, -135],
-            },
+            }
         );
     }
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        id: regexDoubleColorLaser.replace(/\$$/, '') +
-            `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
+        id: regexDoubleColorLaser.replace(/\$$/, '') + `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
         lookupMethod: 'Regex',
         active: false,
     });
     //#endregion
     //#region replace with chad backtop thing
-    const backTopFarPos: types.Vector3 = [
-        3.5,
-        8.25,
-        ringCount * ringGap + ringGap / 1.35,
-    ];
+    const backTopFarPos: types.Vector3 = [3.5, 8.25, ringCount * ringGap + ringGap / 1.35];
     for (let i = 0; i < 5; i++) {
         environment.push(
             {
                 id: i ? regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i}\\)$` : regexDoubleColorLaser,
                 lookupMethod: 'Regex',
                 position: translatePos(
-                    scaleArray(
-                        translatePos(posMirrorX(backTopFarPos), [
-                            -i * 1.625,
-                            -i * 1.625,
-                            0,
-                        ]),
-                        scaleSizeMult,
-                    ),
-                    translatePos(posOffset, [0, 0, i * ringGap]),
+                    scaleArray(translatePos(posMirrorX(backTopFarPos), [-i * 1.625, -i * 1.625, 0]), scaleSizeMult),
+                    translatePos(posOffset, [0, 0, i * ringGap])
                 ),
                 rotation: [12 - i * 8, 180, 348 - i * 8],
             },
@@ -514,14 +446,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 id: regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i + 5}\\)$`,
                 lookupMethod: 'Regex',
                 position: translatePos(
-                    scaleArray(
-                        translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]),
-                        scaleSizeMult,
-                    ),
-                    translatePos(posOffset, [0, 0, i * ringGap]),
+                    scaleArray(translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]), scaleSizeMult),
+                    translatePos(posOffset, [0, 0, i * ringGap])
                 ),
                 rotation: [12 - i * 8, 180, 12 + i * 8],
-            },
+            }
         );
     }
     for (let i = 0; i < 5; i++) {
@@ -532,14 +461,10 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 position: translatePos(
                     scaleArray(
-                        translatePos(posMirrorX(posMirrorY(backTopFarPos)), [
-                            -i * 1.625,
-                            i * 1.625,
-                            0,
-                        ]),
-                        scaleSizeMult,
+                        translatePos(posMirrorX(posMirrorY(backTopFarPos)), [-i * 1.625, i * 1.625, 0]),
+                        scaleSizeMult
                     ),
-                    translatePos(posOffset, [0, 0, i * ringGap]),
+                    translatePos(posOffset, [0, 0, i * ringGap])
                 ),
                 rotation: [12 - i * 8, 0, 168 - i * 8],
             },
@@ -548,36 +473,27 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 position: translatePos(
-                    scaleArray(
-                        translatePos(posMirrorY(backTopFarPos), [
-                            i * 1.625,
-                            i * 1.625,
-                            0,
-                        ]),
-                        scaleSizeMult,
-                    ),
-                    translatePos(posOffset, [0, 0, i * ringGap]),
+                    scaleArray(translatePos(posMirrorY(backTopFarPos), [i * 1.625, i * 1.625, 0]), scaleSizeMult),
+                    translatePos(posOffset, [0, 0, i * ringGap])
                 ),
                 rotation: [12 - i * 8, 0, 192 + i * 8],
-            },
+            }
         );
     }
     //#endregion
     return environment;
-};
+}
 
-export const insertEnvironment = (d: v3.Difficulty) => {
+export function insertEnvironment(d: v3.Difficulty) {
     if (d.customData.environment?.length) {
         logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
-};
+}
 
 if (import.meta.main) {
     Deno.writeTextFileSync(
-        import.meta.url
-            .replace('file://', '')
-            .replace('environment.ts', './VaporFrame.dat'),
+        import.meta.url.replace('file://', '').replace('environment.ts', './VaporFrame.dat'),
         JSON.stringify({
             version: '1.0.0',
             name: 'Vapor Frame',
@@ -588,7 +504,7 @@ if (import.meta.main) {
                 'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
             features: {},
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written Vapor Frame environment JSON');
 }

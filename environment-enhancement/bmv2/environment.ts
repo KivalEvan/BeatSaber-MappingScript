@@ -5,7 +5,7 @@ export const roadRepeat = 4;
 export const idOffsetType0 = 101;
 export const idOffsetType4 = 101;
 
-export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
+export function generateEnvironment(): types.v3.IChromaEnvironment[] {
     const environment: types.v3.IChromaEnvironment[] = [];
 
     let internalIdOffsetType0 = idOffsetType0;
@@ -25,8 +25,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
     const regexConstruction = `Environment.\\[\\d+\\]Construction$`;
     const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-    const regexBigRingLights =
-        `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+    const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
     const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser$`;
     const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
     const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
@@ -72,7 +71,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             id: regexNearBuilding,
             lookupMethod: 'Regex',
             active: false,
-        },
+        }
         // {
         //     geometry: {
         //         type: 'Cube',
@@ -130,7 +129,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            },
+            }
         );
     }
     for (let i = 0; i < roadCount * roadRepeat; i++) {
@@ -160,7 +159,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                     TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                     ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
                 },
-            },
+            }
         );
     }
     //#endregion
@@ -229,13 +228,12 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             lookupMethod: 'Regex',
             scale: farLaneLightScale,
             position: farLaneLightPos,
-        },
+        }
     );
     //#endregion
     //#region yeet center light backtop thing
     environment.push({
-        id: regexDoubleColorLaser.replace(/\$$/, '') +
-            `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
+        id: regexDoubleColorLaser.replace(/\$$/, '') + `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
         lookupMethod: 'Regex',
         active: false,
     });
@@ -257,7 +255,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 position: posAddZ(backTopFarPosNear, (i + 1) * -8),
                 rotation: [-7.5, 180, -15],
-            },
+            }
         );
     }
     for (let i = 0; i < 5; i++) {
@@ -277,16 +275,12 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 scale: backTopFarScale,
                 position: posAddZ(backTopFarPos, i * 16),
                 rotation: [60 - i * 5, 0, 165 - i * 6],
-            },
+            }
         );
     }
     //#endregion
     //#region fabled extra light
-    const extraMirrorLightPos: types.Vector3 = [
-        extraMirrorLightMirrorOffsetX,
-        -1,
-        extraMirrorLightOffset,
-    ];
+    const extraMirrorLightPos: types.Vector3 = [extraMirrorLightMirrorOffsetX, -1, extraMirrorLightOffset];
     const extraMirrorLightScale: types.Vector3 = [0.5, 0.5, 0.5];
     for (let i = 0; i < 5; i++) {
         environment.push(
@@ -295,9 +289,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posMirrorX(
-                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                ),
+                position: posMirrorX(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)),
                 rotation: [0 + i * 2.5, 0, 320 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -309,10 +301,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 duplicate: 1,
                 scale: extraMirrorLightScale,
                 position: posMirrorX(
-                    posAddY(
-                        posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                        extraMirrorLightMirrorOffsetY,
-                    ),
+                    posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY)
                 ),
                 rotation: [0 - i * 2.5, 0, 220 - i * 11],
                 components: {
@@ -324,10 +313,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 duplicate: 1,
                 scale: extraMirrorLightScale,
-                position: posAddY(
-                    posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                    extraMirrorLightMirrorOffsetY,
-                ),
+                position: posAddY(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap), extraMirrorLightMirrorOffsetY),
                 rotation: [0 - i * 2.5, 0, 140 + i * 11],
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -343,19 +329,19 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 components: {
                     ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
                 },
-            },
+            }
         );
     }
     //#endregion
     return environment;
-};
+}
 
-export const insertEnvironment = (d: v3.Difficulty) => {
+export function insertEnvironment(d: v3.Difficulty) {
     if (d.customData.environment?.length) {
         logger.warn('Environment enhancement previously existed, replacing');
     }
     d.customData.environment = generateEnvironment();
-};
+}
 
 if (import.meta.main) {
     Deno.writeTextFileSync(
@@ -370,7 +356,7 @@ if (import.meta.main) {
                 'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
             features: {},
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON),
+        } as types.external.IEnvironmentJSON)
     );
     console.log('Written BMv2 environment JSON');
 }

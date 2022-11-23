@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, TransitionType, utils, v3 } from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, TransitionType, types, utils, v3 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
@@ -26,6 +26,149 @@ export default (d: v3.Difficulty) => {
                             { time: 0.09375, brightness: Brightness.ZERO, color: EventBoxColor.WHITE },
                             { time: 0.125, color: EventBoxColor.RED },
                         ],
+                    },
+                ],
+            }
+        );
+    }
+    for (let id = 12; id < 16; id++) {
+        const fltr = {
+            type: IndexFilterType.DIVISION,
+            p0: 2,
+            p1: 1,
+            reverse: 1,
+        } as types.wrapper.IWrapIndexFilter;
+        const fltrR = {
+            type: IndexFilterType.DIVISION,
+            p0: 2,
+            p1: 1,
+            reverse: 0,
+        } as types.wrapper.IWrapIndexFilter;
+        d.addLightColorEventBoxGroups({
+            time: 70,
+            id,
+            boxes: [
+                {
+                    filter: { type: 2, p0: 0, p1: 999, reverse: 0 },
+                    events: [
+                        { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                        {
+                            time: 0.125,
+                            color: EventBoxColor.WHITE,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: 2.5,
+                        },
+                        {
+                            time: 0.999,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ZERO,
+                            color: EventBoxColor.WHITE,
+                        },
+                    ],
+                },
+                {
+                    filter: { type: 2, p0: 1, p1: 999, reverse: 0 },
+                    events: [
+                        { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                        {
+                            time: 0.125,
+                            color: EventBoxColor.WHITE,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: 2.5,
+                        },
+                        {
+                            time: 0.999,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ZERO,
+                            color: EventBoxColor.WHITE,
+                        },
+                    ],
+                },
+                {
+                    filter: { type: 2, p0: 0, p1: 999, reverse: 1 },
+                    events: [
+                        { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                        {
+                            time: 0.125,
+                            color: EventBoxColor.WHITE,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: 2.5,
+                        },
+                        {
+                            time: 0.999,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ZERO,
+                            color: EventBoxColor.WHITE,
+                        },
+                    ],
+                },
+                {
+                    filter: { type: 2, p0: 1, p1: 999, reverse: 1 },
+                    events: [
+                        { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                        {
+                            time: 0.125,
+                            color: EventBoxColor.WHITE,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: 2.5,
+                        },
+                        {
+                            time: 0.999,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ZERO,
+                            color: EventBoxColor.WHITE,
+                        },
+                    ],
+                },
+            ],
+        });
+        d.addLightRotationEventBoxGroups(
+            {
+                time: 70,
+                id,
+                boxes: [
+                    {
+                        filter: fltr,
+                        events: [
+                            { rotation: 90, easing: EaseType.NONE },
+                            { time: 0.125, previous: 1 },
+                        ],
+                    },
+                    {
+                        filter: fltrR,
+                        events: [
+                            { rotation: 90, easing: EaseType.NONE },
+                            { time: 0.125, previous: 1 },
+                        ],
+                    },
+                    {
+                        filter: fltr,
+                        axis: Axis.Y,
+                        events: [
+                            { rotation: 315, easing: EaseType.NONE },
+                            { time: 0.125, previous: 1 },
+                        ],
+                    },
+                    {
+                        filter: fltrR,
+                        axis: Axis.Y,
+                        events: [
+                            { rotation: 45, easing: EaseType.NONE },
+                            { time: 0.125, previous: 1 },
+                        ],
+                    },
+                ],
+            },
+            {
+                time: 70.999,
+                id,
+                boxes: [
+                    {
+                        events: [{ easing: EaseType.IN_QUAD }],
+                    },
+                    {
+                        axis: Axis.Y,
+                        events: [{ easing: EaseType.IN_QUAD }],
                     },
                 ],
             }
@@ -66,14 +209,14 @@ export default (d: v3.Difficulty) => {
                 id,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         flip: 1,
                         rotationDistribution: flipFlop ? -15 : 15,
                         affectFirst: 1,
                         events: [{ rotation: flipFlop ? 150 : 120, easing: first ? 2 : 3 }],
                     },
                     {
-                        filter: { type: 2, p0: 1, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                         flip: 1,
                         rotationDistribution: flipFlop ? 15 : -15,
                         affectFirst: 1,
@@ -148,7 +291,7 @@ export default (d: v3.Difficulty) => {
             {
                 time: 101,
                 id,
-                boxes: [{ events: [{ rotation: 265 }, { time: 1 }] }],
+                boxes: [{ events: [{ rotation: 265 }] }],
             }
         );
         for (
@@ -162,7 +305,7 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: 2, p0: 1, p1: 2 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                             axis: Axis.Y,
                             events: [{ rotation: flipFlop ? 120 : 240, easing: first ? 2 : 3 }],
                         },
@@ -173,7 +316,7 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: 2, p1: 2 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                             axis: Axis.Y,
                             events: [{ rotation: flipFlop ? 240 : 120, easing: first ? 2 : 3 }],
                         },
@@ -266,7 +409,7 @@ export default (d: v3.Difficulty) => {
                 id,
                 boxes: [
                     {
-                        filter: { type: 2, p0: utils.pRandom(0, 7, true), p1: 8 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
                         events: [
                             { transition: TransitionType.EXTEND },
                             {
@@ -334,7 +477,7 @@ export default (d: v3.Difficulty) => {
                 id,
                 boxes: [
                     {
-                        filter: { type: 2, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         flip: 1,
                         rotationDistribution: flipFlop ? -30 : 30,
                         affectFirst: 1,
@@ -347,7 +490,7 @@ export default (d: v3.Difficulty) => {
                 id,
                 boxes: [
                     {
-                        filter: { type: 2, p0: 1, p1: 2 },
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                         flip: 1,
                         rotationDistribution: flipFlop ? 30 : -30,
                         affectFirst: 1,

@@ -1,7 +1,7 @@
 import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './environment.ts';
 
-export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAllName) => {
+export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAllName) {
     const events = d.basicEvents;
     const newEvents = [];
 
@@ -83,10 +83,10 @@ export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAll
         10: tempID.map((val) => val + 6),
         11: tempID.map((val) => val + 8),
         14: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val, i) => val + idOffsetType0 + i,
+            (val, i) => val + idOffsetType0 + i
         ),
         15: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-            (val, i) => val + idOffsetType0 + i,
+            (val, i) => val + idOffsetType0 + i
         ),
     };
 
@@ -102,4 +102,4 @@ export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAll
 
     d.basicEvents = newEvents;
     //#endregion
-};
+}

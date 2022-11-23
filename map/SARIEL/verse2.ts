@@ -1,4 +1,4 @@
-import { EaseType, EventBoxColor, TransitionType, v3 } from '../../depsLocal.ts';
+import { EaseType, EventBoxColor, IndexFilterType, TransitionType, v3 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
@@ -14,7 +14,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: p * 2, p1: 999, reverse: 1 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999, reverse: 1 },
                                     events: [
                                         { color: EventBoxColor.WHITE, brightness: Brightness.ZERO },
                                         {
@@ -51,7 +51,12 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: 1 + p * 2, p1: 999, reverse: 1 },
+                                    filter: {
+                                        type: IndexFilterType.STEP_AND_OFFSET,
+                                        p0: 1 + p * 2,
+                                        p1: 999,
+                                        reverse: 1,
+                                    },
                                     events: [
                                         { color: EventBoxColor.WHITE, brightness: Brightness.ZERO },
                                         {
@@ -75,7 +80,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: 1 + p * 2, p1: 999 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + p * 2, p1: 999 },
                                     events: [
                                         { transition: TransitionType.EXTEND },
                                         {
@@ -99,7 +104,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: p * 2, p1: 999 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999 },
                                     events: [
                                         { transition: TransitionType.EXTEND },
                                         {
@@ -125,7 +130,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: p * 2, p1: 999, reverse: 1 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999, reverse: 1 },
                                     flip: flipFlop ? 0 : 1,
                                     events: [
                                         { rotation: 255 },
@@ -142,7 +147,12 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: 1 + p * 2, p1: 999, reverse: 1 },
+                                    filter: {
+                                        type: IndexFilterType.STEP_AND_OFFSET,
+                                        p0: 1 + p * 2,
+                                        p1: 999,
+                                        reverse: 1,
+                                    },
                                     flip: flipFlop ? 0 : 1,
                                     events: [
                                         { rotation: 135 },
@@ -157,7 +167,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: 1 + p * 2, p1: 999 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + p * 2, p1: 999 },
                                     flip: flipFlop ? 0 : 1,
                                     events: [{ previous: 1 }, { time: 0.75, rotation: 45, easing: EaseType.IN_QUAD }],
                                 },
@@ -168,7 +178,7 @@ export default (d: v3.Difficulty) => {
                             id: id + (flipFlop ? 0 : -4),
                             boxes: [
                                 {
-                                    filter: { type: 2, p0: p * 2, p1: 999 },
+                                    filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999 },
                                     flip: flipFlop ? 0 : 1,
                                     events: [{ previous: 1 }, { time: 0.75, rotation: 315, easing: EaseType.IN_QUAD }],
                                 },
@@ -182,7 +192,7 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 1, p1: p, p0: 4, reverse: 1 },
+                                        filter: { type: IndexFilterType.DIVISION, p1: p, p0: 4, reverse: 1 },
                                         events: [
                                             { color: EventBoxColor.WHITE, brightness: Brightness.ZERO },
                                             {
@@ -206,7 +216,7 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: 1 + p * 2, p1: 999 },
+                                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + p * 2, p1: 999 },
                                         events: [
                                             { transition: TransitionType.EXTEND },
                                             {
@@ -230,7 +240,7 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: p * 2, p1: 999 },
+                                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999 },
                                         events: [
                                             { transition: TransitionType.EXTEND },
                                             {
@@ -256,7 +266,12 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: p * 2, p1: 999, reverse: 1 },
+                                        filter: {
+                                            type: IndexFilterType.STEP_AND_OFFSET,
+                                            p0: p * 2,
+                                            p1: 999,
+                                            reverse: 1,
+                                        },
                                         flip: flipFlop ? 1 : 0,
                                         events: [
                                             { rotation: 255 },
@@ -277,7 +292,12 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: 1 + p * 2, p1: 999, reverse: 1 },
+                                        filter: {
+                                            type: IndexFilterType.STEP_AND_OFFSET,
+                                            p0: 1 + p * 2,
+                                            p1: 999,
+                                            reverse: 1,
+                                        },
                                         flip: flipFlop ? 1 : 0,
                                         events: [
                                             { rotation: 135 },
@@ -296,7 +316,7 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: 1 + p * 2, p1: 999 },
+                                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + p * 2, p1: 999 },
                                         flip: flipFlop ? 1 : 0,
                                         events: [
                                             { previous: 1 },
@@ -310,7 +330,7 @@ export default (d: v3.Difficulty) => {
                                 id: id + (flipFlop ? -4 : 0),
                                 boxes: [
                                     {
-                                        filter: { type: 2, p0: p * 2, p1: 999 },
+                                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: p * 2, p1: 999 },
                                         flip: flipFlop ? 1 : 0,
                                         events: [
                                             { previous: 1 },
@@ -349,14 +369,14 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: 2, p1: 2 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                             flip: 1,
                             rotationDistribution: flipFlop ? -15 : 15,
                             affectFirst: 1,
                             events: [{ rotation: flipFlop ? 150 : 120, easing: first ? 2 : 3 }],
                         },
                         {
-                            filter: { type: 2, p0: 1, p1: 2 },
+                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                             flip: 1,
                             rotationDistribution: flipFlop ? 15 : -15,
                             affectFirst: 1,

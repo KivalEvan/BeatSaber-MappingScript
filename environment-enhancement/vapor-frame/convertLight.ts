@@ -1,7 +1,7 @@
 import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './environment.ts';
 
-export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAllName) => {
+export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAllName) {
     const events = d.basicEvents;
     const newEvents = [];
 
@@ -93,4 +93,4 @@ export const convertLight = (d: v3.Difficulty, environment: types.EnvironmentAll
 
     d.basicEvents = newEvents;
     //#endregion
-};
+}

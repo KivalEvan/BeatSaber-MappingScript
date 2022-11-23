@@ -53,7 +53,7 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
                         normalize(x, min, max),
                         0,
                         8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
-                        utils.easings.easeInCirc,
+                        utils.easings.easeInCirc
                     ),
                     spawnEffect: true,
                     uninteractable: true,
@@ -63,31 +63,31 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
                             [0, 0, 0, 1, 0.25],
                             flipFlop
                                 ? [
-                                    lerp(normalize(x, min, max), 1, 0),
-                                    0,
-                                    0,
-                                    1,
-                                    lerp(
-                                        normalize(x, min, max),
-                                        0,
-                                        8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
-                                        utils.easings.easeInCirc,
-                                    ) * 0.375,
-                                    'easeOutQuad',
-                                ]
+                                      lerp(normalize(x, min, max), 1, 0),
+                                      0,
+                                      0,
+                                      1,
+                                      lerp(
+                                          normalize(x, min, max),
+                                          0,
+                                          8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                                          utils.easings.easeInCirc
+                                      ) * 0.375,
+                                      'easeOutQuad',
+                                  ]
                                 : [
-                                    0,
-                                    0,
-                                    lerp(normalize(x, min, max), 1, 0),
-                                    1,
-                                    lerp(
-                                        normalize(x, min, max),
-                                        0,
-                                        8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
-                                        utils.easings.easeInCirc,
-                                    ) * 0.375,
-                                    'easeOutQuad',
-                                ],
+                                      0,
+                                      0,
+                                      lerp(normalize(x, min, max), 1, 0),
+                                      1,
+                                      lerp(
+                                          normalize(x, min, max),
+                                          0,
+                                          8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
+                                          utils.easings.easeInCirc
+                                      ) * 0.375,
+                                      'easeOutQuad',
+                                  ],
                         ],
                         offsetPosition: [
                             [(2 + x) * 2, 0, 0, 0],
@@ -99,7 +99,7 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
                                     normalize(x, min, max),
                                     0,
                                     8 - NoteJumpSpeed.HJD_START - NJS.calcHJDRaw(),
-                                    utils.easings.easeInCirc,
+                                    utils.easings.easeInCirc
                                 ) * 0.1875,
                                 'easeInCirc',
                             ],
@@ -147,8 +147,8 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
         const fastPewPewNotes = between(data.colorNotes, fpp, fpp + 5.999);
         fakeNotes.push(
             ...fastPewPewNotes.map((n) => {
-                const randX = utils.random(4, 6, true);
-                const randY = utils.random(-1, 1, true);
+                const randX = utils.pRandom(4, 6, true);
+                const randY = utils.pRandom(-1, 1, true);
                 return n
                     .clone()
                     .setTime(n.time - 0.0025)
@@ -174,8 +174,8 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
                     });
             }),
             ...fastPewPewNotes.map((n) => {
-                const randX = utils.random(4, 6, true);
-                const randY = utils.random(-1, 1, true);
+                const randX = utils.pRandom(4, 6, true);
+                const randY = utils.pRandom(-1, 1, true);
                 return n
                     .clone()
                     .setTime(n.time - 0.0075)
@@ -203,26 +203,26 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
             ...doArrowthing(fastPewPewNotes, 0.495),
             ...doArrowthing(
                 fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.03125)),
-                0.485 - 0.03125,
+                0.485 - 0.03125
             ),
             ...doArrowthing(
                 fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.0625)),
-                0.475 - 0.0625,
+                0.475 - 0.0625
             ),
             ...doArrowthing(
                 fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.09375)),
-                0.465 - 0.09375,
+                0.465 - 0.09375
             ),
             ...doArrowthing(
                 fastPewPewNotes.map((n) => n.clone().setTime(n.time + 0.125)),
-                0.455 - 0.125,
-            ),
+                0.455 - 0.125
+            )
         );
         fastPewPewNotes.forEach((n) => {
             const noteNJS = NoteJumpSpeed.create(
                 BPM,
                 n.customData.noteJumpMovementSpeed,
-                n.customData.noteJumpStartBeatOffset,
+                n.customData.noteJumpStartBeatOffset
             );
             n.angleOffset = NoteDirectionAngle[n.direction] || 0;
             n.direction = 8;
