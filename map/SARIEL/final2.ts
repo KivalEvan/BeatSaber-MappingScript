@@ -3,41 +3,30 @@ import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
     d.addColorBoostEvents(
-        { b: 71.125, o: false },
-        { b: 86, o: true },
-        { b: 87.125, o: false },
+        { b: 518 + 1.125, o: true },
+        { b: 518 + 16, o: false },
+        { b: 518 + 17.125, o: true },
     );
 
     for (let id = 0; id < 12; id++) {
-        d.addLightColorEventBoxGroups(
-            {
-                time: 69.999,
-                id,
-                boxes: [
-                    {
-                        events: [{ brightness: Brightness.OFF }],
-                    },
-                ],
-            },
-            {
-                time: 70,
-                id,
-                boxes: [
-                    {
-                        beatDistribution: id >= 8 && id < 12 ? 0.499 : 1,
-                        events: [
-                            { color: EventBoxColor.WHITE, brightness: 2.5 },
-                            {
-                                time: 0.09375,
-                                brightness: Brightness.OFF,
-                                color: EventBoxColor.WHITE,
-                            },
-                            { time: 0.125, color: EventBoxColor.RED },
-                        ],
-                    },
-                ],
-            },
-        );
+        d.addLightColorEventBoxGroups({
+            time: 518,
+            id,
+            boxes: [
+                {
+                    beatDistribution: id >= 8 && id < 12 ? 0.499 : 1,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: 2.5 },
+                        {
+                            time: 0.09375,
+                            brightness: Brightness.OFF,
+                            color: EventBoxColor.WHITE,
+                        },
+                        { time: 0.125, color: EventBoxColor.RED },
+                    ],
+                },
+            ],
+        });
     }
     for (let id = 12; id < 16; id++) {
         const fltr = {
@@ -53,7 +42,7 @@ export default (d: v3.Difficulty) => {
             reverse: 0,
         } as types.wrapper.IWrapIndexFilter;
         d.addLightColorEventBoxGroups({
-            time: 70,
+            time: 518,
             id,
             boxes: [
                 {
@@ -132,7 +121,7 @@ export default (d: v3.Difficulty) => {
         });
         d.addLightRotationEventBoxGroups(
             {
-                time: 70,
+                time: 518,
                 id,
                 boxes: [
                     {
@@ -153,7 +142,7 @@ export default (d: v3.Difficulty) => {
                         filter: fltr,
                         axis: Axis.Y,
                         events: [
-                            { rotation: 315, easing: EaseType.NONE },
+                            { rotation: id < 14 ? 45 : 315, easing: EaseType.NONE },
                             { time: 0.125, previous: 1 },
                         ],
                     },
@@ -161,14 +150,14 @@ export default (d: v3.Difficulty) => {
                         filter: fltrR,
                         axis: Axis.Y,
                         events: [
-                            { rotation: 45, easing: EaseType.NONE },
+                            { rotation: id < 14 ? 315 : 45, easing: EaseType.NONE },
                             { time: 0.125, previous: 1 },
                         ],
                     },
                 ],
             },
             {
-                time: 70.999,
+                time: 518 + 0.999,
                 id,
                 boxes: [
                     {
@@ -186,7 +175,7 @@ export default (d: v3.Difficulty) => {
     for (let id = 0; id < 4; id++) {
         d.addLightRotationEventBoxGroups(
             {
-                time: 70,
+                time: 518,
                 id,
                 boxes: [
                     {
@@ -202,24 +191,24 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 78,
+                time: 518 + 8,
                 id,
                 boxes: [{ axis: Axis.Y, events: [{ easing: EaseType.OUT_QUAD }] }],
             },
         );
         for (
-            let time = 70.5, flipFlop = false, first = true;
-            time < 95;
+            let time = 518 + 0.5, flipFlop = false, first = true;
+            time < 518 + 25;
             time += 12, flipFlop = !flipFlop, first = false
         ) {
             d.addLightRotationEventBoxGroups({
-                b: Math.min(time, 93.999),
+                b: Math.min(time, 518 + 23.999),
                 id,
                 boxes: [
                     {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         flip: 1,
-                        rotationDistribution: flipFlop ? -15 : 15,
+                        rotationDistribution: flipFlop ? -30 : 30,
                         affectFirst: 1,
                         events: [
                             { rotation: flipFlop ? 150 : 120, easing: first ? 2 : 3 },
@@ -228,7 +217,7 @@ export default (d: v3.Difficulty) => {
                     {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
                         flip: 1,
-                        rotationDistribution: flipFlop ? 15 : -15,
+                        rotationDistribution: flipFlop ? 30 : -30,
                         affectFirst: 1,
                         events: [
                             { rotation: flipFlop ? 120 : 150, easing: first ? 2 : 3 },
@@ -237,7 +226,7 @@ export default (d: v3.Difficulty) => {
                 ],
             });
         }
-        for (let time = 71; time < 94; time += 2) {
+        for (let time = 518 + 1; time < 518 + 24; time += 2) {
             d.addLightColorEventBoxGroups({
                 time: time,
                 id,
@@ -259,7 +248,7 @@ export default (d: v3.Difficulty) => {
                     },
                 ],
             });
-            if (time < 90) {
+            if (time < 518 + 20) {
                 d.addLightColorEventBoxGroups({
                     time: time + 0.5,
                     id,
@@ -268,7 +257,7 @@ export default (d: v3.Difficulty) => {
                             events: [
                                 {
                                     time: 1,
-                                    color: time === 85 ? EventBoxColor.RED : EventBoxColor.BLUE,
+                                    color: time === 518 + 15 ? EventBoxColor.RED : EventBoxColor.BLUE,
                                     brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
@@ -282,7 +271,7 @@ export default (d: v3.Difficulty) => {
     for (let id = 4; id < 8; id++) {
         d.addLightRotationEventBoxGroups(
             {
-                time: 70,
+                time: 518,
                 id,
                 boxes: [
                     { events: [{ rotation: 225 }] },
@@ -293,14 +282,23 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 75,
+                time: 518 + 5,
                 id,
-                boxes: [{ events: [{ rotation: 265, easing: EaseType.OUT_QUAD }] }],
+                boxes: [
+                    {
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                        events: [{ rotation: 255, easing: EaseType.OUT_QUAD }],
+                    },
+                    {
+                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                        events: [{ rotation: 120, easing: EaseType.OUT_QUAD }],
+                    },
+                ],
             },
         );
         for (
-            let time = 71, flipFlop = false, first = true;
-            time <= 95;
+            let time = 518 + 1, flipFlop = false, first = true;
+            time <= 518 + 25;
             time += 12, flipFlop = !flipFlop, first = false
         ) {
             d.addLightRotationEventBoxGroups(
@@ -325,7 +323,7 @@ export default (d: v3.Difficulty) => {
                     ],
                 },
                 {
-                    time: Math.min(time + 3, 95.999),
+                    time: Math.min(time + 3, 518 + 25.999),
                     id,
                     boxes: [
                         {
@@ -344,7 +342,7 @@ export default (d: v3.Difficulty) => {
         }
         d.addLightColorEventBoxGroups(
             {
-                time: 71,
+                time: 518 + 1,
                 id,
                 boxes: [
                     {
@@ -365,7 +363,7 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 71.5,
+                time: 518 + 1.5,
                 id,
                 boxes: [
                     {
@@ -381,7 +379,7 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 86,
+                time: 518 + 16,
                 id,
                 boxes: [
                     {
@@ -402,7 +400,7 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 87,
+                time: 518 + 17,
                 id,
                 boxes: [
                     {
@@ -420,7 +418,7 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 87.5,
+                time: 518 + 17.5,
                 id,
                 boxes: [
                     {
@@ -436,8 +434,8 @@ export default (d: v3.Difficulty) => {
                 ],
             },
         );
-        for (let time = 71.5; time < 93.5; time += 0.5) {
-            if (time >= 86 && time < 87.5) {
+        for (let time = 518 + 1.5; time < 518 + 23.5; time += 0.5) {
+            if (time >= 518 + 16 && time < 518 + 17.5) {
                 continue;
             }
             d.addLightColorEventBoxGroups({
@@ -454,7 +452,7 @@ export default (d: v3.Difficulty) => {
                             { transition: TransitionType.EXTEND },
                             {
                                 time: 0.125,
-                                color: EventBoxColor.WHITE,
+                                color: EventBoxColor.RED,
                                 transition: TransitionType.INTERPOLATE,
                                 brightness: Brightness.EXTRA,
                             },
@@ -469,7 +467,7 @@ export default (d: v3.Difficulty) => {
             });
         }
         d.addLightColorEventBoxGroups({
-            time: 93.5,
+            time: 518 + 23.5,
             id,
             boxes: [
                 {
@@ -490,7 +488,7 @@ export default (d: v3.Difficulty) => {
     for (let id = 8; id < 12; id++) {
         d.addLightRotationEventBoxGroups(
             {
-                time: 70,
+                time: 518,
                 id,
                 boxes: [
                     {
@@ -505,21 +503,21 @@ export default (d: v3.Difficulty) => {
                 ],
             },
             {
-                time: 76,
+                time: 518 + 6,
                 id,
                 boxes: [
                     { axis: Axis.Y, flip: 1, events: [{ easing: EaseType.OUT_QUAD }] },
                 ],
             },
             {
-                time: 100,
+                time: 518 + 30,
                 id,
                 boxes: [{ events: [{ rotation: 270 }] }],
             },
         );
         for (
-            let time = 72, flipFlop = false, first = true;
-            time <= 96;
+            let time = 518 + 2, flipFlop = false, first = true;
+            time <= 518 + 26;
             time += 12, flipFlop = !flipFlop, first = false
         ) {
             d.addLightRotationEventBoxGroups(
@@ -566,8 +564,8 @@ export default (d: v3.Difficulty) => {
             );
         }
         for (
-            let time = 70, flipFlop = false;
-            time < 94;
+            let time = 518, flipFlop = false;
+            time < 518 + 24;
             time += 4, flipFlop = !flipFlop
         ) {
             if (flipFlop ? id % 2 : !(id % 2)) {
@@ -678,7 +676,7 @@ export default (d: v3.Difficulty) => {
                     ],
                 });
             }
-            if (time === 90) {
+            if (time === 518 + 20) {
                 d.addLightColorEventBoxGroups({
                     time: time + 3.5,
                     id,
@@ -720,7 +718,7 @@ export default (d: v3.Difficulty) => {
                                 },
                                 {
                                     time: 0.75,
-                                    color: time === 82 ? EventBoxColor.RED : EventBoxColor.BLUE,
+                                    color: time === 518 + 12 ? EventBoxColor.RED : EventBoxColor.BLUE,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                             ],
@@ -729,5 +727,93 @@ export default (d: v3.Difficulty) => {
                 });
             }
         }
+    }
+
+    //a
+    for (let id = 4; id < 8; id++) {
+        d.addLightColorEventBoxGroups({
+            time: 518 + 31,
+            id,
+            boxes: [
+                {
+                    beatDistribution: 2,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        {
+                            time: 0.09375,
+                            brightness: Brightness.OFF,
+                            color: EventBoxColor.WHITE,
+                        },
+                        { time: 0.125, color: EventBoxColor.RED },
+                        {
+                            time: 1,
+                            brightness: Brightness.OFF,
+                            transition: TransitionType.INTERPOLATE,
+                        },
+                    ],
+                },
+            ],
+        });
+        d.addLightRotationEventBoxGroups({
+            time: 518 + 31,
+            id,
+            boxes: [
+                {
+                    filter: { type: 2, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: -45,
+                    events: [{ rotation: 135 }, { time: 2, previous: 1 }],
+                },
+                {
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: -45,
+                    events: [{ rotation: 315 }, { time: 2, previous: 1 }],
+                },
+            ],
+        });
+    }
+    for (let id = 8; id < 12; id++) {
+        d.addLightColorEventBoxGroups({
+            time: 518 + 31.125,
+            id,
+            boxes: [
+                {
+                    beatDistribution: 2,
+                    events: [
+                        { color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                        {
+                            time: 0.09375,
+                            brightness: Brightness.OFF,
+                            color: EventBoxColor.WHITE,
+                        },
+                        { time: 0.125, color: EventBoxColor.RED },
+                        {
+                            time: 1,
+                            brightness: Brightness.OFF,
+                            transition: TransitionType.INTERPOLATE,
+                        },
+                    ],
+                },
+            ],
+        });
+        d.addLightRotationEventBoxGroups({
+            time: 518 + 31.125,
+            id,
+            boxes: [
+                {
+                    filter: { type: 2, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: -45,
+                    events: [{ rotation: 135 }, { time: 2, previous: 1 }],
+                },
+                {
+                    filter: { type: 2, p0: 1, p1: 2 },
+                    affectFirst: 1,
+                    rotationDistribution: -45,
+                    events: [{ rotation: 315 }, { time: 2, previous: 1 }],
+                },
+            ],
+        });
     }
 };

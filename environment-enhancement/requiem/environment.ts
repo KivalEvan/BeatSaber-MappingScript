@@ -63,7 +63,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             duplicate: 1,
             rotation: [0, 0, -90],
             position: [80, 73, 12].map((p) => p / 0.6) as types.Vector3,
-        }
+        },
     );
     //#endregion
     //#region extra thicc ring
@@ -100,7 +100,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             duplicate: 1,
             position: posGlowLine1,
-        }
+        },
     );
     //#endregion
     //#region test
@@ -119,7 +119,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             duplicate: 1,
             rotation: [90, 0, 0],
             position: posGlowLine3,
-        }
+        },
     );
     //#endregion
     return environment;
@@ -144,7 +144,7 @@ if (import.meta.main) {
             description: 'Vanilla-compatible environment. One of my first hands-on environment enhancement.',
             features: {},
             environment: generateEnvironment(),
-        } as types.external.IEnvironmentJSON)
+        } as types.external.IEnvironmentJSON),
     );
     console.log('Written Requiem environment JSON');
 }

@@ -1,5 +1,5 @@
-import { Axis, EventBoxColor, IndexFilterType, TransitionType, types, v3 } from '../../depsLocal.ts';
-import { Brightness, eventBoxSwapColor, eventBoxTimeScale } from './helpers.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, TransitionType, types, v3 } from '../../depsLocal.ts';
+import { Brightness, eventBoxSwapColor, objectTimeScale } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
     const downbeatTiming: [number, number, number, boolean?, boolean?][] = [
@@ -33,12 +33,17 @@ export default (d: v3.Difficulty) => {
         {
             time: 0.1875,
             color: EventBoxColor.WHITE,
-            brightness: Brightness.FULL,
+            brightness: Brightness.ON,
             transition: TransitionType.INTERPOLATE,
         },
-        { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.FULL },
+        { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.ON },
         { time: 0.375, transition: TransitionType.EXTEND },
-        { color: EventBoxColor.BLUE, time: 0.5, brightness: Brightness.ZERO, transition: TransitionType.INTERPOLATE },
+        {
+            color: EventBoxColor.BLUE,
+            time: 0.5,
+            brightness: Brightness.OFF,
+            transition: TransitionType.INTERPOLATE,
+        },
     ];
     const fastBeat = [
         [0, 0],
@@ -47,11 +52,20 @@ export default (d: v3.Difficulty) => {
         [1, 1],
         [1.5, 1],
     ];
+    let ff = false;
     for (const dbt of downbeatTiming) {
         for (let id = 14; id < 16; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    time: dbt[0] === 70 ? dbt[0] + 1 : dbt[0],
+                    time: dbt[0] === 70 ||
+                            dbt[0] === 198 ||
+                            dbt[0] == 230 ||
+                            dbt[0] === 358 ||
+                            dbt[0] === 390 ||
+                            dbt[0] === 486 ||
+                            dbt[0] === 518
+                        ? dbt[0] + 1
+                        : dbt[0],
                     id,
                     boxes: [
                         {
@@ -133,13 +147,21 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 90 }],
                         },
                     ],
-                }
+                },
             );
         }
         for (let id = 12; id < 14; id++) {
             d.addLightRotationEventBoxGroups(
                 {
-                    time: dbt[0] === 70 ? dbt[0] + 1 : dbt[0],
+                    time: dbt[0] === 70 ||
+                            dbt[0] === 198 ||
+                            dbt[0] == 230 ||
+                            dbt[0] === 358 ||
+                            dbt[0] === 390 ||
+                            dbt[0] === 486 ||
+                            dbt[0] === 518
+                        ? dbt[0] + 1
+                        : dbt[0],
                     id,
                     boxes: [
                         {
@@ -191,26 +213,156 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 270 }],
                         },
                     ],
-                }
+                },
             );
             for (let time = dbt[0]; time < dbt[0] + dbt[1]; time++) {
                 let en = e;
-                if (time === 70) {
+                if (
+                    time === 70 ||
+                    time === 198 ||
+                    time === 230 ||
+                    time === 358 ||
+                    time === 390 ||
+                    time === 486 ||
+                    time === 518
+                ) {
                     continue;
                 }
-                // if (dbt[3] && (time - dbt[0]) % 8 > 4) {
-                //     continue;
-                // }
-                if (time === 86) {
+                if (dbt[3]) {
+                    if ((time - dbt[0]) % 8 > 4) {
+                        //(id - 12 ? (ff ? -1 : 1) : ff ? 1 : -1) *
+                        d.addLightRotationEventBoxGroups({
+                            time,
+                            id,
+                            boxes: [
+                                {
+                                    rotationDistribution: 15 * ((time - dbt[0]) % 4),
+                                    affectFirst: 1,
+                                    filter: fltr,
+                                    axis: Axis.Y,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                                {
+                                    rotationDistribution: -15 * ((time - dbt[0]) % 4),
+                                    affectFirst: 1,
+                                    filter: fltrR,
+                                    axis: Axis.Y,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                                {
+                                    filter: fltr,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                                {
+                                    flip: 1,
+                                    filter: fltrR,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                            ],
+                        });
+                    }
+                    if (time !== dbt[0] && !((time - dbt[0]) % 8)) {
+                        ff = !ff;
+                        d.addLightRotationEventBoxGroups({
+                            time,
+                            id,
+                            boxes: [
+                                {
+                                    filter: fltr,
+                                    axis: Axis.Y,
+                                    events: [{ rotation: 90, easing: EaseType.NONE }],
+                                },
+                                {
+                                    filter: fltrR,
+                                    axis: Axis.Y,
+                                    events: [{ rotation: 90, easing: EaseType.NONE }],
+                                },
+                                {
+                                    filter: fltr,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                                {
+                                    flip: 1,
+                                    filter: fltrR,
+                                    events: [{ rotation: 270, easing: EaseType.NONE }],
+                                },
+                            ],
+                        });
+                    }
+                    d.addLightColorEventBoxGroups({
+                        time,
+                        id: (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3 ? id + 2 : id,
+                        boxes: [
+                            {
+                                filter: fltrR,
+                                beatDistribution: 0.75,
+                                events: [
+                                    { color: EventBoxColor.WHITE, brightness: 1.25 },
+                                    {
+                                        time: 0.125,
+                                        color: EventBoxColor.WHITE,
+                                        brightness: Brightness.ON,
+                                        transition: TransitionType.INTERPOLATE,
+                                    },
+                                    {
+                                        color: EventBoxColor.BLUE,
+                                        time: 0.25,
+                                        brightness: Brightness.ON,
+                                    },
+                                    { time: 0.375, transition: TransitionType.EXTEND },
+                                    {
+                                        color: EventBoxColor.BLUE,
+                                        time: 0.5,
+                                        brightness: Brightness.OFF,
+                                        transition: TransitionType.INTERPOLATE,
+                                    },
+                                ],
+                            },
+                            {
+                                filter: fltr,
+                                beatDistribution: 0.75,
+                                events: [
+                                    { color: EventBoxColor.WHITE, brightness: 1.25 },
+                                    {
+                                        time: 0.125,
+                                        color: EventBoxColor.WHITE,
+                                        brightness: Brightness.ON,
+                                        transition: TransitionType.INTERPOLATE,
+                                    },
+                                    {
+                                        color: EventBoxColor.BLUE,
+                                        time: 0.25,
+                                        brightness: Brightness.ON,
+                                    },
+                                    { time: 0.375, transition: TransitionType.EXTEND },
+                                    {
+                                        color: EventBoxColor.BLUE,
+                                        time: 0.5,
+                                        brightness: Brightness.OFF,
+                                        transition: TransitionType.INTERPOLATE,
+                                    },
+                                ],
+                            },
+                        ],
+                    });
+                    continue;
+                }
+                if (
+                    time === 86 ||
+                    time === 198 + 16 ||
+                    time === 246 ||
+                    time === 358 + 16 ||
+                    time === 406 ||
+                    time === 486 + 16 ||
+                    time === 518 + 16
+                ) {
                     en = eventBoxSwapColor(en);
                 }
                 const doubleHit = !dbt[3] && (time - dbt[0]) % 4 === 2 && dbt[4];
                 d.addLightColorEventBoxGroups({
                     time,
                     id: dbt[3]
-                        ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3
-                            ? id + 2
-                            : id
+                        ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3 ? id + 2 : id
                         : time % 2
                         ? id + 2
                         : id,
@@ -218,12 +370,12 @@ export default (d: v3.Difficulty) => {
                         {
                             filter: fltrR,
                             beatDistribution: doubleHit ? 0.375 : 0.75,
-                            events: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
+                            events: doubleHit ? objectTimeScale(en, 0.5) : en,
                         },
                         {
                             filter: fltr,
                             beatDistribution: doubleHit ? 0.375 : 0.75,
-                            events: doubleHit ? eventBoxTimeScale(en, 0.5) : en,
+                            events: doubleHit ? objectTimeScale(en, 0.5) : en,
                         },
                     ],
                 });
@@ -231,9 +383,7 @@ export default (d: v3.Difficulty) => {
                     d.addLightColorEventBoxGroups({
                         time: time + 0.5,
                         id: dbt[3]
-                            ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3
-                                ? id + 2
-                                : id
+                            ? (time - dbt[0]) % 8 === 1 || (time - dbt[0]) % 8 === 3 ? id + 2 : id
                             : time % 2
                             ? id + 2
                             : id,
@@ -241,12 +391,12 @@ export default (d: v3.Difficulty) => {
                             {
                                 filter: fltrR,
                                 beatDistribution: 0.375,
-                                events: eventBoxTimeScale(en, 0.5),
+                                events: objectTimeScale(en, 0.5),
                             },
                             {
                                 filter: fltr,
                                 beatDistribution: 0.375,
-                                events: eventBoxTimeScale(en, 0.5),
+                                events: objectTimeScale(en, 0.5),
                             },
                         ],
                     });
@@ -261,12 +411,12 @@ export default (d: v3.Difficulty) => {
                             {
                                 filter: fltrR,
                                 beatDistribution: 0.375,
-                                events: eventBoxTimeScale(e, 0.5),
+                                events: objectTimeScale(e, 0.5),
                             },
                             {
                                 filter: fltr,
                                 beatDistribution: 0.375,
-                                events: eventBoxTimeScale(e, 0.5),
+                                events: objectTimeScale(e, 0.5),
                             },
                         ],
                     });

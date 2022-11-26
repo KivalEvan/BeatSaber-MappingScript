@@ -57,7 +57,7 @@ export default (d: v3.Difficulty) => {
                         ],
                     },
                 ],
-            }
+            },
         );
         for (let x = 7.75; x < 36; x += 0.5) {
             d.addLightColorEventBoxGroups(
@@ -66,7 +66,11 @@ export default (d: v3.Difficulty) => {
                     id: 0 + i,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: utils.pRandom(0, 7, true),
+                                p1: 8,
+                            },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -89,7 +93,11 @@ export default (d: v3.Difficulty) => {
                     id: 4 + i,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: utils.pRandom(0, 7, true),
+                                p1: 8,
+                            },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -112,7 +120,11 @@ export default (d: v3.Difficulty) => {
                     id: 10 + i,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: utils.pRandom(0, 7, true), p1: 8 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: utils.pRandom(0, 7, true),
+                                p1: 8,
+                            },
                             events: [
                                 { transition: TransitionType.EXTEND },
                                 {
@@ -129,7 +141,7 @@ export default (d: v3.Difficulty) => {
                             ],
                         },
                     ],
-                }
+                },
             );
         }
         d.addLightRotationEventBoxGroups(
@@ -140,7 +152,10 @@ export default (d: v3.Difficulty) => {
                     {
                         rotationDistribution: -45,
                         beatDistribution: 1,
-                        events: [{ rotation: 180 }, { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD }],
+                        events: [
+                            { rotation: 180 },
+                            { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD },
+                        ],
                     },
                 ],
             },
@@ -152,7 +167,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 3.5,
                         affectFirst: 1,
-                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 270 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -164,7 +184,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 7,
                         affectFirst: 1,
-                        events: [{ rotation: 255 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 255 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -176,7 +201,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 7,
                         affectFirst: 1,
-                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 270 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -188,7 +218,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 7,
                         affectFirst: 1,
-                        events: [{ rotation: 255 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 255 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -200,7 +235,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 7,
                         affectFirst: 1,
-                        events: [{ rotation: 270 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 270 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -212,7 +252,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -60 - utils.pRandom(0, 5),
                         beatDistribution: 2,
                         affectFirst: 1,
-                        events: [{ rotation: 262.5 + utils.pRandom(-5, 5), easing: EaseType.IN_QUAD }],
+                        events: [
+                            {
+                                rotation: 262.5 + utils.pRandom(-5, 5),
+                                easing: EaseType.IN_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -223,7 +268,10 @@ export default (d: v3.Difficulty) => {
                     {
                         rotationDistribution: -30,
                         beatDistribution: 0.75,
-                        events: [{ rotation: 180 }, { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD }],
+                        events: [
+                            { rotation: 180 },
+                            { time: 0.5, rotation: 165, easing: EaseType.OUT_QUAD },
+                        ],
                     },
                 ],
             },
@@ -235,7 +283,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -45 - utils.pRandom(0, 5),
                         beatDistribution: 4,
                         affectFirst: 1,
-                        events: [{ rotation: 240 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 240 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -247,7 +300,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -45 - utils.pRandom(0, 5),
                         beatDistribution: 8,
                         affectFirst: 1,
-                        events: [{ rotation: 225 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 225 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -259,7 +317,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -45 - utils.pRandom(0, 5),
                         beatDistribution: 8,
                         affectFirst: 1,
-                        events: [{ rotation: 240 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 240 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -271,7 +334,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -45 - utils.pRandom(0, 5),
                         beatDistribution: 8,
                         affectFirst: 1,
-                        events: [{ rotation: 225 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 225 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -283,7 +351,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: -45 - utils.pRandom(0, 5),
                         beatDistribution: 2,
                         affectFirst: 1,
-                        events: [{ rotation: 230 + utils.pRandom(-5, 5), easing: EaseType.OUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 230 + utils.pRandom(-5, 5),
+                                easing: EaseType.OUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -294,7 +367,10 @@ export default (d: v3.Difficulty) => {
                     {
                         rotationDistribution: 45,
                         beatDistribution: 0.5,
-                        events: [{ rotation: 270 }, { time: 0.5, rotation: 285, easing: EaseType.OUT_QUAD }],
+                        events: [
+                            { rotation: 270 },
+                            { time: 0.5, rotation: 285, easing: EaseType.OUT_QUAD },
+                        ],
                     },
                 ],
             },
@@ -306,7 +382,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 3,
                         affectFirst: 1,
-                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 150 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -318,7 +399,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 6,
                         affectFirst: 1,
-                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 165 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -330,7 +416,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 6,
                         affectFirst: 1,
-                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 150 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -342,7 +433,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 6,
                         affectFirst: 1,
-                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 165 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -354,7 +450,12 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 6,
                         affectFirst: 1,
-                        events: [{ rotation: 150 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 150 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
             },
@@ -366,10 +467,15 @@ export default (d: v3.Difficulty) => {
                         rotationDistribution: 75 + utils.pRandom(0, 5),
                         beatDistribution: 6,
                         affectFirst: 1,
-                        events: [{ rotation: 165 + utils.pRandom(-5, 5), easing: EaseType.INOUT_QUAD }],
+                        events: [
+                            {
+                                rotation: 165 + utils.pRandom(-5, 5),
+                                easing: EaseType.INOUT_QUAD,
+                            },
+                        ],
                     },
                 ],
-            }
+            },
         );
 
         d.addLightColorEventBoxGroups(
@@ -383,7 +489,7 @@ export default (d: v3.Difficulty) => {
                             {},
                             {
                                 time: 0.5,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -400,7 +506,7 @@ export default (d: v3.Difficulty) => {
                             {},
                             {
                                 time: 0.417,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -417,7 +523,7 @@ export default (d: v3.Difficulty) => {
                             {},
                             {
                                 time: 0.333,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -434,13 +540,13 @@ export default (d: v3.Difficulty) => {
                             {},
                             {
                                 time: 0.249,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
                     },
                 ],
-            }
+            },
         );
         d.addLightRotationEventBoxGroups({
             time: 5,
@@ -473,16 +579,27 @@ export default (d: v3.Difficulty) => {
                 id: 6 + i,
                 boxes: [
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         beatDistribution: 2.75,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
+                            {
+                                time: 0.25,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 2,
                                 color: EventBoxColor.WHITE,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
@@ -493,16 +610,27 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         beatDistribution: 2.75,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
+                            {
+                                time: 0.25,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 2,
                                 color: EventBoxColor.WHITE,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
@@ -513,21 +641,32 @@ export default (d: v3.Difficulty) => {
                 id: 14 + i,
                 boxes: [
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: i ? 0 : 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: i ? 0 : 1,
+                        },
                         beatDistribution: 4.75,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
+                            {
+                                time: 0.25,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 4,
                                 color: EventBoxColor.WHITE,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
                 ],
-            }
+            },
         );
         d.addLightRotationEventBoxGroups(
             {
@@ -535,12 +674,20 @@ export default (d: v3.Difficulty) => {
                 id: 6 + i,
                 boxes: [
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         axis: Axis.Y,
                         events: [{ rotation: 90 }, { time: 2, rotation: 135 }],
                     },
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         rotationDistribution: 15,
                         events: [{ rotation: 315 }, { time: 2, rotation: 75 }],
                     },
@@ -551,14 +698,22 @@ export default (d: v3.Difficulty) => {
                 id: 8 + i,
                 boxes: [
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         events: [
                             { rotation: 90, easing: EaseType.NONE },
                             { time: 2, rotation: 135 },
                         ],
                     },
                     {
-                        filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, reverse: 1 },
+                        filter: {
+                            type: IndexFilterType.STEP_AND_OFFSET,
+                            p1: 2,
+                            reverse: 1,
+                        },
                         axis: Axis.Y,
                         rotationDistribution: 15,
                         flip: 1,
@@ -599,7 +754,7 @@ export default (d: v3.Difficulty) => {
                         events: [{ rotation: 315 }],
                     },
                 ],
-            }
+            },
         );
 
         d.addLightColorEventBoxGroups({
@@ -611,9 +766,21 @@ export default (d: v3.Difficulty) => {
                     beatDistribution: 5.5,
                     events: [
                         { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
-                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
-                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
+                        {
+                            time: 0.25,
+                            color: EventBoxColor.WHITE,
+                            brightness: Brightness.EXTRA,
+                        },
+                        {
+                            time: 1.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ON,
+                        },
+                        {
+                            time: 4.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.OFF,
+                        },
                     ],
                 },
             ],
@@ -622,7 +789,12 @@ export default (d: v3.Difficulty) => {
             time: 11.5,
             id: 8 + i,
             boxes: [
-                { axis: Axis.Y, affectFirst: 1, rotationDistribution: -30, events: [{ rotation: 120 }] },
+                {
+                    axis: Axis.Y,
+                    affectFirst: 1,
+                    rotationDistribution: -30,
+                    events: [{ rotation: 120 }],
+                },
                 {
                     filter: { reverse: 1 },
                     rotationDistribution: -45,
@@ -643,9 +815,21 @@ export default (d: v3.Difficulty) => {
                     beatDistribution: 5.75,
                     events: [
                         { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
-                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
-                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
+                        {
+                            time: 0.25,
+                            color: EventBoxColor.WHITE,
+                            brightness: Brightness.EXTRA,
+                        },
+                        {
+                            time: 1.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ON,
+                        },
+                        {
+                            time: 4.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.OFF,
+                        },
                     ],
                 },
             ],
@@ -676,9 +860,21 @@ export default (d: v3.Difficulty) => {
                     beatDistribution: 5.75,
                     events: [
                         { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
-                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
-                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
+                        {
+                            time: 0.25,
+                            color: EventBoxColor.WHITE,
+                            brightness: Brightness.EXTRA,
+                        },
+                        {
+                            time: 1.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ON,
+                        },
+                        {
+                            time: 4.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.OFF,
+                        },
                     ],
                 },
             ],
@@ -709,9 +905,21 @@ export default (d: v3.Difficulty) => {
                     beatDistribution: 5.75,
                     events: [
                         { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                        { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
-                        { time: 1.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.FULL },
-                        { time: 4.5, transition: TransitionType.INTERPOLATE, brightness: Brightness.ZERO },
+                        {
+                            time: 0.25,
+                            color: EventBoxColor.WHITE,
+                            brightness: Brightness.EXTRA,
+                        },
+                        {
+                            time: 1.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.ON,
+                        },
+                        {
+                            time: 4.5,
+                            transition: TransitionType.INTERPOLATE,
+                            brightness: Brightness.OFF,
+                        },
                     ],
                 },
             ],
@@ -742,17 +950,24 @@ export default (d: v3.Difficulty) => {
                     {
                         beatDistribution: 3.75,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
-                            { time: 0.25, color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
+                            {
+                                time: 0.25,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 1.5,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.FULL,
+                                brightness: Brightness.ON,
                             },
                             {
                                 time: 2.5,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
@@ -769,7 +984,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 0.5,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
@@ -786,7 +1001,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 0.5,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
@@ -803,19 +1018,23 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 0.5,
                                 transition: TransitionType.INTERPOLATE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                             },
                         ],
                     },
                 ],
-            }
+            },
         );
         d.addLightRotationEventBoxGroups(
             {
                 time: 34,
                 id: 2 + i,
                 boxes: [
-                    { axis: Axis.Y, rotationDistribution: -60, events: [{ rotation: 270 }] },
+                    {
+                        axis: Axis.Y,
+                        rotationDistribution: -60,
+                        events: [{ rotation: 270 }],
+                    },
                     {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         beatDistribution: 3.5,
@@ -860,7 +1079,7 @@ export default (d: v3.Difficulty) => {
                         events: [{ rotation: 270 }],
                     },
                 ],
-            }
+            },
         );
     }
 };

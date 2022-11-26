@@ -2,7 +2,7 @@ import { Axis, EaseType, EventBoxColor, IndexFilterType, TransitionType, types, 
 import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
-    const repeatTiming = [94, 254, 414];
+    const repeatTiming = [94, 254, 414, 542];
     const fltr = {
         type: IndexFilterType.DIVISION,
         p0: 2,
@@ -19,7 +19,7 @@ export default (d: v3.Difficulty) => {
         d.addColorBoostEvents(
             { time: rt, toggle: true },
             { time: rt + 4, toggle: false },
-            { time: rt + 6, toggle: true }
+            { time: rt + 6, toggle: true },
         );
         for (let id = 0; id < 4; id++) {
             d.addLightRotationEventBoxGroups(
@@ -39,7 +39,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 15, easing: EaseType.NONE }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: 90,
                             affectFirst: 1,
                             events: [{ rotation: 75, easing: EaseType.NONE }],
@@ -58,13 +62,17 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 300 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: 135,
                             affectFirst: 1,
                             events: [{ rotation: 150 }],
                         },
                     ],
-                }
+                },
             );
             for (let i = 0; i < 4; i++) {
                 d.addLightColorEventBoxGroups({
@@ -72,7 +80,11 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0 + i * 2, p1: 999 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 0 + i * 2,
+                                p1: 999,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -82,7 +94,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.RED,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -100,12 +112,16 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + i * 2, p1: 999 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1 + i * 2,
+                                p1: 999,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -115,7 +131,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.RED,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -133,7 +149,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
@@ -188,7 +204,7 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 150, easing: EaseType.INOUT_QUAD }],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt,
@@ -198,7 +214,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltr,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -215,7 +235,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -224,7 +244,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltrR,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -241,7 +265,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -263,7 +287,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 120, easing: EaseType.NONE }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: 45,
                             affectFirst: 1,
                             events: [{ rotation: 60, easing: EaseType.NONE }],
@@ -281,13 +309,17 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 210 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: 135,
                             affectFirst: 1,
                             events: [{ rotation: 150 }],
                         },
                     ],
-                }
+                },
             );
             for (let i = 0; i < 4; i++) {
                 d.addLightColorEventBoxGroups({
@@ -295,7 +327,12 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0 + i * 2, p1: 999, reverse: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 0 + i * 2,
+                                p1: 999,
+                                reverse: 1,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -305,7 +342,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.BLUE,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -323,12 +360,17 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + i * 2, p1: 999, reverse: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1 + i * 2,
+                                p1: 999,
+                                reverse: 1,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -338,7 +380,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.RED,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -356,7 +398,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
@@ -411,7 +453,7 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 180, easing: EaseType.INOUT_QUAD }],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 2,
@@ -421,7 +463,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltr,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -438,7 +484,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -447,7 +493,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltrR,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -464,7 +514,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -484,7 +534,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: id < 4 ? 120 : 300 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p1: 2,
+                                p0: 1,
+                            },
                             events: [{ rotation: id < 4 ? 270 : 180 }],
                         },
                         {
@@ -502,7 +556,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: id < 4 ? 120 : 300 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p1: 2,
+                                p0: 1,
+                            },
                             events: [{ rotation: id < 4 ? 270 : 180 }],
                         },
                         {
@@ -510,7 +568,7 @@ export default (d: v3.Difficulty) => {
                             events: [{}],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 4,
@@ -520,15 +578,22 @@ export default (d: v3.Difficulty) => {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         beatDistribution: 1,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.TRIPLE },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.TRIPLE,
+                            },
                             { time: 0.125, transition: TransitionType.EXTEND },
                             { time: 0.15625, brightness: 0 },
-                            { time: 0.1875, color: EventBoxColor.RED, brightness: Brightness.EXTRA },
+                            {
+                                time: 0.1875,
+                                color: EventBoxColor.RED,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 0.75,
                                 color: EventBoxColor.BLUE,
                                 frequency: 8,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -537,15 +602,22 @@ export default (d: v3.Difficulty) => {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
                         beatDistribution: 1,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.TRIPLE },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.TRIPLE,
+                            },
                             { time: 0.125, transition: TransitionType.EXTEND },
                             { time: 0.15625, brightness: 0 },
-                            { time: 0.1875, color: EventBoxColor.RED, brightness: Brightness.EXTRA },
+                            {
+                                time: 0.1875,
+                                color: EventBoxColor.RED,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 0.75,
                                 color: EventBoxColor.BLUE,
                                 frequency: 8,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -564,7 +636,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 270 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p1: 2,
+                                p0: 1,
+                            },
                             events: [{ rotation: 135 }],
                         },
                         {
@@ -582,7 +658,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 270 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p1: 2,
+                                p0: 1,
+                            },
                             events: [{ rotation: 135 }],
                         },
                         {
@@ -590,7 +670,7 @@ export default (d: v3.Difficulty) => {
                             events: [{}],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 5,
@@ -600,15 +680,22 @@ export default (d: v3.Difficulty) => {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
                         beatDistribution: 1,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
                             { time: 0.125, transition: TransitionType.EXTEND },
                             { time: 0.15625, brightness: 0 },
-                            { time: 0.1875, color: EventBoxColor.RED, brightness: Brightness.EXTRA },
+                            {
+                                time: 0.1875,
+                                color: EventBoxColor.RED,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 0.75,
                                 color: EventBoxColor.BLUE,
                                 frequency: 8,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -617,15 +704,22 @@ export default (d: v3.Difficulty) => {
                         filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2, p0: 1 },
                         beatDistribution: 1,
                         events: [
-                            { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
+                            {
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.DOUBLE,
+                            },
                             { time: 0.125, transition: TransitionType.EXTEND },
                             { time: 0.15625, brightness: 0 },
-                            { time: 0.1875, color: EventBoxColor.RED, brightness: Brightness.EXTRA },
+                            {
+                                time: 0.1875,
+                                color: EventBoxColor.RED,
+                                brightness: Brightness.EXTRA,
+                            },
                             {
                                 time: 0.75,
                                 color: EventBoxColor.BLUE,
                                 frequency: 8,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -647,7 +741,11 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 60, easing: EaseType.NONE }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: 45,
                             affectFirst: 1,
                             events: [{ rotation: 300, easing: EaseType.NONE }],
@@ -666,14 +764,18 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 120 }],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1,
+                                p1: 2,
+                            },
                             rotationDistribution: -135,
                             affectFirst: 1,
                             flip: 1,
                             events: [{ rotation: 150 }],
                         },
                     ],
-                }
+                },
             );
             for (let i = 0; i < 4; i++) {
                 d.addLightColorEventBoxGroups({
@@ -681,7 +783,12 @@ export default (d: v3.Difficulty) => {
                     id,
                     boxes: [
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0 + i * 2, p1: 999, reverse: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 0 + i * 2,
+                                p1: 999,
+                                reverse: 1,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -691,7 +798,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.BLUE,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -709,12 +816,17 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
                         {
-                            filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1 + i * 2, p1: 999, reverse: 1 },
+                            filter: {
+                                type: IndexFilterType.STEP_AND_OFFSET,
+                                p0: 1 + i * 2,
+                                p1: 999,
+                                reverse: 1,
+                            },
                             events: [
                                 {
                                     color: EventBoxColor.WHITE,
@@ -724,7 +836,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 0.25,
                                     color: EventBoxColor.RED,
-                                    brightness: Brightness.FULL,
+                                    brightness: Brightness.ON,
                                     transition: TransitionType.INTERPOLATE,
                                 },
                                 {
@@ -742,7 +854,7 @@ export default (d: v3.Difficulty) => {
                                 {
                                     time: 1.25,
                                     color: EventBoxColor.WHITE,
-                                    brightness: Brightness.ZERO,
+                                    brightness: Brightness.OFF,
                                 },
                             ],
                         },
@@ -797,7 +909,7 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 180, easing: EaseType.INOUT_QUAD }],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 6,
@@ -807,7 +919,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltr,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -824,7 +940,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -833,7 +949,11 @@ export default (d: v3.Difficulty) => {
                         filter: fltrR,
                         beatDistribution: 2,
                         events: [
-                            { frequency: 8, color: EventBoxColor.WHITE, brightness: Brightness.FULL },
+                            {
+                                frequency: 8,
+                                color: EventBoxColor.WHITE,
+                                brightness: Brightness.ON,
+                            },
                             {
                                 time: 0.5,
                                 color: EventBoxColor.BLUE,
@@ -850,7 +970,7 @@ export default (d: v3.Difficulty) => {
                             {
                                 time: 1.5,
                                 color: EventBoxColor.WHITE,
-                                brightness: Brightness.ZERO,
+                                brightness: Brightness.OFF,
                                 transition: TransitionType.INTERPOLATE,
                             },
                         ],
@@ -864,15 +984,15 @@ export default (d: v3.Difficulty) => {
             {
                 time: 0.1875,
                 color: EventBoxColor.WHITE,
-                brightness: Brightness.FULL,
+                brightness: Brightness.ON,
                 transition: TransitionType.INTERPOLATE,
             },
-            { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.FULL },
+            { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.ON },
             { time: 0.375, transition: TransitionType.EXTEND },
             {
                 color: EventBoxColor.BLUE,
                 time: 0.5,
-                brightness: Brightness.ZERO,
+                brightness: Brightness.OFF,
                 transition: TransitionType.INTERPOLATE,
             },
         ];
@@ -927,7 +1047,7 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 270 }],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 4,
@@ -997,7 +1117,7 @@ export default (d: v3.Difficulty) => {
                             events: [{ rotation: 270 }],
                         },
                     ],
-                }
+                },
             );
             d.addLightColorEventBoxGroups({
                 time: rt + 5,

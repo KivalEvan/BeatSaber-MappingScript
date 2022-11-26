@@ -64,7 +64,7 @@ export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpe
                             [1, 1],
                         ],
                     },
-                }
+                },
             );
         }
 

@@ -6,10 +6,9 @@ console.log('Running script...');
 console.time('Runtime');
 utils.pRandomSeed('S.A.R.I.E.L.');
 
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
 
 const info = load.infoSync();
 info._songName = '!' + info._songName;
@@ -101,10 +100,9 @@ difficultyList.forEach((d) => {
 });
 
 const oldDirectory = globals.directory;
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
 copySync(oldDirectory + info._songFilename, globals.directory + info._songFilename, {
     overwrite: true,
 });
