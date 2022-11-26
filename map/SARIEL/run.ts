@@ -1,5 +1,4 @@
 import { BeatPerMinute, convert, globals, isV3, load, save, utils, v3 } from '../../depsLocal.ts';
-import { copySync } from 'https://deno.land/std@0.153.0/fs/mod.ts';
 import lights from './lights.ts';
 
 console.log('Running script...');
@@ -11,7 +10,6 @@ globals.directory = Deno.build.os === 'linux'
     : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
 
 const info = load.infoSync();
-info._songName = '!' + info._songName;
 info._environmentName = 'WeaveEnvironment';
 info._customData!._contributors = [
     {
@@ -99,14 +97,14 @@ difficultyList.forEach((d) => {
     d.data.useNormalEventsAsCompatibleEvents = false;
 });
 
-const oldDirectory = globals.directory;
-globals.directory = Deno.build.os === 'linux'
-    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
-    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
-copySync(oldDirectory + info._songFilename, globals.directory + info._songFilename, {
-    overwrite: true,
-});
-copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
+// const oldDirectory = globals.directory;
+// globals.directory = Deno.build.os === 'linux'
+//     ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L/'
+//     : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/S.A.R.I.E.L';
+// copySync(oldDirectory + info._songFilename, globals.directory + info._songFilename, {
+//     overwrite: true,
+// });
+// copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
 

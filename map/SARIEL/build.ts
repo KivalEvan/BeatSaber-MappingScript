@@ -640,13 +640,13 @@ export default (d: v3.Difficulty) => {
             { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
             {
                 time: 0.25,
-                color: EventBoxColor.WHITE,
+                color: EventBoxColor.RED,
                 brightness: Brightness.ON,
                 transition: TransitionType.INTERPOLATE,
             },
             { time: 0.375, transition: TransitionType.EXTEND },
             {
-                color: EventBoxColor.WHITE,
+                color: EventBoxColor.RED,
                 time: 0.625,
                 brightness: Brightness.HALF,
                 transition: TransitionType.INTERPOLATE,
