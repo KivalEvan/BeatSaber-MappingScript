@@ -11,6 +11,14 @@ Script to deal with environment enhancement.
 
 ## Gallery
 
+### [Torii](./torii/) (Vanilla-compatible)
+
+#### Based on Billie Environment
+
+Used in Genryuu Kaiko
+
+<img src="./torii/environment.jpg">
+
 ### [Lotus](./lotus/) (Vanilla-compatible)
 
 #### Based on BTS Environment

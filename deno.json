@@ -13,5 +13,8 @@
             "lineWidth": 120,
             "singleQuote": true
         }
+    },
+    "tasks": {
+        "environment": "deno run -A ./environment-enhancement/main.ts"
     }
 }
