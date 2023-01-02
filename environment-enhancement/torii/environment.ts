@@ -1,3 +1,4 @@
+import { normalize } from '../../../BeatSaber-Deno/utils/math.ts';
 import { ext, logger, types, utils, v3 } from '../../depsLocal.ts';
 
 const EnvGrab = ext.chroma.EnvironmentGrab;
@@ -7,6 +8,11 @@ const toriiWidthExt = 6;
 const toriiHeight = 8;
 const toriiScale = 2;
 const toriiPosOffset = [0, 0.75, 0];
+const toriiCount = 6;
+const toriiCountScale = 0.25;
+const toriiCountScaleEasing = utils.easings.easeInExpo;
+
+const lanternPostCount = 24;
 
 const lanternBaseSize = 0.5;
 const lanternBaseHeight = 0.0625;
@@ -20,7 +26,11 @@ const regexMountains = EnvGrab.create().child().name('Mountains').end().regex;
 const regexClouds = EnvGrab.create().child().name('Clouds').end().regex;
 const regexSun = EnvGrab.create('DayAndNight').child().name('Day').end().regex;
 const regexMoon = EnvGrab.create('DayAndNight').child().name('Night').end().regex;
-const regexTunnelLaser = EnvGrab.create().child().name('TunnelRotatingLasersPair').id(null, true).end().regex;
+const regexTunnelLaser = EnvGrab.create()
+    .child()
+    .name('TunnelRotatingLasersPair')
+    .id(null, true)
+    .end().regex;
 const regexSmoke = EnvGrab.create().child().name('BigSmokePS').end().regex;
 
 export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
@@ -29,7 +39,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
 
     environment.push(
         {
-            id: EnvGrab.create().child().name('Environment').end().regex,
+            id: EnvGrab.Preset.ENVIRONMENT.regex,
             lookupMethod: 'Regex',
             components: { BloomFogEnvironment: { startY: -22.5, height: 15 } },
         },
@@ -52,19 +62,25 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         {
             id: regexMoon,
             lookupMethod: 'Regex',
-            position: [0, -1475, 512],
-            scale: [100, 100, 1],
+            position: [0, -6000, 2048],
+            scale: [400, 400, 1],
             components: {
-                TubeBloomPrePassLight: { colorAlphaMultiplier: 64, bloomFogIntensityMultiplier: 1 },
+                TubeBloomPrePassLight: {
+                    colorAlphaMultiplier: 256,
+                    bloomFogIntensityMultiplier: 1,
+                },
             },
         },
         {
             id: regexSun,
             lookupMethod: 'Regex',
-            position: [0, 0, 512],
-            scale: [4, 4, 1],
+            position: [0, 0, 1024],
+            scale: [8, 8, 1],
             components: {
-                TubeBloomPrePassLight: { colorAlphaMultiplier: 64, bloomFogIntensityMultiplier: 1 },
+                TubeBloomPrePassLight: {
+                    colorAlphaMultiplier: 128,
+                    bloomFogIntensityMultiplier: 1,
+                },
             },
         },
         {
@@ -137,7 +153,10 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             geometry: { type: 'Cube', material: 'ToriiOpaqueLight' },
             components: {
                 ILightWithId: { type: 0 },
-                TubeBloomPrePassLight: { colorAlphaMultiplier: 2, bloomFogIntensityMultiplier: 0.25 },
+                TubeBloomPrePassLight: {
+                    colorAlphaMultiplier: 2,
+                    bloomFogIntensityMultiplier: 0.25,
+                },
             },
         },
         [0, 0, 0],
@@ -166,26 +185,68 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     );
 
     const torii: types.v3.IChromaEnvironment[] = [];
-    pillarBlock.place({ position: [toriiWidth / 2, toriiHeight / 2, 0], scale: [1, toriiHeight / 2, 1] }, torii);
-    pillarBlock.place({ position: [-toriiWidth / 2, toriiHeight / 2, 0], scale: [1, toriiHeight / 2, 1] }, torii);
+    pillarBlock.place(
+        {
+            position: [toriiWidth / 2, toriiHeight / 2, 0],
+            scale: [1, toriiHeight / 2, 1],
+        },
+        torii,
+    );
+    pillarBlock.place(
+        {
+            position: [-toriiWidth / 2, toriiHeight / 2, 0],
+            scale: [1, toriiHeight / 2, 1],
+        },
+        torii,
+    );
 
     cubeBlock.place(
-        { position: [0, toriiHeight + 0.875, 0], scale: [toriiWidth + toriiWidthExt + 0.25, 0.5, 1] },
+        {
+            position: [0, toriiHeight + 0.875, 0],
+            scale: [toriiWidth + toriiWidthExt + 0.25, 0.5, 1],
+        },
         torii,
     );
     cubeBlock.place(
-        { position: [0, toriiHeight + 0.625, 0], scale: [toriiWidth + toriiWidthExt + 1, 0.5, 0.25] },
+        {
+            position: [0, toriiHeight + 0.625, 0],
+            scale: [toriiWidth + toriiWidthExt + 1, 0.5, 0.25],
+        },
         torii,
     );
-    cubeBlock.place({ position: [0, toriiHeight + 0.375, 0], scale: [toriiWidth + toriiWidthExt, 0.5, 0.5] }, torii);
     cubeBlock.place(
-        { position: [0, toriiHeight - 2 + 0.625, 0], scale: [toriiWidth + toriiWidthExt, 0.75, 0.5] },
+        {
+            position: [0, toriiHeight + 0.375, 0],
+            scale: [toriiWidth + toriiWidthExt, 0.5, 0.5],
+        },
+        torii,
+    );
+    cubeBlock.place(
+        {
+            position: [0, toriiHeight - 2 + 0.625, 0],
+            scale: [toriiWidth + toriiWidthExt, 0.75, 0.5],
+        },
         torii,
     );
 
-    cubeBlock.place({ position: [0, toriiHeight - 1 + 0.5625, 0], scale: [1.25, 1.125, 0.25] }, torii);
-    cubeBlock.place({ position: [toriiWidth / 2, toriiHeight - 1 + 0.25, 0], scale: [1.75, 0.5, 0.125] }, torii);
-    cubeBlock.place({ position: [-toriiWidth / 2, toriiHeight - 1 + 0.25, 0], scale: [1.75, 0.5, 0.125] }, torii);
+    cubeBlock.place(
+        { position: [0, toriiHeight - 1 + 0.5625, 0], scale: [1.25, 1.125, 0.25] },
+        torii,
+    );
+    cubeBlock.place(
+        {
+            position: [toriiWidth / 2, toriiHeight - 1 + 0.25, 0],
+            scale: [1.75, 0.5, 0.125],
+        },
+        torii,
+    );
+    cubeBlock.place(
+        {
+            position: [-toriiWidth / 2, toriiHeight - 1 + 0.25, 0],
+            scale: [1.75, 0.5, 0.125],
+        },
+        torii,
+    );
     375;
     cubeBlock.place(
         {
@@ -205,21 +266,51 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     );
 
     pillarBlock.place(
-        { position: [toriiWidth / 2, toriiHeight + 0.125, 0], scale: [1.25, 0.125, 1.25], rotation: [0, 0, 0] },
+        {
+            position: [toriiWidth / 2, toriiHeight + 0.125, 0],
+            scale: [1.25, 0.125, 1.25],
+            rotation: [0, 0, 0],
+        },
         torii,
     );
     pillarBlock.place(
-        { position: [toriiWidth / 2, toriiHeight - 1 + 0.0625, 0], scale: [1.125, 0.0625, 1.125], rotation: [0, 0, 0] },
+        {
+            position: [toriiWidth / 2, toriiHeight - 1 + 0.0625, 0],
+            scale: [1.125, 0.0625, 1.125],
+            rotation: [0, 0, 0],
+        },
         torii,
     );
     pillarBlock.place(
-        { position: [toriiWidth / 2, toriiHeight - 2 + 0.1875, 0], scale: [1.125, 0.0625, 1.125], rotation: [0, 0, 0] },
+        {
+            position: [toriiWidth / 2, toriiHeight - 2 + 0.1875, 0],
+            scale: [1.125, 0.0625, 1.125],
+            rotation: [0, 0, 0],
+        },
         torii,
     );
-    pillarBlock.place({ position: [toriiWidth / 2, 0.25, 0], scale: [1.25, 0.125, 1.25], rotation: [0, 0, 0] }, torii);
-    pillarBlock.place({ position: [toriiWidth / 2, -128, 0], scale: [1.375, 128, 1.375], rotation: [0, 0, 0] }, torii);
     pillarBlock.place(
-        { position: [-toriiWidth / 2, toriiHeight + 0.125, 0], scale: [1.25, 0.125, 1.25], rotation: [0, 0, 0] },
+        {
+            position: [toriiWidth / 2, 0.25, 0],
+            scale: [1.25, 0.125, 1.25],
+            rotation: [0, 0, 0],
+        },
+        torii,
+    );
+    pillarBlock.place(
+        {
+            position: [toriiWidth / 2, -128, 0],
+            scale: [1.375, 128, 1.375],
+            rotation: [0, 0, 0],
+        },
+        torii,
+    );
+    pillarBlock.place(
+        {
+            position: [-toriiWidth / 2, toriiHeight + 0.125, 0],
+            scale: [1.25, 0.125, 1.25],
+            rotation: [0, 0, 0],
+        },
         torii,
     );
     pillarBlock.place(
@@ -238,15 +329,38 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         },
         torii,
     );
-    pillarBlock.place({ position: [-toriiWidth / 2, 0.25, 0], scale: [1.25, 0.125, 1.25], rotation: [0, 0, 0] }, torii);
-    pillarBlock.place({ position: [-toriiWidth / 2, -128, 0], scale: [1.375, 128, 1.375], rotation: [0, 0, 0] }, torii);
+    pillarBlock.place(
+        {
+            position: [-toriiWidth / 2, 0.25, 0],
+            scale: [1.25, 0.125, 1.25],
+            rotation: [0, 0, 0],
+        },
+        torii,
+    );
+    pillarBlock.place(
+        {
+            position: [-toriiWidth / 2, -128, 0],
+            scale: [1.375, 128, 1.375],
+            rotation: [0, 0, 0],
+        },
+        torii,
+    );
 
     const toriiGroup = ext.chroma.EnvironmentGroup.create(torii, [0, 0, 0]);
-    for (let z = -1; z < 8; z++) {
+    for (let z = -1; z < toriiCount; z++) {
         toriiGroup.place(
             {
                 position: utils.vectorTranslate([0, 0, 48 + z * 80], toriiPosOffset),
-                scale: utils.vectorScale([1, 1, 1], toriiScale),
+                scale: utils.vectorScale(
+                    [1, 1, 1],
+                    toriiScale *
+                        utils.lerp(
+                            normalize(z, -1, toriiCount),
+                            1,
+                            1 * toriiCountScale,
+                            toriiCountScaleEasing,
+                        ),
+                ),
             },
             environment,
         );
@@ -275,7 +389,10 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     cubeBlock.place({ position: [0, 2.40625, 0], scale: [0.625, 0.0625, 0.625] }, lanternPost);
     cubeBlock.place({ position: [0, 2.46875, 0], scale: [0.375, 0.0625, 0.375] }, lanternPost);
     cubeBlock.place({ position: [0, 2.53125, 0], scale: [0.25, 0.0625, 0.25] }, lanternPost);
-    pillarBlock.place({ position: [0, 2.578125, 0], scale: [0.125, 0.03125 / 2, 0.125] }, lanternPost);
+    pillarBlock.place(
+        { position: [0, 2.578125, 0], scale: [0.125, 0.03125 / 2, 0.125] },
+        lanternPost,
+    );
     pillarBlock.place({ position: [0, 2.625, 0], scale: [0.1875, 0.125 / 4, 0.1875] }, lanternPost);
     sphereBlock.place({ position: [0, 2.65625, 0], scale: [0.1875, 0.1875, 0.1875] }, lanternPost);
 
@@ -298,7 +415,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         environment,
     );
     const lanternPostGroup = ext.chroma.EnvironmentGroup.create(lanternPost, [0, 0, 0]);
-    for (let z = 0; z < 16; z++) {
+    for (let z = 0; z < lanternPostCount; z++) {
         pillarLight.place(
             {
                 position: [3.25, 0.03125, 8 + z * 20 + 10],
@@ -317,14 +434,23 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             },
             environment,
         );
-        lanternPostGroup.place({ position: [4, 0, 8 + z * 20], type: [1, 6, 7, 0][z % 4] }, environment);
-        lanternPostGroup.place({ position: [-4, 0, 8 + z * 20], type: [1, 6, 7, 0][z % 4] }, environment);
+        lanternPostGroup.place(
+            { position: [4, 0, 8 + z * 20], type: [1, 6, 7, 0][z % 4] },
+            environment,
+        );
+        lanternPostGroup.place(
+            { position: [-4, 0, 8 + z * 20], type: [1, 6, 7, 0][z % 4] },
+            environment,
+        );
     }
 
     const lantern: types.v3.IChromaEnvironment[] = [];
     // base
     cubeBlock.place(
-        { position: [0, lanternBaseHeight / 2, 0], scale: [lanternBaseSize, lanternBaseHeight, lanternBaseSize] },
+        {
+            position: [0, lanternBaseHeight / 2, 0],
+            scale: [lanternBaseSize, lanternBaseHeight, lanternBaseSize],
+        },
         lantern,
     );
     // border vertical
@@ -335,7 +461,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lanternBaseHeight / 2 + lanternHeight / 2 + lanternGap / 2 + lanternBorder / 2,
                 lanternSize / 2,
             ],
-            scale: [lanternBorder, lanternHeight + lanternGap / 2 + lanternBorder / 2, lanternBorder],
+            scale: [
+                lanternBorder,
+                lanternHeight + lanternGap / 2 + lanternBorder / 2,
+                lanternBorder,
+            ],
         },
         lantern,
     );
@@ -346,7 +476,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lanternBaseHeight / 2 + lanternHeight / 2 + lanternGap / 2 + lanternBorder / 2,
                 -lanternSize / 2,
             ],
-            scale: [lanternBorder, lanternHeight + lanternGap / 2 + lanternBorder / 2, lanternBorder],
+            scale: [
+                lanternBorder,
+                lanternHeight + lanternGap / 2 + lanternBorder / 2,
+                lanternBorder,
+            ],
         },
         lantern,
     );
@@ -357,7 +491,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lanternBaseHeight / 2 + lanternHeight / 2 + lanternGap / 2 + lanternBorder / 2,
                 lanternSize / 2,
             ],
-            scale: [lanternBorder, lanternHeight + lanternGap / 2 + lanternBorder / 2, lanternBorder],
+            scale: [
+                lanternBorder,
+                lanternHeight + lanternGap / 2 + lanternBorder / 2,
+                lanternBorder,
+            ],
         },
         lantern,
     );
@@ -368,7 +506,11 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lanternBaseHeight / 2 + lanternHeight / 2 + lanternGap / 2 + lanternBorder / 2,
                 -lanternSize / 2,
             ],
-            scale: [lanternBorder, lanternHeight + lanternGap / 2 + lanternBorder / 2, lanternBorder],
+            scale: [
+                lanternBorder,
+                lanternHeight + lanternGap / 2 + lanternBorder / 2,
+                lanternBorder,
+            ],
         },
         lantern,
     );
@@ -411,13 +553,13 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
     );
 
     const lanternGroup = ext.chroma.EnvironmentGroup.create(lantern, [0, 0, 0]);
-    for (let reroll = 0; reroll++ < 142;) {
+    for (let reroll = 0; reroll++ < 69;) {
         pRandom();
     }
-    for (let z = 0; z < 16; z++) {
+    for (let z = 0; z < 20; z++) {
         lanternGroup.place(
             {
-                position: [pRandom(5, 20), 0, -16 + z * 4],
+                position: [pRandom(5, 20), 0, -32 + z * 4],
                 rotation: [0, pRandom(0, 360, true), 0],
                 type: utils.pickRandom([0, 1, 6, 7], pRandom),
             },
@@ -425,7 +567,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         );
         lanternGroup.place(
             {
-                position: [pRandom(-5, -20), 0, -16 + z * 4],
+                position: [pRandom(-5, -20), 0, -32 + z * 4],
                 rotation: [0, pRandom(0, 360, true), 0],
                 type: utils.pickRandom([0, 1, 6, 7], pRandom),
             },
@@ -433,7 +575,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         );
         lanternGroup.place(
             {
-                position: [pRandom(16, 36), 0, -14 + z * 4],
+                position: [pRandom(16, 36), 0, -30 + z * 4],
                 rotation: [0, pRandom(0, 360, true), 0],
                 type: utils.pickRandom([0, 1, 6, 7], pRandom),
             },
@@ -441,7 +583,7 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
         );
         lanternGroup.place(
             {
-                position: [pRandom(-16, -36), 0, -14 + z * 4],
+                position: [pRandom(-16, -36), 0, -30 + z * 4],
                 rotation: [0, pRandom(0, 360, true), 0],
                 type: utils.pickRandom([0, 1, 6, 7], pRandom),
             },
@@ -455,8 +597,16 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
             regexPillarL = EnvGrab.create('BottomPairLasers').child().name('PillarL').end().regex;
             regexPillarR = EnvGrab.create('BottomPairLasers').child().name('PillarR').end().regex;
         } else {
-            regexPillarL = EnvGrab.create('BottomPairLasers').id(i).child().name('PillarL').end().regex;
-            regexPillarR = EnvGrab.create('BottomPairLasers').id(i).child().name('PillarR').end().regex;
+            regexPillarL = EnvGrab.create('BottomPairLasers')
+                .id(i)
+                .child()
+                .name('PillarL')
+                .end().regex;
+            regexPillarR = EnvGrab.create('BottomPairLasers')
+                .id(i)
+                .child()
+                .name('PillarR')
+                .end().regex;
         }
         environment.push(
             {
@@ -464,14 +614,24 @@ export const generateEnvironment = (): types.v3.IChromaEnvironment[] => {
                 lookupMethod: 'Regex',
                 position: [-30 + i * 2, 1.125 - i * 0.1875, 32 + i * 4],
                 rotation: [-25 + i * 5, 27 - i * 3, 300],
-                components: { TubeBloomPrePassLight: { colorAlphaMultiplier: 2.5 } },
+                components: {
+                    TubeBloomPrePassLight: {
+                        colorAlphaMultiplier: 2.5,
+                        bloomFogIntensityMultiplier: 1,
+                    },
+                },
             },
             {
                 id: regexPillarR,
                 lookupMethod: 'Regex',
                 position: [30 - i * 2, 1.125 - i * 0.1875, 32 + i * 4],
                 rotation: [-25 + i * 5, 333 + i * 3, 60],
-                components: { TubeBloomPrePassLight: { colorAlphaMultiplier: 2.5 } },
+                components: {
+                    TubeBloomPrePassLight: {
+                        colorAlphaMultiplier: 2.5,
+                        bloomFogIntensityMultiplier: 1,
+                    },
+                },
             },
         );
     }
