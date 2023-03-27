@@ -1,24 +1,13 @@
-import {
-    BeatPerMinute,
-    convert,
-    globals,
-    isV3,
-    load,
-    save,
-    utils,
-    v2,
-    v3,
-} from '../../depsLocal.ts';
+import { BeatPerMinute, convert, globals, isV3, load, save, utils, v2, v3 } from '../../depsLocal.ts';
 import light from './light.ts';
 
 console.log('Running script...');
 console.time('Runtime');
 utils.pRandomSeed('EXECUTION');
 
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/world.execute(me);/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/world.execute(me);';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/world.execute(me);/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/world.execute(me);';
 
 const info = load.infoSync();
 info._environmentName = 'Dragons2Environment';

@@ -11,39 +11,39 @@ import {
     v3,
 } from '../../../depsLocal.ts';
 import {
-    Group,
+    Brightness,
     FILTER_HALF_1_STEP,
     FILTER_HALF_2_STEP,
-    FILTER_TRIPLET_1_STEP,
-    FILTER_TRIPLET_2_STEP,
-    FILTER_TRIPLET_3_STEP,
-    FILTER_TWELVE_4_STEP,
-    FILTER_TWELVE_5_STEP,
-    FILTER_TWELVE_6_STEP,
-    FILTER_TWELVE_10_STEP,
-    FILTER_TWELVE_11_STEP,
-    FILTER_TWELVE_12_STEP,
-    FILTER_TWELVE_3_STEP,
-    FILTER_TWELVE_1_STEP,
-    FILTER_TWELVE_2_STEP,
-    FILTER_TWELVE_7_STEP,
-    FILTER_TWELVE_8_STEP,
-    FILTER_TWELVE_9_STEP,
     FILTER_QUARTET_1_DIV,
     FILTER_QUARTET_2_DIV,
     FILTER_QUARTET_3_DIV,
     FILTER_QUARTET_4_DIV,
+    FILTER_TRIPLET_1_STEP,
+    FILTER_TRIPLET_2_STEP,
+    FILTER_TRIPLET_3_STEP,
+    FILTER_TWELVE_10_STEP,
+    FILTER_TWELVE_11_STEP,
+    FILTER_TWELVE_12_STEP,
+    FILTER_TWELVE_1_STEP,
+    FILTER_TWELVE_2_STEP,
+    FILTER_TWELVE_3_STEP,
+    FILTER_TWELVE_4_STEP,
+    FILTER_TWELVE_5_STEP,
+    FILTER_TWELVE_6_STEP,
+    FILTER_TWELVE_7_STEP,
+    FILTER_TWELVE_8_STEP,
+    FILTER_TWELVE_9_STEP,
+    Group,
     SMALL_RINGS_DRUM_INNER,
     SMALL_RINGS_DRUM_OUTER,
-    Brightness,
 } from '../_common.ts';
-import { objectTimeScale } from '../_helpers.ts';
+import { generateSeed, objectTimeScale } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
 export default function (data: v3.Difficulty) {
     data.addColorBoostEvents(
         { time: START_TIME + 30, toggle: true },
-        { time: START_TIME + 32, toggle: false }
+        { time: START_TIME + 32, toggle: false },
     );
     for (let repeat = 24; repeat <= 29; repeat++) {
         data.addLightColorEventBoxGroups({
@@ -89,7 +89,7 @@ export default function (data: v3.Difficulty) {
             type: 4,
             value: EventLightValue.WHITE_TRANSITION,
             floatValue: Brightness.OFF,
-        }
+        },
     );
     data.addLightColorEventBoxGroups({
         time: START_TIME + 30,
@@ -122,7 +122,7 @@ export default function (data: v3.Difficulty) {
                 type: 4,
                 value: EventLightValue.WHITE_TRANSITION,
                 floatValue: Brightness.DIM,
-            }
+            },
         );
     }
     data.addLightRotationEventBoxGroups(
@@ -270,7 +270,7 @@ export default function (data: v3.Difficulty) {
                 {
                     filter: {
                         random: 2,
-                        seed: utils.pRandom(999999, true),
+                        seed: generateSeed(),
                     },
                     axis: Axis.Z,
                     beatDistribution: 1,
@@ -279,7 +279,7 @@ export default function (data: v3.Difficulty) {
                     affectFirst: 1,
                 },
             ],
-        }
+        },
     );
     data.addLightTranslationEventBoxGroups(
         {
@@ -383,7 +383,7 @@ export default function (data: v3.Difficulty) {
                     affectFirst: 1,
                 },
             ],
-        }
+        },
     );
 
     // ring
@@ -468,7 +468,7 @@ export default function (data: v3.Difficulty) {
                     events: [{ previous: 1 }],
                 },
             ],
-        }
+        },
     );
     data.addLightTranslationEventBoxGroups(
         {
@@ -536,6 +536,6 @@ export default function (data: v3.Difficulty) {
                     flip: 1,
                 },
             ],
-        }
+        },
     );
 }

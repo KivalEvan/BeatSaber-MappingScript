@@ -12,14 +12,14 @@ export default function (data: v3.Difficulty) {
         },
         {
             time: 0.5,
-            color: EventBoxColor.WHITE,
+            color: EventBoxColor.RED,
             brightness: Brightness.EXTRA,
             transition: TransitionType.INTERPOLATE,
             frequency: 12,
         },
         {
             time: 0.75,
-            color: EventBoxColor.WHITE,
+            color: EventBoxColor.BLUE,
             transition: TransitionType.INTERPOLATE,
         },
         {
@@ -28,7 +28,7 @@ export default function (data: v3.Difficulty) {
         },
         {
             time: 2.5,
-            color: EventBoxColor.WHITE,
+            color: EventBoxColor.BLUE,
             brightness: Brightness.OFF,
             transition: TransitionType.INTERPOLATE,
             frequency: 8,
@@ -36,10 +36,10 @@ export default function (data: v3.Difficulty) {
     ];
 
     for (let repeat = 0, flip = false; repeat < 28; repeat += 4, flip = !flip) {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 4; i++) {
             data.addLightColorEventBoxGroups({
                 time: START_TIME + repeat + i * 0.25,
-                id: flip ? Group.PARTICLES_RIGHT - i : Group.PARTICLES_LEFT + i,
+                id: Group.MAIN_LASERS_BOTTOM_LEFT + i,
                 boxes: [
                     {
                         filter: { random: 2, seed: generateSeed() },
@@ -51,10 +51,10 @@ export default function (data: v3.Difficulty) {
             });
         }
     }
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
         data.addLightColorEventBoxGroups({
             time: START_TIME + 28 + i * 0.25,
-            id: Group.PARTICLES_RIGHT - i,
+            id: Group.MAIN_LASERS_BOTTOM_LEFT + i,
             boxes: [
                 {
                     filter: { random: 2, seed: generateSeed() },

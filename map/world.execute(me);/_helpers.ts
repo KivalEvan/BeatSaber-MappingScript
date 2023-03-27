@@ -1,7 +1,7 @@
 import { types, utils } from '../../depsLocal.ts';
 
 export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColorBaseAttribute>>(
-    obj: T[]
+    obj: T[],
 ): T[] {
     return utils.deepCopy(obj).map((o) => {
         o.color = o.color === 0 ? (o.color = 1) : o.color === 1 ? (o.color = 0) : o.color;
@@ -11,7 +11,7 @@ export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColo
 
 export function objectTimeScale<T extends Partial<types.wrapper.IWrapBaseObjectAttribute>>(
     obj: T[],
-    scale: number
+    scale: number,
 ): T[] {
     return utils.deepCopy(obj).map((o) => {
         if (o.time) {
@@ -23,7 +23,7 @@ export function objectTimeScale<T extends Partial<types.wrapper.IWrapBaseObjectA
 
 export function objectTimeShift<T extends Partial<types.wrapper.IWrapBaseObjectAttribute>>(
     obj: T[],
-    shift: number
+    shift: number,
 ): T[] {
     return utils.deepCopy(obj).map((o) => {
         if (typeof o.time === 'number') {
@@ -34,3 +34,13 @@ export function objectTimeShift<T extends Partial<types.wrapper.IWrapBaseObjectA
         return o;
     }) as T[];
 }
+
+let previousSeed: number;
+export function generateSeed(usePrevious?: boolean): number {
+    if (usePrevious) {
+        return previousSeed;
+    }
+    previousSeed = utils.pRandom(-727_727, 727_727, true);
+    return previousSeed;
+}
+generateSeed();

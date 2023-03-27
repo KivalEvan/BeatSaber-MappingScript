@@ -61,8 +61,8 @@ export default (d: v3.Difficulty) => {
                         let y = n.posY;
                         let distance = 0;
                         while (x >= 0 && x <= 3 && y >= 0 && y <= 2) {
-                            x += NoteDirectionSpace[n.direction][0];
-                            y += NoteDirectionSpace[n.direction][1];
+                            x += NoteDirectionSpace[n.direction as 0][0];
+                            y += NoteDirectionSpace[n.direction as 0][1];
                             distance++;
                         }
                         x = utils.clamp(x, 0, 3);
@@ -77,7 +77,7 @@ export default (d: v3.Difficulty) => {
                             tb: n.time + n.customData.color[2],
                             tx: x,
                             ty: y,
-                            tc: NoteDirectionFlip[n.direction] ?? 8,
+                            tc: NoteDirectionFlip[n.direction as 0] ?? 8,
                             tmu: 0,
                             m: 0,
                         });

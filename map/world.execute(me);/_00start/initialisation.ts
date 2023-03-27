@@ -31,7 +31,7 @@ import { START_TIME } from './_time.ts';
 export default function (data: v3.Difficulty) {
     data.addColorBoostEvents(
         { time: START_TIME + 21.5, toggle: true },
-        { time: START_TIME + 24, toggle: false }
+        { time: START_TIME + 24, toggle: false },
     );
     for (let repeat = 16; repeat <= 21; repeat++) {
         data.addLightColorEventBoxGroups({
@@ -77,7 +77,7 @@ export default function (data: v3.Difficulty) {
             type: 4,
             value: EventLightValue.WHITE_TRANSITION,
             floatValue: Brightness.OFF,
-        }
+        },
     );
     for (let repeat = 22; repeat <= 23.5; repeat += 0.5) {
         data.addBasicEvents(
@@ -92,7 +92,7 @@ export default function (data: v3.Difficulty) {
                 type: 4,
                 value: EventLightValue.WHITE_TRANSITION,
                 floatValue: Brightness.DIM,
-            }
+            },
         );
         data.addLightColorEventBoxGroups({
             time: START_TIME + repeat,
@@ -260,7 +260,7 @@ export default function (data: v3.Difficulty) {
                     affectFirst: 1,
                 },
             ],
-        }
+        },
     );
     data.addLightTranslationEventBoxGroups(
         {
@@ -526,6 +526,6 @@ export default function (data: v3.Difficulty) {
                     affectFirst: 1,
                 },
             ],
-        }
+        },
     );
 }

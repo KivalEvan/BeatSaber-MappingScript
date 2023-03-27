@@ -1,10 +1,9 @@
 import { globals, load, save } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
 
-globals.directory =
-    Deno.build.os === 'linux'
-        ? '/home/kival/CustomWIPLevels/Genryuu Kaiko/'
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Genryuu Kaiko';
+globals.directory = Deno.build.os === 'linux'
+    ? '/home/kival/CustomWIPLevels/Genryuu Kaiko/'
+    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Genryuu Kaiko';
 
 const info = load.infoSync();
 

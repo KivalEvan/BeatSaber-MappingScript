@@ -257,9 +257,9 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
             duplicate: 1,
             scale: [10, 0.0004, 10],
             rotation: [0, 0, 0],
+            components: { ILightWithId: { type: 0 } },
         },
         [0, 0, 0],
-        1,
     );
     const logo: types.v3.IChromaEnvironment[] = [];
     //F

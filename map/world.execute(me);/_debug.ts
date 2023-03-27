@@ -39,7 +39,7 @@ export function rotation(d: v3.Difficulty) {
     const skip = [0, 2];
     d.lightColorEventBoxGroups = [];
     for (let id = 0; id <= 12; id++) {
-        if (!skip.includes(id))
+        if (!skip.includes(id)) {
             d.addLightColorEventBoxGroups({
                 time: 0,
                 id,
@@ -47,17 +47,13 @@ export function rotation(d: v3.Difficulty) {
                     {
                         events: [
                             {
-                                color:
-                                    id < 4
-                                        ? EventBoxColor.RED
-                                        : id < 8
-                                        ? EventBoxColor.BLUE
-                                        : EventBoxColor.WHITE,
+                                color: id < 4 ? EventBoxColor.RED : id < 8 ? EventBoxColor.BLUE : EventBoxColor.WHITE,
                             },
                         ],
                     },
                 ],
             });
+        }
     }
 }
 
@@ -68,7 +64,7 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
         for (let j = i + 1; j < len; j++) {
             if (
                 bpm.toRealTime(d.lightColorEventBoxGroups[j].time) >
-                bpm.toRealTime(d.lightColorEventBoxGroups[i].time) + 1
+                    bpm.toRealTime(d.lightColorEventBoxGroups[i].time) + 1
             ) {
                 break;
             }
@@ -84,7 +80,7 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
         for (let j = i + 1; j < len; j++) {
             if (
                 bpm.toRealTime(d.lightRotationEventBoxGroups[j].time) >
-                bpm.toRealTime(d.lightRotationEventBoxGroups[i].time) + 1
+                    bpm.toRealTime(d.lightRotationEventBoxGroups[i].time) + 1
             ) {
                 break;
             }
@@ -99,13 +95,13 @@ export function stackedEvent(d: v3.Difficulty, bpm: BeatPerMinute) {
     if (lightColorAry.length) {
         logger.error(
             'Stacked Light Color Event Box Group',
-            lightColorAry.map((n) => [n.time, n.id])
+            lightColorAry.map((n) => [n.time, n.id]),
         );
     }
     if (lightRotationAry.length) {
         logger.error(
             'Stacked Light Rotation Event Box Group',
-            lightRotationAry.map((n) => [n.time, n.id])
+            lightRotationAry.map((n) => [n.time, n.id]),
         );
     }
 }

@@ -1,13 +1,6 @@
-import {
-    DistributionType,
-    EventBoxColor,
-    TransitionType,
-    types,
-    utils,
-    v3,
-} from '../../../depsLocal.ts';
+import { DistributionType, EventBoxColor, TransitionType, types, utils, v3 } from '../../../depsLocal.ts';
 import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_common.ts';
-import { objectTimeShift } from '../_helpers.ts';
+import { generateSeed, objectTimeShift } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
 export default function (data: v3.Difficulty) {
@@ -43,17 +36,13 @@ export default function (data: v3.Difficulty) {
             id: Group.TOP_SPOTLIGHTS,
             boxes: [
                 {
-                    filter: FILTER_HALF_1_STEP.clone()
-                        .setRandom(2)
-                        .setSeed(utils.pRandom(999999, true)),
+                    filter: FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed()),
                     beatDistribution: 2,
                     beatDistributionType: DistributionType.STEP,
                     events: light,
                 },
                 {
-                    filter: FILTER_HALF_2_STEP.clone()
-                        .setRandom(2)
-                        .setSeed(utils.pRandom(999999, true)),
+                    filter: FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed()),
                     beatDistribution: 2,
                     beatDistributionType: DistributionType.STEP,
                     events: objectTimeShift(utils.deepCopy(light), 1),
@@ -66,23 +55,15 @@ export default function (data: v3.Difficulty) {
             boxes: [
                 {
                     filter: flip
-                        ? FILTER_HALF_1_STEP.clone()
-                              .setRandom(2)
-                              .setSeed(utils.pRandom(999999, true))
-                        : FILTER_HALF_2_STEP.clone()
-                              .setRandom(2)
-                              .setSeed(utils.pRandom(999999, true)),
+                        ? FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed())
+                        : FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed()),
                     events: [{ rotation: 15 }, { time: 7.5, rotation: 20 }],
                     rotationDistribution: 15,
                 },
                 {
                     filter: flip
-                        ? FILTER_HALF_2_STEP.clone()
-                              .setRandom(2)
-                              .setSeed(utils.pRandom(999999, true))
-                        : FILTER_HALF_1_STEP.clone()
-                              .setRandom(2)
-                              .setSeed(utils.pRandom(999999, true)),
+                        ? FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed())
+                        : FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed()),
                     events: [{ rotation: 15 }, { time: 7.5, rotation: 20 }],
                     rotationDistribution: 15,
                     flip: 1,
@@ -113,7 +94,7 @@ export default function (data: v3.Difficulty) {
                 id: Group.TOP_SPOTLIGHTS,
                 boxes: [
                     {
-                        filter: { random: 2, seed: utils.pRandom(999999, true) },
+                        filter: { random: 2, seed: generateSeed() },
                         beatDistribution: 0.5,
                         events: [
                             {
@@ -125,7 +106,7 @@ export default function (data: v3.Difficulty) {
                         ],
                     },
                 ],
-            }
+            },
         );
     }
 }

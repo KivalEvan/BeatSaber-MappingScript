@@ -12,7 +12,7 @@ export default function (data: v3.Difficulty) {
         },
         {
             time: 0.5,
-            color: EventBoxColor.WHITE,
+            color: EventBoxColor.RED,
             brightness: Brightness.EXTRA,
             transition: TransitionType.INTERPOLATE,
             frequency: 12,
