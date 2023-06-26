@@ -1,1 +1,1 @@
-export * from './environment.ts';
+export * from './main.ts';

@@ -16,24 +16,24 @@ import verse1 from './verse1.ts';
 import verse2 from './verse2.ts';
 
 export default (d: v3.Difficulty, bpm: BeatPerMinute) => {
-    start(d);
-    kadosh(d);
-    intro(d);
-    verse1(d);
-    verse2(d);
-    build(d);
-    chorus1(d);
-    chorus2(d);
-    bridge(d);
-    final1(d);
-    final2(d);
-    downbeat(d);
-    transition(d);
-    misc(d);
+   start(d);
+   kadosh(d);
+   intro(d);
+   verse1(d);
+   verse2(d);
+   build(d);
+   chorus1(d);
+   chorus2(d);
+   bridge(d);
+   final1(d);
+   final2(d);
+   downbeat(d);
+   transition(d);
+   misc(d);
 
-    debug.fixRot(d);
-    // debug.rotation(d);
-    debug.stackedEvent(d, bpm);
+   debug.fixRot(d);
+   // debug.rotation(d);
+   debug.stackedEvent(d, bpm);
 
-    // d.colorBoostEvents = [];
+   // d.colorBoostEvents = [];
 };

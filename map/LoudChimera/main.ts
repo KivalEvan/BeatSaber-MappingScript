@@ -16,29 +16,31 @@ import { color } from './color.ts';
 import { BeatPerMinute, logger, NoteJumpSpeed, save, v3 } from '../../depsLocal.ts';
 
 export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
-    logger.info('Processing ' + data.fileName);
+   logger.info('Processing ' + data.filename);
 
-    preset(data);
+   preset(data);
 
-    njsVibe(data, BPM, NJS);
-    color(data, BPM, NJS);
-    misc(data, BPM, NJS);
-    text(data, BPM, NJS);
+   njsVibe(data, BPM, NJS);
+   color(data, BPM, NJS);
+   misc(data, BPM, NJS);
+   text(data, BPM, NJS);
 
-    intro(data, BPM, NJS);
-    slow(data, BPM, NJS);
-    build1(data, BPM, NJS);
-    build2(data, BPM, NJS);
-    drop1(data, BPM, NJS);
-    drop2(data, BPM, NJS);
-    outro(data, BPM, NJS);
-    // sus(data, BPM, NJS);
-    // data.burstSliders = [];
+   intro(data, BPM, NJS);
+   slow(data, BPM, NJS);
+   build1(data, BPM, NJS);
+   build2(data, BPM, NJS);
+   drop1(data, BPM, NJS);
+   drop2(data, BPM, NJS);
+   outro(data, BPM, NJS);
+   // sus(data, BPM, NJS);
+   // data.chains = [];
 
-    const lightData = lightshow();
-    data.basicEvents = data.basicEvents.concat(lightData.basicEvents);
-    data.customData.environment = data.customData.environment?.concat(lightData.customData.environment!);
+   const lightData = lightshow();
+   data.basicEvents = data.basicEvents.concat(lightData.basicEvents);
+   // data.customData.environment = data.customData.environment?.concat(
+   //     lightData.customData.environment!,
+   // );
 
-    postProcess(data);
-    save.difficultySync(data);
+   postProcess(data);
+   save.difficultySync(data);
 }

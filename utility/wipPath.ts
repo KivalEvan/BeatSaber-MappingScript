@@ -1,6 +1,8 @@
-export default function (name: string) {
-    return Deno.build.os === 'linux'
-        ? '/mnt/plextor/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/' +
+export default function (name: string, other?: boolean) {
+   return Deno.build.os === 'linux'
+      ? other
+         ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/'
+         : '/mnt/plextor/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/' +
             name
-        : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/' + name;
+      : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/' + name;
 }

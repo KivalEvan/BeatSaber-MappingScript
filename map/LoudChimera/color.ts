@@ -4,9 +4,9 @@ const { NE } = ext;
 const { between } = ext.selector;
 
 export function color(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
-    if (!data.fileName.includes('OneSaber')) {
-        logger.info('Not One Saber, skipping color');
-        return;
-    }
-    logger.info('Run Color');
+   if (!data.filename.includes('OneSaber')) {
+      logger.info('Not One Saber, skipping color');
+      return;
+   }
+   logger.info('Run Color');
 }

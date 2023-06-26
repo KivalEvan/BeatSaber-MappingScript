@@ -1,20 +1,15 @@
 {
-    "lint": {
-        "files": {
-            "exclude": ["chromapper"]
-        }
-    },
-    "fmt": {
-        "files": {
-            "exclude": ["chromapper"]
-        },
-        "options": {
-            "indentWidth": 4,
-            "lineWidth": 120,
-            "singleQuote": true
-        }
-    },
-    "tasks": {
-        "environment": "deno run -A ./environment-enhancement/main.ts"
-    }
+   "lock": false,
+   "lint": {
+      "exclude": ["chromapper"]
+   },
+   "fmt": {
+      "exclude": ["chromapper"],
+      "indentWidth": 3,
+      "lineWidth": 100,
+      "singleQuote": true
+   },
+   "tasks": {
+      "environment": "deno run -A ./environment-enhancement/main.ts"
+   }
 }

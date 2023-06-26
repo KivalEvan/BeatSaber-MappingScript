@@ -7,10 +7,10 @@ import _drum from './_drum.ts';
 import _ambient from './_ambient.ts';
 
 export default function (data: v3.Difficulty) {
-    _drum(data);
-    _ambient(data);
-    protection(data);
-    objectCreation(data);
-    initialisation(data);
-    simulation(data);
+   _drum(data);
+   _ambient(data);
+   protection(data);
+   objectCreation(data);
+   initialisation(data);
+   simulation(data);
 }

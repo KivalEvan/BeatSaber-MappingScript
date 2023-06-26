@@ -6,8 +6,9 @@ Script to deal with environment enhancement.
 
 **For Players:** Drop `<ENVIRONMENT>.dat` into `<PATH_TO_BEAT_SABER>/UserData/Chroma/Environments/`.
 
-**For Mappers:** Environment is designed for beatmap V3 as it uses Chroma component, copy the `environment` inside
-`<ENVIRONMENT>.dat` and place it into `customData`. Copy `materials` if it exist too.
+**For Mappers:** Environment is designed for beatmap V3 as it uses Chroma component, copy the
+`environment` inside `<ENVIRONMENT>.dat` and place it into `customData`. Copy `materials` if it
+exist too.
 
 ## Gallery
 
