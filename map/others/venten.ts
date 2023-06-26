@@ -139,25 +139,23 @@ for (const fi of flashIt) {
 }
 
 const info = load.infoSync();
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
-      const difficulty = load.difficultySync(d.filename, 2);
+for (const [_, d] of info.listMap()) {
+   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
+   const difficulty = load.difficultySync(d.filename, 2);
 
-      difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
-      difficulty.basicEvents = lightshow.basicEvents;
+   difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
+   difficulty.basicEvents = lightshow.basicEvents;
 
-      save.difficultySync(difficulty);
-      delete d.customData._requirements;
-      delete d.customData._suggestions;
-      d.customData._colorLeft = { r: 0.8125, g: 0.5, b: 0.125 };
-      d.customData._colorRight = { r: 0.5, g: 0.125, b: 0.8125 };
-      d.customData._envColorLeft = { r: 0.625, g: 0.4375, b: 0.03125 };
-      d.customData._envColorRight = { r: 0.03125, g: 0.5625, b: 0.40625 };
-      d.customData._envColorLeftBoost = { r: 0.75, g: 0.03125, b: 0.28125 };
-      d.customData._envColorRightBoost = { r: 0.15625, g: 0.4375, b: 0.75 };
-      d.customData._obstacleColor = { r: 0.125, g: 0.25, b: 0.4375 };
-   }
+   save.difficultySync(difficulty);
+   delete d.customData._requirements;
+   delete d.customData._suggestions;
+   d.customData._colorLeft = { r: 0.8125, g: 0.5, b: 0.125 };
+   d.customData._colorRight = { r: 0.5, g: 0.125, b: 0.8125 };
+   d.customData._envColorLeft = { r: 0.625, g: 0.4375, b: 0.03125 };
+   d.customData._envColorRight = { r: 0.03125, g: 0.5625, b: 0.40625 };
+   d.customData._envColorLeftBoost = { r: 0.75, g: 0.03125, b: 0.28125 };
+   d.customData._envColorRightBoost = { r: 0.15625, g: 0.4375, b: 0.75 };
+   d.customData._obstacleColor = { r: 0.125, g: 0.25, b: 0.4375 };
 }
 
 save.infoSync(info);

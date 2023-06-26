@@ -18,41 +18,40 @@ info.customData!._contributors = [
       _iconPath: 'iconKivalEvan.png',
    },
 ];
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      d.customData._information = [
-         'Sariel',
-         'Now, Until the Moment You Die',
-         'Civilization of Magic',
-         '1st track of album S.A.R.I.E.L. -Request Song Jukebox Vol.01-',
-      ];
-      d.customData = {
-         ...d.customData,
-         _envColorLeft: {
-            r: 0.875,
-            g: 0.125,
-            b: 0.1875,
-         },
-         _envColorRight: {
-            r: 0.1875,
-            g: 0.6875,
-            b: 1,
-         },
-         _envColorLeftBoost: {
-            r: 0.875,
-            g: 0,
-            b: 0.1875,
-         },
-         _envColorRightBoost: {
-            r: 0.4375,
-            g: 0,
-            b: 0.8125,
-         },
-      };
-      delete d.customData._requirements;
-      delete d.customData._suggestions;
-   }
+for (const [_, d] of info.listMap()) {
+   d.customData._information = [
+      'Sariel',
+      'Now, Until the Moment You Die',
+      'Civilization of Magic',
+      '1st track of album S.A.R.I.E.L. -Request Song Jukebox Vol.01-',
+   ];
+   d.customData = {
+      ...d.customData,
+      _envColorLeft: {
+         r: 0.875,
+         g: 0.125,
+         b: 0.1875,
+      },
+      _envColorRight: {
+         r: 0.1875,
+         g: 0.6875,
+         b: 1,
+      },
+      _envColorLeftBoost: {
+         r: 0.875,
+         g: 0,
+         b: 0.1875,
+      },
+      _envColorRightBoost: {
+         r: 0.4375,
+         g: 0,
+         b: 0.8125,
+      },
+   };
+   delete d.customData._requirements;
+   delete d.customData._suggestions;
 }
+
 const bpm = BeatPerMinute.create(info.beatsPerMinute);
 
 const lightshow = v3.Difficulty.create();

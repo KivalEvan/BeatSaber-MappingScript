@@ -19,27 +19,25 @@ info.customData._contributors = [
    },
 ];
 
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      d.customData._information = [
-         'Yuuka Kazami',
-         'Gensokyo, Past and Present ~ Flower Land',
-         '6th track of album Parallel Cross',
-         'Illustration by Yuuki Shironeko',
-      ];
-      if (d.difficulty === 'Expert') {
-         d.customData._information.splice(1, 0, 'Flower Sign "Blossoming of Gensokyo"');
-      }
-      if (d.difficulty === 'ExpertPlus') {
-         if (d.characteristic === 'Standard') {
-            d.customData._information.splice(1, 0, 'Fantasy "The Beauties of Nature"');
-         } else {
-            d.customData._information.splice(1, 0, '"Fantastic Spring Flowers"');
-         }
-      }
-      delete d.customData._requirements;
-      delete d.customData._suggestions;
+for (const [_, d] of info.listMap()) {
+   d.customData._information = [
+      'Yuuka Kazami',
+      'Gensokyo, Past and Present ~ Flower Land',
+      '6th track of album Parallel Cross',
+      'Illustration by Yuuki Shironeko',
+   ];
+   if (d.difficulty === 'Expert') {
+      d.customData._information.splice(1, 0, 'Flower Sign "Blossoming of Gensokyo"');
    }
+   if (d.difficulty === 'ExpertPlus') {
+      if (d.characteristic === 'Standard') {
+         d.customData._information.splice(1, 0, 'Fantasy "The Beauties of Nature"');
+      } else {
+         d.customData._information.splice(1, 0, '"Fantastic Spring Flowers"');
+      }
+   }
+   delete d.customData._requirements;
+   delete d.customData._suggestions;
 }
 
 const difficultyList = load.difficultyFromInfoSync(info);

@@ -1,5 +1,5 @@
 import { convert, ext, globals, load, save, types, utils, v2 } from '../../depsLocal.ts';
-import { generateEnvironment } from '../../environment-enhancement/lotus/environment.ts';
+import { generateEnvironment } from '../../environment-enhancement/lotus/mod.ts';
 // import { sword } from './sword.ts';
 
 globals.directory =
@@ -232,40 +232,38 @@ where(between(lightshow.basicEvents, 966, 974), { include: { type: [1, 4] } }).f
 );
 
 const info = load.infoSync();
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      delete d.customData._requirements;
-      d.customData._suggestions = ['Chroma'];
-      if (d.characteristic == 'OneSaber') continue;
-      console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
-      const difficulty = load.difficultySync(d.filename, 2);
+for (const [_, d] of info.listMap()) {
+   delete d.customData._requirements;
+   d.customData._suggestions = ['Chroma'];
+   if (d.characteristic == 'OneSaber') continue;
+   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
+   const difficulty = load.difficultySync(d.filename, 2);
 
-      difficulty.customData._environment = lightshow.customData!._environment;
-      difficulty.customData._customEvents = lightshow.customData!._customEvents;
-      const bookmarks = difficulty.customData._bookmarks;
-      if (bookmarks) {
-         for (const b of bookmarks) {
-            if (b._time < 262) {
-               b._color = utils.interpolateColor(
-                  [185, 0, 0.375],
-                  [175, 0.25, 0.5],
-                  utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
-                  'hsva',
-               );
-               continue;
-            }
+   difficulty.customData._environment = lightshow.customData!._environment;
+   difficulty.customData._customEvents = lightshow.customData!._customEvents;
+   const bookmarks = difficulty.customData._bookmarks;
+   if (bookmarks) {
+      for (const b of bookmarks) {
+         if (b._time < 262) {
             b._color = utils.interpolateColor(
-               [30, 1, 1],
-               [390, 1, 1],
-               utils.normalize(b._time, 262, bookmarks.at(-1)!._time),
+               [185, 0, 0.375],
+               [175, 0.25, 0.5],
+               utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
                'hsva',
             );
+            continue;
          }
+         b._color = utils.interpolateColor(
+            [30, 1, 1],
+            [390, 1, 1],
+            utils.normalize(b._time, 262, bookmarks.at(-1)!._time),
+            'hsva',
+         );
       }
-      difficulty.basicEvents = lightshow.basicEvents;
-
-      save.difficultySync(difficulty);
    }
+   difficulty.basicEvents = lightshow.basicEvents;
+
+   save.difficultySync(difficulty);
 }
 
 save.infoSync(info);

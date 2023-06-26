@@ -36,12 +36,10 @@ NJS.value = 16;
 NJS.offset = -1.25;
 main(load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'), BPM, NJS);
 
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      d.customData._requirements = ['Noodle Extensions'];
-      d.customData._suggestions = ['Chroma'];
-      d.customData = { ...d.customData, ...ColorScheme.Weave };
-   }
+for (const [_, d] of info.listMap()) {
+   d.customData._requirements = ['Noodle Extensions'];
+   d.customData._suggestions = ['Chroma'];
+   d.customData = { ...d.customData, ...ColorScheme.Weave };
 }
 
 save.infoSync(info);

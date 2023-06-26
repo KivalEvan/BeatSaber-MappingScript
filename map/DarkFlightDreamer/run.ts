@@ -209,28 +209,26 @@ between(where(lightshow.basicEvents, { include: { type: 4 } }), 468, 468.999).fo
 
 const info = load.infoSync();
 info.environmentName = 'NiceEnvironment';
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
-      const difficulty = load.difficultySync(d.filename, 2);
+for (const [_, d] of info.listMap()) {
+   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
+   const difficulty = load.difficultySync(d.filename, 2);
 
-      difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
-      difficulty.customData._environment = lightshow.customData!._environment;
-      difficulty.basicEvents = lightshow.basicEvents;
+   difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
+   difficulty.customData._environment = lightshow.customData!._environment;
+   difficulty.basicEvents = lightshow.basicEvents;
 
-      save.difficultySync(difficulty);
-      delete d.customData._requirements;
-      d.customData._suggestions = ['Chroma'];
-      d.customData._envColorLeft = { r: 0.8125, g: 0.0625, b: 0.1875 };
-      d.customData._envColorRight = { r: 0.6875, g: 0.03125, b: 0.6875 };
-      d.customData._envColorLeftBoost = {
-         r: 0.8125,
-         g: 0.53125,
-         b: 0.03125,
-      };
-      d.customData._envColorRightBoost = { r: 0.0625, g: 0.25, b: 0.75 };
-      d.customData._obstacleColor = { r: 0.25, g: 0.125, b: 0.5 };
-   }
+   save.difficultySync(difficulty);
+   delete d.customData._requirements;
+   d.customData._suggestions = ['Chroma'];
+   d.customData._envColorLeft = { r: 0.8125, g: 0.0625, b: 0.1875 };
+   d.customData._envColorRight = { r: 0.6875, g: 0.03125, b: 0.6875 };
+   d.customData._envColorLeftBoost = {
+      r: 0.8125,
+      g: 0.53125,
+      b: 0.03125,
+   };
+   d.customData._envColorRightBoost = { r: 0.0625, g: 0.25, b: 0.75 };
+   d.customData._obstacleColor = { r: 0.25, g: 0.125, b: 0.5 };
 }
 
 save.infoSync(info);

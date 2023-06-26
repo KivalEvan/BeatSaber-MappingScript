@@ -25,31 +25,29 @@ lightshow.basicEvents.forEach((e) => {
 
 const info = load.infoSync();
 
-for (const beatmaps of Object.values(info.difficultySets)) {
-   for (const d of beatmaps) {
-      if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
-         continue;
-      }
-
-      console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
-      const difficulty = load.difficultySync(d.filename, 2);
-
-      const bookmarks = difficulty.customData._bookmarks;
-      if (bookmarks) {
-         for (const b of bookmarks) {
-            b._color = utils.interpolateColor(
-               [210, 1, 1],
-               [135, 1, 1],
-               utils.normalize(b._time, 0, bookmarks.at(-1)!._time),
-               'hsva',
-            );
-         }
-      }
-
-      difficulty.basicEvents = lightshow.basicEvents;
-
-      save.difficultySync(difficulty);
+for (const [_, d] of info.listMap()) {
+   if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
+      continue;
    }
+
+   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
+   const difficulty = load.difficultySync(d.filename, 2);
+
+   const bookmarks = difficulty.customData._bookmarks;
+   if (bookmarks) {
+      for (const b of bookmarks) {
+         b._color = utils.interpolateColor(
+            [210, 1, 1],
+            [135, 1, 1],
+            utils.normalize(b._time, 0, bookmarks.at(-1)!._time),
+            'hsva',
+         );
+      }
+   }
+
+   difficulty.basicEvents = lightshow.basicEvents;
+
+   save.difficultySync(difficulty);
 }
 
 save.infoSync(info);

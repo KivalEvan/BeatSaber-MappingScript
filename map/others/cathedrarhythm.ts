@@ -57,10 +57,9 @@ save.difficultySync(d3, {
 });
 
 const info = load.infoSync();
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      delete d.customData._requirements;
-      d.customData._suggestions = ['Chroma'];
-   }
+for (const [_, d] of info.listMap()) {
+   delete d.customData._requirements;
+   d.customData._suggestions = ['Chroma'];
 }
+
 save.infoSync(info);

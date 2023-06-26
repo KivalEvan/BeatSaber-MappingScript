@@ -9,10 +9,8 @@ const INPUT_FILE = 'ExpertPlusStandard.dat';
 const OUTPUT_FILE = INPUT_FILE;
 
 const info = bsmap.load.infoSync();
-for (const difficulties of Object.values(info.difficultySets)) {
-   for (const d of difficulties) {
-      delete d.customData?._requirements;
-   }
+for (const [_, d] of info.listMap()) {
+   delete d.customData?._requirements;
 }
 
 const difficulty = bsmap.load.difficultySync(INPUT_FILE, 2);
