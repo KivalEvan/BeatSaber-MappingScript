@@ -1,10 +1,9 @@
 import { ext, globals, load, save, utils } from '../../depsLocal.ts';
+import wipPath from '../../utility/wipPath.ts';
 
 console.log('Running script...');
 console.time('Runtime');
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/Reverse Rebirth Trigger/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Reverse Rebirth Trigger';
+globals.directory = wipPath('Reverse Rebirth Trigger');
 
 const lightshow = load.difficultySync('Lightshow.dat', 2);
 
@@ -20,12 +19,8 @@ if (bookmarks) {
       b._color = utils.interpolateColor(
          [199, 0.33, 0.56],
          [360, 0.75, 0.75],
-         utils.normalize(
-            b._time,
-            bookmarks.at(0)!._time,
-            bookmarks.at(-1)!._time,
-         ),
-         'hsva',
+         utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
+         'hsva'
       );
    }
 }
@@ -63,7 +58,7 @@ _environment.push(
       _lookupMethod: 'Regex',
       _position: [-15, -13, 0],
       _rotation: [0, 0, 135],
-   },
+   }
 );
 save.difficultySync(data);
 

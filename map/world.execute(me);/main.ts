@@ -9,36 +9,30 @@ import {
    v2,
    v3,
 } from '../../depsLocal.ts';
+import wipPath from '../../utility/wipPath.ts';
 import light from './light.ts';
 
 console.log('Running script...');
 console.time('Runtime');
 utils.pRandomSeed('EXECUTION');
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/world.execute(me);/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/world.execute(me);';
+globals.directory = wipPath('world.execute(me);', true);
 
-const info = load.infoSync();
-info._environmentName = 'Dragons2Environment';
-info._customData ??= {};
-info._customData._contributors = [
+const info = load.infoSync(2);
+info.environmentName = 'Dragons2Environment';
+info.customData._contributors = [
    {
       _role: 'Mapper',
       _name: 'Kival Evan',
       _iconPath: 'iconKivalEvan.png',
    },
 ];
-for (const set of info._difficultyBeatmapSets) {
-   for (const d of set._difficultyBeatmaps) {
-      if (d._customData) {
-         d._customData._information = [];
-         delete d._customData._requirements;
-         delete d._customData._suggestions;
-      }
-   }
+for (const [_, d] of info.listMap()) {
+   d.customData._information = [];
+   delete d.customData._requirements;
+   delete d.customData._suggestions;
 }
-const bpm = BeatPerMinute.create(info._beatsPerMinute);
+const bpm = BeatPerMinute.create(info.beatsPerMinute);
 
 const lightshow = v3.Difficulty.create();
 light(lightshow, bpm);
@@ -47,7 +41,7 @@ const difficultyList = load.difficultyFromInfoSync(info);
 
 difficultyList.forEach((d) => {
    if (!isV3(d.data)) {
-      d.data = convert.V2toV3(d.data as v2.Difficulty, true);
+      d.data = convert.toV3(d.data as v2.Difficulty);
    }
 
    d.data.basicEvents = lightshow.basicEvents;

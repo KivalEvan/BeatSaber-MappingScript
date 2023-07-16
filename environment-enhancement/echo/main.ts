@@ -1,83 +1,24 @@
 import { logger, types, utils, v3 } from '../../depsLocal.ts';
+import { environmentSave } from '../helpers.ts';
+
+const info: types.external.IEnvironmentJSON = {
+   version: '1.0.0',
+   name: 'ECHO',
+   author: 'Kival Evan',
+   environmentVersion: '1.0.0',
+   environmentName: 'KDAEnvironment',
+   description: 'Vanilla-compatible but not recommended.',
+   features: {},
+   environment: [],
+   materials: {},
+};
 
 export const backtopOrder = [1, 3, 5, 6, 4, 2];
 export const roadOrder: number[] = [
-   24,
-   21,
-   39,
-   44,
-   65,
-   48,
-   76,
-   42,
-   30,
-   28,
-   36,
-   53,
-   60,
-   45,
-   17,
-   34,
-   43,
-   41,
-   23,
-   15,
-   49,
-   37,
-   26,
-   47,
-   68,
-   66,
-   40,
-   77,
-   19,
-   62,
-   50,
-   67,
-   64,
-   46,
-   74,
-   71,
-   78,
-   69,
-   57,
-   72,
-   29,
-   54,
-   56,
-   75,
-   33,
-   63,
-   70,
-   55,
-   73,
-   79,
-   51,
-   38,
-   59,
-   16,
-   31,
-   32,
-   52,
-   61,
-   58,
-   80,
-   35,
-   27,
-   7,
-   6,
-   22,
-   14,
-   12,
-   9,
-   8,
-   5,
-   25,
-   18,
-   11,
-   10,
-   13,
-   20,
+   24, 21, 39, 44, 65, 48, 76, 42, 30, 28, 36, 53, 60, 45, 17, 34, 43, 41, 23, 15, 49, 37, 26, 47,
+   68, 66, 40, 77, 19, 62, 50, 67, 64, 46, 74, 71, 78, 69, 57, 72, 29, 54, 56, 75, 33, 63, 70, 55,
+   73, 79, 51, 38, 59, 16, 31, 32, 52, 61, 58, 80, 35, 27, 7, 6, 22, 14, 12, 9, 8, 5, 25, 18, 11,
+   10, 13, 20,
 ];
 const screenX = 32;
 const screenY = 18;
@@ -106,9 +47,7 @@ export const centerOrder = [
    screenEndID + 4,
 ];
 
-export function generateEnvironment(
-   drawScreen = false,
-): types.v3.IChromaEnvironment[] {
+export function generateEnvironment(drawScreen = false): types.v3.IChromaEnvironment[] {
    const pRandom = utils.pRandomFn('ECHO');
    const environment: types.v3.IChromaEnvironment[] = [];
 
@@ -158,7 +97,7 @@ export function generateEnvironment(
          lookupMethod: 'Regex',
          position: [-7.5, -1.25, 36],
          scale: [1.69, 1.69, 1],
-      },
+      }
    );
 
    const screenLight: { [key: number]: number } = {};
@@ -169,10 +108,10 @@ export function generateEnvironment(
    if (drawScreen) {
       for (let y = 0; y < screenY; y++) {
          for (let x = 0; x < screenX; x++) {
-            const posX = screenXOffset + -(((screenX - 1) / 2) * screenSize) +
-               x * (screenSize + screenGap);
-            const posY = screenYOffset + -((screenY / 2) * screenSize) -
-               y * (screenSize + screenGap);
+            const posX =
+               screenXOffset + -(((screenX - 1) / 2) * screenSize) + x * (screenSize + screenGap);
+            const posY =
+               screenYOffset + -((screenY / 2) * screenSize) - y * (screenSize + screenGap);
             const posZ = 32 - Math.tan(345 * (Math.PI / 180)) * screenSize * y;
             environment.push({
                id: regexGlowLine,
@@ -240,7 +179,7 @@ export function generateEnvironment(
             id: id.replace('$', '\\.\\[\\d+\\]BaseR\\.\\[\\d+\\]Laser$'),
             lookupMethod: 'Regex',
             rotation: [60 + i * 4, 135 + i * 5, 0],
-         },
+         }
       );
    }
    for (let i = 0; i < 6; i++) {
@@ -431,7 +370,7 @@ export function generateEnvironment(
          position: [24, 2, 50],
          rotation: [0, 210, 45],
          components: { ILightWithId: { type: 0, lightID: ++idOffsetType0 } },
-      },
+      }
    );
 
    // v3 patch for old v2 pos
@@ -456,21 +395,5 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 if (import.meta.main) {
-   Deno.writeTextFileSync(
-      import.meta.url.replace('file://', '').replace(
-         'environment.ts',
-         './ECHO.dat',
-      ),
-      JSON.stringify({
-         version: '1.0.0',
-         name: 'ECHO',
-         author: 'Kival Evan',
-         environmentVersion: '1.0.0',
-         environmentName: 'KDAEnvironment',
-         description: 'Vanilla-compatible but not recommended.',
-         features: {},
-         environment: generateEnvironment(),
-      } as types.external.IEnvironmentJSON),
-   );
-   console.log('Written ECHO environment JSON');
+   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
 }

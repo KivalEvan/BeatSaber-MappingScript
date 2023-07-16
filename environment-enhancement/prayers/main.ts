@@ -1,4 +1,18 @@
 import { logger, types, v3 } from '../../depsLocal.ts';
+import { environmentSave } from '../helpers.ts';
+
+const info: types.external.IEnvironmentJSON = {
+   version: '1.0.0',
+   name: 'Prayers',
+   author: 'Kival Evan',
+   environmentVersion: '1.0.0',
+   environmentName: 'BigMirrorEnvironment',
+   description:
+      'Original by Halcyon12, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
+   features: {},
+   environment: [],
+   materials: {},
+};
 
 export const roadCount = 5;
 export const roadRepeat = 2;
@@ -16,8 +30,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    // regex for environment enhancement
    const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-   const regexBigRingLights =
-      `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+   const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
    const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser`;
    const regexFrontLights = `\\[\\d+\\]FrontLights$`;
    const regexSmoke = `\\[\\d+\\]BigSmokePS$`;
@@ -164,7 +177,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
             ILightWithId: { type: 4 },
          },
-      },
+      }
    );
    //#endregion
    //#region extra thicc ring
@@ -359,7 +372,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: roadOuterBlockScale,
             position: posAddZ(roadOuterBlockPos, i * roadGap),
             rotation: [0, 0, -20],
-         },
+         }
       );
    }
    //#endregion
@@ -370,9 +383,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       environment.push(
          {
             geometry: { type: 'Cube', material: 'PrayersTransparentLight' },
-            position: posMirrorX(
-               posAddX(posAddZ(backTopFarPosNear, i * 2), i * 1),
-            ),
+            position: posMirrorX(posAddX(posAddZ(backTopFarPosNear, i * 2), i * 1)),
             scale: backTopFarScale,
             components: {
                TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
@@ -387,7 +398,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
                ILightWithId: { type: 0 },
             },
-         },
+         }
       );
    }
    //#endregion
@@ -411,23 +422,8 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 if (import.meta.main) {
-   Deno.writeTextFileSync(
-      import.meta.url.replace('file://', '').replace(
-         'environment.ts',
-         './Prayers.dat',
-      ),
-      JSON.stringify({
-         version: '1.0.0',
-         name: 'Prayers',
-         author: 'Kival Evan',
-         environmentVersion: '1.0.0',
-         environmentName: 'BigMirrorEnvironment',
-         description:
-            'Original by Halcyon12, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
-         features: {},
-         environment: generateEnvironment(),
-         materials: generateMaterial(),
-      } as types.external.IEnvironmentJSON),
+   environmentSave(
+      { ...info, environment: generateEnvironment(), materials: generateMaterial() },
+      import.meta.url
    );
-   console.log('Written Prayers environment JSON');
 }

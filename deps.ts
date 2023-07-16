@@ -1,3 +1,4 @@
-export * from 'https://deno.land/x/bsmap@1.4.0/mod.ts';
-export * as ext from 'https://deno.land/x/bsmap@1.4.0/extensions/mod.ts';
-export * as patch from 'https://deno.land/x/bsmap@1.4.0/patch/mod.ts';
+export { dirname, resolve } from 'https://deno.land/std@0.193.0/path/mod.ts';
+export * from 'https://deno.land/x/bsmap@1.4.1/mod.ts';
+export * as ext from 'https://deno.land/x/bsmap@1.4.1/extensions/mod.ts';
+export * as patch from 'https://deno.land/x/bsmap@1.4.1/patch/mod.ts';

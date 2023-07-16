@@ -1,4 +1,18 @@
 import { logger, types, v3 } from '../../depsLocal.ts';
+import { environmentSave } from '../helpers.ts';
+
+const info: types.external.IEnvironmentJSON = {
+   version: '1.0.0',
+   name: 'Vapor Frame',
+   author: 'Kival Evan',
+   environmentVersion: '1.0.0',
+   environmentName: 'BigMirrorEnvironment',
+   description:
+      'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
+   features: {},
+   environment: [],
+   materials: {},
+};
 
 export const ringCount = 5;
 export const ringRepeat = 2;
@@ -19,8 +33,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const regexConstruction = `Environment\.\\[\\d+\\]Construction$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
    const regexNeonTubeDirectional = `\\[\\d+\\]NeonTubeDirectionalF(L|R)$`;
-   const regexBigRingLight =
-      `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+   const regexBigRingLight = `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
    const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
    const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
    const regexFrontLights = `\\[\\d+\\]FrontLights$`;
@@ -42,10 +55,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       arr[1] = -arr[1];
       return arr;
    };
-   const translatePos = (
-      posArr: types.Vector3,
-      translate = [0, 0, 0],
-   ): types.Vector3 => {
+   const translatePos = (posArr: types.Vector3, translate = [0, 0, 0]): types.Vector3 => {
       const arr: types.Vector3 = [...posArr];
       arr[0] += translate[0];
       arr[1] += translate[1];
@@ -83,7 +93,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          id: regexNeonTubeDirectional,
          lookupMethod: 'Regex',
          active: false,
-      },
+      }
    );
    //#endregion
    //#region extra thicc ring
@@ -95,23 +105,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    //#endregion
    //#region center light thingy
    const centerLightScale: types.Vector3 = [0.125, 0.125, 1000];
-   const rightCenterLightPos: types.Vector3 = scaleArray(
-      [11.5, 2, 0],
-      scaleSizeMult,
-   );
-   const topCenterLightPos: types.Vector3 = scaleArray(
-      [2, 11.5, 0],
-      scaleSizeMult,
-   );
+   const rightCenterLightPos: types.Vector3 = scaleArray([11.5, 2, 0], scaleSizeMult);
+   const topCenterLightPos: types.Vector3 = scaleArray([2, 11.5, 0], scaleSizeMult);
    const bigStuffScale: types.Vector3 = [0.25, 0.25, 1000];
-   const rightBigStuffPos: types.Vector3 = scaleArray(
-      [11.5, 0, 0],
-      scaleSizeMult,
-   );
-   const topBigStuffPos: types.Vector3 = scaleArray(
-      [0, 11.5, 0],
-      scaleSizeMult,
-   );
+   const rightBigStuffPos: types.Vector3 = scaleArray([11.5, 0, 0], scaleSizeMult);
+   const topBigStuffPos: types.Vector3 = scaleArray([0, 11.5, 0], scaleSizeMult);
    environment.push(
       {
          id: regexNeonTubeL,
@@ -138,10 +136,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       {
          geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
          scale: centerLightScale,
-         position: translatePos(
-            posMirrorX(posMirrorY(rightCenterLightPos)),
-            posOffset,
-         ),
+         position: translatePos(posMirrorX(posMirrorY(rightCenterLightPos)), posOffset),
          components: {
             TubeBloomPrePassLight: {
                bloomFogIntensityMultiplier: 0.25,
@@ -201,10 +196,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       {
          geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
          scale: centerLightScale,
-         position: translatePos(
-            posMirrorX(posMirrorY(topCenterLightPos)),
-            posOffset,
-         ),
+         position: translatePos(posMirrorX(posMirrorY(topCenterLightPos)), posOffset),
          components: {
             TubeBloomPrePassLight: {
                bloomFogIntensityMultiplier: 0.25,
@@ -224,7 +216,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             },
             ILightWithId: { type: 4 },
          },
-      },
+      }
    );
    environment.push(
       {
@@ -271,19 +263,15 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                bloomFogIntensityMultiplier: 0.5,
             },
          },
-      },
+      }
    );
    environment.push(
       {
          geometry: { type: 'Cube', material: { shader: 'Standard' } },
          scale: bigStuffScale,
          position: translatePos(
-            translatePos(posMirrorX(rightBigStuffPos), [
-               0,
-               2.21875 * scaleSizeMult,
-               0,
-            ]),
-            posOffset,
+            translatePos(posMirrorX(rightBigStuffPos), [0, 2.21875 * scaleSizeMult, 0]),
+            posOffset
          ),
       },
       {
@@ -295,14 +283,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          geometry: { type: 'Cube', material: { shader: 'Standard' } },
          scale: bigStuffScale,
          position: translatePos(
-            translatePos(posMirrorX(rightBigStuffPos), [
-               0,
-               -2.21875 * scaleSizeMult,
-               0,
-            ]),
-            posOffset,
+            translatePos(posMirrorX(rightBigStuffPos), [0, -2.21875 * scaleSizeMult, 0]),
+            posOffset
          ),
-      },
+      }
    );
    environment.push(
       {
@@ -310,7 +294,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(rightBigStuffPos, [0, 2.21875 * scaleSizeMult, 0]),
-            posOffset,
+            posOffset
          ),
       },
       {
@@ -323,9 +307,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(rightBigStuffPos, [0, -2.21875 * scaleSizeMult, 0]),
-            posOffset,
+            posOffset
          ),
-      },
+      }
    );
    environment.push(
       {
@@ -333,7 +317,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(topBigStuffPos, [2.21875 * scaleSizeMult, 0, 0]),
-            posOffset,
+            posOffset
          ),
       },
       {
@@ -346,21 +330,17 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(topBigStuffPos, [-2.21875 * scaleSizeMult, 0, 0]),
-            posOffset,
+            posOffset
          ),
-      },
+      }
    );
    environment.push(
       {
          geometry: { type: 'Cube', material: { shader: 'Standard' } },
          scale: bigStuffScale,
          position: translatePos(
-            translatePos(posMirrorY(topBigStuffPos), [
-               2.21875 * scaleSizeMult,
-               0,
-               0,
-            ]),
-            posOffset,
+            translatePos(posMirrorY(topBigStuffPos), [2.21875 * scaleSizeMult, 0, 0]),
+            posOffset
          ),
       },
       {
@@ -372,14 +352,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          geometry: { type: 'Cube', material: { shader: 'Standard' } },
          scale: bigStuffScale,
          position: translatePos(
-            translatePos(posMirrorY(topBigStuffPos), [
-               -2.21875 * scaleSizeMult,
-               0,
-               0,
-            ]),
-            posOffset,
+            translatePos(posMirrorY(topBigStuffPos), [-2.21875 * scaleSizeMult, 0, 0]),
+            posOffset
          ),
-      },
+      }
    );
    //#endregion
    //#region static ring
@@ -392,10 +368,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
             scale: ringScale,
-            position: translatePos(
-               posAddZ(posMirrorX(ringPos), i * ringGap),
-               posOffset,
-            ),
+            position: translatePos(posAddZ(posMirrorX(ringPos), i * ringGap), posOffset),
             rotation: [0, 0, -135],
             components: {
                TubeBloomPrePassLight: {
@@ -410,7 +383,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: ringScale,
             position: translatePos(
                posAddZ(posMirrorY(posMirrorX(ringPos)), i * ringGap),
-               posOffset,
+               posOffset
             ),
             rotation: [0, 0, -45],
             components: {
@@ -437,10 +410,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             geometry: { type: 'Cube', material: { shader: 'OpaqueLight' } },
             scale: ringScale,
-            position: translatePos(
-               posAddZ(posMirrorY(ringPos), i * ringGap),
-               posOffset,
-            ),
+            position: translatePos(posAddZ(posMirrorY(ringPos), i * ringGap), posOffset),
             rotation: [0, 0, 45],
             components: {
                TubeBloomPrePassLight: {
@@ -449,7 +419,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                },
                ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
             },
-         },
+         }
       );
    }
    for (let i = 0; i < ringCount * ringRepeat; i++) {
@@ -457,10 +427,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: outerRingScale,
-            position: translatePos(
-               posAddZ(posMirrorX(outerRingPos), i * ringGap),
-               posOffset,
-            ),
+            position: translatePos(posAddZ(posMirrorX(outerRingPos), i * ringGap), posOffset),
             rotation: [0, 0, 45],
          },
          {
@@ -468,45 +435,36 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: outerRingScale,
             position: translatePos(
                posAddZ(posMirrorY(posMirrorX(outerRingPos)), i * ringGap),
-               posOffset,
+               posOffset
             ),
             rotation: [0, 0, 135],
          },
          {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: outerRingScale,
-            position: translatePos(
-               posAddZ(outerRingPos, i * ringGap),
-               posOffset,
-            ),
+            position: translatePos(posAddZ(outerRingPos, i * ringGap), posOffset),
             rotation: [0, 0, -45],
          },
          {
             geometry: { type: 'Cube', material: { shader: 'Standard' } },
             scale: outerRingScale,
-            position: translatePos(
-               posAddZ(posMirrorY(outerRingPos), i * ringGap),
-               posOffset,
-            ),
+            position: translatePos(posAddZ(posMirrorY(outerRingPos), i * ringGap), posOffset),
             rotation: [0, 0, -135],
-         },
+         }
       );
    }
    //#endregion
    //#region yeet center light backtop thing
    environment.push({
-      id: regexDoubleColorLaser.replace(/\$$/, '') +
+      id:
+         regexDoubleColorLaser.replace(/\$$/, '') +
          `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
       lookupMethod: 'Regex',
       active: false,
    });
    //#endregion
    //#region replace with chad backtop thing
-   const backTopFarPos: types.Vector3 = [
-      3.5,
-      8.25,
-      ringCount * ringGap + ringGap / 1.35,
-   ];
+   const backTopFarPos: types.Vector3 = [3.5, 8.25, ringCount * ringGap + ringGap / 1.35];
    for (let i = 0; i < 5; i++) {
       environment.push(
          {
@@ -516,14 +474,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             position: translatePos(
                scaleArray(
-                  translatePos(posMirrorX(backTopFarPos), [
-                     -i * 1.625,
-                     -i * 1.625,
-                     0,
-                  ]),
-                  scaleSizeMult,
+                  translatePos(posMirrorX(backTopFarPos), [-i * 1.625, -i * 1.625, 0]),
+                  scaleSizeMult
                ),
-               translatePos(posOffset, [0, 0, i * ringGap]),
+               translatePos(posOffset, [0, 0, i * ringGap])
             ),
             rotation: [12 - i * 8, 180, 348 - i * 8],
          },
@@ -531,14 +485,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             id: regexDoubleColorLaser.replace(/\$$/, '') + `.?\\(${i + 5}\\)$`,
             lookupMethod: 'Regex',
             position: translatePos(
-               scaleArray(
-                  translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]),
-                  scaleSizeMult,
-               ),
-               translatePos(posOffset, [0, 0, i * ringGap]),
+               scaleArray(translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]), scaleSizeMult),
+               translatePos(posOffset, [0, 0, i * ringGap])
             ),
             rotation: [12 - i * 8, 180, 12 + i * 8],
-         },
+         }
       );
    }
    for (let i = 0; i < 5; i++) {
@@ -549,14 +500,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             duplicate: 1,
             position: translatePos(
                scaleArray(
-                  translatePos(posMirrorX(posMirrorY(backTopFarPos)), [
-                     -i * 1.625,
-                     i * 1.625,
-                     0,
-                  ]),
-                  scaleSizeMult,
+                  translatePos(posMirrorX(posMirrorY(backTopFarPos)), [-i * 1.625, i * 1.625, 0]),
+                  scaleSizeMult
                ),
-               translatePos(posOffset, [0, 0, i * ringGap]),
+               translatePos(posOffset, [0, 0, i * ringGap])
             ),
             rotation: [12 - i * 8, 0, 168 - i * 8],
          },
@@ -566,17 +513,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             duplicate: 1,
             position: translatePos(
                scaleArray(
-                  translatePos(posMirrorY(backTopFarPos), [
-                     i * 1.625,
-                     i * 1.625,
-                     0,
-                  ]),
-                  scaleSizeMult,
+                  translatePos(posMirrorY(backTopFarPos), [i * 1.625, i * 1.625, 0]),
+                  scaleSizeMult
                ),
-               translatePos(posOffset, [0, 0, i * ringGap]),
+               translatePos(posOffset, [0, 0, i * ringGap])
             ),
             rotation: [12 - i * 8, 0, 192 + i * 8],
-         },
+         }
       );
    }
    //#endregion
@@ -591,22 +534,5 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 if (import.meta.main) {
-   Deno.writeTextFileSync(
-      import.meta.url.replace('file://', '').replace(
-         'environment.ts',
-         './VaporFrame.dat',
-      ),
-      JSON.stringify({
-         version: '1.0.0',
-         name: 'Vapor Frame',
-         author: 'Kival Evan',
-         environmentVersion: '1.0.0',
-         environmentName: 'BigMirrorEnvironment',
-         description:
-            'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
-         features: {},
-         environment: generateEnvironment(),
-      } as types.external.IEnvironmentJSON),
-   );
-   console.log('Written Vapor Frame environment JSON');
+   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
 }

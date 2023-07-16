@@ -1,4 +1,18 @@
 import { logger, types, v3 } from '../../depsLocal.ts';
+import { environmentSave } from '../helpers.ts';
+
+const info: types.external.IEnvironmentJSON = {
+   version: '1.0.0',
+   name: 'Big Mirror V2',
+   author: 'Kival Evan',
+   environmentVersion: '1.0.0',
+   environmentName: 'BigMirrorEnvironment',
+   description:
+      'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
+   features: {},
+   environment: [],
+   materials: {},
+};
 
 export const roadCount = 5;
 export const roadRepeat = 4;
@@ -25,8 +39,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
    const regexConstruction = `Environment.\\[\\d+\\]Construction$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-   const regexBigRingLights =
-      `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+   const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
    const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser$`;
    const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
    const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
@@ -72,7 +85,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          id: regexNearBuilding,
          lookupMethod: 'Regex',
          active: false,
-      },
+      }
       // {
       //     geometry: {
       //         type: 'Cube',
@@ -130,7 +143,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
             },
-         },
+         }
       );
    }
    for (let i = 0; i < roadCount * roadRepeat; i++) {
@@ -160,7 +173,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                TubeBloomPrePassLight: { colorAlphaMultiplier: 1.5 },
                ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
             },
-         },
+         }
       );
    }
    //#endregion
@@ -229,12 +242,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          lookupMethod: 'Regex',
          scale: farLaneLightScale,
          position: farLaneLightPos,
-      },
+      }
    );
    //#endregion
    //#region yeet center light backtop thing
    environment.push({
-      id: regexDoubleColorLaser.replace(/\$$/, '') +
+      id:
+         regexDoubleColorLaser.replace(/\$$/, '') +
          `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
       lookupMethod: 'Regex',
       active: false,
@@ -259,7 +273,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             position: posAddZ(backTopFarPosNear, (i + 1) * -8),
             rotation: [-7.5, 180, -15],
-         },
+         }
       );
    }
    for (let i = 0; i < 5; i++) {
@@ -279,7 +293,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: backTopFarScale,
             position: posAddZ(backTopFarPos, i * 16),
             rotation: [60 - i * 5, 0, 165 - i * 6],
-         },
+         }
       );
    }
    //#endregion
@@ -297,9 +311,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             duplicate: 1,
             scale: extraMirrorLightScale,
-            position: posMirrorX(
-               posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-            ),
+            position: posMirrorX(posAddZ(extraMirrorLightPos, i * extraMirrorLightGap)),
             rotation: [0 + i * 2.5, 0, 320 + i * 11],
             components: {
                ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
@@ -313,8 +325,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: posMirrorX(
                posAddY(
                   posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-                  extraMirrorLightMirrorOffsetY,
-               ),
+                  extraMirrorLightMirrorOffsetY
+               )
             ),
             rotation: [0 - i * 2.5, 0, 220 - i * 11],
             components: {
@@ -328,7 +340,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: extraMirrorLightScale,
             position: posAddY(
                posAddZ(extraMirrorLightPos, i * extraMirrorLightGap),
-               extraMirrorLightMirrorOffsetY,
+               extraMirrorLightMirrorOffsetY
             ),
             rotation: [0 - i * 2.5, 0, 140 + i * 11],
             components: {
@@ -345,7 +357,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             components: {
                ILightWithId: { type: 0, lightID: internalIdOffsetType0++ },
             },
-         },
+         }
       );
    }
    //#endregion
@@ -360,22 +372,5 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 if (import.meta.main) {
-   Deno.writeTextFileSync(
-      import.meta.url.replace('file://', '').replace(
-         'environment.ts',
-         './BMv2.dat',
-      ),
-      JSON.stringify({
-         version: '1.0.0',
-         name: 'Big Mirror V2',
-         author: 'Kival Evan',
-         environmentVersion: '1.0.0',
-         environmentName: 'BigMirrorEnvironment',
-         description:
-            'Original by Liquid Popsicle, recreated in Chroma Environment. Vanilla-compatible but not recommended.',
-         features: {},
-         environment: generateEnvironment(),
-      } as types.external.IEnvironmentJSON),
-   );
-   console.log('Written BMv2 environment JSON');
+   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
 }

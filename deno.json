@@ -10,6 +10,6 @@
       "singleQuote": true
    },
    "tasks": {
-      "environment": "deno run -A ./environment-enhancement/main.ts"
+      "environment": "deno run --allow-read --allow-run --allow-hrtime ./environment-enhancement/main.ts"
    }
 }

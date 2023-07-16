@@ -1,14 +1,13 @@
 import { BeatPerMinute, globals, isV3, load, save, utils } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
-console.log('Running script...');
 console.time('Runtime');
 
 globals.directory = wipPath(
-   'I Bet You\'ll Forget That Even If You Noticed That (I Was Still There)',
+   "I Bet You'll Forget That Even If You Noticed That (I Was Still There)"
 );
 
-const info = load.infoSync();
+const info = load.infoSync(2);
 info.customData._contributors = [
    { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
 ];
@@ -16,7 +15,7 @@ info.customData._contributors = [
 const difficultyList = load.difficultyFromInfoSync(info);
 const lightshow = load.difficultySync('ExpertPlusStandard.dat', 3, {
    directory:
-      '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/I Bet You\'ll Forget That Even If You Noticed That (I Was Still There)/',
+      "/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/I Bet You'll Forget That Even If You Noticed That (I Was Still There)/",
 });
 const cd = load.difficultySync('ExpertPlusStandardBac.dat', 3);
 
@@ -41,14 +40,14 @@ difficultyList.forEach((d) => {
          d.settings.customData._information.splice(
             1,
             0,
-            '"Until This Life, Repeated Countless Times, Burns Away"',
+            '"Until This Life, Repeated Countless Times, Burns Away"'
          );
       }
       if (d.difficulty === 'ExpertPlus') {
          d.settings.customData._information.splice(
             1,
             0,
-            '*Let This Whole World Burn Away to Nothing!*',
+            '*Let This Whole World Burn Away to Nothing!*'
          );
       }
    } else {
@@ -80,7 +79,7 @@ difficultyList.forEach((d) => {
             [0, 0, 0.25],
             [0, 0, 0.5],
             utils.normalize(b.b, 0, 1000),
-            'hsva',
+            'hsva'
          );
          if (b.b === 57 || b.b === 269 || b.b === 301) {
             b.c = utils.colorFrom([0, 0, 1], 'hsva');
@@ -90,7 +89,7 @@ difficultyList.forEach((d) => {
                [270, 1, 1],
                [300, 1, 1],
                utils.normalize(b.b, 141, 253),
-               'hsva',
+               'hsva'
             );
          }
          if (b.b >= 333 && b.b <= 381) {
@@ -98,7 +97,7 @@ difficultyList.forEach((d) => {
                [300, 1, 1],
                [285, 1, 1],
                utils.normalize(b.b, 333, 381),
-               'hsva',
+               'hsva'
             );
          }
          if (b.b >= 397 && b.b <= 413) {
@@ -106,7 +105,7 @@ difficultyList.forEach((d) => {
                [195, 0.75, 1],
                [195, 0.5, 1],
                utils.normalize(b.b, 397, 413),
-               'hsva',
+               'hsva'
             );
          }
          if (b.b >= 429 && b.b <= 453) {
@@ -117,7 +116,7 @@ difficultyList.forEach((d) => {
                [15, 1, 1],
                [-30, 1, 1],
                utils.normalize(b.b, 469, 533),
-               'hsva',
+               'hsva'
             );
          }
          if (b.b >= 597 && b.b <= 613) {
@@ -128,7 +127,7 @@ difficultyList.forEach((d) => {
                [285, 1, 1],
                [300, 1, 1],
                utils.normalize(b.b, 533, 569),
-               'hsva',
+               'hsva'
             );
          }
          if (b.b >= 629 && b.b <= 717) {
@@ -136,7 +135,7 @@ difficultyList.forEach((d) => {
                [300, 1, 1],
                [285, 1, 1],
                utils.normalize(b.b, 629, 717),
-               'hsva',
+               'hsva'
             );
          }
 

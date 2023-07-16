@@ -1,46 +1,47 @@
-import { postProcess } from './postProcess.ts';
-import { lightshow } from './lightshow.ts';
-import { preset } from './preset.ts';
-import { njsVibe } from './njs.ts';
-import { intro } from './intro.ts';
-import { outro } from './outro.ts';
-import { slow } from './slow.ts';
-import { build1 } from './build1.ts';
-import { build2 } from './build2.ts';
-import { drop1 } from './drop1.ts';
-import { drop2 } from './drop2.ts';
-import { misc } from './misc.ts';
-import { text } from './text.ts';
-import { sus } from './imposter.ts';
-import { color } from './color.ts';
-import { BeatPerMinute, logger, NoteJumpSpeed, save, v3 } from '../../depsLocal.ts';
+import {
+   BeatPerMinute,
+   ColorScheme,
+   ext,
+   globals,
+   load,
+   NoteJumpSpeed,
+   save,
+} from '../../depsLocal.ts';
+import { counter } from '../../utility/counter.ts';
+import { main } from './main.ts';
+const { NE } = ext;
 
-export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
-   logger.info('Processing ' + data.filename);
+counter(import.meta.url);
 
-   preset(data);
+console.log('Running script...');
+console.time('Runtime');
 
-   njsVibe(data, BPM, NJS);
-   color(data, BPM, NJS);
-   misc(data, BPM, NJS);
-   text(data, BPM, NJS);
+globals.directory = Deno.build.os === 'linux'
+   ? '/home/kival/CustomWIPLevels/loudchimera/'
+   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
 
-   intro(data, BPM, NJS);
-   slow(data, BPM, NJS);
-   build1(data, BPM, NJS);
-   build2(data, BPM, NJS);
-   drop1(data, BPM, NJS);
-   drop2(data, BPM, NJS);
-   outro(data, BPM, NJS);
-   // sus(data, BPM, NJS);
-   // data.chains = [];
+// logger.setLevel(5);
 
-   const lightData = lightshow();
-   data.basicEvents = data.basicEvents.concat(lightData.basicEvents);
-   // data.customData.environment = data.customData.environment?.concat(
-   //     lightData.customData.environment!,
-   // );
+const info = load.infoSync();
+const BPM = BeatPerMinute.create(info.beatsPerMinute);
+const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
+NE.settings.BPM = BPM;
+NE.settings.NJS = NJS;
 
-   postProcess(data);
-   save.difficultySync(data);
+main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
+
+main(load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'), BPM, NJS);
+
+NJS.value = 16;
+NJS.offset = -1.25;
+main(load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'), BPM, NJS);
+
+for (const [_, d] of info.listMap()) {
+   d.customData._requirements = ['Noodle Extensions'];
+   d.customData._suggestions = ['Chroma'];
+   d.customData = { ...d.customData, ...ColorScheme.Weave };
 }
+
+save.infoSync(info);
+
+console.timeEnd('Runtime');

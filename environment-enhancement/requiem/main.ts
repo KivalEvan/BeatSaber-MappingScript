@@ -1,4 +1,17 @@
 import { logger, types, v3 } from '../../depsLocal.ts';
+import { environmentSave } from '../helpers.ts';
+
+const info: types.external.IEnvironmentJSON = {
+   version: '1.0.0',
+   name: 'Requiem',
+   author: 'Kival Evan',
+   environmentVersion: '1.0.0',
+   environmentName: 'PanicEnvironment',
+   description: 'Vanilla-compatible environment. One of my first hands-on environment enhancement.',
+   features: {},
+   environment: [],
+   materials: {},
+};
 
 export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const environment: types.v3.IChromaEnvironment[] = [];
@@ -28,10 +41,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       arr[1] = -arr[1];
       return arr;
    };
-   const translatePos = (
-      posArr: types.Vector3,
-      translate = [0, 0, 0],
-   ): types.Vector3 => {
+   const translatePos = (posArr: types.Vector3, translate = [0, 0, 0]): types.Vector3 => {
       const arr: types.Vector3 = [...posArr];
       arr[0] += translate[0];
       arr[1] += translate[1];
@@ -66,7 +76,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          duplicate: 1,
          rotation: [0, 0, -90],
          position: [80, 73, 12].map((p) => p / 0.6) as types.Vector3,
-      },
+      }
    );
    //#endregion
    //#region extra thicc ring
@@ -103,7 +113,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          lookupMethod: 'Regex',
          duplicate: 1,
          position: posGlowLine1,
-      },
+      }
    );
    //#endregion
    //#region test
@@ -122,7 +132,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          duplicate: 1,
          rotation: [90, 0, 0],
          position: posGlowLine3,
-      },
+      }
    );
    //#endregion
    return environment;
@@ -136,22 +146,5 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 if (import.meta.main) {
-   Deno.writeTextFileSync(
-      import.meta.url.replace('file://', '').replace(
-         'environment.ts',
-         './Requiem.dat',
-      ),
-      JSON.stringify({
-         version: '1.0.0',
-         name: 'Requiem',
-         author: 'Kival Evan',
-         environmentVersion: '1.0.0',
-         environmentName: 'PanicEnvironment',
-         description:
-            'Vanilla-compatible environment. One of my first hands-on environment enhancement.',
-         features: {},
-         environment: generateEnvironment(),
-      } as types.external.IEnvironmentJSON),
-   );
-   console.log('Written Requiem environment JSON');
+   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
 }
