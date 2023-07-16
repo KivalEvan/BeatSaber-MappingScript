@@ -2,8 +2,11 @@ import { ext, globals, load, save, utils } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 console.log('Running script...');
 console.time('Runtime');
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
 globals.directory = wipPath('Reverse Rebirth Trigger');
@@ -24,8 +27,11 @@ if (bookmarks) {
          [360, 0.75, 0.75],
          utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
 <<<<<<< HEAD
+<<<<<<< HEAD
          'hsva'
 =======
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          'hsva',
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
       );

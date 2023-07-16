@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { dirname, resolve } from '../deps.ts';
 import { utils } from '../depsLocal.ts';
 
@@ -32,6 +33,16 @@ const path = scriptDirPath(import.meta.url);
 for await (const dir of Deno.readDir(path)) {
    if (dir.isDirectory) {
       try {
+=======
+import { resolve } from '../deps.ts';
+import { logger, utils } from '../depsLocal.ts';
+import scriptDirPath from '../utility/scriptDirPath.ts';
+
+const path = scriptDirPath(import.meta.url);
+for await (const dir of Deno.readDir(path)) {
+   if (dir.isDirectory) {
+      try {
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          const scr = await import(
             (Deno.build.os === 'windows' ? 'file:///' : '') + resolve(path, dir.name, 'main.ts')
          );
@@ -41,6 +52,9 @@ for await (const dir of Deno.readDir(path)) {
          logger.info(
             `Executed ${dir.name} script for ${utils.round((endTime - startTime) / 1000, 3)}s`,
          );
+<<<<<<< HEAD
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
+=======
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
       } catch (e) {
          console.error(e);

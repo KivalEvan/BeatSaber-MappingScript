@@ -2,8 +2,11 @@ import { BeatPerMinute, globals, isV3, load, save, utils } from '../../depsLocal
 import wipPath from '../../utility/wipPath.ts';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 console.time('Runtime');
 
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
 globals.directory = wipPath(

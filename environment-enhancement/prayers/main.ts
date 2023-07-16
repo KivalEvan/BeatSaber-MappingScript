@@ -422,12 +422,15 @@ export function insertEnvironment(d: v3.Difficulty) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 if (import.meta.main) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
       import.meta.url
    );
 =======
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 export function save(path = import.meta.url) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
@@ -437,5 +440,8 @@ export function save(path = import.meta.url) {
 
 if (import.meta.main) {
    save();
+<<<<<<< HEAD
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
+=======
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

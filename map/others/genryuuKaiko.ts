@@ -128,7 +128,11 @@ cd.customData.bookmarks
                         return p;
                      },
 <<<<<<< HEAD
+<<<<<<< HEAD
                      [0, 0, 0]
+=======
+                     [0, 0, 0],
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
                      [0, 0, 0],
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
@@ -184,7 +188,10 @@ save.infoSync(info);
 
 // await ext.zip.compress(info, 'komachi.zip');
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 console.timeEnd('Runtime');
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)

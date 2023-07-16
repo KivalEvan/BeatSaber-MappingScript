@@ -324,7 +324,11 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
          scale: [30, 8, 0.015625],
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
       logo
+=======
+      logo,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
       logo,
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
@@ -335,7 +339,11 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
          scale: [8, 36, 0.015625],
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
       logo
+=======
+      logo,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
       logo,
 >>>>>>> ec05bfd (njygfttrnjktrktrmj)
@@ -386,9 +394,19 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.environment = generateEnvironment();
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 if (import.meta.main) {
    environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
+=======
+
+export function save(path = import.meta.url) {
+   environmentSave({ ...info, environment: generateEnvironment() }, path);
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 =======
 
 export function save(path = import.meta.url) {
