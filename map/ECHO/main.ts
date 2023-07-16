@@ -1,12 +1,12 @@
 // holy shit image are so tedious to work with and optimise
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
 import { globals, NoteDirectionSpace, save, utils, v2 } from '../../depsLocal.ts';
+import wipPath from '../../utility/wipPath.ts';
+import scriptDirPath from '../../utility/scriptDirPath.ts';
+import { resolve } from '../../deps.ts';
 
-console.log('Running script...');
-console.time('Runtime');
-const WORKING_DIRECTORY = './map/ECHO/';
-globals.directory =
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
+const WORKING_DIRECTORY = scriptDirPath(import.meta.url);
+globals.directory = wipPath('ECHO');
 const OUTPUT_FILE = 'EasyLightshow.dat';
 
 const difficulty = v2.Difficulty.create();
@@ -456,7 +456,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       override: options.override ?? false,
       easings: options.easings ?? utils.EasingsFn.easeLinear,
    };
-   const gifFile = Deno.readFileSync(WORKING_DIRECTORY + imagePath);
+   const gifFile = Deno.readFileSync(resolve(WORKING_DIRECTORY, 'image', imagePath));
    const gif = await imagescript.GIF.decode(gifFile, !opt.animated);
    let itFrame = 0;
    gif.forEach((frame) => {
@@ -6792,9 +6792,8 @@ difficulty.customData._customEvents = [
 //     }
 // }
 
-await save.difficulty(difficulty, {
+save.difficultySync(difficulty, {
    filePath: OUTPUT_FILE,
 });
-console.timeEnd('Runtime');
+
 console.log(difficulty.basicEvents.length, 'events');
-console.log('Map saved');

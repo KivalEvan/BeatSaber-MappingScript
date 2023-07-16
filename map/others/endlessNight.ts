@@ -2,9 +2,6 @@ import { globals, isV3, load, save } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
 import wipPath from '../../utility/wipPath.ts';
 
-console.log('Running script...');
-console.time('Runtime');
-
 globals.directory = wipPath('23d4d (Endless Night - Kival Evan)');
 
 const info = load.infoSync();
@@ -120,7 +117,4 @@ difficultyList.forEach((d) => {
    }
 
    save.difficultySync(d.data);
-   d.data.toJSON();
 });
-
-console.timeEnd('Runtime');

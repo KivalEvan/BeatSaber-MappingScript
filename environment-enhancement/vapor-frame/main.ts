@@ -271,7 +271,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorX(rightBigStuffPos), [0, 2.21875 * scaleSizeMult, 0]),
+<<<<<<< HEAD
             posOffset
+=======
+            posOffset,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       },
       {
@@ -284,7 +288,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorX(rightBigStuffPos), [0, -2.21875 * scaleSizeMult, 0]),
+<<<<<<< HEAD
             posOffset
+=======
+            posOffset,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       }
    );
@@ -340,7 +348,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorY(topBigStuffPos), [2.21875 * scaleSizeMult, 0, 0]),
+<<<<<<< HEAD
             posOffset
+=======
+            posOffset,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       },
       {
@@ -353,7 +365,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorY(topBigStuffPos), [-2.21875 * scaleSizeMult, 0, 0]),
+<<<<<<< HEAD
             posOffset
+=======
+            posOffset,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       }
    );
@@ -475,7 +491,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorX(backTopFarPos), [-i * 1.625, -i * 1.625, 0]),
+<<<<<<< HEAD
                   scaleSizeMult
+=======
+                  scaleSizeMult,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
                translatePos(posOffset, [0, 0, i * ringGap])
             ),
@@ -486,7 +506,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             position: translatePos(
                scaleArray(translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]), scaleSizeMult),
+<<<<<<< HEAD
                translatePos(posOffset, [0, 0, i * ringGap])
+=======
+               translatePos(posOffset, [0, 0, i * ringGap]),
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
             ),
             rotation: [12 - i * 8, 180, 12 + i * 8],
          }
@@ -501,7 +525,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorX(posMirrorY(backTopFarPos)), [-i * 1.625, i * 1.625, 0]),
+<<<<<<< HEAD
                   scaleSizeMult
+=======
+                  scaleSizeMult,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
                translatePos(posOffset, [0, 0, i * ringGap])
             ),
@@ -514,7 +542,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorY(backTopFarPos), [i * 1.625, i * 1.625, 0]),
+<<<<<<< HEAD
                   scaleSizeMult
+=======
+                  scaleSizeMult,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
                translatePos(posOffset, [0, 0, i * ringGap])
             ),
@@ -533,6 +565,15 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.environment = generateEnvironment();
 }
 
+<<<<<<< HEAD
 if (import.meta.main) {
    environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
+=======
+export function save(path = import.meta.url) {
+   environmentSave({ ...info, environment: generateEnvironment() }, path);
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

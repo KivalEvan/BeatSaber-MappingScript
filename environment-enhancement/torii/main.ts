@@ -431,7 +431,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    cubeBlock.place({ position: [0, 2.53125, 0], scale: [0.25, 0.0625, 0.25] }, lanternPost);
    pillarBlock.place(
       { position: [0, 2.578125, 0], scale: [0.125, 0.03125 / 2, 0.125] },
+<<<<<<< HEAD
       lanternPost
+=======
+      lanternPost,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
    );
    pillarBlock.place({ position: [0, 2.625, 0], scale: [0.1875, 0.125 / 4, 0.1875] }, lanternPost);
    sphereBlock.place({ position: [0, 2.65625, 0], scale: [0.1875, 0.1875, 0.1875] }, lanternPost);
@@ -930,9 +934,21 @@ export const insertEnvironment = (d: v3.Difficulty) => {
    d.customData.materials = generateMaterial();
 };
 
+<<<<<<< HEAD
 if (import.meta.main) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
       import.meta.url
    );
+=======
+export function save(path = import.meta.url) {
+   environmentSave(
+      { ...info, environment: generateEnvironment(), materials: generateMaterial() },
+      path,
+   );
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

@@ -13,8 +13,6 @@ export function lightshow() {
    data = convert.toV3(d2);
 
    // const e = data.customData.environment?.filter((e) => e.id).map((e) => e.id);
-   // console.log(data.customData.environment);
-   // console.log(e?.splice(60));
    data.customData.environment?.forEach((e) => {
       if (e.id) {
          e.id = e.id
@@ -38,10 +36,7 @@ export function lightshow() {
    let lightIDType0 = 101;
    data.customData.environment
       ?.filter((e) => e.duplicate)
-      .filter((e) =>
-         !e.id?.includes('RotatingLasersPair') &&
-         !e.id?.includes('Construction')
-      )
+      .filter((e) => !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction'))
       .forEach((e) => {
          delete e.id;
          delete e.lookupMethod;
@@ -61,9 +56,7 @@ export function lightshow() {
          };
       });
    data.customData.environment = data.customData.environment?.filter(
-      (e) =>
-         !(e.geometry && e.rotation && e.rotation[0] === 90 && e.scale &&
-            e.scale[1] === 0),
+      (e) => !(e.geometry && e.rotation && e.rotation[0] === 90 && e.scale && e.scale[1] === 0),
    );
    data.customData.environment
       ?.filter((e) => e.geometry)
@@ -99,13 +92,10 @@ export function lightshow() {
          if (typeof e.customData.lightID === 'number') {
             e.customData.lightID += e.customData.lightID < 5 ? 0 : 96;
          } else {
-            e.customData.lightID = e.customData.lightID.map((l: number) => l < 5 ? l : l + 96);
+            e.customData.lightID = e.customData.lightID.map((l: number) => (l < 5 ? l : l + 96));
          }
       }
    });
-   Deno.writeTextFileSync(
-      'env.json',
-      JSON.stringify(data.customData.environment!, null, 2),
-   );
+   Deno.writeTextFileSync('env.json', JSON.stringify(data.customData.environment!, null, 2));
    return data;
 }

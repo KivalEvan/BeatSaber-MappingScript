@@ -421,9 +421,21 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.materials = generateMaterial();
 }
 
+<<<<<<< HEAD
 if (import.meta.main) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
       import.meta.url
    );
+=======
+export function save(path = import.meta.url) {
+   environmentSave(
+      { ...info, environment: generateEnvironment(), materials: generateMaterial() },
+      path,
+   );
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

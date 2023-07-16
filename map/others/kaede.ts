@@ -1,7 +1,5 @@
 import * as bsmap from '../../depsLocal.ts';
 
-console.log('Running script...');
-console.time('Runtime');
 bsmap.globals.logLevel = 1;
 bsmap.globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/KAEDE/';
@@ -602,5 +600,3 @@ bsmap.save.difficultySync(difficulty, {
    filePath: 'ExpertPlusStandard.dat',
    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/KAEDE/',
 });
-
-console.timeEnd('Runtime');

@@ -1,8 +1,11 @@
 import { BeatPerMinute, globals, isV3, load, save, utils } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
+<<<<<<< HEAD
 console.time('Runtime');
 
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 globals.directory = wipPath(
    "I Bet You'll Forget That Even If You Noticed That (I Was Still There)"
 );
@@ -71,7 +74,6 @@ difficultyList.forEach((d) => {
          }
          if (res.val > 0.01) {
             b.b = utils.round(b.b, 1);
-            // console.log(b.b, b.n, res);
          }
          b.b = utils.round(b.b, 3);
 
@@ -150,7 +152,6 @@ difficultyList.forEach((d) => {
    //     }
    //     if (res.val > 0.00005) {
    //         obj.time = utils.round(obj.time, 3);
-   //         // console.log(obj.time, res);
    //     }
    // });
    // [...d.data.arcs, ...d.data.chains].forEach((obj) => {
@@ -161,12 +162,9 @@ difficultyList.forEach((d) => {
    //     }
    //     if (res.val > 0.00005) {
    //         obj.tailTime = utils.round(obj.tailTime, 3);
-   //         // console.log(obj.tailTime, res);
    //     }
    // });
 });
 
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
-
-console.timeEnd('Runtime');

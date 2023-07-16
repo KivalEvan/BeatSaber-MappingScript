@@ -19,10 +19,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
    const reduceRingStack = false;
    const reduceLightId = true;
 
-   const matchColor = (
-      c1: types.ColorArray | null,
-      c2: types.ColorArray | null,
-   ) => {
+   const matchColor = (c1: types.ColorArray | null, c2: types.ColorArray | null) => {
       if (c1 == null || c2 == null) {
          return false;
       }
@@ -58,10 +55,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
       if (!isNaN(ev.customData?._lightID)) {
          if (
             lightIDList[ev.customData?._lightID].value !== ev.value ||
-            !matchColor(
-               lightIDList[ev.customData?._lightID].color,
-               ev.customData?._color,
-            )
+            !matchColor(lightIDList[ev.customData?._lightID].color, ev.customData?._color)
          ) {
             return false;
          }
@@ -69,24 +63,14 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
       return true;
    };
 
-   console.log(`Initiating light optimisation script`);
-
    const prevEvent: { [key: number]: v2.Event } = {};
-   for (
-      let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!;
-      i >= 0;
-      i--
-   ) {
+   for (let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
       prevEvent[i] = v2.Event.create()[0];
    }
 
    // not to be confused as above, this keep index of any same type event at same time
    const eventAtTime: { [key: number]: number[] } = {};
-   for (
-      let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!;
-      i >= 0;
-      i--
-   ) {
+   for (let i = [...EventList[environment][0]].sort((a, b) => a - b).at(-1)!; i >= 0; i--) {
       eventAtTime[i] = [];
    }
 
@@ -171,25 +155,19 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
             // optimise lightID
             if (events[i].customData?._lightID) {
                // yeet the redundant lightID event
-               if (
-                  reduceLightId && matchLightID(events[i], eventLightID[evType])
-               ) {
+               if (reduceLightId && matchLightID(events[i], eventLightID[evType])) {
                   flagRemove = true;
                }
-               if (
-                  !flagRemove && Array.isArray(events[i].customData!._lightID)
-               ) {
+               if (!flagRemove && Array.isArray(events[i].customData!._lightID)) {
                   events[i].customData!._lightID.forEach((id: number) => {
                      eventLightID[evType][id].value = events[i].value;
-                     eventLightID[evType][id].color = events[i].customData?._color ||
-                        null;
+                     eventLightID[evType][id].color = events[i].customData?._color || null;
                   });
                }
                if (!flagRemove && !isNaN(events[i].customData?._lightID)) {
                   eventLightID[evType][events[i].customData?._lightID].value = events[i].value;
                   eventLightID[evType][events[i].customData?._lightID].color =
-                     events[i].customData?._color ||
-                     null;
+                     events[i].customData?._color || null;
                }
             }
             for (let j = 0; j < eventAtTime[evType].length; j++) {
@@ -221,12 +199,9 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
                      }
 
                      // insert temp into eventAtTime
-                     if (
-                        Array.isArray(events[lookupIndex].customData?._lightID)
-                     ) {
-                        events[lookupIndex].customData!._lightID = events[lookupIndex]
-                           .customData?._lightID
-                           .concat(temp);
+                     if (Array.isArray(events[lookupIndex].customData?._lightID)) {
+                        events[lookupIndex].customData!._lightID = events[lookupIndex].customData
+                           ?._lightID.concat(temp);
                      }
                      if (!isNaN(events[lookupIndex].customData?._lightID)) {
                         events[lookupIndex].customData!._lightID = [
@@ -235,10 +210,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
                      }
 
                      // sort the lightID
-                     events[lookupIndex].customData?._lightID.sort((
-                        a: number,
-                        b: number,
-                     ) => a - b);
+                     events[lookupIndex].customData?._lightID.sort((a: number, b: number) => a - b);
 
                      // console.log(
                      //     `Merging event ${
@@ -271,10 +243,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
                   prevEvent[evType].customData?._lightID == null &&
                   prevEvent[evType].customData?._propID == null &&
                   events[i].value === prevEvent[evType].value &&
-                  matchColor(
-                     events[i].customData?._color,
-                     prevEvent[evType].customData?._color,
-                  )
+                  matchColor(events[i].customData?._color, prevEvent[evType].customData?._color)
                ) {
                   flagRemove = true;
                }
@@ -328,7 +297,8 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
             flagRemove = true;
          }
          if (
-            events[i].customData == null && events[i].value === 0 &&
+            events[i].customData == null &&
+            events[i].value === 0 &&
             prevEvent[evType].value === 0
          ) {
             flagRemove = true;
@@ -357,10 +327,7 @@ export default (d: v2.Difficulty, environment: types.EnvironmentAllName) => {
       // SAVE PREVIOUS EVENT & ITERATION INDEX
       prevEvent[evType] = events[i];
       for (let j = 0; j < eventAtTime[evType].length; j++) {
-         if (
-            events[i].time - events[eventAtTime[evType][j]].time >=
-               eventStackTol
-         ) {
+         if (events[i].time - events[eventAtTime[evType][j]].time >= eventStackTol) {
             eventAtTime[evType].splice(j, 1);
             j--;
          }

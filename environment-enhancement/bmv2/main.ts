@@ -371,6 +371,15 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.environment = generateEnvironment();
 }
 
+<<<<<<< HEAD
 if (import.meta.main) {
    environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
+=======
+export function save(path = import.meta.url) {
+   environmentSave({ ...info, environment: generateEnvironment() }, path);
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

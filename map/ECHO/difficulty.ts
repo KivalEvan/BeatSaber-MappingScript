@@ -1,10 +1,8 @@
 import { convert, globals, isV3, load, save } from '../../depsLocal.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
+import wipPath from '../../utility/wipPath.ts';
 
-console.log('Running script...');
-console.time('Runtime');
-globals.directory =
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/ECHO';
+globals.directory = wipPath('ECHO');
 
 const info = load.infoSync();
 const lightshow = load.difficultySync('EasyLightshow.dat', 3);
@@ -144,5 +142,3 @@ difficultyList.forEach((d) => {
 save.difficultyListSync(difficultyList, {
    directory: globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
 });
-
-console.timeEnd('Runtime');

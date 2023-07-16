@@ -3,8 +3,6 @@ import lights from './lights.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 import { convert, globals, isV3, load, save, utils } from '../../depsLocal.ts';
 
-console.log('Running script...');
-console.time('Runtime');
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/Undefined/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Undefined';
@@ -99,5 +97,3 @@ globals.directory = Deno.build.os === 'linux'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined';
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
-
-console.timeEnd('Runtime');

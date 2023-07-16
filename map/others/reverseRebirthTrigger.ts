@@ -1,8 +1,11 @@
 import { ext, globals, load, save, utils } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
+<<<<<<< HEAD
 console.log('Running script...');
 console.time('Runtime');
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 globals.directory = wipPath('Reverse Rebirth Trigger');
 
 const lightshow = load.difficultySync('Lightshow.dat', 2);
@@ -20,7 +23,11 @@ if (bookmarks) {
          [199, 0.33, 0.56],
          [360, 0.75, 0.75],
          utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
+<<<<<<< HEAD
          'hsva'
+=======
+         'hsva',
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
       );
    }
 }
@@ -61,5 +68,3 @@ _environment.push(
    }
 );
 save.difficultySync(data);
-
-console.timeEnd('Runtime');

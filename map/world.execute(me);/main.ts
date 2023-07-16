@@ -12,8 +12,6 @@ import {
 import wipPath from '../../utility/wipPath.ts';
 import light from './light.ts';
 
-console.log('Running script...');
-console.time('Runtime');
 utils.pRandomSeed('EXECUTION');
 
 globals.directory = wipPath('world.execute(me);', true);
@@ -62,5 +60,3 @@ difficultyList.forEach((d) => {
 // copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
-
-console.timeEnd('Runtime');

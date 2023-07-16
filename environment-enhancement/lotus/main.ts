@@ -323,14 +323,22 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
          position: [-(151 / 2) + 81 + 15, 4, 0],
          scale: [30, 8, 0.015625],
       },
+<<<<<<< HEAD
       logo
+=======
+      logo,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
    );
    lightBlock.place(
       {
          position: [-(151 / 2) + 81 + 4, 26, 0],
          scale: [8, 36, 0.015625],
       },
+<<<<<<< HEAD
       logo
+=======
+      logo,
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
    );
    //T
    lightBlock.place(
@@ -377,7 +385,17 @@ export function insertEnvironment(d: v3.Difficulty) {
    }
    d.customData.environment = generateEnvironment();
 }
+<<<<<<< HEAD
 
 if (import.meta.main) {
    environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
+=======
+
+export function save(path = import.meta.url) {
+   environmentSave({ ...info, environment: generateEnvironment() }, path);
+}
+
+if (import.meta.main) {
+   save();
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

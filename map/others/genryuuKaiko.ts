@@ -127,7 +127,11 @@ cd.customData.bookmarks
                         p[2] = v;
                         return p;
                      },
+<<<<<<< HEAD
                      [0, 0, 0]
+=======
+                     [0, 0, 0],
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)
                   ),
                });
             }
@@ -179,5 +183,8 @@ save.difficultyListSync(difficultyList);
 save.infoSync(info);
 
 // await ext.zip.compress(info, 'komachi.zip');
+<<<<<<< HEAD
 
 console.timeEnd('Runtime');
+=======
+>>>>>>> ec05bfd (njygfttrnjktrktrmj)

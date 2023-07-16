@@ -1,8 +1,6 @@
 import { BeatPerMinute, convert, globals, isV3, load, save, utils, v3 } from '../../depsLocal.ts';
 import lights from './lights.ts';
 
-console.log('Running script...');
-console.time('Runtime');
 utils.pRandomSeed('S.A.R.I.E.L.');
 
 globals.directory = Deno.build.os === 'linux'
@@ -81,5 +79,3 @@ difficultyList.forEach((d) => {
 // copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
 save.difficultyListSync(difficultyList);
 save.infoSync(info);
-
-console.timeEnd('Runtime');

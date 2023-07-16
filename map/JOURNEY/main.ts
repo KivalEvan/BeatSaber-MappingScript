@@ -236,7 +236,6 @@ for (const [_, d] of info.listMap()) {
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];
    if (d.characteristic == 'OneSaber') continue;
-   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
    const difficulty = load.difficultySync(d.filename, 2);
 
    difficulty.customData._environment = lightshow.customData!._environment;

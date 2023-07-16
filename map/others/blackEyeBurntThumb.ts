@@ -1,7 +1,5 @@
 import * as bsmap from '../../depsLocal.ts';
 
-console.log('Running script...');
-console.time('Runtime');
 bsmap.globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Black Eye-Burnt Thumb/';
 const INPUT_FILE = 'ExpertPlusStandard.dat';
@@ -209,4 +207,3 @@ bsmap.save.difficultySync(difficulty, {
    directory:
       'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Black Eye-Burnt Thumb/',
 });
-console.timeEnd('Runtime');

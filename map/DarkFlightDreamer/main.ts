@@ -210,7 +210,6 @@ between(where(lightshow.basicEvents, { include: { type: 4 } }), 468, 468.999).fo
 const info = load.infoSync();
 info.environmentName = 'NiceEnvironment';
 for (const [_, d] of info.listMap()) {
-   console.log(`Copying lightshow to ${d.characteristic} ${d.difficulty}`);
    const difficulty = load.difficultySync(d.filename, 2);
 
    difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
