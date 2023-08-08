@@ -30,7 +30,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    // regex for environment enhancement
    const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
-   const regexBigRingLights = `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+   const regexBigRingLights =
+      `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
    const regexDoubleColorLaser = `\\[\\d+\\]DoubleColorLaser`;
    const regexFrontLights = `\\[\\d+\\]FrontLights$`;
    const regexSmoke = `\\[\\d+\\]BigSmokePS$`;
@@ -177,7 +178,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
             ILightWithId: { type: 4 },
          },
-      }
+      },
    );
    //#endregion
    //#region extra thicc ring
@@ -372,7 +373,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: roadOuterBlockScale,
             position: posAddZ(roadOuterBlockPos, i * roadGap),
             rotation: [0, 0, -20],
-         }
+         },
       );
    }
    //#endregion
@@ -398,7 +399,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
                ILightWithId: { type: 0 },
             },
-         }
+         },
       );
    }
    //#endregion
@@ -421,16 +422,6 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.materials = generateMaterial();
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-if (import.meta.main) {
-   environmentSave(
-      { ...info, environment: generateEnvironment(), materials: generateMaterial() },
-      import.meta.url
-   );
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 export function save(path = import.meta.url) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
@@ -440,8 +431,4 @@ export function save(path = import.meta.url) {
 
 if (import.meta.main) {
    save();
-<<<<<<< HEAD
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

@@ -76,7 +76,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          duplicate: 1,
          rotation: [0, 0, -90],
          position: [80, 73, 12].map((p) => p / 0.6) as types.Vector3,
-      }
+      },
    );
    //#endregion
    //#region extra thicc ring
@@ -113,7 +113,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          lookupMethod: 'Regex',
          duplicate: 1,
          position: posGlowLine1,
-      }
+      },
    );
    //#endregion
    //#region test
@@ -132,7 +132,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          duplicate: 1,
          rotation: [90, 0, 0],
          position: posGlowLine3,
-      }
+      },
    );
    //#endregion
    return environment;
@@ -145,21 +145,10 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.environment = generateEnvironment();
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-if (import.meta.main) {
-   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 export function save(path = import.meta.url) {
    environmentSave({ ...info, environment: generateEnvironment() }, path);
 }
 
 if (import.meta.main) {
    save();
-<<<<<<< HEAD
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

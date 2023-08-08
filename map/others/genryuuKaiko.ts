@@ -18,7 +18,7 @@ cd.customData.bookmarks?.forEach((b) => {
          [330, 1, 1],
          [360, 1, 1],
          utils.normalize(b.b, 710, 770),
-         'hsva'
+         'hsva',
       );
    }
    if (b.b >= 645 && b.b <= 693) {
@@ -26,7 +26,7 @@ cd.customData.bookmarks?.forEach((b) => {
          [300, 1, 1],
          [315, 1, 1],
          utils.normalize(b.b, 645, 693),
-         'hsva'
+         'hsva',
       );
    }
    if (b.b === 718 || b.b === 750) b.c = [0.5, 0.5, 0.5];
@@ -127,15 +127,7 @@ cd.customData.bookmarks
                         p[2] = v;
                         return p;
                      },
-<<<<<<< HEAD
-<<<<<<< HEAD
-                     [0, 0, 0]
-=======
                      [0, 0, 0],
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
-                     [0, 0, 0],
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                   ),
                });
             }
@@ -187,11 +179,3 @@ save.difficultyListSync(difficultyList);
 save.infoSync(info);
 
 // await ext.zip.compress(info, 'komachi.zip');
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-console.timeEnd('Runtime');
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)

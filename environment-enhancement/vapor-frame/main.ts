@@ -33,7 +33,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const regexConstruction = `Environment\.\\[\\d+\\]Construction$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
    const regexNeonTubeDirectional = `\\[\\d+\\]NeonTubeDirectionalF(L|R)$`;
-   const regexBigRingLight = `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
+   const regexBigRingLight =
+      `^GameCore\\.\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
    const regexNeonTubeL = `\\[\\d+\\]NeonTubeDirectionalL$`;
    const regexNeonTubeR = `\\[\\d+\\]NeonTubeDirectionalR$`;
    const regexFrontLights = `\\[\\d+\\]FrontLights$`;
@@ -93,7 +94,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          id: regexNeonTubeDirectional,
          lookupMethod: 'Regex',
          active: false,
-      }
+      },
    );
    //#endregion
    //#region extra thicc ring
@@ -216,7 +217,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             },
             ILightWithId: { type: 4 },
          },
-      }
+      },
    );
    environment.push(
       {
@@ -263,7 +264,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                bloomFogIntensityMultiplier: 0.5,
             },
          },
-      }
+      },
    );
    environment.push(
       {
@@ -271,14 +272,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorX(rightBigStuffPos), [0, 2.21875 * scaleSizeMult, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-            posOffset
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
             posOffset,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       },
       {
@@ -291,16 +285,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorX(rightBigStuffPos), [0, -2.21875 * scaleSizeMult, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-            posOffset
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
             posOffset,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
-      }
+      },
    );
    environment.push(
       {
@@ -308,7 +295,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(rightBigStuffPos, [0, 2.21875 * scaleSizeMult, 0]),
-            posOffset
+            posOffset,
          ),
       },
       {
@@ -321,9 +308,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(rightBigStuffPos, [0, -2.21875 * scaleSizeMult, 0]),
-            posOffset
+            posOffset,
          ),
-      }
+      },
    );
    environment.push(
       {
@@ -331,7 +318,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(topBigStuffPos, [2.21875 * scaleSizeMult, 0, 0]),
-            posOffset
+            posOffset,
          ),
       },
       {
@@ -344,9 +331,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(topBigStuffPos, [-2.21875 * scaleSizeMult, 0, 0]),
-            posOffset
+            posOffset,
          ),
-      }
+      },
    );
    environment.push(
       {
@@ -354,14 +341,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorY(topBigStuffPos), [2.21875 * scaleSizeMult, 0, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-            posOffset
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
             posOffset,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
       },
       {
@@ -374,16 +354,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          scale: bigStuffScale,
          position: translatePos(
             translatePos(posMirrorY(topBigStuffPos), [-2.21875 * scaleSizeMult, 0, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-            posOffset
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
             posOffset,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
          ),
-      }
+      },
    );
    //#endregion
    //#region static ring
@@ -411,7 +384,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: ringScale,
             position: translatePos(
                posAddZ(posMirrorY(posMirrorX(ringPos)), i * ringGap),
-               posOffset
+               posOffset,
             ),
             rotation: [0, 0, -45],
             components: {
@@ -447,7 +420,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                },
                ILightWithId: { type: 4, lightID: internalIdOffsetType4++ },
             },
-         }
+         },
       );
    }
    for (let i = 0; i < ringCount * ringRepeat; i++) {
@@ -463,7 +436,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: outerRingScale,
             position: translatePos(
                posAddZ(posMirrorY(posMirrorX(outerRingPos)), i * ringGap),
-               posOffset
+               posOffset,
             ),
             rotation: [0, 0, 135],
          },
@@ -478,14 +451,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             scale: outerRingScale,
             position: translatePos(posAddZ(posMirrorY(outerRingPos), i * ringGap), posOffset),
             rotation: [0, 0, -135],
-         }
+         },
       );
    }
    //#endregion
    //#region yeet center light backtop thing
    environment.push({
-      id:
-         regexDoubleColorLaser.replace(/\$$/, '') +
+      id: regexDoubleColorLaser.replace(/\$$/, '') +
          `(.?\\(\\d+\\))?.\\[\\d+\\](BottomBoxLight|BottomBakedBloom)$`,
       lookupMethod: 'Regex',
       active: false,
@@ -503,16 +475,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorX(backTopFarPos), [-i * 1.625, -i * 1.625, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  scaleSizeMult
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                   scaleSizeMult,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
-               translatePos(posOffset, [0, 0, i * ringGap])
+               translatePos(posOffset, [0, 0, i * ringGap]),
             ),
             rotation: [12 - i * 8, 180, 348 - i * 8],
          },
@@ -521,17 +486,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             lookupMethod: 'Regex',
             position: translatePos(
                scaleArray(translatePos(backTopFarPos, [i * 1.625, -i * 1.625, 0]), scaleSizeMult),
-<<<<<<< HEAD
-<<<<<<< HEAD
-               translatePos(posOffset, [0, 0, i * ringGap])
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                translatePos(posOffset, [0, 0, i * ringGap]),
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
             ),
             rotation: [12 - i * 8, 180, 12 + i * 8],
-         }
+         },
       );
    }
    for (let i = 0; i < 5; i++) {
@@ -543,16 +501,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorX(posMirrorY(backTopFarPos)), [-i * 1.625, i * 1.625, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  scaleSizeMult
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                   scaleSizeMult,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
-               translatePos(posOffset, [0, 0, i * ringGap])
+               translatePos(posOffset, [0, 0, i * ringGap]),
             ),
             rotation: [12 - i * 8, 0, 168 - i * 8],
          },
@@ -563,19 +514,12 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: translatePos(
                scaleArray(
                   translatePos(posMirrorY(backTopFarPos), [i * 1.625, i * 1.625, 0]),
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  scaleSizeMult
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                   scaleSizeMult,
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
                ),
-               translatePos(posOffset, [0, 0, i * ringGap])
+               translatePos(posOffset, [0, 0, i * ringGap]),
             ),
             rotation: [12 - i * 8, 0, 192 + i * 8],
-         }
+         },
       );
    }
    //#endregion
@@ -589,21 +533,10 @@ export function insertEnvironment(d: v3.Difficulty) {
    d.customData.environment = generateEnvironment();
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-if (import.meta.main) {
-   environmentSave({ ...info, environment: generateEnvironment() }, import.meta.url);
-=======
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 export function save(path = import.meta.url) {
    environmentSave({ ...info, environment: generateEnvironment() }, path);
 }
 
 if (import.meta.main) {
    save();
-<<<<<<< HEAD
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 }

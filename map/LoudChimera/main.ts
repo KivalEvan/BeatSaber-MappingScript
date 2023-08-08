@@ -8,24 +8,11 @@ import {
    save,
 } from '../../depsLocal.ts';
 import { counter } from '../../utility/counter.ts';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { main } from './main.ts';
-=======
 import { main } from './all.ts';
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
-import { main } from './all.ts';
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 const { NE } = ext;
 
 counter(import.meta.url);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-console.log('Running script...');
-console.time('Runtime');
-
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/loudchimera/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
@@ -40,38 +27,6 @@ NE.settings.NJS = NJS;
 
 main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
 
-=======
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/loudchimera/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
-
-// logger.setLevel(5);
-
-const info = load.infoSync();
-const BPM = BeatPerMinute.create(info.beatsPerMinute);
-const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
-NE.settings.BPM = BPM;
-NE.settings.NJS = NJS;
-
-main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
-
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/loudchimera/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
-
-// logger.setLevel(5);
-
-const info = load.infoSync();
-const BPM = BeatPerMinute.create(info.beatsPerMinute);
-const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
-NE.settings.BPM = BPM;
-NE.settings.NJS = NJS;
-
-main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
-
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
 main(load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'), BPM, NJS);
 
 NJS.value = 16;
@@ -85,11 +40,3 @@ for (const [_, d] of info.listMap()) {
 }
 
 save.infoSync(info);
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-console.timeEnd('Runtime');
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
->>>>>>> ec05bfd (njygfttrnjktrktrmj)

@@ -10,18 +10,8 @@
       "singleQuote": true
    },
    "tasks": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "environment": "deno run --allow-read --allow-run --allow-hrtime ./environment-enhancement/main.ts"
-=======
       "environment": "deno run --allow-read=. --allow-write=. --allow-hrtime ./environment-enhancement/main.ts",
       "map": "deno run --allow-read --allow-write --allow-hrtime ./map/main.ts",
       "map:watch": "deno run --allow-read --allow-write --allow-hrtime --watch ./map/main.ts"
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
-=======
-      "environment": "deno run --allow-read=. --allow-write=. --allow-hrtime ./environment-enhancement/main.ts",
-      "map": "deno run --allow-read --allow-write --allow-hrtime ./map/main.ts",
-      "map:watch": "deno run --allow-read --allow-write --allow-hrtime --watch ./map/main.ts"
->>>>>>> ec05bfd (njygfttrnjktrktrmj)
    }
 }
