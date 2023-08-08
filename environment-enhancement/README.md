@@ -18,7 +18,7 @@ exist too.
 
 Used in Necro Fantasia
 
-<img src="./torii/environment.jpg">
+<img src="./railway/environment.jpg">
 
 ### [Torii](./torii/) (Vanilla-compatible)
 
