@@ -117,14 +117,14 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          id: EnvGrab.create().child().name('LightGroup15').end().regex,
          lookupMethod: 'Regex',
          position: [4, 2.25, 20],
-      },
+      }
    );
 
    const cubeBlock = ext.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'RailwayStandard' },
       },
-      [0, 0, 0],
+      [0, 0, 0]
    );
    const cubeLight = ext.chroma.EnvironmentBlock.create(
       {
@@ -137,13 +137,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             },
          },
       },
-      [0, 0, 0],
+      [0, 0, 0]
    );
    const pillarBlock = ext.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cylinder', material: 'RailwayStandard' },
       },
-      [0, 0, 0],
+      [0, 0, 0]
    );
    const pillarLight = ext.chroma.EnvironmentBlock.create(
       {
@@ -153,13 +153,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
          },
       },
-      [0, 0, 0],
+      [0, 0, 0]
    );
    const sphereBlock = ext.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Sphere', material: 'RailwayStandard' },
       },
-      [0, 0, 0],
+      [0, 0, 0]
    );
 
    const pillarPart = ext.chroma.EnvironmentGroup.create([
@@ -282,14 +282,14 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                position: [5 * x, 0, pillarOffsetZ + i * pillarGap],
                scale: utils.vectorMul([1, 1, 1], pillarScale),
             },
-            structureAry,
+            structureAry
          );
          cubeBlock.place(
             {
                position: [10.5 * x, 0, pillarOffsetZ + i * pillarGap],
                scale: [1 / 2, 1024, 1 / 2],
             },
-            structureAry,
+            structureAry
          );
          cubeBlock.place(
             {
@@ -300,26 +300,26 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                ],
                scale: [100, 1 / 4, 1 / 4],
             },
-            structureAry,
+            structureAry
          );
          if (x === -1) {
             domeGroup.place(
                { position: [0, pillarHeight * pillarScale + 4.5, pillarOffsetZ + i * pillarGap] },
-               structureAry,
+               structureAry
             );
             cubeBlock.place(
                {
                   position: [0, pillarHeight * pillarScale + 3.25, pillarOffsetZ + i * pillarGap],
                   scale: [16, 1 / 2, 1 / 4],
                },
-               structureAry,
+               structureAry
             );
             cubeBlock.place(
                {
                   position: [0, -12, pillarOffsetZ + i * pillarGap],
                   scale: [512, 1, 1 / 4],
                },
-               structureAry,
+               structureAry
             );
          }
       }
@@ -330,86 +330,115 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: [5 * x, -(1 / 8 + 1 / 2 + 1 / 8 + 1 / 4) * pillarScale - 1, 0],
             scale: [1.25, 1 / 4, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [5 * x, -(1 / 8 + 1 / 2 + 1 / 8 + 1 / 4) * pillarScale - 1 / 4, 0],
             scale: [1.25, 1 / 4, 1024],
          },
-         structureAry,
+         structureAry
       );
-      cubeBlock.place({ position: [3.25 * x, -2, 0], scale: [1 / 4, 1.25, 1024] }, structureAry);
+      cubeBlock.place(
+         { position: [3.25 * x, -1.75, 0], scale: [1 / 2, 1 / 8, 1024] },
+         structureAry
+      );
+      cubeBlock.place(
+         { position: [3.25 * x, -2.25, 0], scale: [1 / 2, 1 / 8, 1024] },
+         structureAry
+      );
       cubeBlock.place(
          {
             position: [5 * x, pillarHeight * pillarScale - 1.5, 0],
             scale: [1 / 2, 1 / 8, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [5 * x, 0.125, 0],
             scale: [1 / 8, 1 / 8, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [5 * x, pillarHeight * pillarScale + 0.5, 0],
             scale: [1 / 2, 1 / 8, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [5 * x, pillarHeight * pillarScale + 2.75, 0],
             scale: [1 / 2, 1 / 8, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [3 * x, pillarHeight * pillarScale + 2.75, 0],
             scale: [1 / 4, 1 / 2, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [7 * x, pillarHeight * pillarScale + 2.75, 0],
             scale: [1 / 4, 1 / 2, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [10.5 * x, 4, 0],
             scale: [1 / 4, 1 / 4, 1024],
          },
-         structureAry,
+         structureAry
       );
       cubeBlock.place(
          {
             position: [10.5 * x, 1.5, 0],
             scale: [1 / 4, 1 / 4, 1024],
          },
-         structureAry,
+         structureAry
       );
+      for (let i = 0; i < 12; i++) {
+         cubeBlock.place(
+            {
+               position: [
+                  11 * x,
+                  pillarHeight * pillarScale + 1,
+                  pillarOffsetZ + i * 2 * pillarGap + 2 ** i,
+               ],
+               scale: [100, 1 / 4, 1 / 4],
+               rotation: [0, 0, 330 * x],
+            },
+            structureAry
+         );
+         cubeBlock.place(
+            {
+               position: [11 * x, -3, pillarOffsetZ + i * 2 * pillarGap + 2 ** i],
+               scale: [100, 1 / 4, 1 / 4],
+               rotation: [0, 0, 30 * x],
+            },
+            structureAry
+         );
+      }
 
       // railway
       cubeBlock.place({ position: [0.875 * x, 0, 0], scale: [1 / 24, 1 / 4, 1024] }, trackAry);
       cubeBlock.place({ position: [0.875 * x, 3 / 16, 0], scale: [1 / 8, 1 / 8, 1024] }, trackAry);
 
       // outer field thingy
-      for (let i = 0; i < 128; i++) {
-         if (i < 32) continue;
+      for (let i = 0; i < 192; i++) {
+         if (i < 92) continue;
          cubeLight.place(
             {
-               position: [pRandom(11, 22) * x, pRandom(-2, 20), -96 + i * 1.5 + 1.04 ** i],
-               scale: [1 / 24, 1 / 24, 4],
+               position: [pRandom(11, 25) * x, pRandom(-4, 22), -164 + i + 1.03 ** i],
+               scale: [1 / 24, 1 / 24, 10],
             },
-            envAry,
+            envAry
          );
       }
 
@@ -420,7 +449,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                scale: [2 + pRandom(), 64 + pRandom(42), 2 + pRandom()],
                rotation: [0, 0, (pRandom(10) + 340) * x],
             },
-            envAry,
+            envAry
          );
          cubeBlock.place(
             {
@@ -428,7 +457,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                scale: [2 + pRandom(), 80 + pRandom(80), 2 + pRandom()],
                rotation: [0, 0, (pRandom(10) + 320) * x],
             },
-            envAry,
+            envAry
          );
          cubeBlock.place(
             {
@@ -436,7 +465,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                scale: [2 + pRandom(), 64 + pRandom(42), 2 + pRandom()],
                rotation: [0, 0, -(pRandom(10) + 20) * x],
             },
-            envAry,
+            envAry
          );
          cubeBlock.place(
             {
@@ -444,37 +473,55 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                scale: [2 + pRandom(), 80 + pRandom(80), 2 + pRandom()],
                rotation: [0, 0, -(pRandom(10) + 40) * x],
             },
-            envAry,
+            envAry
          );
+         cubeBlock.place(
+            {
+               position: [-(5 + pRandom()) * x, 50 - pRandom(), -64 + i * 3],
+               scale: [2 + pRandom(), 40 + pRandom(40), 2 + pRandom()],
+               rotation: [0, 0, -(pRandom(10) + 5) * x],
+            },
+            envAry
+         );
+         if (x === -1) {
+            cubeBlock.place(
+               {
+                  position: [pRandom(-2, 2), 50 - pRandom(), -62.5 + i * 3],
+                  scale: [2 + pRandom(), 40 + pRandom(10), 2 + pRandom()],
+                  rotation: [0, 0, pRandom(-10, 10)],
+               },
+               envAry
+            );
+         }
       }
    }
    cubeBlock.place(
       {
-         position: [0, pillarHeight * pillarScale + 5.25, 0],
+         position: [0, pillarHeight * pillarScale + 5.3125, 0],
          scale: [1 / 2, 1 / 4, 1024],
       },
-      structureAry,
+      structureAry
    );
    cubeBlock.place(
       {
          position: [0, 3.75, pillarOffsetZ + (pillarCount - 1) * pillarGap],
          scale: [21, 1 / 2, 1 / 4],
       },
-      structureAry,
+      structureAry
    );
    cubeBlock.place(
       {
          position: [0, 5, pillarOffsetZ + (pillarCount - 1) * pillarGap],
          scale: [21, 1 / 4, 1 / 4],
       },
-      structureAry,
+      structureAry
    );
    cubeBlock.place(
       {
          position: [0, 6.75, pillarOffsetZ + (pillarCount - 1) * pillarGap],
          scale: [10, 1 / 8, 1 / 8],
       },
-      structureAry,
+      structureAry
    );
    for (let i = -2; i < 3; i++) {
       cubeBlock.place(
@@ -482,7 +529,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: [i * 1.5, 5.9375, pillarOffsetZ + (pillarCount - 1) * pillarGap],
             scale: [1 / 8, 1.625, 1 / 8],
          },
-         structureAry,
+         structureAry
       );
    }
 
@@ -492,31 +539,32 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             position: [0.875, -0.125, i + 1.15 ** i + 2],
             scale: [0.25, 0.125, 0.125],
          },
-         trackAry,
+         trackAry
       );
       cubeBlock.place(
          {
             position: [-0.875, -0.125, i + 1.15 ** i + 2],
             scale: [0.25, 0.125, 0.125],
          },
-         trackAry,
+         trackAry
       );
       cubeBlock.place(
          {
             position: [1 / 16 - pRandom(1 / 8), -3 / 16, i + 1.15 ** i + 2],
             scale: [3 + pRandom(1 / 4), 0.125, 0.375],
          },
-         trackAry,
+         trackAry
       );
       cubeBlock.place(
          {
             position: [1 / 16 - pRandom(1 / 8), -3 / 16, -(i + 1.15 ** i + 2)],
             scale: [3 + pRandom(1 / 4), 0.125, 0.375],
          },
-         trackAry,
+         trackAry
       );
    }
 
+   // funny gizmo
    // cubeLight.place({ position: [0, 0, 8], scale: [1, 1 / 16, 1 / 16] }, envAry);
    // cubeLight.place({ position: [0, 0, 8], scale: [1 / 16, 1, 1 / 16] }, envAry);
    // cubeLight.place({ position: [0, 0, 8], scale: [1 / 16, 1 / 16, 1] }, envAry);
@@ -549,7 +597,7 @@ export const insertEnvironment = (d: v3.Difficulty) => {
 export function save(path = import.meta.url) {
    environmentSave(
       { ...info, environment: generateEnvironment(), materials: generateMaterial() },
-      path,
+      path
    );
 }
 
