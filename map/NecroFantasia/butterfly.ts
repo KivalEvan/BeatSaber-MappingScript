@@ -1,6 +1,5 @@
 // why the fuck do i still need noodle extensions for parenting geometry, it would makes my life so much easier
 // than having to preprocess 1000+ animation for "optimisation" reason or some shit
-import logger from '../../../BeatSaber-Deno/logger.ts';
 import { v3, ext, utils, types } from '../../depsLocal.ts';
 
 const butterflyCount = 100;
