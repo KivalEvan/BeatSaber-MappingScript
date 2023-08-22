@@ -151,7 +151,6 @@ function where(objects, filter = {}) {
 function parseStringColor(str) {
    const ary = str.split(',').map((el) => parseFloat(el));
    if (ary.length > 2) {
-      ary[1] = clamp(ary[1], 0, 1);
       if (ary.length === 3) {
          ary.push(1);
       }

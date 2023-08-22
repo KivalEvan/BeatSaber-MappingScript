@@ -81,7 +81,7 @@ function run(
    bpmChanges,
    bombs,
    arcs,
-   chains
+   chains,
 ) {
    // event type and color
    const eventType = eventTypeEnum[global.params['Event Type']];
@@ -167,10 +167,10 @@ function run(
             normalize(
                lerp(stepEasing(normalize(itColorStep, 0, maxColorStep)), 0, length),
                0,
-               length
+               length,
             ),
             colorType,
-            colorEasing
+            colorEasing,
          );
          events.push({
             _time: currentTime,

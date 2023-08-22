@@ -98,7 +98,7 @@ const params = {
 function interpolateColor(colorStart, colorEnd, norm) {
    return /** @type ColorArray */ (
       colorStart.map((c, i) =>
-         lerp(norm, /** @type number */ (c), /** @type number */ (colorEnd[i]))
+         lerp(norm, /** @type number */ (c), /** @type number */ (colorEnd[i])),
       )
    );
 }
@@ -116,7 +116,7 @@ function run(
    bpmChanges,
    bombs,
    arcs,
-   chains
+   chains,
 ) {
    // event type and color
    const eventType = eventTypeEnum[global.params['Event Type']];
@@ -198,7 +198,7 @@ function run(
       const repeatTime = (duration + length + repeatOffset) * itRepeat;
       for (let itIdStep = 0; itIdStep <= maxIdStep; itIdStep++) {
          const currentLightID = lightID.map(
-            (id) => id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount
+            (id) => id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount,
          );
          const idStepTime = lerp(durationEasing(normalize(itIdStep, 0, maxIdStep)), 0, duration);
          for (let itColorStep = 0; itColorStep <= maxColorStep; itColorStep++) {
@@ -214,7 +214,7 @@ function run(
             const colorStepTime = lerp(
                stepEasing(normalize(itColorStep, 0, maxColorStep)),
                0,
-               length
+               length,
             );
             const currentTime =
                cursorTime +
@@ -239,24 +239,24 @@ function run(
                   normalize(
                      lerp(stepEasing(normalize(itColorStep, 0, maxColorStep)), 0, length),
                      0,
-                     length
-                  )
-               )
+                     length,
+                  ),
+               ),
             );
             if (noiseMode && colorType === 'HSVA' && Math.random() < noiseCoverage) {
                currentColor[0] += Math.random() * noiseSaturation;
                currentColor[1] = Math.max(
                   Math.min(currentColor[1] + (-0.5 + Math.random()) * noiseSaturation, 1),
-                  0
+                  0,
                );
                currentColor[2] = Math.max(
                   currentColor[2] + (-0.5 + Math.random()) * noiseIntensity,
-                  0
+                  0,
                );
             }
             const transofmed = colorTransformer(currentColor);
             console.log(
-               `${currentColor[0]},${currentColor[1]},${currentColor[2]},${currentColor[3]} > ${transofmed[0]},${transofmed[1]},${transofmed[2]},${transofmed[3]}`
+               `${currentColor[0]},${currentColor[1]},${currentColor[2]},${currentColor[3]} > ${transofmed[0]},${transofmed[1]},${transofmed[2]},${transofmed[3]}`,
             );
             events.push({
                _time: currentTime,
@@ -278,7 +278,7 @@ function run(
                         lerp(
                            stepEasing(normalize(itColorStep * 2 + 1, 0, maxColorStep * 2)),
                            0,
-                           length
+                           length,
                         ),
                      _type: eventType,
                      _value: 0,
@@ -299,7 +299,7 @@ function run(
                         lerp(
                            stepEasing(normalize(itColorStep * 2 + 1, 0, maxColorStep * 2)),
                            0,
-                           length
+                           length,
                         ),
                      _type: eventType,
                      _value: 0,

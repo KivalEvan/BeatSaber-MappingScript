@@ -32,7 +32,7 @@ function run(
    bpmChanges,
    bombs,
    arcs,
-   chains
+   chains,
 ) {
    const colorKey = data.version.startsWith('3') ? 'color' : '_color';
 
@@ -65,7 +65,7 @@ function run(
          // @ts-ignore
          .map((x) => [x.b, x.tb])
          .flat()
-         .filter((x) => x != null)
+         .filter((x) => x != null),
    );
 
    objectSelected.forEach((obj) => {
@@ -74,7 +74,7 @@ function run(
          endColor,
          normalize(obj.b, startTime, endTime),
          colorType,
-         colorEasing
+         colorEasing,
       );
       if (obj.customData) {
          obj.customData[colorKey] = currentColor;

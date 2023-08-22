@@ -58,7 +58,7 @@ function run(
    bpmChanges,
    bombs,
    arcs,
-   chains
+   chains,
 ) {
    // event type and color
    const eventType = eventTypeEnum[global.params['Event Type']];
@@ -108,7 +108,7 @@ function run(
          endColor,
          normColor,
          colorType,
-         colorEasing
+         colorEasing,
       );
       events.push({
          b: currentTime,

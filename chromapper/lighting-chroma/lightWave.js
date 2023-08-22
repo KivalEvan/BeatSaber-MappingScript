@@ -79,7 +79,7 @@ function run(
    bpmChanges,
    bombs,
    arcs,
-   chains
+   chains,
 ) {
    // event type and color
    const eventType = eventTypeEnum[global.params['Event Type']];
@@ -131,8 +131,8 @@ function run(
       for (let itIdStep = 0; itIdStep <= maxIdStep; itIdStep++) {
          lightID.forEach((id) =>
             currentLightID.push(
-               id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount
-            )
+               id + (invert ? idEnd - itIdStep - 1 : itIdStep + idStart - 1) * idLightCount,
+            ),
          );
          const idStepTime = lerp(durationEasing(normalize(itIdStep, 0, maxIdStep)), 0, duration);
          const tempLightID = [...currentLightID];
@@ -142,7 +142,7 @@ function run(
             endColor,
             normalize(itIdStep, 0, maxIdStep),
             colorType,
-            colorEasing
+            colorEasing,
          );
          events.push({
             _time: currentTime,

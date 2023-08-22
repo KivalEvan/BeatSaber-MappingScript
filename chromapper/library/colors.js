@@ -22,14 +22,18 @@ const { lerp, round, isHex, hexToDec } = require('./kvlUtils.js');
  * @overload
  * @param {ColorArray} color
  * @returns {ColorArray}
+ *
+ * @param {number | ColorArray} r
+ * @param {number} g
+ * @param {number} b
+ * @param {number} [a=1]
+ * @returns {ColorArray}
  */
 function RgbaToHsva(r, g, b, a = 1) {
    if (Array.isArray(r)) {
       // @ts-ignore
       return RgbaToHsva(...r);
    }
-   g ??= 0;
-   b ??= 0;
    let h = 0;
    const max = Math.max(r, g, b);
    const min = Math.min(r, g, b);
@@ -72,15 +76,19 @@ function RgbaToHsva(r, g, b, a = 1) {
  * @overload
  * @param {ColorArray} color
  * @returns {ColorArray}
+ *
+ * @param {number | ColorArray} hue
+ * @param {number} saturation
+ * @param {number} value
+ * @param {number} [alpha=1]
+ * @returns {ColorArray}
  */
 function HsvaToRgba(hue, saturation, value, alpha = 1) {
    if (Array.isArray(hue)) {
       // @ts-ignore
-      return RgbaToHsva(...hue);
+      return HsvaToRgba(...hue);
    }
    hue = hue / 360;
-   saturation ??= 0;
-   value ??= 0;
    if (hue < 0) {
       hue += Math.abs(Math.floor(hue));
    }
