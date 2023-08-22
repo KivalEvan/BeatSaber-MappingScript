@@ -1,6 +1,6 @@
 // why the fuck do i still need noodle extensions for parenting geometry, it would makes my life so much easier
 // than having to preprocess 1000+ animation for "optimisation" reason or some shit
-import { v3, ext, utils, types } from '../../depsLocal.ts';
+import { ext, types, utils, v3 } from '../../depsLocal.ts';
 
 const butterflyCount = 100;
 const bopZOffset = 100;
@@ -197,16 +197,16 @@ export default function (data: v3.Difficulty) {
                   prevY += utils.random(-0.375, 0.375);
                   return i
                      ? [
-                          prevX,
-                          -bopZOffset + 0.5 + prevY,
-                          -(count / 4) + 2 + i / 4,
-                          utils.normalize(i, 0, motionJitterCount - 1),
-                          'splineCatmullRom',
-                       ]
+                        prevX,
+                        -bopZOffset + 0.5 + prevY,
+                        -(count / 4) + 2 + i / 4,
+                        utils.normalize(i, 0, motionJitterCount - 1),
+                        'splineCatmullRom',
+                     ]
                      : [-(count / 4) + 2, -bopZOffset + 1, 0, 0];
                }) as types.Vector3PointDefinition[],
             },
-         }
+         },
       );
       data.customData.environment.push(...butterfly.place({ scale: [0.25, 0.25, 0.25] }));
    }

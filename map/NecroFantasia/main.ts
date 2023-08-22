@@ -2,7 +2,7 @@ import { globals, load, save, utils, v3 } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/railway/main.ts';
 import intervalBookmark from '../../utility/intervalBookmark.ts';
 import wipPath from '../../utility/wipPath.ts';
-import butterfly from './butterfly.ts';
+// import butterfly from './butterfly.ts';
 import light from './light/main.ts';
 import note from './note.ts';
 
@@ -17,10 +17,16 @@ info.colorSchemes = [
          name: 'Necro Fantasia',
          saberLeftColor: utils.toColorObject(utils.colorFrom(355, 0.8125, 0.9375, 'hsva'), true),
          saberRightColor: utils.toColorObject(utils.colorFrom(215, 0.625, 0.875, 'hsva'), true),
-         environment0Color: utils.toColorObject(utils.colorFrom(90, 0.9375, 0.9375, 'hsva'), true),
-         environment1Color: utils.toColorObject(utils.colorFrom(200, 0.75, 0.8125, 'hsva'), true),
-         environment0ColorBoost: utils.toColorObject(utils.colorFrom(350, 1, 0.8125, 'hsva'), true),
-         environment1ColorBoost: utils.toColorObject(utils.colorFrom(270, 1, 0.75, 'hsva'), true),
+         environment0Color: utils.toColorObject(utils.colorFrom(330, 1, 0.8125, 'hsva'), true),
+         environment1Color: utils.toColorObject(utils.colorFrom(270, 1, 0.75, 'hsva'), true),
+         environment0ColorBoost: utils.toColorObject(
+            utils.colorFrom(90, 0.9375, 0.9375, 'hsva'),
+            true,
+         ),
+         environment1ColorBoost: utils.toColorObject(
+            utils.colorFrom(200, 0.75, 0.8125, 'hsva'),
+            true,
+         ),
          obstaclesColor: utils.toColorObject(utils.colorFrom(335, 0.666, 0.4375, 'hsva'), true),
       },
    },
@@ -29,7 +35,7 @@ info.colorSchemes = [
 const lightshow = v3.Difficulty.create();
 insertEnvironment(lightshow);
 light(lightshow);
-butterfly(lightshow);
+// butterfly(lightshow);
 lightshow.customData.bookmarks = intervalBookmark(6, 32, [
    'Start-1',
    'Start-2',
@@ -86,7 +92,7 @@ for (const [_, d] of info.listMap()) {
 
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];
-   d.customData._requirements = ['Noodle Extensions'];
+   // d.customData._requirements = ['Noodle Extensions'];
    d.copyColorScheme(info.colorSchemes[0].colorScheme);
 }
 

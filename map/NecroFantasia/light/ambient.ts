@@ -15,7 +15,7 @@ function bakeTransitionLight(data: v3.Difficulty) {
                   floatValue: utils.lerp(
                      utils.normalize(time, previous.time, next.time),
                      previous.floatValue,
-                     next.floatValue
+                     next.floatValue,
                   ),
                });
             }
@@ -36,8 +36,8 @@ export default function (data: v3.Difficulty) {
       { time: 46, value: EventLightValue.RED_TRANSITION, floatValue: 0.5 },
       { time: 54, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
       { time: 55, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
-      { time: 64, value: EventLightValue.RED_TRANSITION, floatValue: 0 }
+      { time: 64, value: EventLightValue.RED_TRANSITION, floatValue: 0 },
    );
 
-   bakeTransitionLight(data);
+   // bakeTransitionLight(data);
 }

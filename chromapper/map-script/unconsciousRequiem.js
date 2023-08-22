@@ -1,200 +1,154 @@
+// @ts-check -- remove if error message is annoying
 /**
- * @typedef {import('../template.d.ts').Run} Run
- * @typedef {import('../template.d.ts').Main} Main
+ * @typedef {import('./library/types').RunV2<params>} Run
+ * @typedef {import('./library/types').Main<params>} Main
+ * @typedef {import('./library/types/colors').ColorArray} ColorArray
  */
-'use strict';
 
-//#region helper function
-function normalize(x, min, max) {
-    return (x - min) / (max - min);
-}
-function lerp(x, y, a) {
-    return x + (y - x) * a;
-}
-function HSVAtoRGBA(hue, saturation, value, alpha = 1) {
-    hue = hue / 360;
-    let r, g, b, i, f, p, q, t;
-    i = Math.floor(hue * 6);
-    f = hue * 6 - i;
-    p = value * (1 - saturation);
-    q = value * (1 - f * saturation);
-    t = value * (1 - (1 - f) * saturation);
-    switch (i % 6) {
-        case 0:
-            (r = value), (g = t), (b = p);
-            break;
-        case 1:
-            (r = q), (g = value), (b = p);
-            break;
-        case 2:
-            (r = p), (g = value), (b = t);
-            break;
-        case 3:
-            (r = p), (g = q), (b = value);
-            break;
-        case 4:
-            (r = t), (g = p), (b = value);
-            break;
-        case 5:
-            (r = value), (g = p), (b = q);
-            break;
-    }
-    return [r, g, b, alpha];
-}
-function interpolateColor(hsvaStart, hsvaEnd, norm) {
-    return HSVAtoRGBA(...hsvaStart.map((hsva, i) => lerp(hsva, hsvaEnd[i], norm)));
-}
+const {
+   at,
+   between,
+   where,
+   v2SetColor: setColor,
+   v2SetGradientColor: setGradientColor,
+   v2RandomizeColor: randomizeColor,
+} = require('./library/helpers');
+const { HsvaToRgba } = require('./library/colors');
 
-function setColor(obj, type, color, t1, t2) {
-    if (!t2) {
-        t2 = t1;
-    }
-    for (let i = 0, l = obj.length; i < l; i++) {
-        if (obj[i]._time > t2) {
-            return;
-        }
-        if (obj[i]._time < t1 || (obj[i]._type !== type && type !== 2)) {
-            continue;
-        }
-        obj[i]._customData = { _color: HSVAtoRGBA(...color) };
-    }
-}
-function setGradientColor(obj, type, color1, color2, t1, t2) {
-    let norm = 0;
-    for (let i = 0, l = obj.length; i < l; i++) {
-        if (obj[i]._time > t2) {
-            return;
-        }
-        if (obj[i]._time < t1 || (obj[i]._type !== type && type !== 2)) {
-            continue;
-        }
-        norm = normalize(obj[i]._time, t1, t2);
-        let color = interpolateColor(color1, color2, norm);
-        obj[i]._customData = { _color: color };
-    }
-}
-function randomizeColor(obj, type, color1, color2, t1, t2) {
-    let random = 0;
-    for (let i = 0, l = obj.length; i < l; i++) {
-        if (obj[i]._time > t2) {
-            return;
-        }
-        if (obj[i]._time < t1 || (obj[i]._type !== type && type !== 2)) {
-            continue;
-        }
-        random = Math.random();
-        let color = interpolateColor(color1, color2, random);
-        obj[i]._customData = { _color: color };
-    }
-}
+const name = 'Unconscious Requiem';
+const errorCheck = false;
+const params = {};
+
 //#endregion
 
+/** @type {ColorArray} */
 const urColorLeft = [290, 0, 0.3125];
+/** @type {ColorArray} */
 const urColorRight = [90, 0.66, 0.625];
+/** @type {ColorArray} */
 const kaleidoColorLeft = [0, 0.81, 0.75];
+/** @type {ColorArray} */
 const kaleidoColorRight = [0, 0, 0.28125];
+/** @type {ColorArray} */
 const kdaColorLeft = [315, 0.75, 0.75];
+/** @type {ColorArray} */
 const kdaColorRight = [195, 0.75, 0.78125];
+/** @type {ColorArray} */
 // const dColorLeft = [360, 0.92, 0.78];
+/** @type {ColorArray} */
 // const dColorRight = [203, 0.81, 0.81];
 const dColorLeft = [290, 0.66, 0.6875];
+/** @type {ColorArray} */
 const dColorRight = [105, 0.6875, 0.66];
+/** @type {ColorArray} */
 const dObstacleColor = [270, 0.75, 0.875];
 
-/**
- * @type {Run}
- */
-function run(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
-    notes.forEach((n) => {
-        if (n._type === 0) {
-            n._customData = { _color: HSVAtoRGBA(0, 1, 2) };
-        }
-        if (n._type === 1) {
-            n._customData = { _color: HSVAtoRGBA(240, 1, 2) };
-        }
-        if (n._type === 3) {
-            n._customData = { _color: HSVAtoRGBA(120, 1, 2) };
-            n._cutDirection = Math.floor(Math.random() * 9);
-        }
-    });
-    walls.forEach((w) => {
-        w._customData = { _color: HSVAtoRGBA(60, 1, 2) };
-    });
-    //#region notes
-    setColor(notes, 0, urColorLeft, 5, 66);
-    setColor(notes, 1, urColorRight, 5, 66);
-    setColor(notes, 0, kdaColorLeft, 70, 85);
-    setColor(notes, 1, kdaColorRight, 70, 85);
-    setColor(notes, 0, dColorLeft, 86, 999);
-    setColor(notes, 1, dColorRight, 86, 999);
-    setColor(notes, 0, urColorLeft, 303, 314);
-    setColor(notes, 1, urColorRight, 303, 314);
-    setColor(notes, 0, urColorLeft, 327, 332);
-    setColor(notes, 1, urColorRight, 327, 332);
-    setColor(notes, 0, urColorLeft, 387, 393);
-    setColor(notes, 1, urColorRight, 387, 393);
-    setColor(notes, 0, urColorLeft, 395, 401.5);
-    setColor(notes, 1, urColorRight, 395, 401.5);
-    setGradientColor(notes, 0, urColorLeft, dColorLeft, 400, 402);
-    setColor(notes, 0, urColorLeft, 403, 410);
-    setColor(notes, 1, urColorRight, 403, 410);
-    setColor(notes, 0, kaleidoColorLeft, 473, 602);
-    setColor(notes, 1, kaleidoColorRight, 473, 602);
-    setColor(notes, 0, kdaColorLeft, 602, 618);
-    setColor(notes, 1, kdaColorRight, 602, 618);
-    setColor(notes, 0, urColorLeft, 682, 706);
-    setColor(notes, 1, urColorRight, 682, 706);
-    //#endregion
-    //#region bombs
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 5, 70);
-    setGradientColor(notes, 3, [0, 0, 0.25], [0, 0, 1], 80, 85);
-    setColor(notes, 3, [0, 0, 0.25], 85, 86);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 147, 149);
-    randomizeColor(notes, 3, [30, 0, 0.25], [0, 0.25, 0.5], 154, 173);
-    setGradientColor(notes, 3, [0, 0, 0.75], [0, 0, 0.25], 180, 182);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 231, 239);
-    randomizeColor(notes, 3, [0, 0, 0.375], [0, 0, 0.5], 345, 348);
-    setGradientColor(notes, 3, [0, 0, 0.5], [0, 0, 1], 348, 350);
-    randomizeColor(notes, 3, [30, 0, 0.25], [0, 0.25, 0.5], 355, 374);
-    randomizeColor(notes, 3, [0, 0, 0.375], [0, 0, 0.5], 388, 409);
-    randomizeColor(notes, 3, [0, 0, 0.5], [0, 0, 0.625], 394, 395);
-    randomizeColor(notes, 3, [0, 0, 0.5], [0, 0, 0.625], 402, 403);
-    setColor(notes, 3, [0, 0, 0.375], 410);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 431, 439);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 1], 469, 473);
-    randomizeColor(notes, 3, [0, 1, 0.25], [0, 1, 0.75], 616, 620);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 705, 708);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 0.5], 748, 777);
-    randomizeColor(notes, 3, [0, 0, 0.375], [0, 1, 0.75], 760, 762);
-    randomizeColor(notes, 3, [0, 0, 0.25], [0, 0, 1], 830, 840);
-    //#endregion
-    //#region walls
-    randomizeColor(walls, 2, [0, 0, 0.25], [0, 0, 0.75], 65.5, 70);
-    setColor(walls, 2, dObstacleColor, 78, 999);
-    randomizeColor(walls, 2, [0, 0, 0.5], [0, 0, 0.75], 118, 142);
-    randomizeColor(walls, 2, [0, 0, 0.25], [0, 0, 0.5], 206, 220);
-    randomizeColor(walls, 2, [0, 0, 0], [0, 0, 0.25], 226, 230);
-    setColor(walls, 2, [0, 0, 1], 229.75, 230);
-    randomizeColor(walls, 2, [0, 0, 0.25], [0, 0, 0.5], 345, 350);
-    setColor(walls, 2, [0, 1, 1], 427, 433);
-    setColor(walls, 2, [0, 0, 1], 468, 473);
-    randomizeColor(walls, 2, [0, 1, 0.25], [0, 1, 0.75], 473, 545);
-    setGradientColor(walls, 2, [0, 1, 0.75], [0, 1, 0], 590, 602);
-    randomizeColor(walls, 2, [0, 1, 0.25], [0, 1, 0.75], 616, 620);
-    randomizeColor(walls, 2, [0, 0, 0], [0, 0, 0.25], 742, 747);
-    randomizeColor(walls, 2, [0, 0, 0.75], [0, 0, 1], 747, 748);
-    randomizeColor(walls, 2, [0, 0, 0.5], [0, 0, 0.75], 820, 830);
-    randomizeColor(walls, 2, [0, 0.875, 0.875], [0, 1, 1], 870, 900);
-    //#endregion
+/** @type {Run} */
+function run(
+   cursor,
+   notes,
+   events,
+   walls,
+   _,
+   global,
+   data,
+   customEvents,
+   bpmChanges,
+   bombs,
+   arcs,
+   chains,
+) {
+   notes.forEach((n) => {
+      if (n._type === 0) {
+         n._customData = { _color: HsvaToRgba(0, 1, 2) };
+      }
+      if (n._type === 1) {
+         n._customData = { _color: HsvaToRgba(240, 1, 2) };
+      }
+      if (n._type === 3) {
+         n._customData = { _color: HsvaToRgba(120, 1, 2) };
+         n._cutDirection = Math.floor(Math.random() * 9);
+      }
+   });
+   walls.forEach((w) => {
+      w._customData = { _color: HsvaToRgba(60, 1, 2) };
+   });
+   const leftNotes = where(notes, { include: { _type: 0 } });
+   const rightNotes = where(notes, { include: { _type: 1 } });
+   const bombNotes = where(notes, { include: { _type: 3 } });
+   //#region notes
+   setColor(between(leftNotes, 5, 66), urColorLeft);
+   setColor(between(rightNotes, 5, 66), urColorRight);
+   setColor(between(leftNotes, 70, 85), kdaColorLeft);
+   setColor(between(rightNotes, 70, 85), kdaColorRight);
+   setColor(between(leftNotes, 86, 999), dColorLeft);
+   setColor(between(rightNotes, 86, 999), dColorRight);
+   setColor(between(leftNotes, 303, 314), urColorLeft);
+   setColor(between(rightNotes, 303, 314), urColorRight);
+   setColor(between(leftNotes, 327, 332), urColorLeft);
+   setColor(between(rightNotes, 327, 332), urColorRight);
+   setColor(between(leftNotes, 387, 393), urColorLeft);
+   setColor(between(rightNotes, 387, 393), urColorRight);
+   setColor(between(leftNotes, 395, 401.5), urColorLeft);
+   setColor(between(rightNotes, 395, 401.5), urColorRight);
+   setGradientColor(between(leftNotes, 400, 402), urColorLeft, dColorLeft);
+   setColor(between(leftNotes, 403, 410), urColorLeft);
+   setColor(between(rightNotes, 403, 410), urColorRight);
+   setColor(between(leftNotes, 473, 602), kaleidoColorLeft);
+   setColor(between(rightNotes, 473, 602), kaleidoColorRight);
+   setColor(between(leftNotes, 602, 618), kdaColorLeft);
+   setColor(between(rightNotes, 602, 618), kdaColorRight);
+   setColor(between(leftNotes, 682, 706), urColorLeft);
+   setColor(between(rightNotes, 682, 706), urColorRight);
+   //#endregion
+   //#region bombs
+   randomizeColor(between(bombNotes, 5, 70), [0, 0, 0.25], [0, 0, 0.5]);
+   setGradientColor(between(bombNotes, 80, 85), [0, 0, 0.25], [0, 0, 1]);
+   setColor(between(bombNotes, 85, 86), [0, 0, 0.25]);
+   randomizeColor(between(bombNotes, 147, 149), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 154, 173), [30, 0, 0.25], [0, 0.25, 0.5]);
+   setGradientColor(between(bombNotes, 180, 182), [0, 0, 0.75], [0, 0, 0.25]);
+   randomizeColor(between(bombNotes, 231, 239), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 345, 348), [0, 0, 0.375], [0, 0, 0.5]);
+   setGradientColor(between(bombNotes, 348, 350), [0, 0, 0.5], [0, 0, 1]);
+   randomizeColor(between(bombNotes, 355, 374), [30, 0, 0.25], [0, 0.25, 0.5]);
+   randomizeColor(between(bombNotes, 388, 409), [0, 0, 0.375], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 394, 395), [0, 0, 0.5], [0, 0, 0.625]);
+   randomizeColor(between(bombNotes, 402, 403), [0, 0, 0.5], [0, 0, 0.625]);
+   setColor(at(bombNotes, 410), [0, 0, 0.375]);
+   randomizeColor(between(bombNotes, 431, 439), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 469, 473), [0, 0, 0.25], [0, 0, 1]);
+   randomizeColor(between(bombNotes, 616, 620), [0, 1, 0.25], [0, 1, 0.75]);
+   randomizeColor(between(bombNotes, 705, 708), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 748, 777), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(bombNotes, 760, 762), [0, 0, 0.375], [0, 1, 0.75]);
+   randomizeColor(between(bombNotes, 830, 840), [0, 0, 0.25], [0, 0, 1]);
+   //#endregion
+   //#region walls
+   randomizeColor(between(walls, 65.5, 70), [0, 0, 0.25], [0, 0, 0.75]);
+   setColor(between(walls, 78, 999), dObstacleColor);
+   randomizeColor(between(walls, 118, 142), [0, 0, 0.5], [0, 0, 0.75]);
+   randomizeColor(between(walls, 206, 220), [0, 0, 0.25], [0, 0, 0.5]);
+   randomizeColor(between(walls, 226, 230), [0, 0, 0], [0, 0, 0.25]);
+   setColor(between(walls, 229.75, 230), [0, 0, 1]);
+   randomizeColor(between(walls, 345, 350), [0, 0, 0.25], [0, 0, 0.5]);
+   setColor(between(walls, 427, 433), [0, 1, 1]);
+   setColor(between(walls, 468, 473), [0, 0, 1]);
+   randomizeColor(between(walls, 473, 545), [0, 1, 0.25], [0, 1, 0.75]);
+   setGradientColor(between(walls, 590, 602), [0, 1, 0.75], [0, 1, 0]);
+   randomizeColor(between(walls, 616, 620), [0, 1, 0.25], [0, 1, 0.75]);
+   randomizeColor(between(walls, 742, 747), [0, 0, 0], [0, 0, 0.25]);
+   randomizeColor(between(walls, 747, 748), [0, 0, 0.75], [0, 0, 1]);
+   randomizeColor(between(walls, 820, 830), [0, 0, 0.5], [0, 0, 0.75]);
+   randomizeColor(between(walls, 870, 900), [0, 0.875, 0.875], [0, 1, 1]);
+   //#endregion
 }
 
 module.exports =
-    /**
-     * @type {Run}
-     */
-    ({
-        name: 'Unconscious Requiem',
-        params: {},
-        run: run,
-        errorCheck: false,
-    });
+   /** @type {Main} */
+   ({
+      name,
+      params,
+      run,
+      errorCheck,
+   });

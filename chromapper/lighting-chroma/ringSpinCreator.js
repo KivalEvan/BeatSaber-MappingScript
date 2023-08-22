@@ -1,68 +1,101 @@
-function spin(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
-    const rotation = global.params[0];
-    const step = global.params[1];
-    const prop = global.params[2];
-    const speed = global.params[3];
-    const direction = Math.min(Math.floor(Math.abs(global.params[4])), 1);
-    const counterSpin = global.params[5] > 0;
-    const reset = global.params[6] > 0;
-    const snapImmediately = global.params[7] > 0;
-    const snapOffset = global.params[8];
+// @ts-check -- remove if error message is annoying
+/**
+ * @typedef {import('./library/types').Run<params>} Run
+ * @typedef {import('./library/types').Main<params>} Main
+ */
 
-    const customData = {
-        _rotation: rotation,
-        _step: step,
-        _prop: prop,
-        _speed: speed,
-        _direction: direction,
-    };
-    if (counterSpin) {
-        customData._counterSpin = counterSpin;
-    }
-    if (reset) {
-        customData._reset = reset;
-    }
+const name = 'Ring Spin Creator';
+const errorCheck = false;
+const params = {
+   Rotation: 90,
+   Step: 7.5,
+   Prop: 1,
+   Speed: 1,
+   Direction: -1,
+   'Snap Immediately': false,
+   'Snap Offset': 0.0625,
+};
 
-    events.push({
-        _time: cursor,
-        _type: 8,
-        _value: 0,
-        _customData: customData,
-    });
+const keyV2 = {
+   rotation: '_rotation',
+   step: '_step',
+   prop: '_prop',
+   speed: '_speed',
+   direction: '_direction',
+};
 
-    if (snapImmediately && !reset) {
-        const customDataSnap = {
-            _step: step,
-            _prop: 255,
-            _speed: 255,
-            _direction: direction,
-        };
-        if (counterSpin) {
-            customDataSnap._counterSpin = counterSpin;
-        }
+const keyV3 = {
+   rotation: 'rotation',
+   step: 'step',
+   prop: 'prop',
+   speed: 'speed',
+   direction: 'direction',
+};
 
-        events.push({
-            _time: cursor - snapOffset,
-            _type: 8,
-            _value: 0,
-            _customData: customDataSnap,
-        });
-    }
+/** @type {Run} */
+function run(
+   cursor,
+   notes,
+   events,
+   walls,
+   _,
+   global,
+   data,
+   customEvents,
+   bpmChanges,
+   bombs,
+   arcs,
+   chains,
+) {
+   const rotation = global.params.Rotation;
+   const step = global.params.Step;
+   const prop = global.params.Prop;
+   const speed = global.params.Speed;
+   const direction = Math.min(Math.floor(Math.abs(global.params.Direction)), 1);
+   const snapImmediately = global.params['Snap Immediately'];
+   const snapOffset = global.params['Snap Offset'];
+
+   const keyVer = data.version.startsWith('3') ? keyV3 : keyV2;
+
+   const customData = {
+      [keyVer.rotation]: rotation,
+      [keyVer.step]: step,
+      [keyVer.prop]: prop,
+      [keyVer.speed]: speed,
+      [keyVer.direction]: direction,
+   };
+
+   events.push({
+      b: cursor,
+      et: 8,
+      i: 0,
+      f: 1,
+      customData: customData,
+   });
+
+   if (snapImmediately) {
+      const customDataSnap = {
+         [keyVer.step]: step,
+         [keyVer.prop]: 255,
+         [keyVer.speed]: 255,
+         [keyVer.direction]: direction,
+      };
+
+      events.push({
+         b: cursor - snapOffset,
+         et: 8,
+         i: 0,
+         f: 1,
+         customData: customDataSnap,
+      });
+   }
 }
 
-module.exports = {
-    name: 'Ring Spin Creator',
-    params: {
-        Rotation: 90,
-        Step: 7.5,
-        Prop: 1,
-        Speed: 1,
-        Direction: -1,
-        CounterSpin: false,
-        Reset: false,
-        'Snap Immediately': false,
-        'Snap Offset': 0.0625,
-    },
-    run: spin,
-    errorCheck: false,
-};
+module.exports =
+   /** @type {Main} */
+   ({
+      name,
+      params,
+      run,
+      errorCheck,
+   });

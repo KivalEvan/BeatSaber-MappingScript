@@ -1,86 +1,118 @@
 // @ts-check -- remove if error message is annoying
 /**
- * @typedef {import('./library/types').Run} Run
- * @typedef {import('./library/types').Main} Main
+ * @typedef {import('./library/types').Run<params>} Run
+ * @typedef {import('./library/types').Main<params>} Main
+ * @typedef {import('./library/types/colors').ColorArray} ColorArray
  */
 
-const { clamp } = require('./library/kvlCore.js');
-const { HSVAtoRGBA, RGBAtoHSVA } = require('./library/colors.js');
+const { clamp } = require('./library/kvlUtils.js');
+const { HsvaToRgba, RgbaToHsva } = require('./library/colors.js');
 
-function shiftColor(currentColor, shiftHSVA, settings) {
-    return HSVAtoRGBA(
-        ...RGBAtoHSVA(...currentColor).map((hsva, i) => {
-            if (i === 1) {
-                return clamp(hsva * shiftHSVA[1], 0, 1);
-            }
-            if (i === 2 && settings.fixedValue) {
-                return shiftHSVA[2];
-            }
-            if (i === 3 && settings.fixedAlpha) {
-                return shiftHSVA[3];
-            }
-            return hsva + shiftHSVA[i];
-        })
-    );
-}
+const name = 'Colour Shift';
+const errorCheck = false;
+const params = {
+   Hue: 0,
+   Saturation: 100,
+   Value: 0,
+   Alpha: 0,
+   'Fixed Value': false,
+   'Fixed Alpha': false,
+};
 
 /**
- * @type {Run}
+ * @param {ColorArray} currentColor
+ * @param {ColorArray} shiftHSVA
+ * @param {{ fixedAlpha: boolean, fixedValue: boolean }} settings
+ * @returns
  */
-function shift(cursor, notes, events, walls, _, global, data, customEvents, bpmChanges) {
-    const hsvaShift = [
-        global.params[0],
-        // @ts-ignore
-        global.params[1] / 100,
-        global.params[2],
-        global.params[3],
-    ];
-    const settings = {
-        fixedValue: global.params[4] > 0,
-        fixedAlpha: global.params[5] > 0,
-    };
-    const objectSelected = [
-        ...notes.filter((n) => n.selected),
-        ...events.filter((ev) => ev.selected),
-        ...walls.filter((w) => w.selected),
-    ];
-    if (!objectSelected.length) {
-        alert('Select any notes, events, or walls with Chroma color');
-        return;
-    }
-    objectSelected.forEach((obj) => {
-        if (obj._customData && obj._customData._color) {
-            obj._customData._color = shiftColor(obj._customData._color, hsvaShift, settings);
-        }
-        if (obj._customData && obj._customData._lightGradient) {
-            obj._customData._lightGradient._startColor = shiftColor(
-                obj._customData._lightGradient._startColor,
-                hsvaShift,
-                settings
+function shiftColor(currentColor, shiftHSVA, settings) {
+   return HsvaToRgba(
+      /** @type {ColorArray} */
+      (
+         RgbaToHsva(currentColor).map((hsva, i) => {
+            if (i === 1) {
+               return clamp(/**@type number*/ (hsva) * shiftHSVA[1], 0, 1);
+            }
+            if (i === 2 && settings.fixedValue) {
+               return shiftHSVA[2];
+            }
+            if (i === 3 && settings.fixedAlpha) {
+               return shiftHSVA[3];
+            }
+            return /**@type number*/ (hsva) + /**@type number*/ (shiftHSVA[i]);
+         })
+      ),
+   );
+}
+
+/** @type {Run} */
+function run(
+   cursor,
+   notes,
+   events,
+   walls,
+   _,
+   global,
+   data,
+   customEvents,
+   bpmChanges,
+   bombs = [],
+   arcs = [],
+   chains = [],
+) {
+   /** @type ColorArray */
+   const hsvaShift = [
+      global.params.Hue,
+      global.params.Saturation / 100,
+      global.params.Value,
+      global.params.Alpha,
+   ];
+   const settings = {
+      fixedValue: global.params['Fixed Value'],
+      fixedAlpha: global.params['Fixed Alpha'],
+   };
+   const objectSelected = [
+      ...notes.filter((n) => n.selected),
+      ...events.filter((ev) => ev.selected),
+      ...walls.filter((w) => w.selected),
+      ...bombs.filter((n) => n.selected),
+      ...arcs.filter((ev) => ev.selected),
+      ...chains.filter((w) => w.selected),
+   ];
+   if (!objectSelected.length) {
+      alert('Select any notes, events, or walls with Chroma color');
+      return;
+   }
+   objectSelected.forEach((obj) => {
+      const customData = obj.customData;
+      if (customData) {
+         if (customData._color) {
+            customData._color = shiftColor(customData._color, hsvaShift, settings);
+         }
+         if (customData.color) {
+            customData.color = shiftColor(customData.color, hsvaShift, settings);
+         }
+         if (customData._lightGradient) {
+            customData._lightGradient._startColor = shiftColor(
+               customData._lightGradient._startColor,
+               hsvaShift,
+               settings,
             );
-            obj._customData._lightGradient._endColor = shiftColor(
-                obj._customData._lightGradient._endColor,
-                hsvaShift,
-                settings
+            customData._lightGradient._endColor = shiftColor(
+               customData._lightGradient._endColor,
+               hsvaShift,
+               settings,
             );
-        }
-    });
+         }
+      }
+   });
 }
 
 module.exports =
-    /**
-     * @type {Main}
-     */
-    ({
-        name: 'Colour Shift',
-        params: {
-            Hue: 0,
-            Saturation: 100,
-            Value: 0,
-            Alpha: 0,
-            'Fixed Value': false,
-            'Fixed Alpha': false,
-        },
-        run: shift,
-        errorCheck: false,
-    });
+   /** @type {Main} */
+   ({
+      name,
+      params,
+      run,
+      errorCheck,
+   });

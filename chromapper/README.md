@@ -9,7 +9,7 @@ Some script does not use functions provided by the library, but for development 
 
 Your directory should look something like this for any of the script to work properly.
 
-```js
+```c
 .\plugins\CM-JS\library\ // provided from the folder here
 .\plugins\CM-JS\<any script>.js // any .js script must be placed where .dll is
 .\plugins\CM-JS\<any script>.js
@@ -22,7 +22,9 @@ Your directory should look something like this for any of the script to work pro
 Some of the scripts may not be up to date with recent ChroMapper and CM-JS plugin. If one of the scripts is not working,
 let me know regarding it to fix depending on priority OR you may fix it yourself.
 
+Also `error-check` scripts is deprecated and won't be maintained, use AutoModder plugin instead.
+
 ### Pre-requisite:
 
--   ChroMapper v0.9.0
--   CM-JS 1.3.0
+-  ChroMapper v0.8.625
+-  CM-JS 1.3.3

@@ -13,7 +13,7 @@ for await (const dir of Deno.readDir(path)) {
          scr.save();
          const endTime = performance.now();
          logger.info(
-            `Executed ${dir.name} script for ${utils.round((endTime - startTime) / 1000, 3)}s`
+            `Executed ${dir.name} script for ${utils.round((endTime - startTime) / 1000, 3)}s`,
          );
          logger.info(`Environment contains ${scr.generateEnvironment().length} elements`);
       } catch (e) {
