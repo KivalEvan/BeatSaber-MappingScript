@@ -1,10 +1,10 @@
-import { random } from '../../../BeatSaber-Deno/utils/math.ts';
 import {
    BeatPerMinute,
    ext,
    logger,
    NoteDirectionAngle,
    NoteJumpSpeed,
+   random,
    v3,
 } from '../../depsLocal.ts';
 

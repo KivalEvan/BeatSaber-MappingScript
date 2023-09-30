@@ -1,9 +1,9 @@
 import {
+   deepCopy,
    DistributionType,
    EventBoxColor,
    TransitionType,
    types,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_common.ts';
@@ -67,7 +67,7 @@ export default function (data: v3.Difficulty) {
                filter: { random: 2, seed: generateSeed() },
                beatDistribution: 0.375,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeScale(utils.deepCopy(light), 0.75),
+               events: objectTimeScale(deepCopy(light), 0.75),
             },
          ],
       });

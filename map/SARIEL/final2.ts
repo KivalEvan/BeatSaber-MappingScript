@@ -3,9 +3,9 @@ import {
    EaseType,
    EventBoxColor,
    IndexFilterType,
+   pRandom,
    TransitionType,
    types,
-   utils,
    v3,
 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
@@ -219,9 +219,7 @@ export default (d: v3.Difficulty) => {
                   flip: 1,
                   rotationDistribution: flipFlop ? -30 : 30,
                   affectFirst: 1,
-                  events: [
-                     { rotation: flipFlop ? 150 : 120, easing: first ? 2 : 3 },
-                  ],
+                  events: [{ rotation: flipFlop ? 150 : 120, easing: first ? 2 : 3 }],
                },
                {
                   filter: {
@@ -232,9 +230,7 @@ export default (d: v3.Difficulty) => {
                   flip: 1,
                   rotationDistribution: flipFlop ? 30 : -30,
                   affectFirst: 1,
-                  events: [
-                     { rotation: flipFlop ? 120 : 150, easing: first ? 2 : 3 },
-                  ],
+                  events: [{ rotation: flipFlop ? 120 : 150, easing: first ? 2 : 3 }],
                },
             ],
          });
@@ -460,13 +456,13 @@ export default (d: v3.Difficulty) => {
             continue;
          }
          d.addLightColorEventBoxGroups({
-            time: time + utils.pRandom(0, 0.375),
+            time: time + pRandom(0, 0.375),
             id,
             boxes: [
                {
                   filter: {
                      type: IndexFilterType.STEP_AND_OFFSET,
-                     p0: utils.pRandom(0, 7, true),
+                     p0: pRandom(0, 7, true),
                      p1: 8,
                   },
                   events: [
@@ -588,11 +584,7 @@ export default (d: v3.Difficulty) => {
             },
          );
       }
-      for (
-         let time = 518, flipFlop = false;
-         time < 518 + 24;
-         time += 4, flipFlop = !flipFlop
-      ) {
+      for (let time = 518, flipFlop = false; time < 518 + 24; time += 4, flipFlop = !flipFlop) {
          if (flipFlop ? id % 2 : !(id % 2)) {
             d.addLightColorEventBoxGroups({
                time: time + 0.5,
@@ -646,9 +638,7 @@ export default (d: v3.Difficulty) => {
                ],
             });
          }
-         if (
-            flipFlop ? id % 4 === 0 || id % 4 === 3 : id % 4 === 1 || id % 4 === 2
-         ) {
+         if (flipFlop ? id % 4 === 0 || id % 4 === 3 : id % 4 === 1 || id % 4 === 2) {
             d.addLightColorEventBoxGroups({
                time: time + 2,
                id,

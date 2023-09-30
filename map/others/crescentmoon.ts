@@ -1,16 +1,14 @@
-import { globals, load, save, utils } from '../../depsLocal.ts';
+import { convertColorType, globals, lerpColor, load, normalize, save } from '../../depsLocal.ts';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/crescent moon';
-
-const { convertColorType, interpolateColor, normalize } = utils;
 
 const data = load.difficultySync('ExpertPlusStandard.dat', 2);
 
 const bookmarks = data.customData._bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
-      b._color = interpolateColor(
+      b._color = lerpColor(
          [185, 0, 0.375],
          [175, 0.25, 0.5],
          normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
@@ -29,7 +27,7 @@ if (bookmarks) {
          continue;
       }
       if (b._time >= 174 && b._time <= 206) {
-         b._color = interpolateColor(
+         b._color = lerpColor(
             [285, 0.75, 0.75],
             [315, 0.875, 0.875],
             normalize(b._time, 174, 206),
@@ -38,7 +36,7 @@ if (bookmarks) {
          continue;
       }
       if (b._time >= 374 && b._time <= 406) {
-         b._color = interpolateColor(
+         b._color = lerpColor(
             [165, 0.75, 0.75],
             [195, 0.875, 0.875],
             normalize(b._time, 374, 406),

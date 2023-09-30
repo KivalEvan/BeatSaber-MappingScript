@@ -1,4 +1,16 @@
-import { convert, ext, globals, load, save, types, utils, v2 } from '../../depsLocal.ts';
+import {
+   convert,
+   EasingsFn,
+   ext,
+   globals,
+   lerp,
+   lerpColor,
+   load,
+   normalize,
+   save,
+   types,
+   v2,
+} from '../../depsLocal.ts';
 import { generateEnvironment } from '../../environment-enhancement/lotus/mod.ts';
 // import { sword } from './sword.ts';
 
@@ -191,7 +203,7 @@ where(between(lightshow.basicEvents, 262, 264), { include: { type: 4 } }).forEac
    makeWhite(e)
 );
 where(between(lightshow.basicEvents, 262, 274), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= utils.lerp(utils.normalize(e.time, 262, 274), 5, 1)),
+   (e) => (e.floatValue *= lerp(normalize(e.time, 262, 274), 5, 1)),
 );
 where(at(lightshow.basicEvents, 277.749), { include: { type: 4 } }).forEach((e) =>
    makeWhite(e, 0.5)
@@ -205,12 +217,7 @@ where(between(lightshow.basicEvents, 614, 616), { include: { type: 4 } }).forEac
    makeWhite(e, 1)
 );
 where(between(lightshow.basicEvents, 614, 622), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= utils.lerp(
-      utils.normalize(e.time, 614, 622),
-      4,
-      1,
-      utils.EasingsFn.easeOutQuad,
-   )),
+   (e) => (e.floatValue *= lerp(normalize(e.time, 614, 622), 4, 1, EasingsFn.easeOutQuad)),
 );
 where(between(lightshow.basicEvents, 862, 864), { include: { type: 4 } }).forEach((e) =>
    makeWhite(e, 0.25)
@@ -223,12 +230,7 @@ where(at(lightshow.basicEvents, [886, 888, 890, 892]), {
 }).forEach((e) => makeWhite(e, 0.875));
 at(lightshow.basicEvents, 901).forEach((e) => makeWhite(e, 0.75));
 where(between(lightshow.basicEvents, 966, 974), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= utils.lerp(
-      utils.normalize(e.time, 966, 974),
-      4,
-      1,
-      utils.EasingsFn.easeOutQuad,
-   )),
+   (e) => (e.floatValue *= lerp(normalize(e.time, 966, 974), 4, 1, EasingsFn.easeOutQuad)),
 );
 
 const info = load.infoSync();
@@ -244,18 +246,18 @@ for (const [_, d] of info.listMap()) {
    if (bookmarks) {
       for (const b of bookmarks) {
          if (b._time < 262) {
-            b._color = utils.interpolateColor(
+            b._color = lerpColor(
                [185, 0, 0.375],
                [175, 0.25, 0.5],
-               utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
+               normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
                'hsva',
             );
             continue;
          }
-         b._color = utils.interpolateColor(
+         b._color = lerpColor(
             [30, 1, 1],
             [390, 1, 1],
-            utils.normalize(b._time, 262, bookmarks.at(-1)!._time),
+            normalize(b._time, 262, bookmarks.at(-1)!._time),
             'hsva',
          );
       }
@@ -276,20 +278,15 @@ const bookmarks = oneSaberV3.customData.bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
       if (b.b < 262) {
-         b.c = utils.interpolateColor(
+         b.c = lerpColor(
             [185, 0, 0.375],
             [175, 0.25, 0.5],
-            utils.normalize(b.b, bookmarks.at(0)!.b, bookmarks.at(3)!.b),
+            normalize(b.b, bookmarks.at(0)!.b, bookmarks.at(3)!.b),
             'hsva',
          );
          continue;
       }
-      b.c = utils.interpolateColor(
-         [30, 1, 1],
-         [390, 1, 1],
-         utils.normalize(b.b, 262, bookmarks.at(-1)!.b),
-         'hsva',
-      );
+      b.c = lerpColor([30, 1, 1], [390, 1, 1], normalize(b.b, 262, bookmarks.at(-1)!.b), 'hsva');
    }
 }
 oneSaberV3.basicEvents = lightshowV3.basicEvents;

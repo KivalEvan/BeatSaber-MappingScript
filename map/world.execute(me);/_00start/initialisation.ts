@@ -1,10 +1,10 @@
 import {
    Axis,
+   deepCopy,
    DistributionType,
    EaseType,
    EventLightValue,
    LightRotationDirection,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import {
@@ -102,19 +102,13 @@ export default function (data: v3.Difficulty) {
                filter: FILTER_QUARTET_1_DIV.clone().setChunks(48),
                beatDistribution: 0.03125,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeScale(
-                  utils.deepCopy(SMALL_RINGS_DRUM_INNER),
-                  0.5,
-               ),
+               events: objectTimeScale(deepCopy(SMALL_RINGS_DRUM_INNER), 0.5),
             },
             {
                filter: FILTER_QUARTET_2_DIV.clone().setChunks(48),
                beatDistribution: 0.03125,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeScale(
-                  utils.deepCopy(SMALL_RINGS_DRUM_INNER),
-                  0.5,
-               ),
+               events: objectTimeScale(deepCopy(SMALL_RINGS_DRUM_INNER), 0.5),
             },
          ],
       });
@@ -347,11 +341,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_2_DIV,
-               events: [{
-                  time: 0.0625,
-                  translation: -0.75,
-                  easing: EaseType.IN_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.0625,
+                     translation: -0.75,
+                     easing: EaseType.IN_QUAD,
+                  },
+               ],
                translationDistribution: 0.2,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,
@@ -360,11 +356,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_3_DIV,
-               events: [{
-                  time: 0.125,
-                  translation: -0.5,
-                  easing: EaseType.IN_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.125,
+                     translation: -0.5,
+                     easing: EaseType.IN_QUAD,
+                  },
+               ],
                translationDistribution: 0.2,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,
@@ -373,11 +371,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_4_DIV,
-               events: [{
-                  time: 0.1875,
-                  translation: -0.25,
-                  easing: EaseType.IN_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.1875,
+                     translation: -0.25,
+                     easing: EaseType.IN_QUAD,
+                  },
+               ],
                translationDistribution: 0.2,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,
@@ -401,11 +401,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_2_DIV,
-               events: [{
-                  time: 0.0625,
-                  translation: -1,
-                  easing: EaseType.OUT_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.0625,
+                     translation: -1,
+                     easing: EaseType.OUT_QUAD,
+                  },
+               ],
                translationDistribution: 0.16,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,
@@ -414,11 +416,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_3_DIV,
-               events: [{
-                  time: 0.125,
-                  translation: -0.75,
-                  easing: EaseType.OUT_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.125,
+                     translation: -0.75,
+                     easing: EaseType.OUT_QUAD,
+                  },
+               ],
                translationDistribution: 0.16,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,
@@ -427,11 +431,13 @@ export default function (data: v3.Difficulty) {
             {
                axis: Axis.Z,
                filter: FILTER_QUARTET_4_DIV,
-               events: [{
-                  time: 0.1875,
-                  translation: -0.5,
-                  easing: EaseType.OUT_QUAD,
-               }],
+               events: [
+                  {
+                     time: 0.1875,
+                     translation: -0.5,
+                     easing: EaseType.OUT_QUAD,
+                  },
+               ],
                translationDistribution: 0.16,
                translationDistributionType: DistributionType.WAVE,
                flip: 1,

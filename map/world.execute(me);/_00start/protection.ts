@@ -1,12 +1,12 @@
 import {
    Axis,
+   deepCopy,
    DistributionType,
    EaseType,
    EventBoxColor,
    EventLightValue,
    LightRotationDirection,
    TransitionType,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import {
@@ -121,19 +121,13 @@ export default function (data: v3.Difficulty) {
                filter: FILTER_QUARTET_1_DIV.clone().setChunks(32),
                beatDistribution: 0.03125,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeScale(
-                  utils.deepCopy(SMALL_RINGS_DRUM_INNER),
-                  0.5,
-               ),
+               events: objectTimeScale(deepCopy(SMALL_RINGS_DRUM_INNER), 0.5),
             },
             {
                filter: FILTER_QUARTET_2_DIV.clone().setChunks(32),
                beatDistribution: 0.03125,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeScale(
-                  utils.deepCopy(SMALL_RINGS_DRUM_INNER),
-                  0.5,
-               ),
+               events: objectTimeScale(deepCopy(SMALL_RINGS_DRUM_INNER), 0.5),
             },
          ],
       });

@@ -1,4 +1,4 @@
-import { utils, v3 } from '../../depsLocal.ts';
+import { random, v3 } from '../../depsLocal.ts';
 
 export default (d: v3.Difficulty) => {
    let obs: v3.Obstacle[] = [];
@@ -43,8 +43,8 @@ export default (d: v3.Difficulty) => {
          for (let x = 0; x < 4; x++) {
             obs = v3.Obstacle.create({
                b: 37 + i * 16 + j * 4 + x * 0.25,
-               x: -2 + j - utils.random(0, 2, true),
-               y: utils.random(0, 2, true),
+               x: -2 + j - random(0, 2, true),
+               y: random(0, 2, true),
                d: 0.1875,
                w: 2 - j,
                h: 1 + j * 2,
@@ -54,8 +54,8 @@ export default (d: v3.Difficulty) => {
                ...obs.map((o) =>
                   o
                      .clone()
-                     .setPosX(o.posX - utils.random(0, 2, true))
-                     .setPosY(utils.random(0, 2, true))
+                     .setPosX(o.posX - random(0, 2, true))
+                     .setPosY(random(0, 2, true))
                      .mirror()
                ),
             );

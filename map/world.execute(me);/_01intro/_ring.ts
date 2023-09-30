@@ -6,7 +6,6 @@ import {
    EventLightValue,
    LightRotationDirection,
    TransitionType,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import {

@@ -1,9 +1,9 @@
 import {
+   deepCopy,
    DistributionType,
    EventBoxColor,
    TransitionType,
    types,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_common.ts';
@@ -43,20 +43,16 @@ export default function (data: v3.Difficulty) {
          id: Group.TOP_SPOTLIGHTS,
          boxes: [
             {
-               filter: FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(
-                  generateSeed(),
-               ),
+               filter: FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed()),
                beatDistribution: 2,
                beatDistributionType: DistributionType.STEP,
                events: light,
             },
             {
-               filter: FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(
-                  generateSeed(),
-               ),
+               filter: FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed()),
                beatDistribution: 2,
                beatDistributionType: DistributionType.STEP,
-               events: objectTimeShift(utils.deepCopy(light), 1),
+               events: objectTimeShift(deepCopy(light), 1),
             },
          ],
       });
@@ -66,23 +62,15 @@ export default function (data: v3.Difficulty) {
          boxes: [
             {
                filter: flip
-                  ? FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(
-                     generateSeed(),
-                  )
-                  : FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(
-                     generateSeed(),
-                  ),
+                  ? FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed())
+                  : FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed()),
                events: [{ rotation: 15 }, { time: 7.5, rotation: 20 }],
                rotationDistribution: 15,
             },
             {
                filter: flip
-                  ? FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(
-                     generateSeed(),
-                  )
-                  : FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(
-                     generateSeed(),
-                  ),
+                  ? FILTER_HALF_2_STEP.clone().setRandom(2).setSeed(generateSeed())
+                  : FILTER_HALF_1_STEP.clone().setRandom(2).setSeed(generateSeed()),
                events: [{ rotation: 15 }, { time: 7.5, rotation: 20 }],
                rotationDistribution: 15,
                flip: 1,

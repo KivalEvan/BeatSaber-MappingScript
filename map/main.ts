@@ -25,8 +25,9 @@ try {
       const o = others.find((e) => e.name.split('.')[0].trim().toLowerCase() === name);
       if (!o) throw new Error('Script not found');
       console.time('Runtime');
-      (await import(Deno.build.os === 'windows' ? 'file:///' : '')) +
-         resolve(path, 'others', o.name);
+      await import(
+         (Deno.build.os === 'windows' ? 'file:///' : '') + resolve(path, 'others', o.name)
+      );
    }
 } catch (e) {
    console.error(e);

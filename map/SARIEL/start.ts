@@ -3,8 +3,8 @@ import {
    EaseType,
    EventBoxColor,
    IndexFilterType,
+   pRandom,
    TransitionType,
-   utils,
    v3,
 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
@@ -70,13 +70,13 @@ export default (d: v3.Difficulty) => {
       for (let x = 7.75; x < 36; x += 0.5) {
          d.addLightColorEventBoxGroups(
             {
-               time: x + utils.pRandom(0, 0.375),
+               time: x + pRandom(0, 0.375),
                id: 0 + i,
                boxes: [
                   {
                      filter: {
                         type: IndexFilterType.STEP_AND_OFFSET,
-                        p0: utils.pRandom(0, 7, true),
+                        p0: pRandom(0, 7, true),
                         p1: 8,
                      },
                      events: [
@@ -97,13 +97,13 @@ export default (d: v3.Difficulty) => {
                ],
             },
             {
-               time: x + utils.pRandom(0, 0.375),
+               time: x + pRandom(0, 0.375),
                id: 4 + i,
                boxes: [
                   {
                      filter: {
                         type: IndexFilterType.STEP_AND_OFFSET,
-                        p0: utils.pRandom(0, 7, true),
+                        p0: pRandom(0, 7, true),
                         p1: 8,
                      },
                      events: [
@@ -124,13 +124,13 @@ export default (d: v3.Difficulty) => {
                ],
             },
             {
-               time: x + utils.pRandom(0, 0.375),
+               time: x + pRandom(0, 0.375),
                id: 10 + i,
                boxes: [
                   {
                      filter: {
                         type: IndexFilterType.STEP_AND_OFFSET,
-                        p0: utils.pRandom(0, 7, true),
+                        p0: pRandom(0, 7, true),
                         p1: 8,
                      },
                      events: [
@@ -172,12 +172,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 3.5,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 270 + utils.pRandom(-5, 5),
+                        rotation: 270 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -189,12 +189,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 7,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 255 + utils.pRandom(-5, 5),
+                        rotation: 255 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -206,12 +206,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 7,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 270 + utils.pRandom(-5, 5),
+                        rotation: 270 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -223,12 +223,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 7,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 255 + utils.pRandom(-5, 5),
+                        rotation: 255 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -240,12 +240,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 7,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 270 + utils.pRandom(-5, 5),
+                        rotation: 270 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -257,12 +257,12 @@ export default (d: v3.Difficulty) => {
             id: 0 + i,
             boxes: [
                {
-                  rotationDistribution: -60 - utils.pRandom(0, 5),
+                  rotationDistribution: -60 - pRandom(0, 5),
                   beatDistribution: 2,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 262.5 + utils.pRandom(-5, 5),
+                        rotation: 262.5 + pRandom(-5, 5),
                         easing: EaseType.IN_QUAD,
                      },
                   ],
@@ -288,12 +288,12 @@ export default (d: v3.Difficulty) => {
             id: 4 + i,
             boxes: [
                {
-                  rotationDistribution: -45 - utils.pRandom(0, 5),
+                  rotationDistribution: -45 - pRandom(0, 5),
                   beatDistribution: 4,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 240 + utils.pRandom(-5, 5),
+                        rotation: 240 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -305,12 +305,12 @@ export default (d: v3.Difficulty) => {
             id: 4 + i,
             boxes: [
                {
-                  rotationDistribution: -45 - utils.pRandom(0, 5),
+                  rotationDistribution: -45 - pRandom(0, 5),
                   beatDistribution: 8,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 225 + utils.pRandom(-5, 5),
+                        rotation: 225 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -322,12 +322,12 @@ export default (d: v3.Difficulty) => {
             id: 4 + i,
             boxes: [
                {
-                  rotationDistribution: -45 - utils.pRandom(0, 5),
+                  rotationDistribution: -45 - pRandom(0, 5),
                   beatDistribution: 8,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 240 + utils.pRandom(-5, 5),
+                        rotation: 240 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -339,12 +339,12 @@ export default (d: v3.Difficulty) => {
             id: 4 + i,
             boxes: [
                {
-                  rotationDistribution: -45 - utils.pRandom(0, 5),
+                  rotationDistribution: -45 - pRandom(0, 5),
                   beatDistribution: 8,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 225 + utils.pRandom(-5, 5),
+                        rotation: 225 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -356,12 +356,12 @@ export default (d: v3.Difficulty) => {
             id: 4 + i,
             boxes: [
                {
-                  rotationDistribution: -45 - utils.pRandom(0, 5),
+                  rotationDistribution: -45 - pRandom(0, 5),
                   beatDistribution: 2,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 230 + utils.pRandom(-5, 5),
+                        rotation: 230 + pRandom(-5, 5),
                         easing: EaseType.OUT_QUAD,
                      },
                   ],
@@ -387,12 +387,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 3,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 150 + utils.pRandom(-5, 5),
+                        rotation: 150 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -404,12 +404,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 6,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 165 + utils.pRandom(-5, 5),
+                        rotation: 165 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -421,12 +421,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 6,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 150 + utils.pRandom(-5, 5),
+                        rotation: 150 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -438,12 +438,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 6,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 165 + utils.pRandom(-5, 5),
+                        rotation: 165 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -455,12 +455,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 6,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 150 + utils.pRandom(-5, 5),
+                        rotation: 150 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],
@@ -472,12 +472,12 @@ export default (d: v3.Difficulty) => {
             id: 10 + i,
             boxes: [
                {
-                  rotationDistribution: 75 + utils.pRandom(0, 5),
+                  rotationDistribution: 75 + pRandom(0, 5),
                   beatDistribution: 6,
                   affectFirst: 1,
                   events: [
                      {
-                        rotation: 165 + utils.pRandom(-5, 5),
+                        rotation: 165 + pRandom(-5, 5),
                         easing: EaseType.INOUT_QUAD,
                      },
                   ],

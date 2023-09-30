@@ -1,4 +1,4 @@
-import { logger, NoteDirectionFlip, NoteDirectionSpace, utils, v3 } from '../depsLocal.ts';
+import { clamp, logger, NoteDirectionFlip, NoteDirectionSpace, v3 } from '../depsLocal.ts';
 
 /**
  * Convert chroma note to arc and chain.
@@ -37,19 +37,16 @@ export default (d: v3.Difficulty) => {
                   x: prevSlider[n.color].posX,
                   y: prevSlider[n.color].posY,
                   d: prevSlider[n.color].direction,
-                  mu: typeof prevSlider[n.color].customData.spawnEffect ===
-                        'boolean'
+                  mu: typeof prevSlider[n.color].customData.spawnEffect === 'boolean'
                      ? 0
                      : prevSlider[n.color].customData!.color![2],
                   tb: n.time,
                   tx: n.posX,
                   ty: n.posY,
-                  tc: typeof prevSlider[n.color].customData.spawnEffect ===
-                        'boolean'
+                  tc: typeof prevSlider[n.color].customData.spawnEffect === 'boolean'
                      ? prevSlider[n.color].direction
                      : n.direction,
-                  tmu: typeof prevSlider[n.color].customData.spawnEffect ===
-                        'boolean'
+                  tmu: typeof prevSlider[n.color].customData.spawnEffect === 'boolean'
                      ? 0
                      : prevSlider[n.color].customData!.color![3],
                   m: prevSlider[n.color].customData!.color![1] as 0,
@@ -68,8 +65,8 @@ export default (d: v3.Difficulty) => {
                      y += NoteDirectionSpace[n.direction as 0][1];
                      distance++;
                   }
-                  x = utils.clamp(x, 0, 3);
-                  y = utils.clamp(y, 0, 2);
+                  x = clamp(x, 0, 3);
+                  y = clamp(y, 0, 2);
                   d.addArcs({
                      b: n.time,
                      c: n.color,

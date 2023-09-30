@@ -1,4 +1,4 @@
-import { ext, logger, types, utils, v3 } from '../../depsLocal.ts';
+import { ext, logger, pRandomFn, types, v3 } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -14,7 +14,7 @@ const info: types.external.IEnvironmentJSON = {
 };
 
 export function generateEnvironment(includeFELT = false): types.v3.IChromaEnvironment[] {
-   const pRandom = utils.pRandomFn('Lotus');
+   const pRandom = pRandomFn('Lotus');
    const environment: types.v3.IChromaEnvironment[] = [];
 
    // environment related
@@ -82,9 +82,9 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
       //     position: [0, 16, -112 + i * 24],
       //     rotation: [i % 2 ? 270 : 90, 0, 0],
       //     scale: [
-      //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
+      //         0.125 + 0.375 * Math.cos(degToRad(i * 8)),
       //         0.25 + pRandom(0.375),
-      //         0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
+      //         0.125 + 0.375 * Math.cos(degToRad(i * 8)),
       //     ],
       // });
    }

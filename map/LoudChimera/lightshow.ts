@@ -10,7 +10,7 @@ export function lightshow() {
    init = true;
    const d2 = load.difficultySync('Lightshow.dat', 2);
    convert.chromaLightGradientToVanillaGradient(d2);
-   data = convert.toV3(d2);
+   data = convert.toV3Difficulty(d2);
 
    // const e = data.customData.environment?.filter((e) => e.id).map((e) => e.id);
    data.customData.environment?.forEach((e) => {

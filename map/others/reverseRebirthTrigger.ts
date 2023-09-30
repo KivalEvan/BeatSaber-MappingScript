@@ -1,4 +1,4 @@
-import { ext, globals, load, save, utils } from '../../depsLocal.ts';
+import { ext, globals, lerpColor, load, normalize, save } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
 globals.directory = wipPath('Reverse Rebirth Trigger');
@@ -14,10 +14,10 @@ data.basicEvents = lightshow.basicEvents;
 const bookmarks = data.customData._bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
-      b._color = utils.interpolateColor(
+      b._color = lerpColor(
          [199, 0.33, 0.56],
          [360, 0.75, 0.75],
-         utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
+         normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
          'hsva',
       );
    }

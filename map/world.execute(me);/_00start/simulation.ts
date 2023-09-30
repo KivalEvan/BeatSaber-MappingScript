@@ -7,7 +7,6 @@ import {
    LightRotationDirection,
    RandomType,
    TransitionType,
-   utils,
    v3,
 } from '../../../depsLocal.ts';
 import {
@@ -437,19 +436,13 @@ export default function (data: v3.Difficulty) {
                filter: FILTER_HALF_1_STEP,
                beatDistribution: 0.999,
                axis: Axis.Z,
-               events: [
-                  { previous: 1 },
-                  { time: 0.5, rotation: 15, easing: EaseType.OUT_QUAD },
-               ],
+               events: [{ previous: 1 }, { time: 0.5, rotation: 15, easing: EaseType.OUT_QUAD }],
             },
             {
                filter: FILTER_HALF_2_STEP,
                beatDistribution: 0.999,
                axis: Axis.Z,
-               events: [
-                  { previous: 1 },
-                  { time: 0.5, rotation: 345, easing: EaseType.OUT_QUAD },
-               ],
+               events: [{ previous: 1 }, { time: 0.5, rotation: 345, easing: EaseType.OUT_QUAD }],
             },
          ],
       },

@@ -6,13 +6,11 @@ import {
    NoteDirectionSpace,
    NoteJumpSpeed,
    types,
-   utils,
    v3,
 } from '../../depsLocal.ts';
 import { connectSlider } from './helpers.ts';
 const { NE } = ext;
 const { between, at, where } = ext.selector;
-const { random } = utils;
 
 function slashGlitchHit(fakeNotes: v3.ColorNote[], duration: number) {
    if (duration < NoteJumpSpeed.HJD_MIN) {

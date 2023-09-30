@@ -1,4 +1,4 @@
-import { ext, globals, load, save, utils, v2 } from '../../depsLocal.ts';
+import { ext, globals, lerp, lerpColor, load, normalize, save, v2 } from '../../depsLocal.ts';
 
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/Dark Flight Dreamer/'
@@ -26,10 +26,10 @@ lightshow.customData._environment = environment.customData._environment;
 const bookmarks = lightshow.customData._bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
-      b._color = utils.interpolateColor(
+      b._color = lerpColor(
          [405, 1, 1],
          [225, 1, 1],
-         utils.normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
+         normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(-1)!._time),
          'hsva',
       );
    }
@@ -77,7 +77,7 @@ for (const vos of verseOrSomething) {
       makeWhite(e, 0.75)
    );
    between(where(whiteLightCandidate, { include: { type: 0 } }), vos + 30, vos + 31.999).forEach(
-      (e, i, _) => makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 0.75, 1.25)),
+      (e, i, _) => makeWhite(e, lerp(normalize(i, 0, _.length - 1), 0.75, 1.25)),
    );
    between(whiteLightCandidate, vos + 35, vos + 35.999).forEach((e) => makeWhite(e));
 }
@@ -85,7 +85,7 @@ for (const vos of verseOrSomething) {
 const aaaaaaaaaaaaaaaaaaaaTime = [190, 386, 550];
 for (const ct of aaaaaaaaaaaaaaaaaaaaTime) {
    between(where(whiteLightCandidate, { include: { type: 0 } }), ct, ct + 7.999).forEach(
-      (e, i, _) => makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 0.625, 0.75)),
+      (e, i, _) => makeWhite(e, lerp(normalize(i, 0, _.length - 1), 0.625, 0.75)),
    );
    between(whiteLightCandidate, ct + 9, ct + 10).forEach((e) => makeWhite(e));
 }
@@ -169,10 +169,10 @@ for (const fi of flashIt) {
 }
 
 between(where(whiteLightCandidate, { include: { type: 1 } }), 97.5, 98.5).forEach((e, i, _) =>
-   makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 1, 0.5))
+   makeWhite(e, lerp(normalize(i, 0, _.length - 1), 1, 0.5))
 );
 between(where(whiteLightCandidate, { include: { type: 1 } }), 293.5, 294.5).forEach((e, i, _) =>
-   makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 1, 0.5))
+   makeWhite(e, lerp(normalize(i, 0, _.length - 1), 1, 0.5))
 );
 between(where(whiteLightCandidate, { include: { type: 4 } }), 108, 109).forEach((e) =>
    makeWhite(e)
@@ -191,7 +191,7 @@ const burstTime = [6, 86, 282];
 for (const bt of burstTime) {
    between(whiteLightCandidate, bt, bt + 2).forEach((e) => makeWhite(e, 0.40625));
    between(whiteLightCandidate, bt + 2, bt + 3.999).forEach((e, i, _) =>
-      makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 0.5, 1))
+      makeWhite(e, lerp(normalize(i, 0, _.length - 1), 0.5, 1))
    );
 }
 
@@ -199,9 +199,9 @@ between(
    whiteLightCandidate.filter((ev) => ev.type !== 0),
    458,
    465.999,
-).forEach((e, i, _) => makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 0.25, 1)));
+).forEach((e, i, _) => makeWhite(e, lerp(normalize(i, 0, _.length - 1), 0.25, 1)));
 between(whiteLightCandidate, 469, 469.999).forEach((e, i, _) =>
-   makeWhite(e, utils.lerp(utils.normalize(i, 0, _.length - 1), 2, 1.25))
+   makeWhite(e, lerp(normalize(i, 0, _.length - 1), 2, 1.25))
 );
 between(where(lightshow.basicEvents, { include: { type: 4 } }), 468, 468.999).forEach((e) =>
    makeWhite(e)

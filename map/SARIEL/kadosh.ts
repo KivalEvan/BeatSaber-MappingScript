@@ -1,3 +1,4 @@
+import { pRandom } from '../../chromapper/library/kvlUtils.js';
 import {
    Axis,
    EaseType,
@@ -5,7 +6,6 @@ import {
    IndexFilterType,
    TransitionType,
    types,
-   utils,
    v3,
 } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
@@ -172,14 +172,14 @@ export default (d: v3.Difficulty) => {
                   },
                ],
             });
-            const startRandom = (utils.pRandom(-7, 7, true) * 45) % 360;
+            const startRandom = (pRandom(-7, 7, true) * 45) % 360;
             d.addLightRotationEventBoxGroups(
                {
                   time: rt + kt - 0.125,
                   id: kg,
                   boxes: [
                      {
-                        rotationDistribution: utils.pRandom() > 0.5 ? 45 : -45,
+                        rotationDistribution: pRandom() > 0.5 ? 45 : -45,
                         rotationDistributionType: 2,
                         affectFirst: 1,
                         events: [
@@ -196,7 +196,7 @@ export default (d: v3.Difficulty) => {
                   id: kg,
                   boxes: [
                      {
-                        rotationDistribution: utils.pRandom() > 0.5 ? 45 : -45,
+                        rotationDistribution: pRandom() > 0.5 ? 45 : -45,
                         rotationDistributionType: 2,
                         affectFirst: 1,
                         events: [
@@ -213,7 +213,7 @@ export default (d: v3.Difficulty) => {
                   id: kg,
                   boxes: [
                      {
-                        rotationDistribution: utils.pRandom() > 0.5 ? 90 : -90,
+                        rotationDistribution: pRandom() > 0.5 ? 90 : -90,
                         rotationDistributionType: 2,
                         affectFirst: 1,
                         events: [
@@ -224,8 +224,7 @@ export default (d: v3.Difficulty) => {
                            {
                               time: 0.125,
                               easing: EaseType.IN_QUAD,
-                              rotation: (utils.pRandom(-3, 3, true) * 90) %
-                                 360,
+                              rotation: (pRandom(-3, 3, true) * 90) % 360,
                            },
                         ],
                      },
@@ -239,10 +238,7 @@ export default (d: v3.Difficulty) => {
             {
                time: rt - 1,
                id,
-               boxes: [
-                  { events: [{ previous: 1 }] },
-                  { axis: Axis.Y, events: [{ previous: 1 }] },
-               ],
+               boxes: [{ events: [{ previous: 1 }] }, { axis: Axis.Y, events: [{ previous: 1 }] }],
             },
             {
                time: rt,
@@ -609,10 +605,7 @@ export default (d: v3.Difficulty) => {
                      beatDistribution: 1,
                      rotationDistribution: 180,
                      rotationDistributionType: 2,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                   {
                      filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
@@ -640,10 +633,7 @@ export default (d: v3.Difficulty) => {
                      beatDistribution: 1,
                      rotationDistribution: 180,
                      rotationDistributionType: 2,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                   {
                      filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
@@ -668,10 +658,7 @@ export default (d: v3.Difficulty) => {
                      beatDistribution: 1,
                      rotationDistribution: 180,
                      rotationDistributionType: 2,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                   {
                      filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 2 },
@@ -1102,10 +1089,7 @@ export default (d: v3.Difficulty) => {
                      },
                      rotationDistributionType: 2,
                      affectFirst: 1,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                ],
             },
@@ -1148,10 +1132,7 @@ export default (d: v3.Difficulty) => {
                      },
                      rotationDistributionType: 2,
                      affectFirst: 1,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                ],
             },
@@ -1194,10 +1175,7 @@ export default (d: v3.Difficulty) => {
                      },
                      rotationDistributionType: 2,
                      affectFirst: 1,
-                     events: [
-                        { easing: EaseType.NONE, previous: 1 },
-                        { time: 0.25 },
-                     ],
+                     events: [{ easing: EaseType.NONE, previous: 1 }, { time: 0.25 }],
                   },
                ],
             },
@@ -1428,21 +1406,14 @@ export default (d: v3.Difficulty) => {
             },
          ],
       });
-      for (
-         let time = rt + 4;
-         rt === 38 ? time < rt + 28 : time <= rt + 28;
-         time += 8
-      ) {
+      for (let time = rt + 4; rt === 38 ? time < rt + 28 : time <= rt + 28; time += 8) {
          d.addLightColorEventBoxGroups({
             time,
             id: 13,
             boxes: [
                {
                   filter: { type: IndexFilterType.STEP_AND_OFFSET, p1: 999 },
-                  events: [
-                     { frequency: 8 },
-                     { time: 1.999, brightness: Brightness.OFF },
-                  ],
+                  events: [{ frequency: 8 }, { time: 1.999, brightness: Brightness.OFF }],
                },
                {
                   filter: {
@@ -1450,10 +1421,7 @@ export default (d: v3.Difficulty) => {
                      reverse: 1,
                      p1: 999,
                   },
-                  events: [
-                     { frequency: 8 },
-                     { time: 1.999, brightness: Brightness.OFF },
-                  ],
+                  events: [{ frequency: 8 }, { time: 1.999, brightness: Brightness.OFF }],
                },
                {
                   filter: {
@@ -1461,10 +1429,7 @@ export default (d: v3.Difficulty) => {
                      p0: 5,
                      p1: 999,
                   },
-                  events: [
-                     { frequency: 8 },
-                     { time: 1.999, brightness: Brightness.OFF },
-                  ],
+                  events: [{ frequency: 8 }, { time: 1.999, brightness: Brightness.OFF }],
                },
                {
                   filter: {
@@ -1473,10 +1438,7 @@ export default (d: v3.Difficulty) => {
                      p0: 5,
                      p1: 999,
                   },
-                  events: [
-                     { frequency: 8 },
-                     { time: 1.999, brightness: Brightness.OFF },
-                  ],
+                  events: [{ frequency: 8 }, { time: 1.999, brightness: Brightness.OFF }],
                },
             ],
          });

@@ -1,4 +1,4 @@
-import { ColorScheme, globals, load, save, utils } from '../../depsLocal.ts';
+import { colorFrom, ColorScheme, globals, load, save, toColorObject } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
 globals.directory = wipPath('Sunset Tea Cup');
@@ -32,29 +32,26 @@ info.colorSchemes = [
       useOverride: false,
       colorScheme: {
          name: 'Default Color',
-         saberLeftColor: utils.toColorObject(ColorScheme['The First']._colorLeft!, true),
-         saberRightColor: utils.toColorObject(ColorScheme['The First']._colorRight!, true),
-         environment0Color: utils.toColorObject(ColorScheme['The First']._envColorLeft!, true),
-         environment1Color: utils.toColorObject(ColorScheme['The First']._envColorRight!, true),
-         environment0ColorBoost: utils.toColorObject([0, 0, 0], true),
-         environment1ColorBoost: utils.toColorObject([0, 0, 0], true),
-         obstaclesColor: utils.toColorObject(ColorScheme['The First']._obstacleColor!, true),
+         saberLeftColor: toColorObject(ColorScheme['The First']._colorLeft!, true),
+         saberRightColor: toColorObject(ColorScheme['The First']._colorRight!, true),
+         environment0Color: toColorObject(ColorScheme['The First']._envColorLeft!, true),
+         environment1Color: toColorObject(ColorScheme['The First']._envColorRight!, true),
+         environment0ColorBoost: toColorObject([0, 0, 0], true),
+         environment1ColorBoost: toColorObject([0, 0, 0], true),
+         obstaclesColor: toColorObject(ColorScheme['The First']._obstacleColor!, true),
       },
    },
    {
       useOverride: true,
       colorScheme: {
          name: 'Sunset Tea Cup',
-         saberLeftColor: utils.toColorObject(utils.colorFrom(355, 0.8125, 0.9375, 'hsva'), true),
-         saberRightColor: utils.toColorObject(utils.colorFrom(215, 0.625, 0.875, 'hsva'), true),
-         environment0Color: utils.toColorObject(utils.colorFrom(80, 0.666, 0.7, 'hsva'), true),
-         environment1Color: utils.toColorObject(utils.colorFrom(205, 0.75, 0.8125, 'hsva'), true),
-         environment0ColorBoost: utils.toColorObject(utils.colorFrom(350, 1, 0.8125, 'hsva'), true),
-         environment1ColorBoost: utils.toColorObject(
-            utils.colorFrom(210, 0.75, 0.75, 'hsva'),
-            true,
-         ),
-         obstaclesColor: utils.toColorObject(utils.colorFrom(220, 0.666, 0.4375, 'hsva'), true),
+         saberLeftColor: toColorObject(colorFrom(355, 0.8125, 0.9375, 'hsva'), true),
+         saberRightColor: toColorObject(colorFrom(215, 0.625, 0.875, 'hsva'), true),
+         environment0Color: toColorObject(colorFrom(80, 0.666, 0.7, 'hsva'), true),
+         environment1Color: toColorObject(colorFrom(205, 0.75, 0.8125, 'hsva'), true),
+         environment0ColorBoost: toColorObject(colorFrom(350, 1, 0.8125, 'hsva'), true),
+         environment1ColorBoost: toColorObject(colorFrom(210, 0.75, 0.75, 'hsva'), true),
+         obstaclesColor: toColorObject(colorFrom(220, 0.666, 0.4375, 'hsva'), true),
       },
    },
 ];

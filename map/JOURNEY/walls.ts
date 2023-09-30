@@ -1,4 +1,4 @@
-import { utils, v3 } from '../../depsLocal.ts';
+import { colorFrom, lerp, normalize, v3 } from '../../depsLocal.ts';
 
 export function walls(data: v3.Difficulty) {
    let tempWall = v3.Obstacle.create(
@@ -649,7 +649,7 @@ export function walls(data: v3.Difficulty) {
          x: -5,
          y: 0,
          customData: {
-            color: utils.colorFrom([0, 1, 1], 'hsva'),
+            color: colorFrom([0, 1, 1], 'hsva'),
          },
       },
       {
@@ -658,7 +658,7 @@ export function walls(data: v3.Difficulty) {
          x: -4,
          y: 1,
          customData: {
-            color: utils.colorFrom([30, 1, 1], 'hsva'),
+            color: colorFrom([30, 1, 1], 'hsva'),
          },
       },
       {
@@ -667,7 +667,7 @@ export function walls(data: v3.Difficulty) {
          x: -3,
          y: 2,
          customData: {
-            color: utils.colorFrom([90, 1, 1], 'hsva'),
+            color: colorFrom([90, 1, 1], 'hsva'),
          },
       },
       {
@@ -676,7 +676,7 @@ export function walls(data: v3.Difficulty) {
          x: -3,
          y: 0,
          customData: {
-            color: utils.colorFrom([60, 1, 1], 'hsva'),
+            color: colorFrom([60, 1, 1], 'hsva'),
          },
       },
       {
@@ -685,7 +685,7 @@ export function walls(data: v3.Difficulty) {
          x: -2,
          y: 1,
          customData: {
-            color: utils.colorFrom([120, 1, 1], 'hsva'),
+            color: colorFrom([120, 1, 1], 'hsva'),
          },
       },
       {
@@ -694,7 +694,7 @@ export function walls(data: v3.Difficulty) {
          x: -1,
          y: 2,
          customData: {
-            color: utils.colorFrom([120, 1, 1], 'hsva'),
+            color: colorFrom([120, 1, 1], 'hsva'),
          },
       },
       {
@@ -703,7 +703,7 @@ export function walls(data: v3.Difficulty) {
          x: 4,
          y: 2,
          customData: {
-            color: utils.colorFrom([180, 1, 1], 'hsva'),
+            color: colorFrom([180, 1, 1], 'hsva'),
          },
       },
       {
@@ -712,7 +712,7 @@ export function walls(data: v3.Difficulty) {
          x: 5,
          y: 1,
          customData: {
-            color: utils.colorFrom([210, 1, 1], 'hsva'),
+            color: colorFrom([210, 1, 1], 'hsva'),
          },
       },
       {
@@ -721,7 +721,7 @@ export function walls(data: v3.Difficulty) {
          x: 6,
          y: 0,
          customData: {
-            color: utils.colorFrom([270, 1, 1], 'hsva'),
+            color: colorFrom([270, 1, 1], 'hsva'),
          },
       },
       {
@@ -730,7 +730,7 @@ export function walls(data: v3.Difficulty) {
          x: 6,
          y: 2,
          customData: {
-            color: utils.colorFrom([240, 1, 1], 'hsva'),
+            color: colorFrom([240, 1, 1], 'hsva'),
          },
       },
       {
@@ -739,7 +739,7 @@ export function walls(data: v3.Difficulty) {
          x: 7,
          y: 1,
          customData: {
-            color: utils.colorFrom([300, 1, 1], 'hsva'),
+            color: colorFrom([300, 1, 1], 'hsva'),
          },
       },
       {
@@ -748,14 +748,12 @@ export function walls(data: v3.Difficulty) {
          x: 8,
          y: 0,
          customData: {
-            color: utils.colorFrom([330, 1, 1], 'hsva'),
+            color: colorFrom([330, 1, 1], 'hsva'),
          },
       },
    );
    data.obstacles.push(
-      ...tempWall.map((w) =>
-         w.setTime(utils.lerp(utils.normalize(w.time, 834.5, 835.75), 835, 836))
-      ),
+      ...tempWall.map((w) => w.setTime(lerp(normalize(w.time, 834.5, 835.75), 835, 836))),
    );
 
    tempWall = v3.Obstacle.create(

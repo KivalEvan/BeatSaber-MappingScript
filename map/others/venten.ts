@@ -1,4 +1,4 @@
-import { globals, load, save, utils } from '../../depsLocal.ts';
+import { colorFrom, globals, load, save, toColorObject } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 
 globals.directory = wipPath('VENTEN');
@@ -29,13 +29,13 @@ info.colorSchemes = [
       useOverride: true,
       colorScheme: {
          name: 'VENTEN',
-         saberLeftColor: utils.toColorObject(utils.colorFrom(45, 0.666, 1, 'hsva'), true),
-         saberRightColor: utils.toColorObject(utils.colorFrom(270, 0.725, 0.9, 'hsva'), true),
-         environment0Color: utils.toColorObject(utils.colorFrom(45, 1, 0.666, 'hsva'), true),
-         environment1Color: utils.toColorObject(utils.colorFrom(90, 0.8, 0.5, 'hsva'), true),
-         environment0ColorBoost: utils.toColorObject(utils.colorFrom(330, 1, 0.75, 'hsva'), true),
-         environment1ColorBoost: utils.toColorObject(utils.colorFrom(200, 1, 0.666, 'hsva'), true),
-         obstaclesColor: utils.toColorObject(utils.colorFrom(180, 0.333, 0.8, 'hsva'), true),
+         saberLeftColor: toColorObject(colorFrom(30, 0.666, 0.9375, 'hsva'), true),
+         saberRightColor: toColorObject(colorFrom(270, 0.725, 0.9375, 'hsva'), true),
+         environment0Color: toColorObject(colorFrom(45, 1, 0.666, 'hsva'), true),
+         environment1Color: toColorObject(colorFrom(90, 0.8, 0.5, 'hsva'), true),
+         environment0ColorBoost: toColorObject(colorFrom(330, 1, 0.75, 'hsva'), true),
+         environment1ColorBoost: toColorObject(colorFrom(200, 1, 0.666, 'hsva'), true),
+         obstaclesColor: toColorObject(colorFrom(180, 0.333, 0.8, 'hsva'), true),
       },
    },
 ];
@@ -79,5 +79,3 @@ for (const [_, d] of info.listMap()) {
 }
 
 save.infoSync(info);
-
-console.timeEnd('Runtime');

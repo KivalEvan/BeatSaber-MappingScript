@@ -1,4 +1,14 @@
-import { ext, logger, types, utils, v3 } from '../../depsLocal.ts';
+import {
+   ext,
+   lerp,
+   logger,
+   normalize,
+   pRandomFn,
+   types,
+   v3,
+   vectorAdd,
+   vectorMul,
+} from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -29,7 +39,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const trackAry: types.v3.IChromaEnvironment[] = [];
    const structureAry: types.v3.IChromaEnvironment[] = [];
    const trainAry: types.v3.IChromaEnvironment[] = [];
-   const pRandom = utils.pRandomFn('Railway');
+   const pRandom = pRandomFn('Railway');
 
    envAry.push(
       {
@@ -134,7 +144,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       envAry.push({
          id: EnvGrab.create().child().name('LightGroup13').child(i).name('LaserLong').end().regex,
          lookupMethod: 'Regex',
-         localPosition: [utils.lerp(utils.normalize(i, 0, 11), -4.25, 4.25), 0, 0],
+         localPosition: [lerp(normalize(i, 0, 11), -4.25, 4.25), 0, 0],
       });
    }
 
@@ -295,7 +305,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          pillarGroup.place(
             {
                position: [5 * sign, 0, pillarOffsetZ - pillarGap * i * 2],
-               scale: utils.vectorMul([1, 1, 1], pillarScale),
+               scale: vectorMul([1, 1, 1], pillarScale),
             },
             structureAry,
          );
@@ -354,7 +364,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          pillarGroup.place(
             {
                position: [5 * sign, 0, pillarOffsetZ + i * pillarGap],
-               scale: utils.vectorMul([1, 1, 1], pillarScale),
+               scale: vectorMul([1, 1, 1], pillarScale),
             },
             structureAry,
          );
@@ -477,6 +487,62 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          },
          structureAry,
       );
+      cubeBlock.place(
+         {
+            position: [3 * sign, -7, 0],
+            scale: [1 / 4, 1 / 4, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [6 * sign, -5.5, 0],
+            scale: [1 / 4, 1 / 4, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [9 * sign, -4, 0],
+            scale: [1 / 4, 1 / 4, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [5.5 * sign, 2, 546],
+            scale: [1 / 8, 1 / 8, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [5 * sign, 2.5, 548],
+            scale: [1 / 6, 1 / 6, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [5 * sign, 1.5, 548],
+            scale: [1 / 6, 1 / 6, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [6 * sign, 0.5, 544],
+            scale: [1 / 6, 1 / 6, 1024],
+         },
+         structureAry,
+      );
+      cubeBlock.place(
+         {
+            position: [6 * sign, 3.5, 544],
+            scale: [1 / 6, 1 / 6, 1024],
+         },
+         structureAry,
+      );
       for (let i = 0; i < 12; i++) {
          cubeBlock.place(
             {
@@ -575,6 +641,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
             {
                position: [pRandom(11, 25) * sign, pRandom(-4, 22), -175 + i + 1.03 ** i],
                scale: [1 / 24, 1 / 24, pRandom(2, 4)],
+               track: `railwayField${pRandom(0, 9, true)}`,
             },
             envAry,
          );
@@ -1094,10 +1161,10 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    }
 
    trackAry.forEach((e) => {
-      if (e.position) e.position = utils.vectorAdd(e.position, trackOffset);
+      if (e.position) e.position = vectorAdd(e.position, trackOffset);
    });
    structureAry.forEach((e) => {
-      if (e.position) e.position = utils.vectorAdd(e.position, structureOffset);
+      if (e.position) e.position = vectorAdd(e.position, structureOffset);
    });
    return envAry.concat(trackAry, structureAry);
 }

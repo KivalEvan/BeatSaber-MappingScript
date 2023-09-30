@@ -1,7 +1,7 @@
 import walls from './walls.ts';
 import lights from './lights.ts';
 import jankySliderConvert from '../../utility/jankySliderConvert.ts';
-import { convert, globals, isV3, load, save, utils } from '../../depsLocal.ts';
+import { convert, globals, isV3, lerp, load, normalize, save } from '../../depsLocal.ts';
 
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/Undefined/'
@@ -56,7 +56,7 @@ difficultyList.forEach((d) => {
       if (d.characteristic === 'OneSaber') {
          if (n.time >= 98.25 + j * 4 && n.time <= 100.5 + j * 4) {
             n.angleOffset = Math.round(
-               utils.lerp(utils.normalize(n.time, 98.25 + j * 4, 100.5 + j * 4), -22.5, 22.5) *
+               lerp(normalize(n.time, 98.25 + j * 4, 100.5 + j * 4), -22.5, 22.5) *
                   (j % 2 ? 1 : -1),
             );
          }
@@ -67,16 +67,16 @@ difficultyList.forEach((d) => {
       }
       if (d.difficulty === 'ExpertPlus' || d.difficulty === 'Expert') {
          if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
-            n.angleOffset = Math.round(utils.lerp(utils.normalize(n.time, 32, 32.75), -45, 0));
+            n.angleOffset = Math.round(lerp(normalize(n.time, 32, 32.75), -45, 0));
          }
          if (n.color === 0 && n.time >= 33 && n.time < 33.75) {
-            n.angleOffset = Math.round(utils.lerp(utils.normalize(n.time, 33, 33.75), 45, 0));
+            n.angleOffset = Math.round(lerp(normalize(n.time, 33, 33.75), 45, 0));
          }
          if (n.time >= 98 + j * 4 && n.time <= 101 + j * 4) {
             if (n.color === (d.difficulty === 'Expert' ? j + 1 : j) % 2) {
                n.angleOffset = Math.round(
-                  utils.lerp(
-                     utils.normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
+                  lerp(
+                     normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
                      d.difficulty === 'Expert' ? -30 : -45,
                      d.difficulty === 'Expert' ? 30 : 45,
                   ) * (j % 2 ? 1 : -1),

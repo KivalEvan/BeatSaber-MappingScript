@@ -91,7 +91,7 @@ function pRandom(min, max, rounding = false) {
 
 /** Create instance of pseudorandom function.
  * ```ts
- * const pRandom = utils.pRandomFn('seed');
+ * const pRandom = pRandomFn('seed');
  * console.log(pRandom());
  * ```
  * **NOTE:** Seed cannot be reset.

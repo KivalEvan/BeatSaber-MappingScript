@@ -1,9 +1,9 @@
-import { types, utils } from '../../depsLocal.ts';
+import { deepCopy, types } from '../../depsLocal.ts';
 
 export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorBase>(
    obj: Partial<T>[],
 ): T[] {
-   return utils.deepCopy(obj).map((o) => {
+   return deepCopy(obj).map((o) => {
       o.color = o.color === 0 ? (o.color = 1) : o.color === 1 ? (o.color = 0) : o.color;
       return o;
    }) as T[];
@@ -13,7 +13,7 @@ export function objectTimeScale<T extends types.wrapper.IWrapBaseObject>(
    obj: Partial<T>[],
    scale: number,
 ): T[] {
-   return utils.deepCopy(obj).map((o) => {
+   return deepCopy(obj).map((o) => {
       if (o.time) {
          o.time *= scale;
       }
@@ -25,7 +25,7 @@ export function objectTimeShift<T extends types.wrapper.IWrapBaseObject>(
    obj: Partial<T>[],
    shift: number,
 ): T[] {
-   return utils.deepCopy(obj).map((o) => {
+   return deepCopy(obj).map((o) => {
       if (typeof o.time === 'number') {
          o.time += shift;
       } else {

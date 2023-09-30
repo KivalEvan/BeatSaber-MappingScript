@@ -1,6 +1,17 @@
 // holy shit image are so tedious to work with and optimise
 import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
-import { globals, NoteDirectionSpace, save, utils, v2 } from '../../depsLocal.ts';
+import {
+   EasingsFn,
+   globals,
+   interleave,
+   lerp,
+   normalize,
+   NoteDirectionSpace,
+   random,
+   save,
+   shuffle,
+   v2,
+} from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 import scriptDirPath from '../../utility/scriptDirPath.ts';
 import { resolve } from '../../deps.ts';
@@ -454,7 +465,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       ignoreBlack: options.ignoreBlack ?? false,
       save: options.save ?? true,
       override: options.override ?? false,
-      easings: options.easings ?? utils.EasingsFn.easeLinear,
+      easings: options.easings ?? EasingsFn.easeLinear,
    };
    const gifFile = Deno.readFileSync(resolve(WORKING_DIRECTORY, 'image', imagePath));
    const gif = await imagescript.GIF.decode(gifFile, !opt.animated);
@@ -516,11 +527,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       for (const color in colorID) {
          addBasicEvents({
             _time: (opt.animated
-               ? utils.lerp(
-                  opt.easings(utils.normalize(itFrame, 0, gif.length)),
-                  opt.time,
-                  opt.endTime,
-               )
+               ? lerp(opt.easings(normalize(itFrame, 0, gif.length)), opt.time, opt.endTime)
                : opt.time) + opt.fadeInDuration,
             _type: 4,
             _value: opt.fadeInDuration ? (opt.eventValue > 4 ? 8 : 4) : opt.eventValue,
@@ -1397,7 +1404,7 @@ for (let i = 0; i < 7; i++) {
       }
    }
    if (i === 2 || i === 6) {
-      utils.shuffle(roadShuffle);
+      shuffle(roadShuffle);
       for (const x in roadShuffle) {
          addBasicEvents(
             {
@@ -1415,7 +1422,7 @@ for (let i = 0; i < 7; i++) {
             },
          );
       }
-      utils.shuffle(roadShuffle);
+      shuffle(roadShuffle);
       for (const x in roadShuffle) {
          addBasicEvents(
             {
@@ -2065,9 +2072,9 @@ const crystalTimingPeriod = [
    [292, 383],
    [404, 479],
 ];
-utils.shuffle(crystalShuffleLeft);
-utils.shuffle(crystalShuffleRight);
-let crystalShuffle = utils.interleave(crystalShuffleLeft, crystalShuffleRight);
+shuffle(crystalShuffleLeft);
+shuffle(crystalShuffleRight);
+let crystalShuffle = interleave(crystalShuffleLeft, crystalShuffleRight);
 let r = 0;
 for (const ctp of crystalTimingPeriod) {
    const [start, end] = ctp;
@@ -2082,16 +2089,16 @@ for (const ctp of crystalTimingPeriod) {
          r++;
          if (r === crystalShuffle.length) {
             let old = crystalShuffleLeft[crystalShuffleLeft.length - 1];
-            utils.shuffle(crystalShuffleLeft);
+            shuffle(crystalShuffleLeft);
             while (crystalShuffleLeft[0] === old || crystalShuffleLeft[1] === old) {
-               utils.shuffle(crystalShuffleLeft);
+               shuffle(crystalShuffleLeft);
             }
             old = crystalShuffleRight[crystalShuffleRight.length - 1];
-            utils.shuffle(crystalShuffleRight);
+            shuffle(crystalShuffleRight);
             while (crystalShuffleRight[0] === old || crystalShuffleRight[1] === old) {
-               utils.shuffle(crystalShuffleRight);
+               shuffle(crystalShuffleRight);
             }
-            crystalShuffle = utils.interleave(crystalShuffleLeft, crystalShuffleRight);
+            crystalShuffle = interleave(crystalShuffleLeft, crystalShuffleRight);
             r = 0;
          }
       }
@@ -2100,7 +2107,7 @@ for (const ctp of crystalTimingPeriod) {
 //#endregion
 
 for (let t = 212; t < 240; t++) {
-   let randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       eventValue: 5,
@@ -2108,7 +2115,7 @@ for (let t = 212; t < 240; t++) {
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       eventValue: 5,
@@ -2131,7 +2138,7 @@ await screenDraw('frown.gif', {
 });
 screenClear(243.875);
 for (let t = 244; t < 276; t++) {
-   let randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       eventValue: 5,
@@ -2139,7 +2146,7 @@ for (let t = 244; t < 276; t++) {
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       eventValue: 5,
@@ -2427,11 +2434,11 @@ for (const t of chorus1Timing) {
       }
    }
    for (let i = 0; i < 2; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += utils.random(4, 10, true);
+         j += random(4, 10, true);
       }
       addBasicEvents(
          {
@@ -2486,7 +2493,7 @@ for (const t of chorus1Timing) {
       );
    }
 
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -2706,11 +2713,11 @@ for (const t of chorus1Timing) {
       );
    }
    for (let i = 0; i < 3; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += utils.random(4, 8, true);
+         j += random(4, 8, true);
       }
       addBasicEvents(
          {
@@ -2856,11 +2863,11 @@ for (const t of chorus1Timing) {
       },
    );
    for (let i = 0; i < 4; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += utils.random(4, 8, true);
+         j += random(4, 8, true);
       }
       addBasicEvents(
          {
@@ -2965,11 +2972,11 @@ for (const t of chorus1Timing) {
       },
    );
    for (let i = 0; i < 12; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += utils.random(4, 10, true);
+         j += random(4, 10, true);
       }
       addBasicEvents(
          {
@@ -2985,9 +2992,9 @@ for (const t of chorus1Timing) {
             _customData: { _lightID },
          },
       );
-      const random = Math.floor(utils.random(1, 7));
+      const random = Math.floor(random(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(utils.random(1, 7));
+      const random2 = Math.floor(random(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3064,7 +3071,7 @@ for (const t of chorus1Timing) {
       time: t + 10.3125,
       endTime: t + 10.75,
       animated: true,
-      easings: utils.EasingsFn.easeOutQuad,
+      easings: EasingsFn.easeOutQuad,
    });
    screenClear(t + 10.875);
 
@@ -3153,7 +3160,7 @@ for (const t of chorus1Timing) {
       _value: 5,
       _customData: { _lightID: roadOrder },
    });
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -3391,7 +3398,7 @@ for (const t of chorus1Timing) {
       );
    }
    for (let j = 0; j < 3; j++) {
-      utils.shuffle(roadShuffle);
+      shuffle(roadShuffle);
       for (const x in roadShuffle) {
          addBasicEvents(
             {
@@ -3639,7 +3646,7 @@ for (const t of chorus1Timing) {
       }
    }
 
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -3676,11 +3683,11 @@ for (const t of chorus1Timing) {
       },
    );
    for (let i = 0; i < 5; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += utils.random(4, 10, true);
+         j += random(4, 10, true);
       }
       addBasicEvents(
          {
@@ -3698,9 +3705,9 @@ for (const t of chorus1Timing) {
       );
    }
    for (let i = 0; i < 4; i++) {
-      const random = Math.floor(utils.random(1, 7));
+      const random = Math.floor(random(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(utils.random(1, 7));
+      const random2 = Math.floor(random(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3735,7 +3742,7 @@ for (const t of chorus1Timing) {
          },
       );
    }
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -3866,7 +3873,7 @@ for (const t of chorus1Timing) {
       }
    }
    for (let j = 0; j < 3; j++) {
-      utils.shuffle(roadShuffle);
+      shuffle(roadShuffle);
       for (const x in roadShuffle) {
          addBasicEvents(
             {
@@ -3895,11 +3902,11 @@ for (const t of chorus1Timing) {
    screenClear(t + 23.9375);
 
    for (let i = 0; i < 12; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += utils.random(4, 8, true);
+         j += random(4, 8, true);
       }
       addBasicEvents(
          {
@@ -3915,9 +3922,9 @@ for (const t of chorus1Timing) {
             _customData: { _lightID },
          },
       );
-      const random = Math.floor(utils.random(1, 7));
+      const random = Math.floor(random(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(utils.random(1, 7));
+      const random2 = Math.floor(random(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3929,12 +3936,12 @@ for (const t of chorus1Timing) {
          {
             _time: t + 24 + i / 2,
             _type: 12,
-            _value: utils.random(1, 5, true),
+            _value: random(1, 5, true),
          },
          {
             _time: t + 24 + i / 2,
             _type: 13,
-            _value: utils.random(1, 5, true),
+            _value: random(1, 5, true),
          },
          {
             _time: t + 24 + i / 2,
@@ -4124,7 +4131,7 @@ for (const t of chorus1Timing) {
          },
       );
    }
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -4347,7 +4354,7 @@ for (const t of chorus2Timing) {
    );
    for (let i = 0; i < 2; i++) {
       for (let j = 0; j < 3; j++) {
-         utils.shuffle(roadShuffle);
+         shuffle(roadShuffle);
          for (const x in roadShuffle) {
             addBasicEvents(
                {
@@ -4660,11 +4667,11 @@ for (const t of chorus2Timing) {
    );
 
    for (let i = 0; i < 4; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += utils.random(4, 8, true);
+         j += random(4, 8, true);
       }
       addBasicEvents(
          {
@@ -4709,7 +4716,7 @@ for (const t of chorus2Timing) {
          },
       );
    }
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -4812,7 +4819,7 @@ for (const t of chorus2Timing) {
          },
       );
    }
-   utils.shuffle(roadShuffle);
+   shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
@@ -4830,11 +4837,11 @@ for (const t of chorus2Timing) {
       );
    }
    for (let i = 0; i < 4; i++) {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += utils.random(4, 8, true);
+         j += random(4, 8, true);
       }
       addBasicEvents(
          {
@@ -5226,11 +5233,11 @@ for (const e of echoTiming) {
       screenClear(134.25 + e);
    }
    {
-      let j = utils.random(1, 5, true);
+      let j = random(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += utils.random(4, 10, true);
+         j += random(4, 10, true);
       }
       addBasicEvents(
          {
@@ -5247,9 +5254,9 @@ for (const e of echoTiming) {
          },
       );
    }
-   const random = Math.floor(utils.random(1, 7));
+   const random = Math.floor(random(1, 7));
    const lightIDrand = [random];
-   const random2 = Math.floor(utils.random(1, 7));
+   const random2 = Math.floor(random(1, 7));
    const lightIDrand2 = [random2];
    if (random < 7) {
       lightIDrand.push(random + 1);
@@ -5261,12 +5268,12 @@ for (const e of echoTiming) {
       {
          _time: 134 + e,
          _type: 12,
-         _value: utils.random(1, 5, true),
+         _value: random(1, 5, true),
       },
       {
          _time: 134 + e,
          _type: 13,
-         _value: utils.random(1, 5, true),
+         _value: random(1, 5, true),
       },
       {
          _time: 134 + e,
@@ -5375,14 +5382,14 @@ for (let i = 0; i < 11; i++) {
 }
 
 for (let t = 164; t < 196; t += 4) {
-   let randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       xOffset: 11 + randomPos[0],
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       xOffset: 11 + randomPos[0],
@@ -6722,14 +6729,14 @@ addBasicEvents(
    },
 );
 for (let t = 484; t < 516; t += 4) {
-   let randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       xOffset: 11 + randomPos[0],
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[utils.random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       xOffset: 11 + randomPos[0],

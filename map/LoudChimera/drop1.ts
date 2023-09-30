@@ -1,14 +1,16 @@
 import {
    BeatPerMinute,
+   EasingsFn,
    ext,
+   lerp,
    logger,
+   normalize,
    NoteDirectionAngle,
    NoteJumpSpeed,
-   utils,
+   pRandom,
    v3,
 } from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
-const { normalize, lerp, random } = utils;
 const { NE } = ext;
 const { at, between } = ext.selector;
 
@@ -43,41 +45,20 @@ function doArrowthing(fakeNotes: v3.ColorNote[], duration: number) {
    });
 }
 
-export function drop1(
-   data: v3.Difficulty,
-   BPM: BeatPerMinute,
-   NJS: NoteJumpSpeed,
-) {
+export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
    logger.info('Run Drop 1');
    const fakeNotes: v3.ColorNote[] = [];
 
-   const fastPewPew: number[] = [
-      ...getRepeatArray(394, 16, 8),
-      ...getRepeatArray(906, 16, 8),
-   ];
+   const fastPewPew: number[] = [...getRepeatArray(394, 16, 8), ...getRepeatArray(906, 16, 8)];
    let flipFlop = true;
    for (const fpp of fastPewPew) {
       for (let min = 0, max = 4, x = min; x < max; x++) {
          const bomb = v3.BombNote.create({
-            b: fpp -
-               2 +
-               1.5 -
-               lerp(
-                  normalize(x, min, max),
-                  0,
-                  0.25,
-                  utils.EasingsFn.easeInCirc,
-               ),
+            b: fpp - 2 + 1.5 - lerp(normalize(x, min, max), 0, 0.25, EasingsFn.easeInCirc),
             customData: {
                coordinates: [
                   x,
-                  -0.25 -
-                  lerp(
-                     normalize(x, min, max),
-                     0,
-                     1.25,
-                     utils.EasingsFn.easeInQuad,
-                  ),
+                  -0.25 - lerp(normalize(x, min, max), 0, 1.25, EasingsFn.easeInQuad),
                ],
                color: [1, 1, 1],
                noteJumpMovementSpeed: NJS.value,
@@ -85,7 +66,7 @@ export function drop1(
                   normalize(x, min, max),
                   0,
                   8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                  utils.EasingsFn.easeInCirc,
+                  EasingsFn.easeInCirc,
                ),
                spawnEffect: true,
                uninteractable: true,
@@ -103,7 +84,7 @@ export function drop1(
                               normalize(x, min, max),
                               0,
                               8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                              utils.EasingsFn.easeInCirc,
+                              EasingsFn.easeInCirc,
                            ) * 0.375,
                            'easeOutQuad',
                         ]
@@ -116,7 +97,7 @@ export function drop1(
                               normalize(x, min, max),
                               0,
                               8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                              utils.EasingsFn.easeInCirc,
+                              EasingsFn.easeInCirc,
                            ) * 0.375,
                            'easeOutQuad',
                         ],
@@ -131,7 +112,7 @@ export function drop1(
                            normalize(x, min, max),
                            0,
                            8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                           utils.EasingsFn.easeInCirc,
+                           EasingsFn.easeInCirc,
                         ) * 0.1875,
                         'easeInCirc',
                      ],
@@ -139,10 +120,7 @@ export function drop1(
                },
             },
          });
-         data.customData.fakeBombNotes?.push(
-            bomb[0].toJSON(),
-            bomb[0].clone().mirror().toJSON(),
-         );
+         data.customData.fakeBombNotes?.push(bomb[0].toJSON(), bomb[0].clone().mirror().toJSON());
       }
       flipFlop = !flipFlop;
 
@@ -182,8 +160,8 @@ export function drop1(
       const fastPewPewNotes = between(data.colorNotes, fpp, fpp + 5.999);
       fakeNotes.push(
          ...fastPewPewNotes.map((n) => {
-            const randX = utils.pRandom(4, 6, true);
-            const randY = utils.pRandom(-1, 1, true);
+            const randX = pRandom(4, 6, true);
+            const randY = pRandom(-1, 1, true);
             return n
                .clone()
                .setTime(n.time - 0.0025)
@@ -196,13 +174,7 @@ export function drop1(
                      ],
                      offsetPosition: [
                         [0, 0, 0, 0],
-                        [
-                           n.time % 1 ? randX : -randX,
-                           randY,
-                           0,
-                           0.125,
-                           'easeOutQuart',
-                        ],
+                        [n.time % 1 ? randX : -randX, randY, 0, 0.125, 'easeOutQuart'],
                         [
                            0,
                            0,
@@ -218,8 +190,8 @@ export function drop1(
                });
          }),
          ...fastPewPewNotes.map((n) => {
-            const randX = utils.pRandom(4, 6, true);
-            const randY = utils.pRandom(-1, 1, true);
+            const randX = pRandom(4, 6, true);
+            const randY = pRandom(-1, 1, true);
             return n
                .clone()
                .setTime(n.time - 0.0075)
@@ -232,13 +204,7 @@ export function drop1(
                      ],
                      offsetPosition: [
                         [0, 0, 0, 0],
-                        [
-                           n.time % 1 ? -randX : randX,
-                           randY,
-                           0,
-                           0.125,
-                           'easeOutQuart',
-                        ],
+                        [n.time % 1 ? -randX : randX, randY, 0, 0.125, 'easeOutQuart'],
                         [
                            0,
                            0,

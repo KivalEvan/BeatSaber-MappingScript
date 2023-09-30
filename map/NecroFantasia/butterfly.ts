@@ -1,14 +1,18 @@
-// why the fuck do i still need noodle extensions for parenting geometry, it would makes my life so much easier
-// than having to preprocess 1000+ animation for "optimisation" reason or some shit
-import { ext, types, utils, v3 } from '../../depsLocal.ts';
+import { deepCopy, ext, normalize, pRandomFn, types, v3 } from '../../depsLocal.ts';
+import { itNum } from '../../utility/iterator.ts';
 
-const butterflyCount = 100;
-const bopZOffset = 100;
+const bflyMax = 100;
+const bflyScale = 1 / 4;
+const timeStart = 678;
+const motionJitterCount = 120;
+const motionJitterAmount = 0.3125;
+const motionduration = 68;
 const loopDuration = 0.75;
 const loopRepeat = 128;
-const motionJitterCount = 80;
-const motionduration = 64;
+const posHide: types.Vector3 = [0, -99999, -99999];
+
 export default function (data: v3.Difficulty) {
+   const pRandom = pRandomFn('Necro Fantasia');
    data.customData.environment ??= [];
    data.customData.customEvents ??= [];
    data.customData.pointDefinitions ??= {};
@@ -22,192 +26,426 @@ export default function (data: v3.Difficulty) {
       [0, 0, 20, 0.5, 'easeInOutCubic'],
       [0, 0, 320, 1, 'easeInOutCubic'],
    ];
-   data.customData.pointDefinitions.bop = [
-      [1, 1, 1, 0],
-      [1, 1.0004, 1, 0.5, 'easeInOutCubic'],
-      [1, 1, 1, 1, 'easeInOutCubic'],
-   ];
 
-   for (let count = 0; count < butterflyCount; count++) {
-      let prevX = count % 2 ? 2 : -2;
+   for (const it of itNum(0, bflyMax - 1)) {
+      let prevX = it % 2 ? 2 : -2;
       let prevY = 0;
       const butterfly = ext.chroma.EnvironmentGroup.create([
          {
             // body
             geometry: { type: 'Cube', material: 'RailwayTransparentLight' },
-            components: { ILightWithId: { type: 4 } },
-            scale: [1 / 20, 1 / 20, 1 / 6],
-            position: [0, 0, 0],
-            track: `bfly_body_${count}`,
+            components: {
+               ILightWithId: { type: 4 },
+               TubeBloomPrePassLight: {
+                  bloomFogIntensityMultiplier: 0.25,
+                  colorAlphaMultiplier: 4,
+               },
+            },
+            scale: [1 / 20, 1 / 20, 1 / 5],
+            rotation: [0, 0, 45],
+            position: posHide,
+            track: `bfly_${it}`,
          },
          {
             // wing
             geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            components: { ILightWithId: { type: 4 } },
+            components: {
+               ILightWithId: { type: 4 },
+               TubeBloomPrePassLight: {
+                  bloomFogIntensityMultiplier: 0.25,
+                  colorAlphaMultiplier: 4,
+               },
+            },
             scale: [1 / 32, 1 / 64, 1 / 40],
-            rotation: [0, 0, 0],
-            position: [0.175, 0, 0.09],
-            track: `bfly_r_1_${count}`,
+            position: posHide,
+            track: `bfly_rf_${it}`,
          },
          {
             geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            components: { ILightWithId: { type: 4 } },
+            components: {
+               ILightWithId: { type: 4 },
+               TubeBloomPrePassLight: {
+                  bloomFogIntensityMultiplier: 0.25,
+                  colorAlphaMultiplier: 4,
+               },
+            },
             scale: [1 / 48, 1 / 64, 1 / 48],
-            rotation: [0, 5, 0],
-            position: [0.125, 0, -0.15],
-            track: `bfly_r_2_${count}`,
+            position: posHide,
+            track: `bfly_rb_${it}`,
          },
          {
             geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            components: { ILightWithId: { type: 4 } },
+            components: {
+               ILightWithId: { type: 4 },
+               TubeBloomPrePassLight: {
+                  bloomFogIntensityMultiplier: 0.25,
+                  colorAlphaMultiplier: 4,
+               },
+            },
             scale: [1 / 32, 1 / 64, 1 / 40],
-            rotation: [0, 0, 0],
-            position: [-0.175, 0, 0.09],
-            track: `bfly_l_1_${count}`,
+            position: posHide,
+            track: `bfly_lf_${it}`,
          },
          {
             geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            components: { ILightWithId: { type: 4 } },
+            components: {
+               ILightWithId: { type: 4 },
+               TubeBloomPrePassLight: {
+                  bloomFogIntensityMultiplier: 0.25,
+                  colorAlphaMultiplier: 4,
+               },
+            },
             scale: [1 / 48, 1 / 64, 1 / 48],
-            rotation: [0, 355, 0],
-            position: [-0.125, 0, -0.15],
-            track: `bfly_l_2_${count}`,
-         },
-         {
-            // some thing to parent so i dont have to do some weird shit body rotation without using the body itself
-            geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            track: `bfly_r_root_${count}`,
-            scale: [0, 0, 0],
-         },
-         {
-            geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            track: `bfly_l_root_${count}`,
-            scale: [0, 0, 0],
-         },
-         {
-            // the only way i can bop this is to literally move this all the way down and scale this on y
-            geometry: { type: 'Plane', material: 'RailwayTransparentLight' },
-            track: `bfly_${count}`,
-            scale: [0, 0, 0],
+            rotation: [0, 90, 0],
+            position: posHide,
+            track: `bfly_lb_${it}`,
          },
       ]);
 
+      const basePosition = new Array(motionJitterCount).fill(0).map((_, i) => {
+         prevX += pRandom(-motionJitterAmount, motionJitterAmount);
+         prevY += pRandom(-motionJitterAmount, motionJitterAmount);
+         return i
+            ? [
+               prevX,
+               1.25 + prevY,
+               -(it / 4) + i / 4,
+               normalize(i, 0, motionJitterCount - 1),
+               'splineCatmullRom',
+            ]
+            : [-(it / 4) + 2, 1, 0, 0, 'easeStep'];
+      }) as types.Vector3PointDefinition[];
+      if (!(it % 9)) {
+         data.customData.customEvents.push(
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [`bfly_rf_${it}`, `bfly_rb_${it}`],
+                  duration: loopDuration,
+                  repeat: loopRepeat,
+                  rotation: 'flapR',
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [`bfly_lf_${it}`, `bfly_lb_${it}`],
+                  duration: loopDuration,
+                  repeat: loopRepeat,
+                  rotation: 'flapL',
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_rf_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += 0.15 * bflyScale;
+                     e[1] += 0.03 * bflyScale;
+                     e[2] += 0.09 * bflyScale;
+                     e[2] = -e[2] + 6;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_rb_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += 0.12 * bflyScale;
+                     e[1] += 0.02 * bflyScale;
+                     e[2] += -0.15 * bflyScale;
+                     e[2] = -e[2] + 6;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_lf_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += -0.15 * bflyScale;
+                     e[1] += 0.03 * bflyScale;
+                     e[2] += 0.09 * bflyScale;
+                     e[2] = -e[2] + 6;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_lb_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += -0.12 * bflyScale;
+                     e[1] += 0.02 * bflyScale;
+                     e[2] += -0.15 * bflyScale;
+                     e[2] = -e[2] + 6;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 2 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[2] = -e[2] + 6;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 2 + motionduration + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [
+                     `bfly_${it}`,
+                     `bfly_rf_${it}`,
+                     `bfly_rb_${it}`,
+                     `bfly_lf_${it}`,
+                     `bfly_lb_${it}`,
+                  ],
+                  duration: 0,
+                  position: [[...posHide, 0, 'easeStep']],
+               },
+            },
+         );
+      }
+      if (!it) {
+         data.customData.customEvents.push(
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [`bfly_rf_${it}`, `bfly_rb_${it}`],
+                  duration: loopDuration,
+                  repeat: loopRepeat,
+                  rotation: 'flapR',
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [`bfly_lf_${it}`, `bfly_lb_${it}`],
+                  duration: loopDuration,
+                  repeat: loopRepeat,
+                  rotation: 'flapL',
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_rf_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += 0.15 * bflyScale;
+                     e[1] += 0.03 * bflyScale;
+                     e[2] += 0.09 * bflyScale;
+                     e[0] += 2;
+                     e[2] = -e[2] + 12;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_rb_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += 0.12 * bflyScale;
+                     e[1] += 0.02 * bflyScale;
+                     e[2] += -0.15 * bflyScale;
+                     e[0] += 2;
+                     e[2] = -e[2] + 12;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_lf_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += -0.15 * bflyScale;
+                     e[1] += 0.03 * bflyScale;
+                     e[2] += 0.09 * bflyScale;
+                     e[0] += 2;
+                     e[2] = -e[2] + 12;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_lb_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += -0.12 * bflyScale;
+                     e[1] += 0.02 * bflyScale;
+                     e[2] += -0.15 * bflyScale;
+                     e[0] += 2;
+                     e[2] = -e[2] + 12;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 998 + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: `bfly_${it}`,
+                  duration: motionduration,
+                  position: deepCopy(basePosition).map((e) => {
+                     e[0] += 2;
+                     e[2] = -e[2] + 12;
+                     return e;
+                  }),
+               },
+            },
+            {
+               b: 998 + motionduration + it / (bflyMax / 2),
+               t: 'AnimateTrack',
+               d: {
+                  track: [
+                     `bfly_${it}`,
+                     `bfly_rf_${it}`,
+                     `bfly_rb_${it}`,
+                     `bfly_lf_${it}`,
+                     `bfly_lb_${it}`,
+                  ],
+                  duration: 0,
+                  position: [[...posHide, 0, 'easeStep']],
+               },
+            },
+         );
+      }
       data.customData.customEvents.push(
          {
-            b: 0,
-            t: 'AssignTrackParent',
-            d: {
-               parentTrack: `bfly_r_root_${count}`,
-               childrenTracks: [`bfly_r_1_${count}`, `bfly_r_2_${count}`],
-               worldPositionStays: true,
-            },
-         },
-         {
-            b: 0,
-            t: 'AssignTrackParent',
-            d: {
-               parentTrack: `bfly_l_root_${count}`,
-               childrenTracks: [`bfly_l_1_${count}`, `bfly_l_2_${count}`],
-               worldPositionStays: true,
-            },
-         },
-         {
-            b: 0,
-            t: 'AssignTrackParent',
-            d: {
-               parentTrack: `bfly_body_${count}`,
-               childrenTracks: [`bfly_r_root_${count}`, `bfly_l_root_${count}`],
-               worldPositionStays: true,
-            },
-         },
-         // this is genuinely stupid because i have no idea how parenting works
-         // and it's stupid that i have to move this position in animation first so that rotation doesnt get extra fucked
-         {
-            b: 0,
+            b: timeStart + it / (bflyMax / 2),
             t: 'AnimateTrack',
             d: {
-               track: `bfly_body_${count}`,
-               duration: 1,
-               position: [
-                  [0, bopZOffset, 0, 0],
-                  [0, bopZOffset, 0, 1, 'easeInOutCubic'],
-               ],
-            },
-         },
-         {
-            b: 0,
-            t: 'AssignTrackParent',
-            d: {
-               parentTrack: `bfly_${count}`,
-               childrenTracks: [`bfly_body_${count}`],
-            },
-         },
-         {
-            b: count / (butterflyCount / 2),
-            t: 'AnimateTrack',
-            d: {
-               track: `bfly_r_root_${count}`,
+               track: [`bfly_rf_${it}`, `bfly_rb_${it}`],
                duration: loopDuration,
                repeat: loopRepeat,
                rotation: 'flapR',
             },
          },
          {
-            b: count / (butterflyCount / 2),
+            b: timeStart + it / (bflyMax / 2),
             t: 'AnimateTrack',
             d: {
-               track: `bfly_l_root_${count}`,
+               track: [`bfly_lf_${it}`, `bfly_lb_${it}`],
                duration: loopDuration,
                repeat: loopRepeat,
                rotation: 'flapL',
             },
          },
          {
-            b: count / (butterflyCount / 2),
+            b: timeStart + it / (bflyMax / 2),
             t: 'AnimateTrack',
             d: {
-               track: `bfly_${count}`,
-               duration: loopDuration,
-               repeat: loopRepeat,
-               scale: 'bop',
+               track: `bfly_rf_${it}`,
+               duration: motionduration,
+               position: deepCopy(basePosition).map((e) => {
+                  e[0] += 0.15 * bflyScale;
+                  e[1] += 0.03 * bflyScale;
+                  e[2] += 0.09 * bflyScale;
+                  return e;
+               }),
             },
          },
-         // move
-         // {
-         //    // debug some boppyness
-         //    b: count / (butterflyCount / 2),
-         //    t: 'AnimateTrack',
-         //    d: {
-         //       track: `bfly_${count}`,
-         //       duration: 64,
-         //       position: [
-         //          [prevX, -bopZOffset + 0.5 + prevY, -(count / 4) + 2, 0],
-         //          [prevX, -bopZOffset + 0.5 + prevY, -(count / 4) + 2, 1],
-         //       ],
-         //    },
-         // },
          {
-            b: count / (butterflyCount / 2),
+            b: timeStart + it / (bflyMax / 2),
             t: 'AnimateTrack',
             d: {
-               track: `bfly_${count}`,
+               track: `bfly_rb_${it}`,
                duration: motionduration,
-               position: new Array(motionJitterCount).fill(0).map((_, i) => {
-                  prevX += utils.random(-0.375, 0.375);
-                  prevY += utils.random(-0.375, 0.375);
-                  return i
-                     ? [
-                        prevX,
-                        -bopZOffset + 0.5 + prevY,
-                        -(count / 4) + 2 + i / 4,
-                        utils.normalize(i, 0, motionJitterCount - 1),
-                        'splineCatmullRom',
-                     ]
-                     : [-(count / 4) + 2, -bopZOffset + 1, 0, 0];
-               }) as types.Vector3PointDefinition[],
+               position: deepCopy(basePosition).map((e) => {
+                  e[0] += 0.12 * bflyScale;
+                  e[1] += 0.02 * bflyScale;
+                  e[2] += -0.15 * bflyScale;
+                  return e;
+               }),
+            },
+         },
+         {
+            b: timeStart + it / (bflyMax / 2),
+            t: 'AnimateTrack',
+            d: {
+               track: `bfly_lf_${it}`,
+               duration: motionduration,
+               position: deepCopy(basePosition).map((e) => {
+                  e[0] += -0.15 * bflyScale;
+                  e[1] += 0.03 * bflyScale;
+                  e[2] += 0.09 * bflyScale;
+                  return e;
+               }),
+            },
+         },
+         {
+            b: timeStart + it / (bflyMax / 2),
+            t: 'AnimateTrack',
+            d: {
+               track: `bfly_lb_${it}`,
+               duration: motionduration,
+               position: deepCopy(basePosition).map((e) => {
+                  e[0] += -0.12 * bflyScale;
+                  e[1] += 0.02 * bflyScale;
+                  e[2] += -0.15 * bflyScale;
+                  return e;
+               }),
+            },
+         },
+         {
+            b: timeStart + it / (bflyMax / 2),
+            t: 'AnimateTrack',
+            d: {
+               track: `bfly_${it}`,
+               duration: motionduration,
+               position: basePosition,
+            },
+         },
+         {
+            b: timeStart + motionduration + it / (bflyMax / 2),
+            t: 'AnimateTrack',
+            d: {
+               track: [
+                  `bfly_${it}`,
+                  `bfly_rf_${it}`,
+                  `bfly_rb_${it}`,
+                  `bfly_lf_${it}`,
+                  `bfly_lb_${it}`,
+               ],
+               duration: 0,
+               position: [[...posHide, 0]],
             },
          },
       );
-      data.customData.environment.push(...butterfly.place({ scale: [0.25, 0.25, 0.25] }));
+      data.customData.environment.push(
+         ...butterfly.place({ scale: [bflyScale, bflyScale, bflyScale] }),
+      );
    }
 }

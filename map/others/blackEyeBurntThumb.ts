@@ -75,8 +75,8 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                   x += bsmap.NoteDirectionSpace[n.direction as 0][0];
                   y += bsmap.NoteDirectionSpace[n.direction as 0][1];
                }
-               x = bsmap.utils.clamp(x, 0, 3);
-               y = bsmap.utils.clamp(y, 0, 2);
+               x = bsmap.clamp(x, 0, 3);
+               y = bsmap.clamp(y, 0, 2);
                difficulty.arcs.push(
                   new bsmap.v3.Arc({
                      b: n.time,

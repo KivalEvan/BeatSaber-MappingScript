@@ -1,4 +1,4 @@
-import { logger, types, utils, v3 } from '../../depsLocal.ts';
+import { logger, pRandomFn, types, v3 } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -120,7 +120,7 @@ export const centerOrder = [
 ];
 
 export function generateEnvironment(drawScreen = false): types.v3.IChromaEnvironment[] {
-   const pRandom = utils.pRandomFn('ECHO');
+   const pRandom = pRandomFn('ECHO');
    const environment: types.v3.IChromaEnvironment[] = [];
 
    //#region environment and events order declaration stuff

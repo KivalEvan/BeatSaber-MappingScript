@@ -1,4 +1,4 @@
-import { ext, globals, load, save, types, utils, v3 } from '../../depsLocal.ts';
+import { ext, globals, load, save, shuffle, types, v3 } from '../../depsLocal.ts';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/GhostsPlayToTheAudience';
@@ -401,7 +401,7 @@ for (const ct of chorusTime) {
    );
    walls = walls.concat(walls.concat(walls.map((w) => w.clone().mirror())));
    const arr = [0, 1, 2, 3];
-   utils.shuffle(arr);
+   shuffle(arr);
    for (let i = 0; i < 3; i++) {
       for (const a in arr) {
          walls.push(
@@ -414,7 +414,7 @@ for (const ct of chorusTime) {
             })[0],
          );
       }
-      utils.shuffle(arr);
+      shuffle(arr);
    }
    osExpertP.obstacles.push(...walls);
    osExpert.obstacles.push(...walls);

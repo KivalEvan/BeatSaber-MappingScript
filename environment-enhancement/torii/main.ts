@@ -1,4 +1,13 @@
-import { ext, logger, types, utils, v3 } from '../../depsLocal.ts';
+import {
+   ext,
+   logger,
+   pickRandom,
+   pRandomFn,
+   types,
+   v3,
+   vectorAdd,
+   vectorMul,
+} from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -62,7 +71,7 @@ const LANTERN_REROLL = 12_727;
 const LANTERN_POST_PLAYFIELD_GAP = lanternPostPlayfield / 2;
 export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const environment: types.v3.IChromaEnvironment[] = [];
-   const pRandom = utils.pRandomFn('Torii');
+   const pRandom = pRandomFn('Torii');
 
    environment.push(
       {
@@ -379,15 +388,15 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const toriiGroup = ext.chroma.EnvironmentGroup.create(torii, [0, 0, 0]);
    toriiGroup.place(
       {
-         position: utils.vectorAdd([0, 0, toriiYOffset - toriiGap], toriiPosOffset),
-         scale: utils.vectorMul([1, 1, 1], toriiScale),
+         position: vectorAdd([0, 0, toriiYOffset - toriiGap], toriiPosOffset),
+         scale: vectorMul([1, 1, 1], toriiScale),
       },
       environment,
    );
    for (let z = 0; z < toriiCount; z++) {
       toriiGroup.place(
          {
-            position: utils.vectorAdd(
+            position: vectorAdd(
                [
                   0,
                   0,
@@ -400,7 +409,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                ],
                toriiPosOffset,
             ),
-            scale: utils.vectorMul([1, 1, 1], toriiScale),
+            scale: vectorMul([1, 1, 1], toriiScale),
          },
          environment,
       );
@@ -648,8 +657,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -662,8 +671,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -676,8 +685,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -690,8 +699,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -704,8 +713,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -718,8 +727,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -732,8 +741,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -746,8 +755,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -760,8 +769,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -774,8 +783,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -788,8 +797,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -802,8 +811,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -816,8 +825,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -830,8 +839,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -844,8 +853,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );
@@ -858,8 +867,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             position: pos,
             rotation: [0, pRandom(0, 360, true), 0],
-            type: utils.pickRandom([0, 1, 6, 7], pRandom),
-            scale: utils.vectorMul([1, 1, 1], lanternScale),
+            type: pickRandom([0, 1, 6, 7], pRandom),
+            scale: vectorMul([1, 1, 1], lanternScale),
          },
          environment,
       );

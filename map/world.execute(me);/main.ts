@@ -4,15 +4,15 @@ import {
    globals,
    isV3,
    load,
+   pRandomSeed,
    save,
-   utils,
    v2,
    v3,
 } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 import light from './light.ts';
 
-utils.pRandomSeed('EXECUTION');
+pRandomSeed('EXECUTION');
 
 globals.directory = wipPath('world.execute(me);', true);
 

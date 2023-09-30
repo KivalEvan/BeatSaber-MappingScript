@@ -1,4 +1,4 @@
-import { logger, types, utils, v3 } from '../../depsLocal.ts';
+import { degToRad, logger, pRandomFn, types, v3 } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -14,7 +14,7 @@ const info: types.external.IEnvironmentJSON = {
 };
 
 export function generateEnvironment(): types.v3.IChromaEnvironment[] {
-   const pRandom = utils.pRandomFn('Cathedral');
+   const pRandom = pRandomFn('Cathedral');
    const environment: types.v3.IChromaEnvironment[] = [];
 
    //#region environment declaration stuff
@@ -41,9 +41,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          position: [0, 16, -112 + i * 24],
          rotation: [i % 2 ? 270 : 90, 0, 0],
          scale: [
-            0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
+            0.125 + 0.375 * Math.cos(degToRad(i * 8)),
             0.25 + pRandom() * 0.375,
-            0.125 + 0.375 * Math.cos(utils.degToRad(i * 8)),
+            0.125 + 0.375 * Math.cos(degToRad(i * 8)),
          ],
       });
    }
@@ -1054,9 +1054,9 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
                lookupMethod: 'Regex',
                duplicate: 1,
                position: [
-                  x + Math.sin(utils.degToRad(90 + 160 - j * 12)) * 37.5 * xShift + xShift * 36.125,
-                  15 + Math.sin(utils.degToRad(160 - j * 12)) * 50,
-                  z + Math.sin(utils.degToRad(90 + 160 - j * 12)) * 37.5 * zShift + zShift * 36.125,
+                  x + Math.sin(degToRad(90 + 160 - j * 12)) * 37.5 * xShift + xShift * 36.125,
+                  15 + Math.sin(degToRad(160 - j * 12)) * 50,
+                  z + Math.sin(degToRad(90 + 160 - j * 12)) * 37.5 * zShift + zShift * 36.125,
                ],
                scale: [0.3125, 0.0575, 0.3125],
                rotation: [160 - j * 12, i * rotationAmount, 0],

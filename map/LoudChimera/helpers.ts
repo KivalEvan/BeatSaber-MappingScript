@@ -1,6 +1,4 @@
-import { ext, types, utils, v3 } from '../../depsLocal.ts';
-
-const { lerp, normalize, EasingsFn } = utils;
+import { EasingsFn, ext, lerp, normalize, types, v3 } from '../../depsLocal.ts';
 
 export function getRepeatArray(start: number, gap: number, repeat: number) {
    const arr = new Array(repeat).fill(start);
@@ -10,10 +8,7 @@ export function getRepeatArray(start: number, gap: number, repeat: number) {
    return arr;
 }
 
-export function lerpVec3(
-   alpha: number,
-   points: types.Vector3PointDefinition[],
-): types.Vector3 {
+export function lerpVec3(alpha: number, points: types.Vector3PointDefinition[]): types.Vector3 {
    const pointBefore = [...points].reverse().find((p) => alpha >= p[3]);
    const pointAfter = points.slice(1).find((p) => alpha <= p[3]);
    if (!pointAfter) {
@@ -58,13 +53,7 @@ export function connectSlider(data: v3.Difficulty, notes: v3.ColorNote[]) {
          });
       }
       if (prevSlider[n.color] && prevSlider[n.color].time === n.time) {
-         if (
-            ext.placement.isEnd(
-               n,
-               prevSlider[n.color],
-               prevSlider[n.color].direction,
-            )
-         ) {
+         if (ext.placement.isEnd(n, prevSlider[n.color], prevSlider[n.color].direction)) {
             prevSlider[n.color] = n;
          }
          continue;

@@ -1,7 +1,16 @@
-import { BeatPerMinute, convert, globals, isV3, load, save, utils, v3 } from '../../depsLocal.ts';
+import {
+   BeatPerMinute,
+   convert,
+   globals,
+   isV3,
+   load,
+   pRandomSeed,
+   save,
+   v3,
+} from '../../depsLocal.ts';
 import lights from './lights.ts';
 
-utils.pRandomSeed('S.A.R.I.E.L.');
+pRandomSeed('S.A.R.I.E.L.');
 
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'

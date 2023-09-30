@@ -1,17 +1,17 @@
 import {
    BeatPerMinute,
+   clamp,
    ext,
    logger,
+   normalize,
    NoteJumpSpeed,
    types,
    unityToGridUnit,
-   utils,
    v3,
 } from '../../depsLocal.ts';
 import { connectSlider, lerpVec3 } from './helpers.ts';
 import UFO from './ufo.ts';
 const { NE, selector } = ext;
-const { normalize, clamp } = utils;
 const { between } = selector;
 
 export function slow(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
