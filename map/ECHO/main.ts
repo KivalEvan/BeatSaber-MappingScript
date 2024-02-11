@@ -7,7 +7,7 @@ import {
    lerp,
    normalize,
    NoteDirectionSpace,
-   random,
+   random as randomFn,
    save,
    shuffle,
    v2,
@@ -16,6 +16,10 @@ import wipPath from '../../utility/wipPath.ts';
 import scriptDirPath from '../../utility/scriptDirPath.ts';
 import { resolve } from '../../deps.ts';
 
+v2.Event.default._floatValue = 1;
+v2.Obstacle.default._duration = 1;
+v2.Obstacle.default._width = 1;
+
 const WORKING_DIRECTORY = scriptDirPath(import.meta.url);
 globals.directory = wipPath('ECHO');
 const OUTPUT_FILE = 'EasyLightshow.dat';
@@ -23,8 +27,8 @@ const OUTPUT_FILE = 'EasyLightshow.dat';
 const difficulty = v2.Difficulty.create();
 
 difficulty.customData._environment = [];
-difficulty.customData._time = difficulty.customData._time ?? 0;
-difficulty.customData._time++;
+difficulty.customData.time = difficulty.customData.time ?? 0;
+difficulty.customData.time++;
 difficulty.basicEvents = [];
 const envEnh = difficulty.customData._environment;
 const { addBasicEvents } = difficulty;
@@ -514,11 +518,11 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       if (!itFrame && opt.fadeInDuration && opt.eventValue) {
          for (const color in prevColor) {
             addBasicEvents({
-               _time: opt.time,
-               _type: 4,
-               _value: opt.eventValue > 4 ? 5 : 1,
-               _floatValue: (parseInt(color) / 255) * opt.floatValue,
-               _customData: {
+               time: opt.time,
+               type: 4,
+               value: opt.eventValue > 4 ? 5 : 1,
+               floatValue: (parseInt(color) / 255) * opt.floatValue,
+               customData: {
                   _lightID: colorID[color],
                },
             });
@@ -526,13 +530,13 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       }
       for (const color in colorID) {
          addBasicEvents({
-            _time: (opt.animated
+            time: (opt.animated
                ? lerp(opt.easings(normalize(itFrame, 0, gif.length)), opt.time, opt.endTime)
                : opt.time) + opt.fadeInDuration,
-            _type: 4,
-            _value: opt.fadeInDuration ? (opt.eventValue > 4 ? 8 : 4) : opt.eventValue,
-            _floatValue: (parseInt(color) / 255) * opt.floatValue,
-            _customData: {
+            type: 4,
+            value: opt.fadeInDuration ? (opt.eventValue > 4 ? 8 : 4) : opt.eventValue,
+            floatValue: (parseInt(color) / 255) * opt.floatValue,
+            customData: {
                _lightID: colorID[color],
             },
          });
@@ -557,22 +561,22 @@ const screenClear = (time: number, fade = 0) => {
    if (fade) {
       for (const color in colorID) {
          addBasicEvents({
-            _time: time,
-            _type: 4,
-            _value: 1,
-            _floatValue: parseInt(color) / 255,
-            _customData: {
+            time: time,
+            type: 4,
+            value: 1,
+            floatValue: parseInt(color) / 255,
+            customData: {
                _lightID: colorID[color],
             },
          });
       }
    }
    addBasicEvents({
-      _time: time + fade,
-      _type: 4,
-      _value: fade ? 4 : 0,
-      _floatValue: 0,
-      _customData: { _lightID: lightID },
+      time: time + fade,
+      type: 4,
+      value: fade ? 4 : 0,
+      floatValue: 0,
+      customData: { _lightID: lightID },
    });
 };
 //#endregion
@@ -580,12 +584,12 @@ const screenClear = (time: number, fade = 0) => {
 //#region piano intro
 addBasicEvents(
    {
-      _type: 12,
-      _time: 4,
+      type: 12,
+      time: 4,
    },
    {
-      _type: 13,
-      _time: 4,
+      type: 13,
+      time: 4,
    },
 );
 const introPianoOrder = [3, 6, 5, 3, 5, 7, 6, 3, 1, 2, 3, 6, 4, 6, 4, 6];
@@ -593,32 +597,32 @@ for (let i = 0, paino = 0, painoFlip = false; i < 2; i++) {
    for (const ipo of introPianoOrder) {
       if (ipo < 4) {
          addBasicEvents({
-            _time: 4 + paino * 0.5 + i * 8,
-            _type: painoFlip ? 2 : 3,
-            _value: 7,
-            _customData: { _lightID: [(4 - ipo) * 2, (4 - ipo) * 2 + 1] },
+            time: 4 + paino * 0.5 + i * 8,
+            type: painoFlip ? 2 : 3,
+            value: 7,
+            customData: { _lightID: [(4 - ipo) * 2, (4 - ipo) * 2 + 1] },
          });
       } else if (ipo === 4) {
          addBasicEvents(
             {
-               _time: 4 + paino * 0.5 + i * 8,
-               _type: painoFlip ? 2 : 3,
-               _value: 7,
-               _customData: { _lightID: 1 },
+               time: 4 + paino * 0.5 + i * 8,
+               type: painoFlip ? 2 : 3,
+               value: 7,
+               customData: { _lightID: 1 },
             },
             {
-               _time: 4 + paino * 0.5 + i * 8,
-               _type: painoFlip ? 3 : 2,
-               _value: 7,
-               _customData: { _lightID: 1 },
+               time: 4 + paino * 0.5 + i * 8,
+               type: painoFlip ? 3 : 2,
+               value: 7,
+               customData: { _lightID: 1 },
             },
          );
       } else {
          addBasicEvents({
-            _time: 4 + paino * 0.5 + i * 8,
-            _type: painoFlip ? 3 : 2,
-            _value: 7,
-            _customData: { _lightID: [(ipo - 4) * 2, (ipo - 4) * 2 + 1] },
+            time: 4 + paino * 0.5 + i * 8,
+            type: painoFlip ? 3 : 2,
+            value: 7,
+            customData: { _lightID: [(ipo - 4) * 2, (ipo - 4) * 2 + 1] },
          });
       }
       paino++;
@@ -628,37 +632,37 @@ for (let i = 0, paino = 0, painoFlip = false; i < 2; i++) {
 }
 addBasicEvents(
    {
-      _type: 12,
-      _time: 19,
-      _value: 1,
+      type: 12,
+      time: 19,
+      value: 1,
    },
    {
-      _type: 13,
-      _time: 19,
-      _value: 1,
+      type: 13,
+      time: 19,
+      value: 1,
    },
    {
-      _type: 12,
-      _time: 20,
+      type: 12,
+      time: 20,
    },
    {
-      _type: 13,
-      _time: 20,
+      type: 13,
+      time: 20,
    },
 );
 for (let i = 1; i <= 7; i++) {
    addBasicEvents(
       {
-         _type: 2,
-         _time: 19 + i / 10,
-         _value: 3,
-         _customData: { _lightID: i },
+         type: 2,
+         time: 19 + i / 10,
+         value: 3,
+         customData: { _lightID: i },
       },
       {
-         _type: 3,
-         _time: 19 + i / 10,
-         _value: 3,
-         _customData: { _lightID: i },
+         type: 3,
+         time: 19 + i / 10,
+         value: 3,
+         customData: { _lightID: i },
       },
    );
 }
@@ -670,18 +674,18 @@ for (const pnt of piano2Notething) {
       for (let j = 0; j < 3; j++) {
          addBasicEvents(
             {
-               _time: pnt + j * 0.125 + i * 2,
-               _type: 0,
-               _value: 3,
-               _customData: {
+               time: pnt + j * 0.125 + i * 2,
+               type: 0,
+               value: 3,
+               customData: {
                   _lightID: [backtopOrder[j], backtopOrder[5 - j]],
                },
             },
             {
-               _time: pnt + 0.5 + j * 0.125 + i * 2,
-               _type: 0,
-               _value: 3,
-               _customData: {
+               time: pnt + 0.5 + j * 0.125 + i * 2,
+               type: 0,
+               value: 3,
+               customData: {
                   _lightID: [backtopOrder[2 - j], backtopOrder[j + 3]],
                },
             },
@@ -690,30 +694,30 @@ for (const pnt of piano2Notething) {
       if (pnt >= 325) {
          addBasicEvents(
             {
-               _time: pnt - 1 + i * 2,
-               _type: 2,
-               _value: 3,
-               _customData: { _lightID: i < 6 ? [1, 2] : [2, 3] },
+               time: pnt - 1 + i * 2,
+               type: 2,
+               value: 3,
+               customData: { _lightID: i < 6 ? [1, 2] : [2, 3] },
             },
             {
-               _time: pnt - 1 + i * 2,
-               _type: 3,
-               _value: 3,
-               _customData: { _lightID: i < 6 ? [1, 2] : [2, 3] },
+               time: pnt - 1 + i * 2,
+               type: 3,
+               value: 3,
+               customData: { _lightID: i < 6 ? [1, 2] : [2, 3] },
             },
             {
-               _time: pnt - 0.5 + i * 2,
-               _type: 2,
-               _value: 3,
-               _customData: {
+               time: pnt - 0.5 + i * 2,
+               type: 2,
+               value: 3,
+               customData: {
                   _lightID: i < 4 ? [3, 4] : i < 6 ? [4, 5] : [6, 7],
                },
             },
             {
-               _time: pnt - 0.5 + i * 2,
-               _type: 3,
-               _value: 3,
-               _customData: {
+               time: pnt - 0.5 + i * 2,
+               type: 3,
+               value: 3,
+               customData: {
                   _lightID: i < 4 ? [3, 4] : i < 6 ? [4, 5] : [6, 7],
                },
             },
@@ -722,30 +726,30 @@ for (const pnt of piano2Notething) {
             for (let j = 0; j < 2; j++) {
                addBasicEvents(
                   {
-                     _time: pnt + 1 + i * 2 + j,
-                     _type: 2,
-                     _value: 3,
-                     _customData: { _lightID: [3 - j, 4 - j] },
+                     time: pnt + 1 + i * 2 + j,
+                     type: 2,
+                     value: 3,
+                     customData: { _lightID: [3 - j, 4 - j] },
                   },
                   {
-                     _time: pnt + 1 + i * 2 + j,
-                     _type: 3,
-                     _value: 3,
-                     _customData: { _lightID: [3 - j, 4 - j] },
+                     time: pnt + 1 + i * 2 + j,
+                     type: 3,
+                     value: 3,
+                     customData: { _lightID: [3 - j, 4 - j] },
                   },
                   {
-                     _time: pnt + 1.5 + i * 2 + j,
-                     _type: 2,
-                     _value: 3,
-                     _customData: {
+                     time: pnt + 1.5 + i * 2 + j,
+                     type: 2,
+                     value: 3,
+                     customData: {
                         _lightID: i < 4 ? [3, 4] : i < 6 ? [4, 5] : [6, 7],
                      },
                   },
                   {
-                     _time: pnt + 1.5 + i * 2 + j,
-                     _type: 3,
-                     _value: 3,
-                     _customData: {
+                     time: pnt + 1.5 + i * 2 + j,
+                     type: 3,
+                     value: 3,
+                     customData: {
                         _lightID: i < 4 ? [3, 4] : i < 6 ? [4, 5] : [6, 7],
                      },
                   },
@@ -795,18 +799,18 @@ for (let i = 0; i < 4; i++) {
    for (const iso of introSynthOrder) {
       addBasicEvents(
          {
-            _type: 2,
-            _time: 20 + t * 0.5 + i * 16,
-            _value: 7,
-            _customData: {
+            type: 2,
+            time: 20 + t * 0.5 + i * 16,
+            value: 7,
+            customData: {
                _lightID: iso,
             },
          },
          {
-            _type: 3,
-            _time: 20 + t * 0.5 + i * 16,
-            _value: 7,
-            _customData: {
+            type: 3,
+            time: 20 + t * 0.5 + i * 16,
+            value: 7,
+            customData: {
                _lightID: iso,
             },
          },
@@ -865,32 +869,32 @@ for (const ivt of introVocalTiming) {
    if (!ivt[1]) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: 19 + t,
-            _value: 3,
-            _customData: { _lightID: [1, 2] },
+            type: 4,
+            time: 19 + t,
+            value: 3,
+            customData: { _lightID: [1, 2] },
          },
          {
-            _type: 4,
-            _time: 19.25 + t,
-            _floatValue: 0,
-            _customData: { _lightID: [1, 2] },
+            type: 4,
+            time: 19.25 + t,
+            floatValue: 0,
+            customData: { _lightID: [1, 2] },
          },
       );
    } else {
       for (let i = 0; i < ivt[1]; i += 0.125) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 19 + t + i,
-               _value: 3,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 19 + t + i,
+               value: 3,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _type: 4,
-               _time: 19.0625 + t + i,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 19.0625 + t + i,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       }
@@ -928,10 +932,10 @@ screenClear(19.375);
 
 for (const x in roadOrder) {
    addBasicEvents({
-      _time: 19.75 - (parseInt(x) / roadOrder.length) * 1,
-      _type: 4,
-      _value: 3,
-      _customData: { _lightID: roadOrder[x] },
+      time: 19.75 - (parseInt(x) / roadOrder.length) * 1,
+      type: 4,
+      value: 3,
+      customData: { _lightID: roadOrder[x] },
    });
 }
 
@@ -962,11 +966,11 @@ for (const x in roadOrder) {
          }
          for (const color in colorID) {
             addBasicEvents({
-               _type: 4,
-               _time: 20 + (y + 3) / screenY,
-               _value: 1,
-               _floatValue: parseInt(color) / 255,
-               _customData: {
+               type: 4,
+               time: 20 + (y + 3) / screenY,
+               value: 1,
+               floatValue: parseInt(color) / 255,
+               customData: {
                   _lightID: colorID[color],
                },
             });
@@ -1005,29 +1009,29 @@ screenClear(23, 0.5);
       for (const color in colorID) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 23.5 + (itFrame / (img.length - 1)) * 1.5,
-               _value: 1,
-               _floatValue: parseInt(color) / 255,
-               _customData: {
+               type: 4,
+               time: 23.5 + (itFrame / (img.length - 1)) * 1.5,
+               value: 1,
+               floatValue: parseInt(color) / 255,
+               customData: {
                   _lightID: colorID[color],
                },
             },
             {
-               _type: 4,
-               _time: 25.25,
-               _value: 8,
-               _floatValue: parseInt(color) / 255,
-               _customData: {
+               type: 4,
+               time: 25.25,
+               value: 8,
+               floatValue: parseInt(color) / 255,
+               customData: {
                   _lightID: colorID[color],
                },
             },
             {
-               _type: 4,
-               _time: 26.5,
-               _value: 8,
-               _floatValue: 0,
-               _customData: {
+               type: 4,
+               time: 26.5,
+               value: 8,
+               floatValue: 0,
+               customData: {
                   _lightID: colorID[color],
                },
             },
@@ -1064,11 +1068,11 @@ screenClear(23, 0.5);
          }
          for (const color in colorID) {
             addBasicEvents({
-               _type: 4,
-               _time: 29 - (y + 3) / screenY,
-               _value: 1,
-               _floatValue: parseInt(color) / 255,
-               _customData: {
+               type: 4,
+               time: 29 - (y + 3) / screenY,
+               value: 1,
+               floatValue: parseInt(color) / 255,
+               customData: {
                   _lightID: colorID[color],
                },
             });
@@ -1077,10 +1081,10 @@ screenClear(23, 0.5);
    });
    for (let i = 0; i < 4; i++) {
       addBasicEvents({
-         _type: 4,
-         _time: 29.25 + i * 0.375,
-         _value: 3,
-         _customData: {
+         type: 4,
+         time: 29.25 + i * 0.375,
+         value: 3,
+         customData: {
             _lightID: screenStartID + screenX * 7 + 4 + i * 4 + (i > 1 ? 11 : 0),
          },
       });
@@ -1112,19 +1116,19 @@ screenClear(23, 0.5);
       for (const color in colorID) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 31.875,
-               _floatValue: 0,
-               _customData: {
+               type: 4,
+               time: 31.875,
+               floatValue: 0,
+               customData: {
                   _lightID: colorID[color],
                },
             },
             {
-               _type: 4,
-               _time: 32,
-               _value: 4,
-               _floatValue: parseInt(color) / 255,
-               _customData: {
+               type: 4,
+               time: 32,
+               value: 4,
+               floatValue: parseInt(color) / 255,
+               customData: {
                   _lightID: colorID[color],
                },
             },
@@ -1233,31 +1237,31 @@ for (let i = 0; i < 7; i++) {
    if (i === 3) {
       addBasicEvents(
          {
-            _time: 52 + i * 4,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [1, 2] },
+            time: 52 + i * 4,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [1, 2] },
          },
          {
-            _time: 53 + i * 4,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [1, 2] },
+            time: 53 + i * 4,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [1, 2] },
          },
       );
       for (let j = 0; j < 5; j++) {
          addBasicEvents(
             {
-               _time: 54 + i * 4 + j * 0.125,
-               _type: 4,
-               _value: 3,
-               _customData: { _lightID: [1, 2] },
+               time: 54 + i * 4 + j * 0.125,
+               type: 4,
+               value: 3,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _time: 54.0625 + i * 4 + j * 0.125,
-               _type: 4,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               time: 54.0625 + i * 4 + j * 0.125,
+               type: 4,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       }
@@ -1265,43 +1269,43 @@ for (let i = 0; i < 7; i++) {
    }
    addBasicEvents(
       {
-         _time: 53 + i * 4,
-         _type: 4,
-         _value: 3,
-         _customData: { _lightID: [1, 2] },
+         time: 53 + i * 4,
+         type: 4,
+         value: 3,
+         customData: { _lightID: [1, 2] },
       },
       {
-         _time: 53.375 + i * 4,
-         _type: 4,
-         _floatValue: 0,
-         _customData: { _lightID: [1, 2] },
+         time: 53.375 + i * 4,
+         type: 4,
+         floatValue: 0,
+         customData: { _lightID: [1, 2] },
       },
    );
    for (let j = 0; j < 5; j++) {
       addBasicEvents(
          {
-            _time: 53.5 + i * 4 + j * 0.125,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [1, 2] },
+            time: 53.5 + i * 4 + j * 0.125,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [1, 2] },
          },
          {
-            _time: 53.5625 + i * 4 + j * 0.125,
-            _type: 4,
-            _floatValue: 0,
-            _customData: { _lightID: [1, 2] },
+            time: 53.5625 + i * 4 + j * 0.125,
+            type: 4,
+            floatValue: 0,
+            customData: { _lightID: [1, 2] },
          },
          {
-            _time: 54.5 + i * 4 + j * 0.125,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [1, 2] },
+            time: 54.5 + i * 4 + j * 0.125,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [1, 2] },
          },
          {
-            _time: 54.5625 + i * 4 + j * 0.125,
-            _type: 4,
-            _floatValue: 0,
-            _customData: { _lightID: [1, 2] },
+            time: 54.5625 + i * 4 + j * 0.125,
+            type: 4,
+            floatValue: 0,
+            customData: { _lightID: [1, 2] },
          },
       );
    }
@@ -1309,17 +1313,17 @@ for (let i = 0; i < 7; i++) {
       for (let j = 0; j < 16; j++) {
          addBasicEvents(
             {
-               _time: 56 + i * 4 + j * 0.125,
-               _type: 4,
-               _value: 3,
-               _floatValue: 1.25 - i / 24,
-               _customData: { _lightID: [1, 2] },
+               time: 56 + i * 4 + j * 0.125,
+               type: 4,
+               value: 3,
+               floatValue: 1.25 - i / 24,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _time: 56.0625 + i * 4 + j * 0.125,
-               _type: 4,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               time: 56.0625 + i * 4 + j * 0.125,
+               type: 4,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       }
@@ -1328,41 +1332,41 @@ for (let i = 0; i < 7; i++) {
       for (const x in roadOrder) {
          addBasicEvents(
             {
-               _time: 52 + (parseInt(x) / roadOrder.length) * 0.75 + i * 4,
-               _type: 4,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: roadOrder[x] },
+               time: 52 + (parseInt(x) / roadOrder.length) * 0.75 + i * 4,
+               type: 4,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: roadOrder[x] },
             },
             {
-               _time: 52.0625 + (parseInt(x) / roadOrder.length) * 0.75 + i * 4,
-               _type: 4,
-               _value: 7,
-               _customData: { _lightID: roadOrder[x] },
+               time: 52.0625 + (parseInt(x) / roadOrder.length) * 0.75 + i * 4,
+               type: 4,
+               value: 7,
+               customData: { _lightID: roadOrder[x] },
             },
          );
       }
 
       addBasicEvents(
          {
-            _time: 52 + i * 4,
-            _type: 4,
-            _value: 5,
-            _floatValue: 0,
-            _customData: { _lightID: chevronID },
+            time: 52 + i * 4,
+            type: 4,
+            value: 5,
+            floatValue: 0,
+            customData: { _lightID: chevronID },
          },
          {
-            _time: 52.75 + i * 4,
-            _type: 4,
-            _value: 4,
-            _customData: { _lightID: chevronID },
+            time: 52.75 + i * 4,
+            type: 4,
+            value: 4,
+            customData: { _lightID: chevronID },
          },
          {
-            _time: 53 + i * 4,
-            _type: 4,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: chevronID, _easing: 'easeInQuad' },
+            time: 53 + i * 4,
+            type: 4,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: chevronID, _easing: 'easeInQuad' },
          },
       );
    }
@@ -1408,17 +1412,17 @@ for (let i = 0; i < 7; i++) {
       for (const x in roadShuffle) {
          addBasicEvents(
             {
-               _time: 52 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
-               _type: 4,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: roadShuffle[x] },
+               time: 52 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
+               type: 4,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: roadShuffle[x] },
             },
             {
-               _time: 54.75 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
-               _type: 4,
-               _value: 4,
-               _customData: { _lightID: roadShuffle[x] },
+               time: 54.75 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
+               type: 4,
+               value: 4,
+               customData: { _lightID: roadShuffle[x] },
             },
          );
       }
@@ -1426,49 +1430,49 @@ for (let i = 0; i < 7; i++) {
       for (const x in roadShuffle) {
          addBasicEvents(
             {
-               _time: 56 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
-               _type: 4,
-               _value: 4,
-               _customData: { _lightID: roadShuffle[x] },
+               time: 56 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
+               type: 4,
+               value: 4,
+               customData: { _lightID: roadShuffle[x] },
             },
             {
-               _time: 57 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
-               _type: 4,
-               _value: 4,
-               _floatValue: 0,
-               _customData: { _lightID: roadShuffle[x] },
+               time: 57 + (parseInt(x) / roadShuffle.length) * 1 + i * 4,
+               type: 4,
+               value: 4,
+               floatValue: 0,
+               customData: { _lightID: roadShuffle[x] },
             },
          );
       }
       addBasicEvents(
          {
-            _time: 52 + i * 4,
-            _type: 4,
-            _value: 5,
-            _floatValue: 0,
-            _customData: { _lightID: chevronID },
+            time: 52 + i * 4,
+            type: 4,
+            value: 5,
+            floatValue: 0,
+            customData: { _lightID: chevronID },
          },
          {
-            _time: 56 + i * 4,
-            _type: 4,
-            _value: 4,
-            _customData: { _lightID: chevronID, _easing: 'easeOutQuad' },
+            time: 56 + i * 4,
+            type: 4,
+            value: 4,
+            customData: { _lightID: chevronID, _easing: 'easeOutQuad' },
          },
          {
-            _time: 58 + i * 4,
-            _type: 4,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: chevronID, _easing: 'easeInQuad' },
+            time: 58 + i * 4,
+            type: 4,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: chevronID, _easing: 'easeInQuad' },
          },
       );
    }
    for (let j = 0; j < 3; j++) {
       addBasicEvents({
-         _time: 52 + i * 4 + j * 0.25,
-         _type: 4,
-         _value: 7,
-         _customData: { _lightID: [centerOrder[2 - j], centerOrder[j + 3]] },
+         time: 52 + i * 4 + j * 0.25,
+         type: 4,
+         value: 7,
+         customData: { _lightID: [centerOrder[2 - j], centerOrder[j + 3]] },
       });
    }
 }
@@ -1498,11 +1502,11 @@ for (let i = 0; i < 7; i++) {
       }
       for (const color in colorID) {
          addBasicEvents({
-            _type: 4,
-            _time: 54.5 + (itFrame / (img.length - 1)) * 0.75,
-            _value: 1,
-            _floatValue: parseInt(color) / 255,
-            _customData: {
+            type: 4,
+            time: 54.5 + (itFrame / (img.length - 1)) * 0.75,
+            value: 1,
+            floatValue: parseInt(color) / 255,
+            customData: {
                _lightID: colorID[color],
             },
          });
@@ -1529,11 +1533,11 @@ for (let i = 0; i < 2; i++) {
    }
    for (const color in prevColor) {
       addBasicEvents({
-         _type: 4,
-         _time: 60,
-         _value: 1,
-         _floatValue: parseInt(color) / 255,
-         _customData: {
+         type: 4,
+         time: 60,
+         value: 1,
+         floatValue: parseInt(color) / 255,
+         customData: {
             _lightID: prevColor[color],
          },
       });
@@ -1561,11 +1565,11 @@ for (let i = 0; i < 2; i++) {
       }
       for (const color in colorID) {
          addBasicEvents({
-            _type: 4,
-            _time: 60.25 + itFrame * 0.25,
-            _value: 4,
-            _floatValue: parseInt(color) / 255,
-            _customData: {
+            type: 4,
+            time: 60.25 + itFrame * 0.25,
+            value: 4,
+            floatValue: parseInt(color) / 255,
+            customData: {
                _lightID: colorID[color],
             },
          });
@@ -1601,11 +1605,11 @@ screenClear(66.75, 0.5);
    }
    for (const color in prevColor) {
       addBasicEvents({
-         _type: 4,
-         _time: 69,
-         _value: 1,
-         _floatValue: parseInt(color) / 255,
-         _customData: {
+         type: 4,
+         time: 69,
+         value: 1,
+         floatValue: parseInt(color) / 255,
+         customData: {
             _lightID: prevColor[color],
          },
       });
@@ -1627,11 +1631,11 @@ screenClear(66.75, 0.5);
    }
    for (const color in prevColor) {
       addBasicEvents({
-         _type: 4,
-         _time: 73,
-         _value: 1,
-         _floatValue: parseInt(color) / 255,
-         _customData: {
+         type: 4,
+         time: 73,
+         value: 1,
+         floatValue: parseInt(color) / 255,
+         customData: {
             _lightID: prevColor[color],
          },
       });
@@ -1664,11 +1668,11 @@ screenClear(66.75, 0.5);
    }
    for (const color in prevColor) {
       addBasicEvents({
-         _type: 4,
-         _time: 76,
-         _value: 1,
-         _floatValue: parseInt(color) / 255,
-         _customData: {
+         type: 4,
+         time: 76,
+         value: 1,
+         floatValue: parseInt(color) / 255,
+         customData: {
             _lightID: prevColor[color],
          },
       });
@@ -1696,11 +1700,11 @@ itFrame = 0;
       }
       for (const color in colorID) {
          addBasicEvents({
-            _type: 4,
-            _time: 76.25 + itFrame * 0.25,
-            _value: 4,
-            _floatValue: parseInt(color) / 255,
-            _customData: {
+            type: 4,
+            time: 76.25 + itFrame * 0.25,
+            value: 4,
+            floatValue: parseInt(color) / 255,
+            customData: {
                _lightID: colorID[color],
             },
          });
@@ -1759,32 +1763,32 @@ for (let i = 0; i < 5; i++) {
       if (!svt[1]) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 308 + i * 16 + t,
-               _value: 3,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 308 + i * 16 + t,
+               value: 3,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _type: 4,
-               _time: 308 + i * 16 + 0.25 + t,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 308 + i * 16 + 0.25 + t,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       } else {
          for (let j = 0; j < svt[1]; j += 0.125) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: 308 + i * 16 + t + j,
-                  _value: 3,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: 308 + i * 16 + t + j,
+                  value: 3,
+                  customData: { _lightID: [1, 2] },
                },
                {
-                  _type: 4,
-                  _time: 308 + i * 16 + 0.0625 + t + j,
-                  _floatValue: 0,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: 308 + i * 16 + 0.0625 + t + j,
+                  floatValue: 0,
+                  customData: { _lightID: [1, 2] },
                },
             );
          }
@@ -1794,18 +1798,18 @@ for (let i = 0; i < 5; i++) {
             if (!svt[1]) {
                addBasicEvents(
                   {
-                     _type: 4,
-                     _time: 312 + i * 16 + t,
-                     _value: 3,
-                     _customData: {
+                     type: 4,
+                     time: 312 + i * 16 + t,
+                     value: 3,
+                     customData: {
                         _lightID: [centerOrder[0], centerOrder[1]],
                      },
                   },
                   {
-                     _type: 4,
-                     _time: 312 + i * 16 + 0.25 + t,
-                     _floatValue: 0,
-                     _customData: {
+                     type: 4,
+                     time: 312 + i * 16 + 0.25 + t,
+                     floatValue: 0,
+                     customData: {
                         _lightID: [centerOrder[0], centerOrder[1]],
                      },
                   },
@@ -1814,19 +1818,19 @@ for (let i = 0; i < 5; i++) {
                for (let j = 0; j < svt[1]; j += 0.125) {
                   addBasicEvents(
                      {
-                        _type: 4,
-                        _time: 312 + i * 16 + t + j,
-                        _value: 3,
+                        type: 4,
+                        time: 312 + i * 16 + t + j,
+                        value: 3,
 
-                        _customData: {
+                        customData: {
                            _lightID: [centerOrder[0], centerOrder[1]],
                         },
                      },
                      {
-                        _type: 4,
-                        _time: 312 + i * 16 + 0.0625 + t + j,
-                        _floatValue: 0,
-                        _customData: {
+                        type: 4,
+                        time: 312 + i * 16 + 0.0625 + t + j,
+                        floatValue: 0,
+                        customData: {
                            _lightID: [centerOrder[0], centerOrder[1]],
                         },
                      },
@@ -1838,18 +1842,18 @@ for (let i = 0; i < 5; i++) {
             if (!svt[1]) {
                addBasicEvents(
                   {
-                     _type: 4,
-                     _time: 314 + i * 16 + t,
-                     _value: 3,
-                     _customData: {
+                     type: 4,
+                     time: 314 + i * 16 + t,
+                     value: 3,
+                     customData: {
                         _lightID: [centerOrder[4], centerOrder[5]],
                      },
                   },
                   {
-                     _type: 4,
-                     _time: 314 + i * 16 + 0.25 + t,
-                     _floatValue: 0,
-                     _customData: {
+                     type: 4,
+                     time: 314 + i * 16 + 0.25 + t,
+                     floatValue: 0,
+                     customData: {
                         _lightID: [centerOrder[4], centerOrder[5]],
                      },
                   },
@@ -1858,19 +1862,19 @@ for (let i = 0; i < 5; i++) {
                for (let j = 0; j < svt[1]; j += 0.125) {
                   addBasicEvents(
                      {
-                        _type: 4,
-                        _time: 314 + i * 16 + t + j,
-                        _value: 3,
+                        type: 4,
+                        time: 314 + i * 16 + t + j,
+                        value: 3,
 
-                        _customData: {
+                        customData: {
                            _lightID: [centerOrder[4], centerOrder[5]],
                         },
                      },
                      {
-                        _type: 4,
-                        _time: 314 + i * 16 + 0.0625 + t + j,
-                        _floatValue: 0,
-                        _customData: {
+                        type: 4,
+                        time: 314 + i * 16 + 0.0625 + t + j,
+                        floatValue: 0,
+                        customData: {
                            _lightID: [centerOrder[4], centerOrder[5]],
                         },
                      },
@@ -1897,10 +1901,10 @@ for (let i = 0; i < 4; i++) {
       if (!anlb[1]) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 376 + i * 2 + t,
-               _value: 3,
-               _customData: {
+               type: 4,
+               time: 376 + i * 2 + t,
+               value: 3,
+               customData: {
                   _lightID: i === 1
                      ? [centerOrder[0], centerOrder[1]]
                      : i === 3
@@ -1909,10 +1913,10 @@ for (let i = 0; i < 4; i++) {
                },
             },
             {
-               _type: 4,
-               _time: 376 + i * 2 + 0.25 + t,
-               _floatValue: 0,
-               _customData: {
+               type: 4,
+               time: 376 + i * 2 + 0.25 + t,
+               floatValue: 0,
+               customData: {
                   _lightID: i === 1
                      ? [centerOrder[0], centerOrder[1]]
                      : i === 3
@@ -1925,10 +1929,10 @@ for (let i = 0; i < 4; i++) {
          for (let j = 0; j < anlb[1]; j += 0.125) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: 376 + i * 2 + t + j,
-                  _value: 3,
-                  _customData: {
+                  type: 4,
+                  time: 376 + i * 2 + t + j,
+                  value: 3,
+                  customData: {
                      _lightID: i === 1
                         ? [centerOrder[0], centerOrder[1]]
                         : i === 3
@@ -1937,10 +1941,10 @@ for (let i = 0; i < 4; i++) {
                   },
                },
                {
-                  _type: 4,
-                  _time: 376 + i * 2 + 0.0625 + t + j,
-                  _floatValue: 0,
-                  _customData: {
+                  type: 4,
+                  time: 376 + i * 2 + 0.0625 + t + j,
+                  floatValue: 0,
+                  customData: {
                      _lightID: i === 1
                         ? [centerOrder[0], centerOrder[1]]
                         : i === 3
@@ -1972,42 +1976,42 @@ screenClear(386.375);
 for (let i = 0; i < 5; i++) {
    addBasicEvents(
       {
-         _type: 12,
-         _time: 384 + i * 0.5 - 0.001,
-         _value: 1,
+         type: 12,
+         time: 384 + i * 0.5 - 0.001,
+         value: 1,
       },
       {
-         _type: 13,
-         _time: 384 + i * 0.5 - 0.001,
-         _value: 1,
+         type: 13,
+         time: 384 + i * 0.5 - 0.001,
+         value: 1,
       },
       {
-         _type: 12,
-         _time: 384 + i * 0.5,
-         _value: 1,
-         _customData: { _lockPosition: true },
+         type: 12,
+         time: 384 + i * 0.5,
+         value: 1,
+         customData: { _lockPosition: true },
       },
       {
-         _type: 13,
-         _time: 384 + i * 0.5,
-         _value: 1,
-         _customData: { _lockPosition: true },
+         type: 13,
+         time: 384 + i * 0.5,
+         value: 1,
+         customData: { _lockPosition: true },
       },
    );
    for (let j = 0; j < 2; j++) {
       addBasicEvents(
          {
-            _type: 0,
-            _time: 384 + i * 0.5 + j / 6,
-            _value: 6,
-            _floatValue: 4,
+            type: 0,
+            time: 384 + i * 0.5 + j / 6,
+            value: 6,
+            floatValue: 4,
          },
          {
-            _type: 4,
-            _time: 384 + i * 0.5 + j / 6,
-            _value: 6,
-            _floatValue: 4,
-            _customData: {
+            type: 4,
+            time: 384 + i * 0.5 + j / 6,
+            value: 6,
+            floatValue: 4,
+            customData: {
                _lightID: [
                   centerOrder[2],
                   centerOrder[3],
@@ -2019,27 +2023,27 @@ for (let i = 0; i < 5; i++) {
             },
          },
          {
-            _type: 2,
-            _time: 384 + i * 0.5 + j / 6,
-            _value: 6,
-            _floatValue: 4,
+            type: 2,
+            time: 384 + i * 0.5 + j / 6,
+            value: 6,
+            floatValue: 4,
          },
          {
-            _type: 3,
-            _time: 384 + i * 0.5 + j / 6,
-            _value: 6,
-            _floatValue: 4,
+            type: 3,
+            time: 384 + i * 0.5 + j / 6,
+            value: 6,
+            floatValue: 4,
          },
          {
-            _type: 0,
-            _time: 384 + 1 / 12 + i * 0.5 + j / 6,
-            _floatValue: 0,
+            type: 0,
+            time: 384 + 1 / 12 + i * 0.5 + j / 6,
+            floatValue: 0,
          },
          {
-            _type: 4,
-            _time: 384 + 1 / 12 + i * 0.5 + j / 6,
-            _floatValue: 0,
-            _customData: {
+            type: 4,
+            time: 384 + 1 / 12 + i * 0.5 + j / 6,
+            floatValue: 0,
+            customData: {
                _lightID: [
                   centerOrder[2],
                   centerOrder[3],
@@ -2051,14 +2055,14 @@ for (let i = 0; i < 5; i++) {
             },
          },
          {
-            _type: 2,
-            _time: 384 + 1 / 12 + i * 0.5 + j / 6,
-            _floatValue: 0,
+            type: 2,
+            time: 384 + 1 / 12 + i * 0.5 + j / 6,
+            floatValue: 0,
          },
          {
-            _type: 3,
-            _time: 384 + 1 / 12 + i * 0.5 + j / 6,
-            _floatValue: 0,
+            type: 3,
+            time: 384 + 1 / 12 + i * 0.5 + j / 6,
+            floatValue: 0,
          },
       );
    }
@@ -2081,10 +2085,10 @@ for (const ctp of crystalTimingPeriod) {
    for (let i = start; i <= end; i++) {
       for (let j = 0; j < (i === 147 || i === 275 || i === 479 ? 3 : 4); j++) {
          addBasicEvents({
-            _type: 3,
-            _time: i + j / 4,
-            _value: 7,
-            _customData: { _lightID: crystalShuffle[r] },
+            type: 3,
+            time: i + j / 4,
+            value: 7,
+            customData: { _lightID: crystalShuffle[r] },
          });
          r++;
          if (r === crystalShuffle.length) {
@@ -2107,7 +2111,7 @@ for (const ctp of crystalTimingPeriod) {
 //#endregion
 
 for (let t = 212; t < 240; t++) {
-   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       eventValue: 5,
@@ -2115,7 +2119,7 @@ for (let t = 212; t < 240; t++) {
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       eventValue: 5,
@@ -2138,7 +2142,7 @@ await screenDraw('frown.gif', {
 });
 screenClear(243.875);
 for (let t = 244; t < 276; t++) {
-   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       eventValue: 5,
@@ -2146,7 +2150,7 @@ for (let t = 244; t < 276; t++) {
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       eventValue: 5,
@@ -2165,28 +2169,28 @@ screenClear(276);
 
 addBasicEvents(
    {
-      _type: 4,
-      _time: 83,
-      _value: 1,
-      _customData: { _lightID: [1, 2] },
+      type: 4,
+      time: 83,
+      value: 1,
+      customData: { _lightID: [1, 2] },
    },
    {
-      _type: 4,
-      _time: 83.375,
-      _customData: { _lightID: [1, 2] },
+      type: 4,
+      time: 83.375,
+      customData: { _lightID: [1, 2] },
    },
    {
-      _type: 4,
-      _time: 83.5,
-      _value: 1,
-      _customData: {
+      type: 4,
+      time: 83.5,
+      value: 1,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[1], centerOrder[4], centerOrder[5]],
       },
    },
    {
-      _type: 4,
-      _time: 83.875,
-      _customData: {
+      type: 4,
+      time: 83.875,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[1], centerOrder[4], centerOrder[5]],
       },
    },
@@ -2208,44 +2212,44 @@ for (const bbfp of backtopBassFlashPeriod) {
       const add = b < 4 ? 0 : b < 8 ? 0.0625 : b < 12 ? 0.125 : 0.25;
       addBasicEvents(
          {
-            _type: 4,
-            _time: i,
-            _value: 1,
-            _customData: { _lightID: chevronID },
+            type: 4,
+            time: i,
+            value: 1,
+            customData: { _lightID: chevronID },
          },
          {
-            _type: 4,
-            _time: i + 0.625,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: chevronID },
+            type: 4,
+            time: i + 0.625,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: chevronID },
          },
       );
       for (let j = 0; j < 3; j++) {
          addBasicEvents(
             {
-               _time: i + 0.0625 + j * 0.0625,
-               _type: 0,
-               _value: 1,
-               _customData: {
+               time: i + 0.0625 + j * 0.0625,
+               type: 0,
+               value: 1,
+               customData: {
                   _lightID: [backtopOrder[2 - j], backtopOrder[j + 3]],
                },
             },
             {
-               _time: i + 0.25 + j * 0.0625,
-               _type: 0,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: {
+               time: i + 0.25 + j * 0.0625,
+               type: 0,
+               value: 1,
+               floatValue: 0.5,
+               customData: {
                   _lightID: [backtopOrder[2 - j], backtopOrder[j + 3]],
                },
             },
             {
-               _time: i + 0.625 + j * 0.0625,
-               _type: 0,
-               _value: 8,
-               _floatValue: 0,
-               _customData: {
+               time: i + 0.625 + j * 0.0625,
+               type: 0,
+               value: 8,
+               floatValue: 0,
+               customData: {
                   _lightID: [backtopOrder[2 - j], backtopOrder[j + 3]],
                },
             },
@@ -2253,17 +2257,17 @@ for (const bbfp of backtopBassFlashPeriod) {
       }
       for (let j = 0; j < 4; j++) {
          addBasicEvents({
-            _type: 1,
-            _time: i + 0.5 + j / 8,
-            _value: 7,
-            _floatValue: 0.125 + j / 8 + add,
-            _customData: { _lightID: ringID },
+            type: 1,
+            time: i + 0.5 + j / 8,
+            value: 7,
+            floatValue: 0.125 + j / 8 + add,
+            customData: { _lightID: ringID },
          });
          addBasicEvents({
-            _type: 1,
-            _time: i + 0.5 + j / 8 + 1 / 16,
-            _floatValue: 0,
-            _customData: { _lightID: ringID },
+            type: 1,
+            time: i + 0.5 + j / 8 + 1 / 16,
+            floatValue: 0,
+            customData: { _lightID: ringID },
          });
       }
       b++;
@@ -2283,15 +2287,15 @@ for (const rkfp of ringKickFlashPeriod) {
    for (let i = 0; i < p; i++) {
       for (let j = 0; j < 3; j++) {
          addBasicEvents({
-            _type: 1,
-            _time: t + i * 2 + j / 6,
-            _value: 3,
-            _floatValue: 1.5 - j / 3,
+            type: 1,
+            time: t + i * 2 + j / 6,
+            value: 3,
+            floatValue: 1.5 - j / 3,
          });
          addBasicEvents({
-            _type: 1,
-            _time: t + i * 2 + j / 6 + 1 / 12,
-            _floatValue: 0,
+            type: 1,
+            time: t + i * 2 + j / 6 + 1 / 12,
+            floatValue: 0,
          });
       }
    }
@@ -2308,11 +2312,11 @@ for (const rkfp of ringKickFlashPeriod) {
 //         lightArray.push(101 + screenX * y + x);
 //     }
 //     _addBasicEvents({
-//         _type: 4,
-//         _time: 4 + x / 32,
-//         _value: 1,
+//         type: 4,
+//         time: 4 + x / 32,
+//         value: 1,
 //
-//         _customData: { _lightID: lightArray },
+//         customData: { _lightID: lightArray },
 //     });
 // }
 
@@ -2402,93 +2406,93 @@ for (const t of chorus1Timing) {
       if (!ivt[1]) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: t + e,
-               _value: 3,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: t + e,
+               value: 3,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _type: 4,
-               _time: 0.25 + t + e,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 0.25 + t + e,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       } else {
          for (let i = 0; i < ivt[1]; i += 0.125) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: t + i + e,
-                  _value: 3,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: t + i + e,
+                  value: 3,
+                  customData: { _lightID: [1, 2] },
                },
                {
-                  _type: 4,
-                  _time: 0.0625 + t + i + e,
-                  _floatValue: 0,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: 0.0625 + t + i + e,
+                  floatValue: 0,
+                  customData: { _lightID: [1, 2] },
                },
             );
          }
       }
    }
    for (let i = 0; i < 2; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += random(4, 10, true);
+         j += randomFn(4, 10, true);
       }
       addBasicEvents(
          {
-            _time: t - 1 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t - 1 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t - 0.75 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t - 0.75 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
    addBasicEvents(
       {
-         _time: t - 0.1875,
-         _type: 4,
-         _value: 0,
-         _customData: { _lightID: roadOrder },
+         time: t - 0.1875,
+         type: 4,
+         value: 0,
+         customData: { _lightID: roadOrder },
       },
       {
-         _time: t - 0.001,
-         _type: 4,
-         _value: 4,
-         _customData: { _lightID: roadOrder },
+         time: t - 0.001,
+         type: 4,
+         value: 4,
+         customData: { _lightID: roadOrder },
       },
    );
    for (const x in roadOrder) {
       addBasicEvents(
          {
-            _time: t + (parseInt(x) / roadOrder.length) * 0.4375,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID: roadOrder[x] },
+            time: t + (parseInt(x) / roadOrder.length) * 0.4375,
+            type: 4,
+            value: 0,
+            customData: { _lightID: roadOrder[x] },
          },
          {
-            _time: t + 0.03125 + (parseInt(x) / roadOrder.length) * 0.4375,
-            _type: 4,
-            _value: 2,
-            _floatValue: 1.25,
-            _customData: { _lightID: roadOrder[x] },
+            time: t + 0.03125 + (parseInt(x) / roadOrder.length) * 0.4375,
+            type: 4,
+            value: 2,
+            floatValue: 1.25,
+            customData: { _lightID: roadOrder[x] },
          },
          {
-            _time: t + 0.0625 + 0.03125 + (parseInt(x) / roadOrder.length) * 0.4375,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID: roadOrder[x] },
+            time: t + 0.0625 + 0.03125 + (parseInt(x) / roadOrder.length) * 0.4375,
+            type: 4,
+            value: 0,
+            customData: { _lightID: roadOrder[x] },
          },
       );
    }
@@ -2497,52 +2501,52 @@ for (const t of chorus1Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 3 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 3 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 3.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 3.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
 
    addBasicEvents(
       {
-         _time: t - 1,
-         _type: 12,
+         time: t - 1,
+         type: 12,
       },
       {
-         _time: t - 1,
-         _type: 13,
+         time: t - 1,
+         type: 13,
       },
       {
-         _time: t - 1,
-         _type: 2,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t - 1,
+         type: 2,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t - 0.75,
-         _type: 2,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t - 0.75,
+         type: 2,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t - 1,
-         _type: 3,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t - 1,
+         type: 3,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t - 0.75,
-         _type: 3,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t - 0.75,
+         type: 3,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
    );
    await screenDraw('what.gif', { time: t - 1 });
@@ -2550,28 +2554,28 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t - 0.5,
-         _type: 2,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t - 0.5,
+         type: 2,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t - 0.25,
-         _type: 2,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t - 0.25,
+         type: 2,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t - 0.5,
-         _type: 3,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t - 0.5,
+         type: 3,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t - 0.25,
-         _type: 3,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t - 0.25,
+         type: 3,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
    );
    await screenDraw('the.gif', { time: t - 0.5 });
@@ -2581,80 +2585,80 @@ for (const t of chorus1Timing) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 3,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 3,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 0.375 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 0.375 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 0.375 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 0.375 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
       );
    }
    addBasicEvents(
       {
-         _time: t - 0.001,
-         _type: 12,
-         _value: 3,
+         time: t - 0.001,
+         type: 12,
+         value: 3,
       },
       {
-         _time: t,
-         _type: 13,
-         _value: 3,
+         time: t,
+         type: 13,
+         value: 3,
       },
    );
    for (let i = 0; i < 2; i++) {
       addBasicEvents(
          {
-            _time: t + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 3 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 3 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 6 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 6 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 16 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 16 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 19 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 19 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 23 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 23 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
       );
    }
@@ -2667,70 +2671,70 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 1,
-         _type: 12,
+         time: t + 1,
+         type: 12,
       },
       {
-         _time: t + 1,
-         _type: 13,
+         time: t + 1,
+         type: 13,
       },
    );
    for (let i = 0; i < 2; i++) {
       addBasicEvents(
          {
-            _time: t + 1,
-            _type: 2 + i,
-            _value: 2,
-            _customData: { _lightID: [3, 4] },
+            time: t + 1,
+            type: 2 + i,
+            value: 2,
+            customData: { _lightID: [3, 4] },
          },
          {
-            _time: t + 1.25,
-            _type: 2 + i,
-            _customData: { _lightID: [3, 4] },
+            time: t + 1.25,
+            type: 2 + i,
+            customData: { _lightID: [3, 4] },
          },
          {
-            _time: t + 1.5,
-            _type: 2 + i,
-            _value: 2,
-            _customData: { _lightID: [6, 7] },
+            time: t + 1.5,
+            type: 2 + i,
+            value: 2,
+            customData: { _lightID: [6, 7] },
          },
          {
-            _time: t + 1.75,
-            _type: 2 + i,
-            _customData: { _lightID: [6, 7] },
+            time: t + 1.75,
+            type: 2 + i,
+            customData: { _lightID: [6, 7] },
          },
          {
-            _time: t + 2,
-            _type: 2 + i,
-            _value: 2,
-            _customData: { _lightID: [2, 3, 4] },
+            time: t + 2,
+            type: 2 + i,
+            value: 2,
+            customData: { _lightID: [2, 3, 4] },
          },
          {
-            _time: t + 2.25,
-            _type: 2 + i,
-            _customData: { _lightID: [2, 3, 4] },
+            time: t + 2.25,
+            type: 2 + i,
+            customData: { _lightID: [2, 3, 4] },
          },
       );
    }
    for (let i = 0; i < 3; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += random(4, 8, true);
+         j += randomFn(4, 8, true);
       }
       addBasicEvents(
          {
-            _time: t + 1 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 1 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 1.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 1.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
@@ -2746,57 +2750,57 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 2.999,
-         _type: 12,
-         _value: 2,
+         time: t + 2.999,
+         type: 12,
+         value: 2,
       },
       {
-         _time: t + 3,
-         _type: 13,
-         _value: 2,
+         time: t + 3,
+         type: 13,
+         value: 2,
       },
    );
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + 3 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 3 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 3 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 3 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 3.125 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 3.125 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 3.125 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 3.125 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 3.375 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 3.375 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 3.375 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 3.375 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
       );
    }
@@ -2806,81 +2810,81 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 4,
-         _type: 12,
+         time: t + 4,
+         type: 12,
       },
       {
-         _time: t + 4,
-         _type: 13,
+         time: t + 4,
+         type: 13,
       },
       {
-         _time: t + 4,
-         _type: chorus1flipFlop ? 3 : 2,
-         _value: 3,
-         _customData: { _lightID: [5, 6] },
+         time: t + 4,
+         type: chorus1flipFlop ? 3 : 2,
+         value: 3,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 4.25,
-         _type: chorus1flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 4.25,
+         type: chorus1flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 4.5,
-         _type: chorus1flipFlop ? 3 : 2,
-         _value: 3,
-         _customData: { _lightID: [2, 3] },
+         time: t + 4.5,
+         type: chorus1flipFlop ? 3 : 2,
+         value: 3,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 4.75,
-         _type: chorus1flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 4.75,
+         type: chorus1flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 5,
-         _type: chorus1flipFlop ? 2 : 3,
-         _value: 3,
-         _customData: { _lightID: [2, 3] },
+         time: t + 5,
+         type: chorus1flipFlop ? 2 : 3,
+         value: 3,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 5.25,
-         _type: chorus1flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 5.25,
+         type: chorus1flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 5.5,
-         _type: chorus1flipFlop ? 2 : 3,
-         _value: 3,
-         _customData: { _lightID: [5, 6] },
+         time: t + 5.5,
+         type: chorus1flipFlop ? 2 : 3,
+         value: 3,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 5.75,
-         _type: chorus1flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 5.75,
+         type: chorus1flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
    );
    for (let i = 0; i < 4; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += random(4, 8, true);
+         j += randomFn(4, 8, true);
       }
       addBasicEvents(
          {
-            _time: t + 4 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 4 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 4.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 4.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
@@ -2900,58 +2904,58 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 5.999,
-         _type: 12,
-         _value: 1,
+         time: t + 5.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 6,
-         _type: 13,
-         _value: 1,
+         time: t + 6,
+         type: 13,
+         value: 1,
       },
    );
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 6,
-            _type: chorus1flipFlop ? 3 : 2,
-            _value: 2,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 6,
+            type: chorus1flipFlop ? 3 : 2,
+            value: 2,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 6.25,
-            _type: chorus1flipFlop ? 2 : 3,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 6.25,
+            type: chorus1flipFlop ? 2 : 3,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 6.375,
-            _type: chorus1flipFlop ? 3 : 2,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 6.375,
+            type: chorus1flipFlop ? 3 : 2,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 6.625,
-            _type: chorus1flipFlop ? 2 : 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 6.625,
+            type: chorus1flipFlop ? 2 : 3,
+            customData: { _lightID: i },
          },
       );
    }
    for (const x in roadOrder) {
       addBasicEvents(
          {
-            _time: t + 6 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _floatValue: 1.25,
-            _customData: {
+            time: t + 6 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            floatValue: 1.25,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t + 6.0625 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 3,
-            _customData: {
+            time: t + 6.0625 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 3,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
@@ -2963,38 +2967,38 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 8,
-         _type: 12,
+         time: t + 8,
+         type: 12,
       },
       {
-         _time: t + 8,
-         _type: 13,
+         time: t + 8,
+         type: 13,
       },
    );
    for (let i = 0; i < 12; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += random(4, 10, true);
+         j += randomFn(4, 10, true);
       }
       addBasicEvents(
          {
-            _time: t + 8 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 8 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 8.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 8.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
-      const random = Math.floor(random(1, 7));
+      const random = Math.floor(randomFn(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(random(1, 7));
+      const random2 = Math.floor(randomFn(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3004,28 +3008,28 @@ for (const t of chorus1Timing) {
       }
       addBasicEvents(
          {
-            _time: t + 8 + i / 2,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: lightIDrand },
+            time: t + 8 + i / 2,
+            type: 2,
+            value: 2,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 8.25 + i / 2,
-            _type: 2,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand },
+            time: t + 8.25 + i / 2,
+            type: 2,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 8 + i / 2,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 8 + i / 2,
+            type: 3,
+            value: 2,
+            customData: { _lightID: lightIDrand2 },
          },
          {
-            _time: t + 8.25 + i / 2,
-            _type: 3,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 8.25 + i / 2,
+            type: 3,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand2 },
          },
       );
    }
@@ -3099,81 +3103,81 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 13.999,
-         _type: 12,
-         _value: 1,
+         time: t + 13.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 14,
-         _type: 13,
-         _value: 1,
+         time: t + 14,
+         type: 13,
+         value: 1,
       },
    );
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + 14 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 14 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 14 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 14 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 14.125 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 14.125 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 14.125 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 14.125 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 14.375 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 14.375 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 14.375 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 14.375 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
       );
    }
 
    addBasicEvents({
-      _type: 4,
-      _time: t + 13.999,
-      _value: 5,
-      _customData: { _lightID: roadOrder },
+      type: 4,
+      time: t + 13.999,
+      value: 5,
+      customData: { _lightID: roadOrder },
    });
    shuffle(roadShuffle);
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 14 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 14 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 14.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 14.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
@@ -3200,11 +3204,11 @@ for (const t of chorus1Timing) {
             }
             for (const color in colorID) {
                addBasicEvents({
-                  _type: 4,
-                  _time: t + 13.5 + y / screenY / 6,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 13.5 + y / screenY / 6,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                });
@@ -3236,28 +3240,28 @@ for (const t of chorus1Timing) {
          for (const color in colorID) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: t + 14.0625,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 14.0625,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                },
                {
-                  _type: 4,
-                  _time: t + 14.25,
-                  _floatValue: 0,
-                  _customData: {
+                  type: 4,
+                  time: t + 14.25,
+                  floatValue: 0,
+                  customData: {
                      _lightID: colorID[color],
                   },
                },
                {
-                  _type: 4,
-                  _time: t + 14.4375,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 14.4375,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: [
                         ...colorID[color].map((n) => n + 1),
                         screenStartID + screenX * 13 + 12,
@@ -3265,10 +3269,10 @@ for (const t of chorus1Timing) {
                   },
                },
                {
-                  _type: 4,
-                  _time: t + 14.625,
-                  _floatValue: 0,
-                  _customData: {
+                  type: 4,
+                  time: t + 14.625,
+                  floatValue: 0,
+                  customData: {
                      _lightID: [
                         ...colorID[color].map((n) => n + 1),
                         screenStartID + screenX * 13 + 12,
@@ -3276,11 +3280,11 @@ for (const t of chorus1Timing) {
                   },
                },
                {
-                  _type: 4,
-                  _time: t + 14.8125,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 14.8125,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: [
                         ...colorID[color].map((n) => n + 2),
                         screenStartID + screenX * 13 + 11,
@@ -3289,10 +3293,10 @@ for (const t of chorus1Timing) {
                   },
                },
                {
-                  _type: 4,
-                  _time: t + 15,
-                  _floatValue: 0,
-                  _customData: {
+                  type: 4,
+                  time: t + 15,
+                  floatValue: 0,
+                  customData: {
                      _lightID: [
                         ...colorID[color].map((n) => n + 2),
                         screenStartID + screenX * 13 + 11,
@@ -3307,93 +3311,93 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 15,
-         _type: 12,
+         time: t + 15,
+         type: 12,
       },
       {
-         _time: t + 15,
-         _type: 13,
+         time: t + 15,
+         type: 13,
       },
    );
    for (let i = 0; i < 4; i++) {
       addBasicEvents(
          {
-            _time: t + 15 + i / 6,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: [1, 3, 4] },
+            time: t + 15 + i / 6,
+            type: 2,
+            value: 2,
+            customData: { _lightID: [1, 3, 4] },
          },
          {
-            _time: t + 15 + i / 6,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: [1, 3, 4] },
+            time: t + 15 + i / 6,
+            type: 3,
+            value: 2,
+            customData: { _lightID: [1, 3, 4] },
          },
          {
-            _time: t + 15 + 1 / 12 + i / 6,
-            _type: 2,
-            _customData: { _lightID: [1, 3, 4] },
+            time: t + 15 + 1 / 12 + i / 6,
+            type: 2,
+            customData: { _lightID: [1, 3, 4] },
          },
          {
-            _time: t + 15 + 1 / 12 + i / 6,
-            _type: 3,
-            _customData: { _lightID: [1, 3, 4] },
+            time: t + 15 + 1 / 12 + i / 6,
+            type: 3,
+            customData: { _lightID: [1, 3, 4] },
          },
       );
    }
    for (let i = 0; i < 3; i++) {
       addBasicEvents(
          {
-            _time: t + 16 + (i / 3) * 0.375,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: 7 - i },
+            time: t + 16 + (i / 3) * 0.375,
+            type: 2,
+            value: 2,
+            customData: { _lightID: 7 - i },
          },
          {
-            _time: t + 16 + (i / 3) * 0.375,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: 7 - i },
+            time: t + 16 + (i / 3) * 0.375,
+            type: 3,
+            value: 2,
+            customData: { _lightID: 7 - i },
          },
          {
-            _time: t + 16.5 + (i / 3) * 0.375,
-            _type: 2,
-            _value: 0,
-            _customData: { _lightID: 7 - i },
+            time: t + 16.5 + (i / 3) * 0.375,
+            type: 2,
+            value: 0,
+            customData: { _lightID: 7 - i },
          },
          {
-            _time: t + 16.5 + (i / 3) * 0.375,
-            _type: 3,
-            _value: 0,
-            _customData: { _lightID: 7 - i },
+            time: t + 16.5 + (i / 3) * 0.375,
+            type: 3,
+            value: 0,
+            customData: { _lightID: 7 - i },
          },
       );
    }
    for (let i = 0; i < 2; i++) {
       addBasicEvents(
          {
-            _time: t + 17 + i * 0.5,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: [5, 6].map((n) => n - i * 3) },
+            time: t + 17 + i * 0.5,
+            type: 2,
+            value: 2,
+            customData: { _lightID: [5, 6].map((n) => n - i * 3) },
          },
          {
-            _time: t + 17 + i * 0.5,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: [5, 6].map((n) => n - i * 3) },
+            time: t + 17 + i * 0.5,
+            type: 3,
+            value: 2,
+            customData: { _lightID: [5, 6].map((n) => n - i * 3) },
          },
          {
-            _time: t + 17.25 + i * 0.5,
-            _type: 2,
-            _value: 0,
-            _customData: { _lightID: [5, 6].map((n) => n - i * 3) },
+            time: t + 17.25 + i * 0.5,
+            type: 2,
+            value: 0,
+            customData: { _lightID: [5, 6].map((n) => n - i * 3) },
          },
          {
-            _time: t + 17.25 + i * 0.5,
-            _type: 3,
-            _value: 0,
-            _customData: { _lightID: [5, 6].map((n) => n - i * 3) },
+            time: t + 17.25 + i * 0.5,
+            type: 3,
+            value: 0,
+            customData: { _lightID: [5, 6].map((n) => n - i * 3) },
          },
       );
    }
@@ -3402,16 +3406,16 @@ for (const t of chorus1Timing) {
       for (const x in roadShuffle) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 15 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
-               _value: 7,
-               _customData: { _lightID: roadShuffle[x] },
+               type: 4,
+               time: 15 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               value: 7,
+               customData: { _lightID: roadShuffle[x] },
             },
             {
-               _type: 4,
-               _time: 15.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
-               _floatValue: 0,
-               _customData: { _lightID: roadShuffle[x] },
+               type: 4,
+               time: 15.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               floatValue: 0,
+               customData: { _lightID: roadShuffle[x] },
             },
          );
       }
@@ -3443,11 +3447,11 @@ for (const t of chorus1Timing) {
             }
             for (const color in colorID) {
                addBasicEvents({
-                  _type: 4,
-                  _time: t + 15.5 + (x + 4) / screenX / 6,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 15.5 + (x + 4) / screenX / 6,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                });
@@ -3470,46 +3474,46 @@ for (const t of chorus1Timing) {
    for (let i = 0; i < 3; i++) {
       addBasicEvents(
          {
-            _time: t + 18 + (i / 3) * 0.375,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: 1 + i },
+            time: t + 18 + (i / 3) * 0.375,
+            type: 2,
+            value: 2,
+            customData: { _lightID: 1 + i },
          },
          {
-            _time: t + 18 + (i / 3) * 0.375,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: 1 + i },
+            time: t + 18 + (i / 3) * 0.375,
+            type: 3,
+            value: 2,
+            customData: { _lightID: 1 + i },
          },
          {
-            _time: t + 18.5 + (i / 3) * 0.375,
-            _type: 2,
-            _value: 0,
-            _customData: { _lightID: 1 + i },
+            time: t + 18.5 + (i / 3) * 0.375,
+            type: 2,
+            value: 0,
+            customData: { _lightID: 1 + i },
          },
          {
-            _time: t + 18.5 + (i / 3) * 0.375,
-            _type: 3,
-            _value: 0,
-            _customData: { _lightID: 1 + i },
+            time: t + 18.5 + (i / 3) * 0.375,
+            type: 3,
+            value: 0,
+            customData: { _lightID: 1 + i },
          },
       );
    }
    for (const x in roadOrder) {
       addBasicEvents(
          {
-            _time: t + 16 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _floatValue: 1.25,
-            _customData: {
+            time: t + 16 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            floatValue: 1.25,
+            customData: {
                _lightID: roadOrder[parseInt(x)],
             },
          },
          {
-            _time: t + 16.03125 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _customData: {
+            time: t + 16.03125 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            customData: {
                _lightID: roadOrder[parseInt(x)],
             },
          },
@@ -3519,18 +3523,18 @@ for (const t of chorus1Timing) {
       for (const x in roadOrder) {
          addBasicEvents(
             {
-               _time: t + 16.9375 + (parseInt(x) / roadOrder.length) * 0.5 + i / 2,
-               _type: 4,
-               _customData: {
+               time: t + 16.9375 + (parseInt(x) / roadOrder.length) * 0.5 + i / 2,
+               type: 4,
+               customData: {
                   _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
                },
             },
             {
-               _time: t + 17 + (parseInt(x) / roadOrder.length) * 0.5 + i / 2,
-               _type: 4,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: {
+               time: t + 17 + (parseInt(x) / roadOrder.length) * 0.5 + i / 2,
+               type: 4,
+               value: 2,
+               floatValue: 1.25,
+               customData: {
                   _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
                },
             },
@@ -3564,11 +3568,11 @@ for (const t of chorus1Timing) {
             }
             for (const color in colorID) {
                addBasicEvents({
-                  _type: 4,
-                  _time: t + 17.5 + (screenX - x + 4) / screenX / 6,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 17.5 + (screenX - x + 4) / screenX / 6,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                });
@@ -3587,60 +3591,60 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 18.999,
-         _type: 12,
-         _value: 1,
+         time: t + 18.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 19,
-         _type: 13,
-         _value: 1,
+         time: t + 19,
+         type: 13,
+         value: 1,
       },
    );
    for (let j = 0; j < 3; j++) {
       for (let i = 1; i <= 7; i++) {
          addBasicEvents(
             {
-               _time: t + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 2,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25 + 19,
+               type: 2,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 3,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25 + 19,
+               type: 3,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 2,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 19,
+               type: 2,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 3,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 19,
+               type: 3,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 2,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 19,
+               type: 2,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 19,
-               _type: 3,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 19,
+               type: 3,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
          );
       }
@@ -3650,16 +3654,16 @@ for (const t of chorus1Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 19 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 19 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 19.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 19.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
@@ -3672,42 +3676,42 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 20,
-         _type: 12,
-         _value: 0,
+         time: t + 20,
+         type: 12,
+         value: 0,
       },
       {
-         _time: t + 20,
-         _type: 13,
-         _value: 0,
+         time: t + 20,
+         type: 13,
+         value: 0,
       },
    );
    for (let i = 0; i < 5; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += random(4, 10, true);
+         j += randomFn(4, 10, true);
       }
       addBasicEvents(
          {
-            _time: t + 20 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 20 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 20.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 20.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
    for (let i = 0; i < 4; i++) {
-      const random = Math.floor(random(1, 7));
+      const random = Math.floor(randomFn(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(random(1, 7));
+      const random2 = Math.floor(randomFn(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3717,28 +3721,28 @@ for (const t of chorus1Timing) {
       }
       addBasicEvents(
          {
-            _time: t + 20 + i / 2,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: lightIDrand },
+            time: t + 20 + i / 2,
+            type: 2,
+            value: 2,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 20.25 + i / 2,
-            _type: 2,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand },
+            time: t + 20.25 + i / 2,
+            type: 2,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 20 + i / 2,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 20 + i / 2,
+            type: 3,
+            value: 2,
+            customData: { _lightID: lightIDrand2 },
          },
          {
-            _time: t + 20.25 + i / 2,
-            _type: 3,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 20.25 + i / 2,
+            type: 3,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand2 },
          },
       );
    }
@@ -3746,16 +3750,16 @@ for (const t of chorus1Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 22 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 22 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 0.25 + t + 22 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 0.25 + t + 22 + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
@@ -3771,39 +3775,39 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 21.999,
-         _type: 12,
-         _value: 1,
+         time: t + 21.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 22,
-         _type: 13,
-         _value: 1,
+         time: t + 22,
+         type: 13,
+         value: 1,
       },
    );
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 22,
-            _type: chorus1flipFlop ? 3 : 2,
-            _value: 2,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 22,
+            type: chorus1flipFlop ? 3 : 2,
+            value: 2,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 22.25,
-            _type: chorus1flipFlop ? 2 : 3,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 22.25,
+            type: chorus1flipFlop ? 2 : 3,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 22.375,
-            _type: chorus1flipFlop ? 3 : 2,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 22.375,
+            type: chorus1flipFlop ? 3 : 2,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 22.625,
-            _type: chorus1flipFlop ? 2 : 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 22.625,
+            type: chorus1flipFlop ? 2 : 3,
+            customData: { _lightID: i },
          },
       );
    }
@@ -3816,58 +3820,58 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 23,
-         _type: 12,
+         time: t + 23,
+         type: 12,
       },
       {
-         _time: t + 23,
-         _type: 13,
+         time: t + 23,
+         type: 13,
       },
    );
    for (let j = 0; j < 3; j++) {
       for (let i = 1; i <= 7; i++) {
          addBasicEvents(
             {
-               _time: t + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 2,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25 + 23,
+               type: 2,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 3,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25 + 23,
+               type: 3,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 2,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 23,
+               type: 2,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 3,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25 + 23,
+               type: 3,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 2,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 23,
+               type: 2,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 23,
-               _type: 3,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25 + 23,
+               type: 3,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
          );
       }
@@ -3877,16 +3881,16 @@ for (const t of chorus1Timing) {
       for (const x in roadShuffle) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: 23 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
-               _value: 7,
-               _customData: { _lightID: roadShuffle[x] },
+               type: 4,
+               time: 23 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               value: 7,
+               customData: { _lightID: roadShuffle[x] },
             },
             {
-               _type: 4,
-               _time: 23.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
-               _floatValue: 0,
-               _customData: { _lightID: roadShuffle[x] },
+               type: 4,
+               time: 23.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               floatValue: 0,
+               customData: { _lightID: roadShuffle[x] },
             },
          );
       }
@@ -3902,29 +3906,29 @@ for (const t of chorus1Timing) {
    screenClear(t + 23.9375);
 
    for (let i = 0; i < 12; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += random(4, 8, true);
+         j += randomFn(4, 8, true);
       }
       addBasicEvents(
          {
-            _time: t + 24 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 24 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 24.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 24.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
-      const random = Math.floor(random(1, 7));
+      const random = Math.floor(randomFn(1, 7));
       const lightIDrand = [random];
-      const random2 = Math.floor(random(1, 7));
+      const random2 = Math.floor(randomFn(1, 7));
       const lightIDrand2 = [random2];
       if (random < 7) {
          lightIDrand.push(random + 1);
@@ -3934,38 +3938,38 @@ for (const t of chorus1Timing) {
       }
       addBasicEvents(
          {
-            _time: t + 24 + i / 2,
-            _type: 12,
-            _value: random(1, 5, true),
+            time: t + 24 + i / 2,
+            type: 12,
+            value: randomFn(1, 5, true),
          },
          {
-            _time: t + 24 + i / 2,
-            _type: 13,
-            _value: random(1, 5, true),
+            time: t + 24 + i / 2,
+            type: 13,
+            value: randomFn(1, 5, true),
          },
          {
-            _time: t + 24 + i / 2,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: lightIDrand },
+            time: t + 24 + i / 2,
+            type: 2,
+            value: 2,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 24.25 + i / 2,
-            _type: 2,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand },
+            time: t + 24.25 + i / 2,
+            type: 2,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand },
          },
          {
-            _time: t + 24 + i / 2,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 24 + i / 2,
+            type: 3,
+            value: 2,
+            customData: { _lightID: lightIDrand2 },
          },
          {
-            _time: t + 24.25 + i / 2,
-            _type: 3,
-            _floatValue: 0,
-            _customData: { _lightID: lightIDrand2 },
+            time: t + 24.25 + i / 2,
+            type: 3,
+            floatValue: 0,
+            customData: { _lightID: lightIDrand2 },
          },
       );
    }
@@ -3996,11 +4000,11 @@ for (const t of chorus1Timing) {
             }
             for (const color in colorID) {
                addBasicEvents({
-                  _type: 4,
-                  _time: t + 24.125 + ((y + 3) / screenY) * 0.75,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 24.125 + ((y + 3) / screenY) * 0.75,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                });
@@ -4040,11 +4044,11 @@ for (const t of chorus1Timing) {
             }
             for (const color in colorID) {
                addBasicEvents({
-                  _type: 4,
-                  _time: t + 26 + ((y + 3) / screenY) * 0.5,
-                  _value: 1,
-                  _floatValue: parseInt(color) / 255,
-                  _customData: {
+                  type: 4,
+                  time: t + 26 + ((y + 3) / screenY) * 0.5,
+                  value: 1,
+                  floatValue: parseInt(color) / 255,
+                  customData: {
                      _lightID: colorID[color],
                   },
                });
@@ -4077,57 +4081,57 @@ for (const t of chorus1Timing) {
 
    addBasicEvents(
       {
-         _time: t + 30,
-         _type: 12,
-         _value: 1,
+         time: t + 30,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 30,
-         _type: 13,
-         _value: 1,
+         time: t + 30,
+         type: 13,
+         value: 1,
       },
    );
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + 30 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 30 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 30 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 2,
-            _customData: { _lightID: i },
+            time: t + 30 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 30.125 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 30.125 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 30.125 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 5,
-            _floatValue: 0.5,
-            _customData: { _lightID: i },
+            time: t + 30.125 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 5,
+            floatValue: 0.5,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 30.375 + ((i - 1) / 7) * 0.5,
-            _type: 2,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 30.375 + ((i - 1) / 7) * 0.5,
+            type: 2,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 30.375 + ((i - 1) / 7) * 0.5,
-            _type: 3,
-            _value: 8,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 30.375 + ((i - 1) / 7) * 0.5,
+            type: 3,
+            value: 8,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
       );
    }
@@ -4135,16 +4139,16 @@ for (const t of chorus1Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 30 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 30 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 0.25 + t + 30 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 0.25 + t + 30 + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
@@ -4158,50 +4162,50 @@ for (const t of chorus2Timing) {
    for (const x in roadOrder) {
       addBasicEvents(
          {
-            _time: t - 0.5 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _customData: {
+            time: t - 0.5 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t - 0.4375 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 0,
-            _customData: {
+            time: t - 0.4375 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 0,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t - 0.375 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _customData: {
+            time: t - 0.375 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t + 3.5 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _customData: {
+            time: t + 3.5 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t + 3.5625 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 0,
-            _customData: {
+            time: t + 3.5625 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 0,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
          {
-            _time: t + 3.625 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _customData: {
+            time: t + 3.625 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            customData: {
                _lightID: roadOrder[roadOrder.length - 1 - parseInt(x)],
             },
          },
@@ -4210,22 +4214,22 @@ for (const t of chorus2Timing) {
    for (let i = 0; i < 2; i++) {
       addBasicEvents(
          {
-            _time: t + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 4 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 4 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
          {
-            _time: t + 10 + 0.1875 * i,
-            _type: 4,
-            _value: 3,
-            _customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
+            time: t + 10 + 0.1875 * i,
+            type: 4,
+            value: 3,
+            customData: { _lightID: [centerOrder[4 + i], centerOrder[1 - i]] },
          },
       );
    }
@@ -4234,32 +4238,32 @@ for (const t of chorus2Timing) {
       if (!ivt[1]) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: t + e,
-               _value: 3,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: t + e,
+               value: 3,
+               customData: { _lightID: [1, 2] },
             },
             {
-               _type: 4,
-               _time: 0.25 + t + e,
-               _floatValue: 0,
-               _customData: { _lightID: [1, 2] },
+               type: 4,
+               time: 0.25 + t + e,
+               floatValue: 0,
+               customData: { _lightID: [1, 2] },
             },
          );
       } else {
          for (let i = 0; i < ivt[1]; i += 0.125) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: t + i + e,
-                  _value: 3,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: t + i + e,
+                  value: 3,
+                  customData: { _lightID: [1, 2] },
                },
                {
-                  _type: 4,
-                  _time: 0.0625 + t + i + e,
-                  _floatValue: 0,
-                  _customData: { _lightID: [1, 2] },
+                  type: 4,
+                  time: 0.0625 + t + i + e,
+                  floatValue: 0,
+                  customData: { _lightID: [1, 2] },
                },
             );
          }
@@ -4268,88 +4272,88 @@ for (const t of chorus2Timing) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.375 - 0.5,
-            _type: 2,
-            _value: 3,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.375 - 0.5,
+            type: 2,
+            value: 3,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.375 - 0.5,
-            _type: 3,
-            _value: 3,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.375 - 0.5,
+            type: 3,
+            value: 3,
+            customData: { _lightID: 8 - i },
          },
       );
    }
 
    addBasicEvents(
       {
-         _time: t - 0.5,
-         _type: 12,
+         time: t - 0.5,
+         type: 12,
       },
       {
-         _time: t - 0.5,
-         _type: 13,
+         time: t - 0.5,
+         type: 13,
       },
    );
    for (let j = 0; j < 3; j++) {
       for (let i = 1; i <= 7; i++) {
          addBasicEvents(
             {
-               _time: t + (i - 1) / 7 + j * 0.25,
-               _type: 2,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25,
+               type: 2,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + (i - 1) / 7 + j * 0.25,
-               _type: 3,
-               _value: 2,
-               _floatValue: 1.25,
-               _customData: { _lightID: i },
+               time: t + (i - 1) / 7 + j * 0.25,
+               type: 3,
+               value: 2,
+               floatValue: 1.25,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25,
-               _type: 2,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25,
+               type: 2,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.125 + (i - 1) / 7 + j * 0.25,
-               _type: 3,
-               _value: 1,
-               _floatValue: 0.5,
-               _customData: { _lightID: i },
+               time: t + 0.125 + (i - 1) / 7 + j * 0.25,
+               type: 3,
+               value: 1,
+               floatValue: 0.5,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25,
-               _type: 2,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25,
+               type: 2,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 0.375 + (i - 1) / 7 + j * 0.25,
-               _type: 3,
-               _value: 8,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 0.375 + (i - 1) / 7 + j * 0.25,
+               type: 3,
+               value: 8,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
          );
       }
    }
    addBasicEvents(
       {
-         _time: t,
-         _type: 12,
-         _value: 1,
+         time: t,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t - 0.001,
-         _type: 13,
-         _value: 1,
+         time: t - 0.001,
+         type: 13,
+         value: 1,
       },
    );
    for (let i = 0; i < 2; i++) {
@@ -4358,16 +4362,16 @@ for (const t of chorus2Timing) {
          for (const x in roadShuffle) {
             addBasicEvents(
                {
-                  _type: 4,
-                  _time: t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
-                  _value: 7,
-                  _customData: { _lightID: roadShuffle[x] },
+                  type: 4,
+                  time: t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                  value: 7,
+                  customData: { _lightID: roadShuffle[x] },
                },
                {
-                  _type: 4,
-                  _time: 0.25 + t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
-                  _floatValue: 0,
-                  _customData: { _lightID: roadShuffle[x] },
+                  type: 4,
+                  time: 0.25 + t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                  floatValue: 0,
+                  customData: { _lightID: roadShuffle[x] },
                },
             );
          }
@@ -4395,53 +4399,53 @@ for (const t of chorus2Timing) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + 2.25 + ((i - 1) / 7) * 0.75,
-            _type: 2,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 2.25 + ((i - 1) / 7) * 0.75,
+            type: 2,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 2.25 + ((i - 1) / 7) * 0.75,
-            _type: 3,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 2.25 + ((i - 1) / 7) * 0.75,
+            type: 3,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 2.5 + ((i - 1) / 7) * 0.75,
-            _type: 2,
-            _value: 4,
-            _customData: { _lightID: i, _easing: 'easeInQuad' },
+            time: t + 2.5 + ((i - 1) / 7) * 0.75,
+            type: 2,
+            value: 4,
+            customData: { _lightID: i, _easing: 'easeInQuad' },
          },
          {
-            _time: t + 2.5 + ((i - 1) / 7) * 0.75,
-            _type: 3,
-            _value: 4,
-            _customData: { _lightID: i, _easing: 'easeInQuad' },
+            time: t + 2.5 + ((i - 1) / 7) * 0.75,
+            type: 3,
+            value: 4,
+            customData: { _lightID: i, _easing: 'easeInQuad' },
          },
          {
-            _time: t + 2.75 + ((i - 1) / 7) * 0.75,
-            _type: 2,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: i, _easing: 'easeOutQuad' },
+            time: t + 2.75 + ((i - 1) / 7) * 0.75,
+            type: 2,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: i, _easing: 'easeOutQuad' },
          },
          {
-            _time: t + 2.75 + ((i - 1) / 7) * 0.75,
-            _type: 3,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: i, _easing: 'easeOutQuad' },
+            time: t + 2.75 + ((i - 1) / 7) * 0.75,
+            type: 3,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: i, _easing: 'easeOutQuad' },
          },
       );
    }
    addBasicEvents(
       {
-         _time: t + 2.25,
-         _type: 12,
+         time: t + 2.25,
+         type: 12,
       },
       {
-         _time: t + 2.25,
-         _type: 13,
+         time: t + 2.25,
+         type: 13,
       },
    );
    await screenDraw('fearglitch.gif', {
@@ -4455,16 +4459,16 @@ for (const t of chorus2Timing) {
 
    addBasicEvents(
       {
-         _time: t + 3.5,
-         _type: chorus2flipFlop ? 3 : 2,
-         _value: 2,
-         _customData: { _lightID: [3, 4, 5] },
+         time: t + 3.5,
+         type: chorus2flipFlop ? 3 : 2,
+         value: 2,
+         customData: { _lightID: [3, 4, 5] },
       },
       {
-         _time: t + 3.75,
-         _type: chorus2flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [3, 4, 5] },
+         time: t + 3.75,
+         type: chorus2flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [3, 4, 5] },
       },
    );
    await screenDraw('isglitch.gif', { time: t + 3.5 });
@@ -4475,58 +4479,58 @@ for (const t of chorus2Timing) {
       for (let i = 1; i <= 7; i++) {
          addBasicEvents(
             {
-               _time: t + 4 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 3 : 2,
-               _floatValue: 0,
-               _customData: { _lightID: 8 - i },
+               time: t + 4 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 3 : 2,
+               floatValue: 0,
+               customData: { _lightID: 8 - i },
             },
             {
-               _time: t + 4.5 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 2 : 3,
-               _floatValue: 0,
-               _customData: { _lightID: i },
+               time: t + 4.5 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 2 : 3,
+               floatValue: 0,
+               customData: { _lightID: i },
             },
             {
-               _time: t + 4.25 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 3 : 2,
-               _value: 4,
-               _floatValue: 1.25,
-               _customData: { _lightID: 8 - i, _easing: 'easeInQuad' },
+               time: t + 4.25 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 3 : 2,
+               value: 4,
+               floatValue: 1.25,
+               customData: { _lightID: 8 - i, _easing: 'easeInQuad' },
             },
             {
-               _time: t + 4.75 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 2 : 3,
-               _value: 4,
-               _floatValue: 1.25,
-               _customData: { _lightID: i, _easing: 'easeInQuad' },
+               time: t + 4.75 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 2 : 3,
+               value: 4,
+               floatValue: 1.25,
+               customData: { _lightID: i, _easing: 'easeInQuad' },
             },
             {
-               _time: t + 4.5 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 3 : 2,
-               _value: 4,
-               _floatValue: 0,
-               _customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
+               time: t + 4.5 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 3 : 2,
+               value: 4,
+               floatValue: 0,
+               customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
             },
             {
-               _time: t + 5 + ((i - 1) / 7) * 0.75 + j * 0.25,
-               _type: chorus2flipFlop ? 2 : 3,
-               _value: 4,
-               _floatValue: 0,
-               _customData: { _lightID: i, _easing: 'easeOutQuad' },
+               time: t + 5 + ((i - 1) / 7) * 0.75 + j * 0.25,
+               type: chorus2flipFlop ? 2 : 3,
+               value: 4,
+               floatValue: 0,
+               customData: { _lightID: i, _easing: 'easeOutQuad' },
             },
          );
       }
    }
    addBasicEvents(
       {
-         _time: t + 3.999,
-         _type: 12,
-         _value: 1,
+         time: t + 3.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: t + 4,
-         _type: 13,
-         _value: 1,
+         time: t + 4,
+         type: 13,
+         value: 1,
       },
    );
    await screenDraw('more.gif', { time: t + 4, invert: true });
@@ -4548,67 +4552,67 @@ for (const t of chorus2Timing) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + 6.25 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 3 : 2,
-            _floatValue: 0,
-            _customData: { _lightID: 8 - i },
+            time: t + 6.25 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 3 : 2,
+            floatValue: 0,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + 6.75 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 2 : 3,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + 6.75 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 2 : 3,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + 6.5 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 3 : 2,
-            _value: 4,
-            _floatValue: 1.25,
-            _customData: { _lightID: 8 - i, _easing: 'easeInQuad' },
+            time: t + 6.5 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 3 : 2,
+            value: 4,
+            floatValue: 1.25,
+            customData: { _lightID: 8 - i, _easing: 'easeInQuad' },
          },
          {
-            _time: t + 7 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 2 : 3,
-            _value: 4,
-            _floatValue: 1.25,
-            _customData: { _lightID: i, _easing: 'easeInQuad' },
+            time: t + 7 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 2 : 3,
+            value: 4,
+            floatValue: 1.25,
+            customData: { _lightID: i, _easing: 'easeInQuad' },
          },
          {
-            _time: t + 6.75 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 3 : 2,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
+            time: t + 6.75 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 3 : 2,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
          },
          {
-            _time: t + 7.25 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 2 : 3,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: i, _easing: 'easeOutQuad' },
+            time: t + 7.25 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 2 : 3,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: i, _easing: 'easeOutQuad' },
          },
          {
-            _time: t + 6.875 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 3 : 2,
-            _floatValue: 0,
-            _customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
+            time: t + 6.875 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 3 : 2,
+            floatValue: 0,
+            customData: { _lightID: 8 - i, _easing: 'easeOutQuad' },
          },
          {
-            _time: t + 7.375 + ((i - 1) / 7) * 0.5,
-            _type: chorus2flipFlop ? 2 : 3,
-            _floatValue: 0,
-            _customData: { _lightID: i, _easing: 'easeOutQuad' },
+            time: t + 7.375 + ((i - 1) / 7) * 0.5,
+            type: chorus2flipFlop ? 2 : 3,
+            floatValue: 0,
+            customData: { _lightID: i, _easing: 'easeOutQuad' },
          },
       );
    }
    addBasicEvents(
       {
-         _time: t + 6.25,
-         _type: 12,
+         time: t + 6.25,
+         type: 12,
       },
       {
-         _time: t + 6.25,
-         _type: 13,
+         time: t + 6.25,
+         type: 13,
       },
    );
    await screenDraw('takeglitch.gif', { time: t + 6.5 });
@@ -4617,74 +4621,74 @@ for (const t of chorus2Timing) {
 
    addBasicEvents(
       {
-         _time: t + 8,
-         _type: chorus2flipFlop ? 2 : 3,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t + 8,
+         type: chorus2flipFlop ? 2 : 3,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 8.25,
-         _type: chorus2flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 8.25,
+         type: chorus2flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 8.5,
-         _type: chorus2flipFlop ? 2 : 3,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t + 8.5,
+         type: chorus2flipFlop ? 2 : 3,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 8.75,
-         _type: chorus2flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 8.75,
+         type: chorus2flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 9,
-         _type: chorus2flipFlop ? 3 : 2,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t + 9,
+         type: chorus2flipFlop ? 3 : 2,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 9.25,
-         _type: chorus2flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 9.25,
+         type: chorus2flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 9.5,
-         _type: chorus2flipFlop ? 3 : 2,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t + 9.5,
+         type: chorus2flipFlop ? 3 : 2,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 9.75,
-         _type: chorus2flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 9.75,
+         type: chorus2flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
    );
 
    for (let i = 0; i < 4; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += random(4, 8, true);
+         j += randomFn(4, 8, true);
       }
       addBasicEvents(
          {
-            _time: t + 8 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 8 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 8.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 8.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
@@ -4703,16 +4707,16 @@ for (const t of chorus2Timing) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.375 + 10,
-            _type: 2,
-            _value: 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.375 + 10,
+            type: 2,
+            value: 3,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.375 + 10,
-            _type: 3,
-            _value: 3,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.375 + 10,
+            type: 3,
+            value: 3,
+            customData: { _lightID: i },
          },
       );
    }
@@ -4720,16 +4724,16 @@ for (const t of chorus2Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 10 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 7,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 10 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 7,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: 10.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: 10.25 + t + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
@@ -4739,30 +4743,30 @@ for (const t of chorus2Timing) {
    for (let i = 3; i <= 5; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 11.5,
-            _type: 2,
-            _value: 1,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 11.5,
+            type: 2,
+            value: 1,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 11.5,
-            _type: 3,
-            _value: 1,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 11.5,
+            type: 3,
+            value: 1,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 12,
-            _type: 2,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 12,
+            type: 2,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 12,
-            _type: 3,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: i },
+            time: t + ((i - 1) / 7) * 0.25 + 12,
+            type: 3,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: i },
          },
       );
    }
@@ -4772,48 +4776,48 @@ for (const t of chorus2Timing) {
    for (let i = 1; i <= 3; i++) {
       addBasicEvents(
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 12.5,
-            _type: 2,
-            _value: 1,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 12.5,
+            type: 2,
+            value: 1,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 12.5,
-            _type: 3,
-            _value: 1,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 12.5,
+            type: 3,
+            value: 1,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 13,
-            _type: 2,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 13,
+            type: 2,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: 8 - i },
          },
          {
-            _time: t + ((i - 1) / 7) * 0.25 + 13,
-            _type: 3,
-            _value: 4,
-            _floatValue: 0,
-            _customData: { _lightID: 8 - i },
+            time: t + ((i - 1) / 7) * 0.25 + 13,
+            type: 3,
+            value: 4,
+            floatValue: 0,
+            customData: { _lightID: 8 - i },
          },
       );
    }
    for (const x in roadOrder) {
       addBasicEvents(
          {
-            _time: t + 11.5 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 2,
-            _customData: {
+            time: t + 11.5 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 2,
+            customData: {
                _lightID: roadOrder[parseInt(x)],
             },
          },
          {
-            _time: t + 11.625 + (parseInt(x) / roadOrder.length) * 0.5,
-            _type: 4,
-            _value: 0,
-            _customData: {
+            time: t + 11.625 + (parseInt(x) / roadOrder.length) * 0.5,
+            type: 4,
+            value: 0,
+            customData: {
                _lightID: roadOrder[parseInt(x)],
             },
          },
@@ -4823,38 +4827,38 @@ for (const t of chorus2Timing) {
    for (const x in roadShuffle) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: t + 12.25 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _value: 3,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 12.25 + (parseInt(x) / roadShuffle.length) * 0.5,
+            value: 3,
+            customData: { _lightID: roadShuffle[x] },
          },
          {
-            _type: 4,
-            _time: t + 12.5 + (parseInt(x) / roadShuffle.length) * 0.5,
-            _floatValue: 0,
-            _customData: { _lightID: roadShuffle[x] },
+            type: 4,
+            time: t + 12.5 + (parseInt(x) / roadShuffle.length) * 0.5,
+            floatValue: 0,
+            customData: { _lightID: roadShuffle[x] },
          },
       );
    }
    for (let i = 0; i < 4; i++) {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length) {
          _lightID.push(roadOrder[0 + j]);
-         j += random(4, 8, true);
+         j += randomFn(4, 8, true);
       }
       addBasicEvents(
          {
-            _time: t + 13 + i / 2,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: t + 13 + i / 2,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: t + 13.25 + i / 2,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: t + 13.25 + i / 2,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
@@ -4865,52 +4869,52 @@ for (const t of chorus2Timing) {
 
    addBasicEvents(
       {
-         _time: t + 13,
-         _type: chorus2flipFlop ? 2 : 3,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t + 13,
+         type: chorus2flipFlop ? 2 : 3,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 13.25,
-         _type: chorus2flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 13.25,
+         type: chorus2flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 13.5,
-         _type: chorus2flipFlop ? 3 : 2,
-         _value: 2,
-         _customData: { _lightID: [2, 3] },
+         time: t + 13.5,
+         type: chorus2flipFlop ? 3 : 2,
+         value: 2,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 13.75,
-         _type: chorus2flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [2, 3] },
+         time: t + 13.75,
+         type: chorus2flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [2, 3] },
       },
       {
-         _time: t + 14,
-         _type: chorus2flipFlop ? 2 : 3,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t + 14,
+         type: chorus2flipFlop ? 2 : 3,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 14.25,
-         _type: chorus2flipFlop ? 2 : 3,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 14.25,
+         type: chorus2flipFlop ? 2 : 3,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 14.5,
-         _type: chorus2flipFlop ? 3 : 2,
-         _value: 2,
-         _customData: { _lightID: [5, 6] },
+         time: t + 14.5,
+         type: chorus2flipFlop ? 3 : 2,
+         value: 2,
+         customData: { _lightID: [5, 6] },
       },
       {
-         _time: t + 14.75,
-         _type: chorus2flipFlop ? 3 : 2,
-         _floatValue: 0,
-         _customData: { _lightID: [5, 6] },
+         time: t + 14.75,
+         type: chorus2flipFlop ? 3 : 2,
+         floatValue: 0,
+         customData: { _lightID: [5, 6] },
       },
    );
    await screenDraw('in.gif', { time: t + 13 });
@@ -4965,104 +4969,104 @@ screenClear(133.75);
 for (let i = 1; i <= 7; i++) {
    addBasicEvents(
       {
-         _time: 132 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 2,
-         _floatValue: 1.25,
-         _customData: { _lightID: i },
+         time: 132 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 2,
+         floatValue: 1.25,
+         customData: { _lightID: i },
       },
       {
-         _time: 132 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 2,
-         _floatValue: 1.25,
-         _customData: { _lightID: i },
+         time: 132 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 2,
+         floatValue: 1.25,
+         customData: { _lightID: i },
       },
       {
-         _time: 132.125 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 1,
-         _floatValue: 0.5,
-         _customData: { _lightID: i },
+         time: 132.125 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 1,
+         floatValue: 0.5,
+         customData: { _lightID: i },
       },
       {
-         _time: 132.125 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 1,
-         _floatValue: 0.5,
-         _customData: { _lightID: i },
+         time: 132.125 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 1,
+         floatValue: 0.5,
+         customData: { _lightID: i },
       },
       {
-         _time: 132.375 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 8,
-         _floatValue: 0,
-         _customData: { _lightID: i },
+         time: 132.375 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 8,
+         floatValue: 0,
+         customData: { _lightID: i },
       },
       {
-         _time: 132.375 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 8,
-         _floatValue: 0,
-         _customData: { _lightID: i },
+         time: 132.375 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 8,
+         floatValue: 0,
+         customData: { _lightID: i },
       },
       {
-         _time: 133 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 2,
-         _floatValue: 1.25,
-         _customData: { _lightID: 8 - i },
+         time: 133 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 2,
+         floatValue: 1.25,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 133 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 2,
-         _floatValue: 1.25,
-         _customData: { _lightID: 8 - i },
+         time: 133 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 2,
+         floatValue: 1.25,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 133.125 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 1,
-         _floatValue: 0.5,
-         _customData: { _lightID: 8 - i },
+         time: 133.125 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 1,
+         floatValue: 0.5,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 133.125 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 1,
-         _floatValue: 0.5,
-         _customData: { _lightID: 8 - i },
+         time: 133.125 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 1,
+         floatValue: 0.5,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 133.375 + ((i - 1) / 7) * 0.5,
-         _type: 2,
-         _value: 8,
-         _floatValue: 0,
-         _customData: { _lightID: 8 - i },
+         time: 133.375 + ((i - 1) / 7) * 0.5,
+         type: 2,
+         value: 8,
+         floatValue: 0,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 133.375 + ((i - 1) / 7) * 0.5,
-         _type: 3,
-         _value: 8,
-         _floatValue: 0,
-         _customData: { _lightID: 8 - i },
+         time: 133.375 + ((i - 1) / 7) * 0.5,
+         type: 3,
+         value: 8,
+         floatValue: 0,
+         customData: { _lightID: 8 - i },
       },
       {
-         _time: 132 + ((i - 1) / 7) * 0.5,
-         _type: 12,
-         _value: 1,
-         _customData: {
+         time: 132 + ((i - 1) / 7) * 0.5,
+         type: 12,
+         value: 1,
+         customData: {
             _lockPosition: true,
             _preciseSpeed: (i / 7) * 4,
             _direction: 0,
          },
       },
       {
-         _time: 132 + ((i - 1) / 7) * 0.5,
-         _type: 13,
-         _value: 1,
-         _customData: {
+         time: 132 + ((i - 1) / 7) * 0.5,
+         type: 13,
+         value: 1,
+         customData: {
             _lockPosition: true,
             _preciseSpeed: (i / 7) * 4,
             _direction: 0,
@@ -5072,116 +5076,116 @@ for (let i = 1; i <= 7; i++) {
 }
 addBasicEvents(
    {
-      _time: 131.999,
-      _type: 12,
+      time: 131.999,
+      type: 12,
    },
    {
-      _time: 131.999,
-      _type: 13,
+      time: 131.999,
+      type: 13,
    },
    {
-      _time: 133,
-      _type: 12,
-      _value: 1,
+      time: 133,
+      type: 12,
+      value: 1,
    },
    {
-      _time: 133,
-      _type: 13,
-      _value: 1,
+      time: 133,
+      type: 13,
+      value: 1,
    },
    {
-      _type: 4,
-      _time: 132,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 132,
+      value: 3,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[5]],
       },
    },
    {
-      _type: 4,
-      _time: 132.25,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 132.25,
+      value: 3,
+      customData: {
          _lightID: [centerOrder[1], centerOrder[4]],
       },
    },
    {
-      _type: 4,
-      _time: 132.5,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 132.5,
+      value: 3,
+      customData: {
          _lightID: [1, 2],
       },
    },
    {
-      _type: 4,
-      _time: 132.625,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 132.625,
+      floatValue: 0,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[5]],
       },
    },
    {
-      _type: 4,
-      _time: 132.75,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 132.75,
+      floatValue: 0,
+      customData: {
          _lightID: [centerOrder[1], centerOrder[4]],
       },
    },
    {
-      _type: 4,
-      _time: 132.875,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 132.875,
+      floatValue: 0,
+      customData: {
          _lightID: [1, 2],
       },
    },
    {
-      _type: 4,
-      _time: 133,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 133,
+      value: 3,
+      customData: {
          _lightID: [1, 2],
       },
    },
    {
-      _type: 4,
-      _time: 133.25,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 133.25,
+      value: 3,
+      customData: {
          _lightID: [centerOrder[1], centerOrder[4]],
       },
    },
    {
-      _type: 4,
-      _time: 133.5,
-      _value: 3,
-      _customData: {
+      type: 4,
+      time: 133.5,
+      value: 3,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[5]],
       },
    },
    {
-      _type: 4,
-      _time: 133.625,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 133.625,
+      floatValue: 0,
+      customData: {
          _lightID: [1, 2],
       },
    },
    {
-      _type: 4,
-      _time: 133.75,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 133.75,
+      floatValue: 0,
+      customData: {
          _lightID: [centerOrder[1], centerOrder[4]],
       },
    },
    {
-      _type: 4,
-      _time: 133.875,
-      _floatValue: 0,
-      _customData: {
+      type: 4,
+      time: 133.875,
+      floatValue: 0,
+      customData: {
          _lightID: [centerOrder[0], centerOrder[5]],
       },
    },
@@ -5189,17 +5193,17 @@ addBasicEvents(
 for (const x in roadOrder) {
    addBasicEvents(
       {
-         _type: 4,
-         _time: 132 + (parseInt(x) / roadOrder.length) * 0.875,
-         _value: 3,
-         _customData: { _lightID: roadOrder[x] },
+         type: 4,
+         time: 132 + (parseInt(x) / roadOrder.length) * 0.875,
+         value: 3,
+         customData: { _lightID: roadOrder[x] },
       },
       {
-         _type: 4,
-         _time: 133.75 - (parseInt(x) / roadOrder.length) * 0.75,
-         _value: 3,
-         _floatValue: 0.75,
-         _customData: { _lightID: roadOrder[x] },
+         type: 4,
+         time: 133.75 - (parseInt(x) / roadOrder.length) * 0.75,
+         value: 3,
+         floatValue: 0.75,
+         customData: { _lightID: roadOrder[x] },
       },
    );
 }
@@ -5233,30 +5237,30 @@ for (const e of echoTiming) {
       screenClear(134.25 + e);
    }
    {
-      let j = random(1, 5, true);
+      let j = randomFn(1, 5, true);
       const _lightID: number[] = [];
       while (j < roadOrder.length - 1) {
          _lightID.push(roadOrder[0 + j], roadOrder[1 + j]);
-         j += random(4, 10, true);
+         j += randomFn(4, 10, true);
       }
       addBasicEvents(
          {
-            _time: e + 134,
-            _type: 4,
-            _value: 2,
-            _customData: { _lightID },
+            time: e + 134,
+            type: 4,
+            value: 2,
+            customData: { _lightID },
          },
          {
-            _time: e + 134.25,
-            _type: 4,
-            _value: 0,
-            _customData: { _lightID },
+            time: e + 134.25,
+            type: 4,
+            value: 0,
+            customData: { _lightID },
          },
       );
    }
-   const random = Math.floor(random(1, 7));
+   const random = Math.floor(randomFn(1, 7));
    const lightIDrand = [random];
-   const random2 = Math.floor(random(1, 7));
+   const random2 = Math.floor(randomFn(1, 7));
    const lightIDrand2 = [random2];
    if (random < 7) {
       lightIDrand.push(random + 1);
@@ -5266,110 +5270,110 @@ for (const e of echoTiming) {
    }
    addBasicEvents(
       {
-         _time: 134 + e,
-         _type: 12,
-         _value: random(1, 5, true),
+         time: 134 + e,
+         type: 12,
+         value: randomFn(1, 5, true),
       },
       {
-         _time: 134 + e,
-         _type: 13,
-         _value: random(1, 5, true),
+         time: 134 + e,
+         type: 13,
+         value: randomFn(1, 5, true),
       },
       {
-         _time: 134 + e,
-         _type: 2,
-         _value: 2,
-         _customData: { _lightID: lightIDrand },
+         time: 134 + e,
+         type: 2,
+         value: 2,
+         customData: { _lightID: lightIDrand },
       },
       {
-         _time: 134.0625 + e,
-         _type: 2,
-         _floatValue: 0,
-         _customData: { _lightID: lightIDrand },
+         time: 134.0625 + e,
+         type: 2,
+         floatValue: 0,
+         customData: { _lightID: lightIDrand },
       },
       {
-         _time: 134.125 + e,
-         _type: 2,
-         _value: 2,
-         _customData: { _lightID: lightIDrand },
+         time: 134.125 + e,
+         type: 2,
+         value: 2,
+         customData: { _lightID: lightIDrand },
       },
       {
-         _time: 134.1875 + e,
-         _type: 2,
-         _floatValue: 0,
-         _customData: { _lightID: lightIDrand },
+         time: 134.1875 + e,
+         type: 2,
+         floatValue: 0,
+         customData: { _lightID: lightIDrand },
       },
       {
-         _time: 134 + e,
-         _type: 3,
-         _value: 2,
-         _customData: { _lightID: lightIDrand2 },
+         time: 134 + e,
+         type: 3,
+         value: 2,
+         customData: { _lightID: lightIDrand2 },
       },
       {
-         _time: 134.0625 + e,
-         _type: 3,
-         _value: 2,
-         _customData: { _lightID: lightIDrand2 },
+         time: 134.0625 + e,
+         type: 3,
+         value: 2,
+         customData: { _lightID: lightIDrand2 },
       },
       {
-         _time: 134.125 + e,
-         _type: 3,
-         _floatValue: 0,
-         _customData: { _lightID: lightIDrand2 },
+         time: 134.125 + e,
+         type: 3,
+         floatValue: 0,
+         customData: { _lightID: lightIDrand2 },
       },
       {
-         _time: 134.1875 + e,
-         _type: 3,
-         _floatValue: 0,
-         _customData: { _lightID: lightIDrand2 },
+         time: 134.1875 + e,
+         type: 3,
+         floatValue: 0,
+         customData: { _lightID: lightIDrand2 },
       },
    );
    addBasicEvents(
       {
-         _type: 4,
-         _time: 133.875 + e,
-         _floatValue: 0,
-         _customData: {
+         type: 4,
+         time: 133.875 + e,
+         floatValue: 0,
+         customData: {
             _lightID: [1, 2],
          },
       },
       {
-         _type: 4,
-         _time: 134 + e,
-         _floatValue: 0,
-         _customData: {
+         type: 4,
+         time: 134 + e,
+         floatValue: 0,
+         customData: {
             _lightID: [centerOrder[1], centerOrder[4]],
          },
       },
       {
-         _type: 4,
-         _time: 134.125 + e,
-         _floatValue: 0,
-         _customData: {
+         type: 4,
+         time: 134.125 + e,
+         floatValue: 0,
+         customData: {
             _lightID: [centerOrder[0], centerOrder[5]],
          },
       },
       {
-         _type: 4,
-         _time: 134 + e,
-         _value: 3,
-         _customData: {
+         type: 4,
+         time: 134 + e,
+         value: 3,
+         customData: {
             _lightID: [1, 2],
          },
       },
       {
-         _type: 4,
-         _time: 134.125 + e,
-         _value: 3,
-         _customData: {
+         type: 4,
+         time: 134.125 + e,
+         value: 3,
+         customData: {
             _lightID: [centerOrder[1], centerOrder[4]],
          },
       },
       {
-         _type: 4,
-         _time: 134.25 + e,
-         _value: 3,
-         _customData: {
+         type: 4,
+         time: 134.25 + e,
+         value: 3,
+         customData: {
             _lightID: [centerOrder[0], centerOrder[5]],
          },
       },
@@ -5382,14 +5386,14 @@ for (let i = 0; i < 11; i++) {
 }
 
 for (let t = 164; t < 196; t += 4) {
-   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       xOffset: 11 + randomPos[0],
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       xOffset: 11 + randomPos[0],
@@ -5470,12 +5474,12 @@ await screenDraw('testcard.gif', { time: 163.25, eventValue: 3, invert: true });
 screenClear(163.375);
 addBasicEvents(
    {
-      _time: 148,
-      _type: 12,
+      time: 148,
+      type: 12,
    },
    {
-      _time: 148,
-      _type: 13,
+      time: 148,
+      type: 13,
    },
 );
 for (const et of eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeTiming) {
@@ -5499,26 +5503,26 @@ for (const et of eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeTiming) {
       for (let i = 0; i < lid.length; i++) {
          addBasicEvents(
             {
-               _time: t + i * 0.03125,
-               _type: 2,
-               _value: 6,
-               _customData: { _lightID: lid[i] },
+               time: t + i * 0.03125,
+               type: 2,
+               value: 6,
+               customData: { _lightID: lid[i] },
             },
             {
-               _time: t + i * 0.03125,
-               _type: 3,
-               _value: 6,
-               _customData: { _lightID: lid[i] },
+               time: t + i * 0.03125,
+               type: 3,
+               value: 6,
+               customData: { _lightID: lid[i] },
             },
             {
-               _time: t + 0.03125 + i * 0.03125,
-               _type: 2,
-               _customData: { _lightID: lid[i] },
+               time: t + 0.03125 + i * 0.03125,
+               type: 2,
+               customData: { _lightID: lid[i] },
             },
             {
-               _time: t + 0.03125 + i * 0.03125,
-               _type: 3,
-               _customData: { _lightID: lid[i] },
+               time: t + 0.03125 + i * 0.03125,
+               type: 3,
+               customData: { _lightID: lid[i] },
             },
          );
       }
@@ -5574,60 +5578,60 @@ const iHateThisSynthTiming = [
 for (const ihtst of iHateThisSynthTiming) {
    addBasicEvents(
       {
-         _time: ihtst[0],
-         _type: 2,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0],
+         type: 2,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0],
-         _type: 3,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0],
+         type: 3,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.0625,
-         _type: 2,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.0625,
+         type: 2,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.0625,
-         _type: 3,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.0625,
+         type: 3,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.125,
-         _type: 2,
-         _value: 6,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.125,
+         type: 2,
+         value: 6,
+         floatValue: 1,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.125,
-         _type: 3,
-         _value: 6,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.125,
+         type: 3,
+         value: 6,
+         floatValue: 1,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.1875,
-         _type: 2,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.1875,
+         type: 2,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
       {
-         _time: ihtst[0] + 0.1875,
-         _type: 3,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
+         time: ihtst[0] + 0.1875,
+         type: 3,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + ihtst[1], 2 + ihtst[1]] },
       },
    );
 }
@@ -5683,14 +5687,14 @@ const iHateThisSynthID = [
 for (const ihtsl of iHateThisSynthLaser) {
    addBasicEvents(
       {
-         _type: 12,
-         _time: ihtsl[0],
-         _value: ihtsl[1],
+         type: 12,
+         time: ihtsl[0],
+         value: ihtsl[1],
       },
       {
-         _type: 13,
-         _time: ihtsl[0],
-         _value: ihtsl[1],
+         type: 13,
+         time: ihtsl[0],
+         value: ihtsl[1],
       },
    );
 }
@@ -5698,32 +5702,32 @@ for (const ihtst of iHateThisSynthTiming2) {
    for (let t = ihtst[0]; t < ihtst[0] + ihtst[1] - 0.0625; t += 0.0625) {
       addBasicEvents(
          {
-            _type: 2,
-            _time: t,
-            _value: 7,
-            _customData: {
+            type: 2,
+            time: t,
+            value: 7,
+            customData: {
                _lightID: iHateThisSynthID[ihtst[2]],
             },
          },
          {
-            _type: 2,
-            _time: t + 0.03125,
-            _customData: {
+            type: 2,
+            time: t + 0.03125,
+            customData: {
                _lightID: iHateThisSynthID[ihtst[2]],
             },
          },
          {
-            _type: 3,
-            _time: t,
-            _value: 7,
-            _customData: {
+            type: 3,
+            time: t,
+            value: 7,
+            customData: {
                _lightID: iHateThisSynthID[ihtst[2]],
             },
          },
          {
-            _type: 3,
-            _time: t + 0.03125,
-            _customData: {
+            type: 3,
+            time: t + 0.03125,
+            customData: {
                _lightID: iHateThisSynthID[ihtst[2]],
             },
          },
@@ -5731,14 +5735,14 @@ for (const ihtst of iHateThisSynthTiming2) {
    }
    addBasicEvents(
       {
-         _type: 12,
-         _time: ihtst[0],
-         _value: ihtst[2] % 2 ? 0 : 1,
+         type: 12,
+         time: ihtst[0],
+         value: ihtst[2] % 2 ? 0 : 1,
       },
       {
-         _type: 13,
-         _time: ihtst[0],
-         _value: ihtst[2] % 2 ? 0 : 1,
+         type: 13,
+         time: ihtst[0],
+         value: ihtst[2] % 2 ? 0 : 1,
       },
    );
 }
@@ -5925,53 +5929,53 @@ for (const sdt of synthDownTiming) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
          {
-            _time: sdt + ((i - 1) / 7) * 0.375,
-            _type: 2,
-            _value: 2,
-            _floatValue: 2,
-            _customData: { _lightID: i },
+            time: sdt + ((i - 1) / 7) * 0.375,
+            type: 2,
+            value: 2,
+            floatValue: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: sdt + ((i - 1) / 7) * 0.375,
-            _type: 3,
-            _value: 2,
-            _floatValue: 2,
-            _customData: { _lightID: i },
+            time: sdt + ((i - 1) / 7) * 0.375,
+            type: 3,
+            value: 2,
+            floatValue: 2,
+            customData: { _lightID: i },
          },
          {
-            _time: sdt + 0.03125 + ((i - 1) / 7) * 0.375,
-            _type: 2,
-            _value: 7,
-            _customData: { _lightID: i },
+            time: sdt + 0.03125 + ((i - 1) / 7) * 0.375,
+            type: 2,
+            value: 7,
+            customData: { _lightID: i },
          },
          {
-            _time: sdt + 0.03125 + ((i - 1) / 7) * 0.375,
-            _type: 3,
-            _value: 7,
-            _customData: { _lightID: i },
+            time: sdt + 0.03125 + ((i - 1) / 7) * 0.375,
+            type: 3,
+            value: 7,
+            customData: { _lightID: i },
          },
       );
    }
    addBasicEvents(
       {
-         _time: sdt,
-         _type: 12,
-         _value: 0,
+         time: sdt,
+         type: 12,
+         value: 0,
       },
       {
-         _time: sdt,
-         _type: 13,
-         _value: 0,
+         time: sdt,
+         type: 13,
+         value: 0,
       },
       {
-         _time: sdt + 0.999,
-         _type: 12,
-         _value: 1,
+         time: sdt + 0.999,
+         type: 12,
+         value: 1,
       },
       {
-         _time: sdt + 0.999,
-         _type: 13,
-         _value: 1,
+         time: sdt + 0.999,
+         type: 13,
+         value: 1,
       },
    );
 }
@@ -5979,93 +5983,93 @@ let synthTimingFlipFlop = false;
 for (const st of synthTiming) {
    addBasicEvents(
       {
-         _time: st[0],
-         _type: 2,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0],
+         type: 2,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0],
-         _type: 3,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0],
+         type: 3,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.0625,
-         _type: 2,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.0625,
+         type: 2,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.0625,
-         _type: 3,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.0625,
+         type: 3,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.125,
-         _type: 2,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.125,
+         type: 2,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.125,
-         _type: 2,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.125,
+         type: 2,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.1875,
-         _type: 2,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.1875,
+         type: 2,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.1875,
-         _type: 3,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.1875,
+         type: 3,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.25,
-         _type: 3,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.25,
+         type: 3,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.25,
-         _type: 3,
-         _value: 2,
-         _floatValue: 1,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.25,
+         type: 3,
+         value: 2,
+         floatValue: 1,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.3125,
-         _type: 2,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.3125,
+         type: 2,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0] + 0.3125,
-         _type: 3,
-         _value: 0,
-         _floatValue: 0,
-         _customData: { _lightID: [1 + st[1], 2 + st[1]] },
+         time: st[0] + 0.3125,
+         type: 3,
+         value: 0,
+         floatValue: 0,
+         customData: { _lightID: [1 + st[1], 2 + st[1]] },
       },
       {
-         _time: st[0],
-         _type: synthTimingFlipFlop ? 13 : 12,
-         _value: 1,
+         time: st[0],
+         type: synthTimingFlipFlop ? 13 : 12,
+         value: 1,
       },
    );
    synthTimingFlipFlop = !synthTimingFlipFlop;
@@ -6105,29 +6109,29 @@ const endingID = [
 for (const eh of endingHa) {
    addBasicEvents(
       {
-         _type: 4,
-         _time: eh[0],
-         _value: 3,
-         _floatValue: 1.25,
-         _customData: {
+         type: 4,
+         time: eh[0],
+         value: 3,
+         floatValue: 1.25,
+         customData: {
             _lightID: endingID[eh[1]],
          },
       },
       {
-         _type: 4,
-         _time: eh[0] + 0.0625,
-         _value: 0,
-         _floatValue: 1.25,
-         _customData: {
+         type: 4,
+         time: eh[0] + 0.0625,
+         value: 0,
+         floatValue: 1.25,
+         customData: {
             _lightID: endingID[eh[1]],
          },
       },
       {
-         _type: 4,
-         _time: eh[0] + 0.125,
-         _value: 3,
-         _floatValue: 1.25,
-         _customData: {
+         type: 4,
+         time: eh[0] + 0.125,
+         value: 3,
+         floatValue: 1.25,
+         customData: {
             _lightID: endingID[eh[1]],
          },
       },
@@ -6158,10 +6162,10 @@ const synthDrumTiming = [
 for (const sdt of synthDrumTiming) {
    for (let i = 0; i < 3; i++) {
       addBasicEvents({
-         _time: sdt[0] + 0.1875 * i,
-         _type: 4,
-         _value: 3,
-         _customData: {
+         time: sdt[0] + 0.1875 * i,
+         type: 4,
+         value: 3,
+         customData: {
             _lightID: sdt[1]
                ? [centerOrder[i], centerOrder[5 - i]]
                : [centerOrder[2 - i], centerOrder[3 + i]],
@@ -6185,38 +6189,38 @@ for (const ddt of dootdootTiming) {
    if (!(ddt[1] % 2)) {
       addBasicEvents(
          {
-            _type: 4,
-            _time: ddt[0],
-            _value: 7,
-            _floatValue: 1,
-            _customData: {
+            type: 4,
+            time: ddt[0],
+            value: 7,
+            floatValue: 1,
+            customData: {
                _lightID: endingID[ddt[1]],
             },
          },
          {
-            _type: 4,
-            _time: ddt[0] + 0.0625,
-            _value: 0,
-            _floatValue: 1,
-            _customData: {
+            type: 4,
+            time: ddt[0] + 0.0625,
+            value: 0,
+            floatValue: 1,
+            customData: {
                _lightID: endingID[ddt[1]],
             },
          },
          {
-            _type: 4,
-            _time: ddt[0] + 0.125,
-            _value: 7,
-            _floatValue: 1,
-            _customData: {
+            type: 4,
+            time: ddt[0] + 0.125,
+            value: 7,
+            floatValue: 1,
+            customData: {
                _lightID: endingID[ddt[1]],
             },
          },
          {
-            _type: 4,
-            _time: ddt[0] + 0.1875,
-            _value: 0,
-            _floatValue: 1,
-            _customData: {
+            type: 4,
+            time: ddt[0] + 0.1875,
+            value: 0,
+            floatValue: 1,
+            customData: {
                _lightID: endingID[ddt[1]],
             },
          },
@@ -6225,19 +6229,19 @@ for (const ddt of dootdootTiming) {
       for (let t = ddt[0]; t < ddt[0] + 0.875; t += 0.0625) {
          addBasicEvents(
             {
-               _type: 4,
-               _time: t,
-               _value: 7,
-               _floatValue: 1,
-               _customData: {
+               type: 4,
+               time: t,
+               value: 7,
+               floatValue: 1,
+               customData: {
                   _lightID: endingID[ddt[1]],
                },
             },
             {
-               _type: 4,
-               _time: t + 0.03125,
-               _value: 0,
-               _customData: {
+               type: 4,
+               time: t + 0.03125,
+               value: 0,
+               customData: {
                   _lightID: endingID[ddt[1]],
                },
             },
@@ -6273,52 +6277,52 @@ const doondoondodoondoondoonID = [
 for (const ddddt of doondoondodoondoondoonTiming) {
    addBasicEvents(
       {
-         _time: ddddt[0],
-         _type: 2,
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         time: ddddt[0],
+         type: 2,
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: doondoondodoondoondoonID[ddddt[1]],
          },
       },
       {
-         _time: ddddt[0],
-         _type: 3,
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         time: ddddt[0],
+         type: 3,
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: doondoondodoondoondoonID[ddddt[1]],
          },
       },
       {
-         _type: 4,
-         _time: ddddt[0],
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         type: 4,
+         time: ddddt[0],
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: endingID[ddddt[1]],
          },
       },
       {
-         _type: 4,
-         _time: ddddt[0] + 0.0625,
-         _customData: {
+         type: 4,
+         time: ddddt[0] + 0.0625,
+         customData: {
             _lightID: endingID[ddddt[1]],
          },
       },
       {
-         _type: 4,
-         _time: ddddt[0] + 0.125,
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         type: 4,
+         time: ddddt[0] + 0.125,
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: endingID[ddddt[1]],
          },
       },
       {
-         _type: 4,
-         _time: ddddt[0] + 0.375,
-         _customData: {
+         type: 4,
+         time: ddddt[0] + 0.375,
+         customData: {
             _lightID: endingID[ddddt[1]],
          },
       },
@@ -6326,18 +6330,18 @@ for (const ddddt of doondoondodoondoondoonTiming) {
    if (ddddt[0] >= 288) {
       addBasicEvents(
          {
-            _time: ddddt[0],
-            _type: 0,
-            _value: 1,
-            _floatValue: 1.25,
-            _customData: {
+            time: ddddt[0],
+            type: 0,
+            value: 1,
+            floatValue: 1.25,
+            customData: {
                _lightID: [backtopOrder[ddddt[1]], backtopOrder[5 - ddddt[1]]],
             },
          },
          {
-            _time: ddddt[0] + 0.25,
-            _type: 0,
-            _customData: {
+            time: ddddt[0] + 0.25,
+            type: 0,
+            customData: {
                _lightID: [backtopOrder[ddddt[1]], backtopOrder[5 - ddddt[1]]],
             },
          },
@@ -6346,46 +6350,46 @@ for (const ddddt of doondoondodoondoondoonTiming) {
 }
 addBasicEvents(
    {
-      _time: 210,
-      _type: 4,
-      _value: 1,
-      _floatValue: 0,
-      _customData: { _lightID: chevronID },
+      time: 210,
+      type: 4,
+      value: 1,
+      floatValue: 0,
+      customData: { _lightID: chevronID },
    },
    {
-      _time: 211.875,
-      _type: 4,
-      _value: 4,
-      _floatValue: 1.25,
-      _customData: { _lightID: chevronID },
+      time: 211.875,
+      type: 4,
+      value: 4,
+      floatValue: 1.25,
+      customData: { _lightID: chevronID },
    },
    {
-      _time: 211.9375,
-      _type: 4,
-      _value: 4,
-      _floatValue: 0,
-      _customData: { _lightID: chevronID },
+      time: 211.9375,
+      type: 4,
+      value: 4,
+      floatValue: 0,
+      customData: { _lightID: chevronID },
    },
    {
-      _time: 290,
-      _type: 4,
-      _value: 1,
-      _floatValue: 0,
-      _customData: { _lightID: chevronID },
+      time: 290,
+      type: 4,
+      value: 1,
+      floatValue: 0,
+      customData: { _lightID: chevronID },
    },
    {
-      _time: 291.75,
-      _type: 4,
-      _value: 4,
-      _floatValue: 1.25,
-      _customData: { _lightID: chevronID },
+      time: 291.75,
+      type: 4,
+      value: 4,
+      floatValue: 1.25,
+      customData: { _lightID: chevronID },
    },
    {
-      _time: 291.8125,
-      _type: 4,
-      _value: 4,
-      _floatValue: 0,
-      _customData: { _lightID: chevronID },
+      time: 291.8125,
+      type: 4,
+      value: 4,
+      floatValue: 0,
+      customData: { _lightID: chevronID },
    },
 );
 const painoTiming = [
@@ -6412,34 +6416,34 @@ const painoTiming = [
 for (const pt of painoTiming) {
    addBasicEvents(
       {
-         _time: pt[0],
-         _type: 2,
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         time: pt[0],
+         type: 2,
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: doondoondodoondoondoonID[2 - pt[1]],
          },
       },
       {
-         _time: pt[0] + 0.25,
-         _type: 2,
-         _customData: {
+         time: pt[0] + 0.25,
+         type: 2,
+         customData: {
             _lightID: doondoondodoondoondoonID[2 - pt[1]],
          },
       },
       {
-         _time: pt[0] + 80,
-         _type: 0,
-         _value: 5,
-         _floatValue: 1.25,
-         _customData: {
+         time: pt[0] + 80,
+         type: 0,
+         value: 5,
+         floatValue: 1.25,
+         customData: {
             _lightID: [backtopOrder[2 - pt[1]], backtopOrder[3 + pt[1]]],
          },
       },
       {
-         _time: pt[0] + 80.25,
-         _type: 0,
-         _customData: {
+         time: pt[0] + 80.25,
+         type: 0,
+         customData: {
             _lightID: [backtopOrder[2 - pt[1]], backtopOrder[3 + pt[1]]],
          },
       },
@@ -6488,18 +6492,18 @@ const painoTiming2 = [
 for (const pt of painoTiming2) {
    addBasicEvents(
       {
-         _time: pt[0] as number,
-         _type: 3,
-         _value: 7,
-         _floatValue: 1.25,
-         _customData: {
+         time: pt[0] as number,
+         type: 3,
+         value: 7,
+         floatValue: 1.25,
+         customData: {
             _lightID: pt[1],
          },
       },
       {
-         _time: (pt[0] as number) + 0.25,
-         _type: 3,
-         _customData: {
+         time: (pt[0] as number) + 0.25,
+         type: 3,
+         customData: {
             _lightID: pt[1],
          },
       },
@@ -6535,54 +6539,54 @@ for (const pt of painoTiming3) {
    if (pt[1] < 4) {
       addBasicEvents(
          {
-            _time: pt[0],
-            _type: 2,
-            _value: 7,
-            _customData: { _lightID: [(4 - pt[1]) * 2, (4 - pt[1]) * 2 + 1] },
+            time: pt[0],
+            type: 2,
+            value: 7,
+            customData: { _lightID: [(4 - pt[1]) * 2, (4 - pt[1]) * 2 + 1] },
          },
          {
-            _time: pt[0] - 0.25,
-            _type: 2,
-            _customData: { _lightID: [(4 - pt[1]) * 2, (4 - pt[1]) * 2 + 1] },
+            time: pt[0] - 0.25,
+            type: 2,
+            customData: { _lightID: [(4 - pt[1]) * 2, (4 - pt[1]) * 2 + 1] },
          },
       );
    } else if (pt[1] === 4) {
       addBasicEvents(
          {
-            _time: pt[0],
-            _type: 2,
-            _value: 7,
-            _customData: { _lightID: 1 },
+            time: pt[0],
+            type: 2,
+            value: 7,
+            customData: { _lightID: 1 },
          },
          {
-            _time: pt[0],
-            _type: 3,
-            _value: 7,
-            _customData: { _lightID: 1 },
+            time: pt[0],
+            type: 3,
+            value: 7,
+            customData: { _lightID: 1 },
          },
          {
-            _time: pt[0] - 0.25,
-            _type: 2,
-            _customData: { _lightID: 1 },
+            time: pt[0] - 0.25,
+            type: 2,
+            customData: { _lightID: 1 },
          },
          {
-            _time: pt[0] - 0.25,
-            _type: 3,
-            _customData: { _lightID: 1 },
+            time: pt[0] - 0.25,
+            type: 3,
+            customData: { _lightID: 1 },
          },
       );
    } else {
       addBasicEvents(
          {
-            _time: pt[0],
-            _type: 3,
-            _value: 7,
-            _customData: { _lightID: [(pt[1] - 4) * 2, (pt[1] - 4) * 2 + 1] },
+            time: pt[0],
+            type: 3,
+            value: 7,
+            customData: { _lightID: [(pt[1] - 4) * 2, (pt[1] - 4) * 2 + 1] },
          },
          {
-            _time: pt[0] - 0.25,
-            _type: 3,
-            _customData: { _lightID: [(pt[1] - 4) * 2, (pt[1] - 4) * 2 + 1] },
+            time: pt[0] - 0.25,
+            type: 3,
+            customData: { _lightID: [(pt[1] - 4) * 2, (pt[1] - 4) * 2 + 1] },
          },
       );
    }
@@ -6600,32 +6604,32 @@ for (const pt of paintTiming4) {
    for (let t = pt[0]; t < pt[0] + pt[1] - 0.0625; t += 0.0625) {
       addBasicEvents(
          {
-            _type: 2,
-            _time: t,
-            _value: 7,
-            _customData: {
+            type: 2,
+            time: t,
+            value: 7,
+            customData: {
                _lightID: iHateThisSynthID[pt[2]],
             },
          },
          {
-            _type: 2,
-            _time: t + 0.03125,
-            _customData: {
+            type: 2,
+            time: t + 0.03125,
+            customData: {
                _lightID: iHateThisSynthID[pt[2]],
             },
          },
          {
-            _type: 3,
-            _time: t,
-            _value: 7,
-            _customData: {
+            type: 3,
+            time: t,
+            value: 7,
+            customData: {
                _lightID: iHateThisSynthID[pt[2]],
             },
          },
          {
-            _type: 3,
-            _time: t + 0.03125,
-            _customData: {
+            type: 3,
+            time: t + 0.03125,
+            customData: {
                _lightID: iHateThisSynthID[pt[2]],
             },
          },
@@ -6633,14 +6637,14 @@ for (const pt of paintTiming4) {
    }
    addBasicEvents(
       {
-         _type: 12,
-         _time: pt[0],
-         _value: pt[2] % 2 ? 0 : 1,
+         type: 12,
+         time: pt[0],
+         value: pt[2] % 2 ? 0 : 1,
       },
       {
-         _type: 13,
-         _time: pt[0],
-         _value: pt[2] % 2 ? 0 : 1,
+         type: 13,
+         time: pt[0],
+         value: pt[2] % 2 ? 0 : 1,
       },
    );
 }
@@ -6649,94 +6653,94 @@ const finalKickSound = [293, 295, 297, 299, 301, 303, 305, 307];
 for (const fks of finalKickSound) {
    addBasicEvents(
       {
-         _time: fks - 0.125,
-         _type: 4,
-         _value: 1,
-         _floatValue: 0,
-         _customData: { _lightID: screenArray },
+         time: fks - 0.125,
+         type: 4,
+         value: 1,
+         floatValue: 0,
+         customData: { _lightID: screenArray },
       },
       {
-         _time: fks - 0.001,
-         _type: 4,
-         _value: 4,
-         _floatValue: 0.5,
-         _customData: { _lightID: screenArray, _easing: 'easeInQuad' },
+         time: fks - 0.001,
+         type: 4,
+         value: 4,
+         floatValue: 0.5,
+         customData: { _lightID: screenArray, _easing: 'easeInQuad' },
       },
       {
-         _time: fks,
-         _type: 4,
-         _value: 1,
-         _floatValue: 1.5,
-         _customData: { _lightID: screenArray },
+         time: fks,
+         type: 4,
+         value: 1,
+         floatValue: 1.5,
+         customData: { _lightID: screenArray },
       },
       {
-         _time: fks + 1,
-         _type: 4,
-         _value: 4,
-         _floatValue: 0,
-         _customData: { _lightID: screenArray, _easing: 'easeOutQuad' },
+         time: fks + 1,
+         type: 4,
+         value: 4,
+         floatValue: 0,
+         customData: { _lightID: screenArray, _easing: 'easeOutQuad' },
       },
    );
 }
 addBasicEvents(
    {
-      _time: 208,
-      _type: 12,
+      time: 208,
+      type: 12,
    },
    {
-      _time: 208,
-      _type: 13,
+      time: 208,
+      type: 13,
    },
    {
-      _time: 240,
-      _type: 12,
+      time: 240,
+      type: 12,
    },
    {
-      _time: 240,
-      _type: 13,
+      time: 240,
+      type: 13,
    },
    {
-      _time: 276,
-      _type: 12,
+      time: 276,
+      type: 12,
    },
    {
-      _time: 276,
-      _type: 13,
+      time: 276,
+      type: 13,
    },
    {
-      _time: 284,
-      _type: 12,
+      time: 284,
+      type: 12,
    },
    {
-      _time: 284,
-      _type: 13,
+      time: 284,
+      type: 13,
    },
    {
-      _time: 308,
-      _type: 12,
+      time: 308,
+      type: 12,
    },
    {
-      _time: 308,
-      _type: 13,
+      time: 308,
+      type: 13,
    },
    {
-      _time: 516,
-      _type: 12,
+      time: 516,
+      type: 12,
    },
    {
-      _time: 516,
-      _type: 13,
+      time: 516,
+      type: 13,
    },
 );
 for (let t = 484; t < 516; t += 4) {
-   let randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   let randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t,
       xOffset: 11 + randomPos[0],
       yOffset: 5 + randomPos[1],
    });
    screenClear(t + 0.03125);
-   randomPos = NoteDirectionSpace[random(0, 7, true) as 0];
+   randomPos = NoteDirectionSpace[randomFn(0, 7, true) as 0];
    await screenDraw('smile.gif', {
       time: t + 0.0625,
       xOffset: 11 + randomPos[0],

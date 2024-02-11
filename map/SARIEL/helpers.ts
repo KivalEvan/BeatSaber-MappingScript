@@ -1,6 +1,6 @@
 import { deepCopy, types } from '../../depsLocal.ts';
 
-export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorBase>(
+export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorEventAttribute>(
    obj: Partial<T>[],
 ): T[] {
    return deepCopy(obj).map((o) => {

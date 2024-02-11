@@ -5,7 +5,7 @@ import wipPath from '../../utility/wipPath.ts';
 globals.directory = wipPath('23d4d (Endless Night - Kival Evan)');
 
 const info = load.infoSync();
-const difficultyList = load.difficultyFromInfoSync(info);
+const difficultyList = load.beatmapFromInfoSync(info);
 const lightshow = load.difficultySync('ExpertPlusStandard.dat', 3);
 
 difficultyList.forEach((d) => {
@@ -53,12 +53,12 @@ difficultyList.forEach((d) => {
                (n.time >= 222 + 160 && n.time < 226 + 160)
             ) {
                d.data.addObstacles({
-                  b: n.time,
-                  d: wallDuration,
-                  x: n.posX,
-                  y: 0,
-                  w: 1,
-                  h: -1,
+                  time: n.time,
+                  duration: wallDuration,
+                  posX: n.posX,
+                  posY: 0,
+                  width: 1,
+                  height: -1,
                });
                continue;
             }
@@ -105,12 +105,12 @@ difficultyList.forEach((d) => {
                justOnce = true;
             }
             d.data.addObstacles({
-               b: n.time,
-               d: wallDuration,
-               x: (isRight ? 4 : -4) + n.posX,
-               y: n.posY + 1,
-               w: 1,
-               h: 1,
+               time: n.time,
+               duration: wallDuration,
+               posX: (isRight ? 4 : -4) + n.posX,
+               posY: n.posY + 1,
+               width: 1,
+               height: 1,
             });
          }
       }

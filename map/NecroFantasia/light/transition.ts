@@ -255,13 +255,13 @@ export default function (data: v3.Difficulty) {
             boxes: [
                {
                   filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
-                  events: [{ rotation: 180, easing: EaseType.IN_QUAD }],
+                  events: [{ rotation: 180 }],
                   rotationDistribution: -45,
                   affectFirst: 1,
                },
                {
                   filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
-                  events: [{ rotation: 225, easing: EaseType.IN_QUAD }],
+                  events: [{ rotation: 225 }],
                },
             ],
          },
@@ -270,7 +270,7 @@ export default function (data: v3.Difficulty) {
             id: id - 8,
             boxes: [
                {
-                  events: [{ rotation: 180, easing: EaseType.IN_QUAD }],
+                  events: [{ rotation: 180 }],
                   rotationDistribution: -45,
                   affectFirst: 1,
                },

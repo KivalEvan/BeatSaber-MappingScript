@@ -16,7 +16,7 @@ globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
 
-const info = load.infoSync();
+const info = load.infoSync(2);
 info.environmentName = 'WeaveEnvironment';
 info.customData!._contributors = [
    {
@@ -64,11 +64,11 @@ const bpm = BeatPerMinute.create(info.beatsPerMinute);
 const lightshow = v3.Difficulty.create();
 lights(lightshow, bpm);
 
-const difficultyList = load.difficultyFromInfoSync(info);
+const difficultyList = load.beatmapFromInfoSync(info);
 
 difficultyList.forEach((d) => {
    if (!isV3(d.data)) {
-      d.data = convert.toV3(d.data);
+      d.data = convert.toV3Difficulty(d.data);
    }
 
    d.data.basicEvents = [];
@@ -86,5 +86,5 @@ difficultyList.forEach((d) => {
 //     overwrite: true,
 // });
 // copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
-save.difficultyListSync(difficultyList);
+save.beatmapListSync(difficultyList);
 save.infoSync(info);

@@ -288,7 +288,7 @@ export default function (data: v3.Difficulty) {
                id: currentId,
                boxes: [
                   {
-                     filter: { p0: 4, p1: section },
+                     filter: { p0: 4, p1: 3 - section },
                      events: [
                         { brightness: 0 },
                         {

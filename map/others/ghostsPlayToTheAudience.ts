@@ -80,17 +80,17 @@ for (const it of introTime) {
       );
       const walls = i % 2
          ? v3.Obstacle.create(
-            { b: it + bt[0], d: 0.125, x: 3, y: 0 },
-            { b: it + bt[0] + 0.25, d: 0.125, x: 4, y: 2 },
-            { b: it + bt[0] + 0.5, d: 0.125, x: 5, y: 1, w: 2 },
-            { b: it + bt[0] + 1, d: 0.125, x: 0, y: 0 },
-            { b: it + bt[0] + 1.25, d: 0.125, x: -1, y: 2 },
-            { b: it + bt[0] + 1.5, d: 0.125, x: -3, y: 1, w: 2 },
+            { time: it + bt[0], duration: 0.125, posX: 3, posY: 0 },
+            { time: it + bt[0] + 0.25, duration: 0.125, posX: 4, posY: 2 },
+            { time: it + bt[0] + 0.5, duration: 0.125, posX: 5, posY: 1, width: 2 },
+            { time: it + bt[0] + 1, duration: 0.125, posX: 0, posY: 0 },
+            { time: it + bt[0] + 1.25, duration: 0.125, posX: -1, posY: 2 },
+            { time: it + bt[0] + 1.5, duration: 0.125, posX: -3, posY: 1, width: 2 },
          )
          : v3.Obstacle.create(
-            { b: it + bt[0], d: 0.125, x: 2, y: 2 },
-            { b: it + bt[0] + 0.25, d: 0.125, x: 3, y: 0 },
-            { b: it + bt[0] + 0.5, d: 0.125, x: 4, y: 1, w: 2 },
+            { time: it + bt[0], duration: 0.125, posX: 2, posY: 2 },
+            { time: it + bt[0] + 0.25, duration: 0.125, posX: 3, posY: 0 },
+            { time: it + bt[0] + 0.5, duration: 0.125, posX: 4, posY: 1, width: 2 },
          );
       if (!(i % 2)) {
          walls.push(
@@ -107,9 +107,9 @@ for (const it of introTime) {
       }
       if (i === 3) {
          let temp = v3.Obstacle.create(
-            { b: it + bt[0] + 2, d: 1, x: 5, y: 1, w: 2 },
-            { b: it + bt[0] + 3, d: 1, x: 4, y: 0 },
-            { b: it + bt[0] + 3, d: 1, x: 4, y: 2 },
+            { time: it + bt[0] + 2, duration: 1, posX: 5, posY: 1, width: 2 },
+            { time: it + bt[0] + 3, duration: 1, posX: 4, posY: 0 },
+            { time: it + bt[0] + 3, duration: 1, posX: 4, posY: 2 },
          );
          temp = temp.concat(temp.map((t) => t.clone().mirror()));
          walls.push(...temp);

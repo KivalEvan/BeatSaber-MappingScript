@@ -1,5 +1,5 @@
 import { IEventBox } from './eventBox';
-import { ILightTranslationBase } from './lightTranslationBase';
+import { ILightTranslationEvent } from './LightTranslationEvent';
 
 export interface ILightTranslationEventBox extends IEventBox {
    /** Translation distribution `<float>` of light translation event box. */
@@ -26,5 +26,5 @@ export interface ILightTranslationEventBox extends IEventBox {
    /** Translation distribution should affect first event `<int>` of light translation event box. */
    b: 0 | 1;
    /** Light translation base data list. */
-   l: ILightTranslationBase[];
+   l: ILightTranslationEvent[];
 }

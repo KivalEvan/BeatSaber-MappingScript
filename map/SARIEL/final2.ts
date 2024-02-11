@@ -12,9 +12,9 @@ import { Brightness } from './helpers.ts';
 
 export default (d: v3.Difficulty) => {
    d.addColorBoostEvents(
-      { b: 518 + 1.125, o: true },
-      { b: 518 + 16, o: false },
-      { b: 518 + 17.125, o: true },
+      { time: 518 + 1.125, toggle: true },
+      { time: 518 + 16, toggle: false },
+      { time: 518 + 17.125, toggle: true },
    );
 
    for (let id = 0; id < 12; id++) {
@@ -211,7 +211,7 @@ export default (d: v3.Difficulty) => {
          time += 12, flipFlop = !flipFlop, first = false
       ) {
          d.addLightRotationEventBoxGroups({
-            b: Math.min(time, 518 + 23.999),
+            time: Math.min(time, 518 + 23.999),
             id,
             boxes: [
                {

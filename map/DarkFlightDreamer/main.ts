@@ -207,7 +207,7 @@ between(where(lightshow.basicEvents, { include: { type: 4 } }), 468, 468.999).fo
    makeWhite(e)
 );
 
-const info = load.infoSync();
+const info = load.infoSync(2);
 info.environmentName = 'NiceEnvironment';
 for (const [_, d] of info.listMap()) {
    const difficulty = load.difficultySync(d.filename, 2);

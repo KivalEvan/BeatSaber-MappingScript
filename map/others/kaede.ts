@@ -29,7 +29,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       if (n.customData._color[0] === 1) {
          if (prevSlider[n.color]) {
             difficulty.arcs.push(
-               new bsmap.v3.Arc({
+               bsmap.v3.Arc.fromJSON({
                   b: prevSlider[n.color].time,
                   c: prevSlider[n.color].color,
                   x: prevSlider[n.color].posX,
@@ -65,7 +65,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                x = bsmap.clamp(x, 0, 3);
                y = bsmap.clamp(y, 0, 2);
                difficulty.arcs.push(
-                  new bsmap.v3.Arc({
+                  bsmap.v3.Arc.fromJSON({
                      b: n.time,
                      c: n.color,
                      x: n.posX,
@@ -91,7 +91,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
    }
    if (possibleBurst[n.color].length === 2) {
       difficulty.chains.push(
-         new bsmap.v3.Chain({
+         bsmap.v3.Chain.fromJSON({
             b: possibleBurst[n.color][0].time,
             c: possibleBurst[n.color][0].color,
             x: possibleBurst[n.color][0].posX,
@@ -116,7 +116,7 @@ if (possibleBurst[0].length || possibleBurst[1].length) {
 difficulty.colorNotes.forEach((n) => n.resetCustomData());
 
 difficulty.arcs.push(
-   ...bsmap.v3.Arc.create(
+   ...[
       {
          b: 196,
          c: 1,
@@ -593,7 +593,7 @@ difficulty.arcs.push(
          tmu: 1,
          m: 0,
       },
-   ),
+   ].map((n) => bsmap.v3.Arc.fromJSON(n)),
 );
 
 bsmap.save.difficultySync(difficulty, {

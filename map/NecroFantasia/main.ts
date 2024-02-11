@@ -24,16 +24,29 @@ info.songName = '_Necro Fantasia';
 info.colorSchemes = [
    {
       useOverride: true,
-      colorScheme: {
-         name: 'Necro Fantasia',
-         saberLeftColor: toColorObject(colorFrom(355, 0.8125, 0.9375, 'hsva'), true),
-         saberRightColor: toColorObject(colorFrom(215, 0.625, 0.875, 'hsva'), true),
-         environment0Color: toColorObject(colorFrom(320, 1, 0.9375, 'hsva'), true),
-         environment1Color: toColorObject(colorFrom(285, 1, 0.875, 'hsva'), true),
-         environment0ColorBoost: toColorObject(colorFrom(90, 0.9375, 0.9375, 'hsva'), true),
-         environment1ColorBoost: toColorObject(colorFrom(200, 0.75, 0.8125, 'hsva'), true),
-         obstaclesColor: toColorObject(colorFrom(335, 0.666, 0.4375, 'hsva'), true),
-      },
+      name: 'Necro Fantasia',
+      saberLeftColor: toColorObject(
+         colorFrom(355, 0.8125, 0.9375, 'hsva'),
+         true,
+      ),
+      saberRightColor: toColorObject(
+         colorFrom(215, 0.625, 0.875, 'hsva'),
+         true,
+      ),
+      environment0Color: toColorObject(colorFrom(320, 1, 0.9375, 'hsva'), true),
+      environment1Color: toColorObject(colorFrom(285, 1, 0.875, 'hsva'), true),
+      environment0ColorBoost: toColorObject(
+         colorFrom(90, 0.9375, 0.9375, 'hsva'),
+         true,
+      ),
+      environment1ColorBoost: toColorObject(
+         colorFrom(200, 0.75, 0.8125, 'hsva'),
+         true,
+      ),
+      obstaclesColor: toColorObject(
+         colorFrom(335, 0.666, 0.4375, 'hsva'),
+         true,
+      ),
    },
 ];
 
@@ -76,7 +89,12 @@ lightshow.customData.bookmarks = intervalBookmark(6, 32, [
    'Break-2-2',
    'End-1',
 ]).map((b, i, ary) => {
-   b.c = colorFrom(lerp(normalize(i, 0, ary.length - 1), 375, 315), 1, 1, 'hsva');
+   b.c = colorFrom(
+      lerp(normalize(i, 0, ary.length - 1), 375, 315),
+      1,
+      1,
+      'hsva',
+   );
    return b;
 });
 
@@ -97,7 +115,7 @@ for (const [_, d] of info.listMap()) {
 
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];
-   d.copyColorScheme(info.colorSchemes[0].colorScheme);
+   d.copyColorScheme(info.colorSchemes[0]);
 }
 
 save.infoSync(info);
@@ -119,7 +137,9 @@ console.table(
 );
 console.log('rotation');
 console.table(
-   Object.values(ext.stats.countEbg(lightshow.lightRotationEventBoxGroups)).reduce(
+   Object.values(
+      ext.stats.countEbg(lightshow.lightRotationEventBoxGroups),
+   ).reduce(
       (p, v) => {
          if (!p) return v;
          for (const k in v) {

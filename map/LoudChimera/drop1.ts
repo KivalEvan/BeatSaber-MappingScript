@@ -54,7 +54,7 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
    for (const fpp of fastPewPew) {
       for (let min = 0, max = 4, x = min; x < max; x++) {
          const bomb = v3.BombNote.create({
-            b: fpp - 2 + 1.5 - lerp(normalize(x, min, max), 0, 0.25, EasingsFn.easeInCirc),
+            time: fpp - 2 + 1.5 - lerp(normalize(x, min, max), 0, 0.25, EasingsFn.easeInCirc),
             customData: {
                coordinates: [
                   x,
@@ -125,7 +125,7 @@ export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpee
       flipFlop = !flipFlop;
 
       const obs = v3.Obstacle.create({
-         b: fpp - 1.5,
+         time: fpp - 1.5,
          customData: {
             uninteractible: true,
             size: [3, 4, 2],

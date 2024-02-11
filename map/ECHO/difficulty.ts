@@ -6,12 +6,12 @@ globals.directory = wipPath('ECHO');
 
 const info = load.infoSync();
 const lightshow = load.difficultySync('EasyLightshow.dat', 3);
-const difficultyList = load.difficultyFromInfoSync(info);
+const difficultyList = load.beatmapFromInfoSync(info);
 const diffFile: string[] = [];
 
 difficultyList.forEach((d) => {
    if (!isV3(d.data)) {
-      d.data = convert.toV3(d.data);
+      d.data = convert.toV3Difficulty(d.data);
    }
    diffFile.push(globals.directory + d.data.filename);
 
@@ -139,6 +139,6 @@ difficultyList.forEach((d) => {
    );
 });
 
-save.difficultyListSync(difficultyList, {
+save.beatmapListSync(difficultyList, {
    directory: globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
 });

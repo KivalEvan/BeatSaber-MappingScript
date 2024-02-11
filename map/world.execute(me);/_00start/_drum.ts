@@ -11,7 +11,7 @@ import { generateSeed, objectTimeShift } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
 export default function (data: v3.Difficulty) {
-   const light: Partial<types.wrapper.IWrapLightColorBaseAttribute>[] = [
+   const light: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
       {
          color: EventBoxColor.WHITE,
          brightness: Brightness.OFF,

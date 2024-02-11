@@ -1,5 +1,5 @@
 import { IEventBox } from './eventBox';
-import { ILightColorBase } from './lightColorBase';
+import { ILightColorEvent } from './LightColorEvent';
 
 export interface ILightColorEventBox extends IEventBox {
    /**
@@ -19,5 +19,5 @@ export interface ILightColorEventBox extends IEventBox {
    /** Brightness distribution should affect first event `<int>` of light color event box. */
    b: 0 | 1;
    /** Light color base data list. */
-   e: ILightColorBase[];
+   e: ILightColorEvent[];
 }

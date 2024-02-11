@@ -274,7 +274,7 @@ export default (d: v3.Difficulty) => {
                frequency: 8,
                time: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorBase>[];
+         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
          d.addLightRotationEventBoxGroups(
             {
                time,
@@ -410,7 +410,7 @@ export default (d: v3.Difficulty) => {
                frequency: 8,
                time: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorBase>[];
+         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
          d.addLightRotationEventBoxGroups(
             {
                time,

@@ -10,7 +10,7 @@ const INPUT_FILE = MAP_DIRECTORY + 'EasyLawless.dat';
 const OUTPUT_FILE = INPUT_FILE;
 
 const difficulty = bsmap.load.difficultySync(INPUT_FILE, 2);
-const info = bsmap.load.infoSync(null, { directory: MAP_DIRECTORY + 'Info.dat' });
+const info = bsmap.load.infoSync(2, { directory: MAP_DIRECTORY + 'Info.dat' });
 
 const BPM = bsmap.BeatPerMinute.create(info.beatsPerMinute);
 

@@ -4,7 +4,7 @@ export default (d: v3.Difficulty) => {
    //#region intro
    d.addColorBoostEvents({ b: 0, o: true });
    for (let i = 0; i < 8; i++) {
-      const e: Partial<types.v3.ILightColorBase>[] = [
+      const e: Partial<types.v3.ILightColorEvent>[] = [
          {
             b: 0,
             c: 2,
@@ -681,7 +681,7 @@ export default (d: v3.Difficulty) => {
             { c: 2, s: 2 },
             { c: 2, s: 1, i: 1, b: 1 / 8 },
             { c: 2, s: 0, i: 1, b: 1.5 },
-         ] as Partial<types.v3.ILightColorBase>[];
+         ] as Partial<types.v3.ILightColorEvent>[];
          d.addLightColorEventBoxGroups(
             {
                b: 34 + i * 32,
@@ -1080,7 +1080,7 @@ export default (d: v3.Difficulty) => {
          { b: 0.25, i: 2 },
          { c: t % 2 ? 0 : 1, b: 0.3125 + 0.03125, s: 0.25, i: 1 },
          { c: t % 2 ? 0 : 1, b: 0.375, s: 0 },
-      ] as Partial<types.v3.ILightColorBase>[];
+      ] as Partial<types.v3.ILightColorEvent>[];
       const w = t % 2 ? 0.5 : 0;
       d.addLightColorEventBoxGroups(
          {
@@ -1121,7 +1121,7 @@ export default (d: v3.Difficulty) => {
          { b: 0.25, i: 2 },
          { c: t % 2 ? 0 : 1, b: 0.3125 + 0.03125, s: 0.25, i: 1 },
          { c: t % 2 ? 0 : 1, b: 0.375, s: 0 },
-      ] as Partial<types.v3.ILightColorBase>[];
+      ] as Partial<types.v3.ILightColorEvent>[];
       const w = t % 2 ? 0.5 : 0;
       d.addLightColorEventBoxGroups(
          {
@@ -1471,7 +1471,7 @@ export default (d: v3.Difficulty) => {
    ];
    for (let x = 0; x < 16; x++) {
       const time = 34 + x * 4;
-      d.addColorBoostEvents({ b: time, o: false }, { b: time + 3, o: true });
+      d.addColorBoostEvents({ time: time, toggle: false }, { time: time + 3, toggle: true });
       const g = mainG[x].map((n) => n[0]);
       const r = mainG[x].map((n) => n[1]);
       const rEnd = mainG[x].map((n) => n[2]);
@@ -1483,7 +1483,7 @@ export default (d: v3.Difficulty) => {
             { c: 2, b: 0.125 },
             { b: 0.1875, i: 1 },
             { b: 0.375, c: 1, i: 1, s: 0.75 },
-         ] as Partial<types.v3.ILightColorBase>[];
+         ] as Partial<types.v3.ILightColorEvent>[];
          for (let i = 0; i < 3; i++) {
             d.addLightColorEventBoxGroups(
                {
@@ -1646,7 +1646,7 @@ export default (d: v3.Difficulty) => {
             { c: 2, b: 0.125 },
             { b: 0.1875, i: 1 },
             { b: 0.375, c: 1, i: 1, s: 0.75 },
-         ] as Partial<types.v3.ILightColorBase>[];
+         ] as Partial<types.v3.ILightColorEvent>[];
          for (let i = 0; i < 3; i++) {
             d.addLightColorEventBoxGroups(
                {
@@ -1828,7 +1828,7 @@ export default (d: v3.Difficulty) => {
             { c: 2, b: 0.125 },
             { b: 0.1875, i: 1 },
             { b: 0.375, c: 1, i: 1, s: 0.75 },
-         ] as Partial<types.v3.ILightColorBase>[];
+         ] as Partial<types.v3.ILightColorEvent>[];
          for (let i = 0; i < 6; i++) {
             if (i === 0) {
                d.addLightColorEventBoxGroups(
@@ -1978,7 +1978,7 @@ export default (d: v3.Difficulty) => {
                { c: 2, b: 0.125 },
                { b: 0.1875, i: 1 },
                { b: 0.375, c: 1, i: 1, s: 0.75 },
-            ] as Partial<types.v3.ILightColorBase>[];
+            ] as Partial<types.v3.ILightColorEvent>[];
             d.addLightColorEventBoxGroups({
                b: time + t[i],
                g: g[i],
@@ -3105,7 +3105,7 @@ export default (d: v3.Difficulty) => {
             { c: 2, b: 0.125 },
             { b: 0.1875, i: 1 },
             { b: 0.375, c: 1, i: 1, s: 0.75 },
-         ] as Partial<types.v3.ILightColorBase>[];
+         ] as Partial<types.v3.ILightColorEvent>[];
          d.addLightColorEventBoxGroups({
             b: time + t[i],
             g: g[i],

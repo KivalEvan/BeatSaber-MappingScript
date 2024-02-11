@@ -20,7 +20,7 @@ old.basicEvents.forEach((e) => {
    delete e.customData._color;
 });
 
-const difficulty = bsmap.convert.toV3(old);
+const difficulty = bsmap.convert.toV3Difficulty(old);
 
 const prevSlider: {
    [key: number]: bsmap.v3.ColorNote;
@@ -42,7 +42,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       if (n.customData._color[0] === 1) {
          if (prevSlider[n.color]) {
             difficulty.arcs.push(
-               new bsmap.v3.Arc({
+               bsmap.v3.Arc.fromJSON({
                   b: prevSlider[n.color].time,
                   c: prevSlider[n.color].color,
                   x: prevSlider[n.color].posX,
@@ -78,7 +78,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                x = bsmap.clamp(x, 0, 3);
                y = bsmap.clamp(y, 0, 2);
                difficulty.arcs.push(
-                  new bsmap.v3.Arc({
+                  bsmap.v3.Arc.fromJSON({
                      b: n.time,
                      c: n.color,
                      x: n.posX,
@@ -104,7 +104,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
    }
    if (possibleBurst[n.color].length === 2) {
       difficulty.chains.push(
-         new bsmap.v3.Chain({
+         bsmap.v3.Chain.fromJSON({
             b: possibleBurst[n.color][0].time,
             c: possibleBurst[n.color][0].color,
             x: possibleBurst[n.color][0].posX,

@@ -13,7 +13,7 @@ import {
 import wipPath from '../../utility/wipPath.ts';
 
 globals.directory = wipPath(
-   'I Bet You\'ll Forget That Even If You Noticed That (I Was Still There)',
+   "I Bet You'll Forget That Even If You Noticed That (I Was Still There)",
 );
 
 const info = load.infoSync(2);
@@ -21,10 +21,10 @@ info.customData._contributors = [
    { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
 ];
 
-const difficultyList = load.difficultyFromInfoSync(info);
+const difficultyList = load.beatmapFromInfoSync(info);
 const lightshow = load.difficultySync('ExpertPlusStandard.dat', 3, {
    directory:
-      '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/I Bet You\'ll Forget That Even If You Noticed That (I Was Still There)/',
+      "/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/I Bet You'll Forget That Even If You Noticed That (I Was Still There)/",
 });
 const cd = load.difficultySync('ExpertPlusStandardBac.dat', 3);
 
@@ -137,5 +137,5 @@ difficultyList.forEach((d) => {
    // });
 });
 
-save.difficultyListSync(difficultyList);
+save.beatmapListSync(difficultyList);
 save.infoSync(info);

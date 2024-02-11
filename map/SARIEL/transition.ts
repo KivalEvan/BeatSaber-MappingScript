@@ -995,7 +995,7 @@ export default (d: v3.Difficulty) => {
          });
       }
 
-      const e: Partial<types.wrapper.IWrapLightColorBase>[] = [
+      const e: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
          { color: EventBoxColor.WHITE, brightness: 1.25 },
          {
             time: 0.1875,

@@ -1,35 +1,4 @@
-import { EventBoxColor, IndexFilterType, TransitionType, types, v3 } from '../../depsLocal.ts';
-
-export const TIME_OFFSET = 4;
-
-export const enum Brightness {
-   OFF = 0,
-   DIM = 0.25,
-   HALF = 0.5,
-   MODERATE = 0.75,
-   FULL = 1,
-   FLASH = 1.2,
-   EXTRA = 1.5,
-   DOUBLE = 2,
-   TRIPLE = 3,
-   QUAD = 4,
-}
-
-export const enum Group {
-   SMALL_RINGS_RT,
-   SMALL_RINGS_C,
-   UNDERGROUND,
-   BIG_RINGS,
-   TOP_SPOTLIGHTS,
-   RUNWAY_LEFT,
-   RUNWAY_RIGHT,
-   PARTICLES_LEFT,
-   PARTICLES_RIGHT,
-   MAIN_LASERS_BOTTOM_LEFT,
-   MAIN_LASERS_TOP_LEFT,
-   MAIN_LASERS_TOP_RIGHT,
-   MAIN_LASERS_BOTTOM_RIGHT,
-}
+import { IndexFilterType, v3 } from '../depsLocal.ts';
 
 export const FILTER_CHUNK_2_DIV = v3.IndexFilter.create({
    type: IndexFilterType.DIVISION,
@@ -49,6 +18,11 @@ export const FILTER_CHUNK_4_DIV = v3.IndexFilter.create({
 export const FILTER_CHUNK_6_DIV = v3.IndexFilter.create({
    type: IndexFilterType.DIVISION,
    chunks: 6,
+});
+
+export const FILTER_CHUNK_8_DIV = v3.IndexFilter.create({
+   type: IndexFilterType.DIVISION,
+   chunks: 8,
 });
 
 export const FILTER_CHUNK_12_DIV = v3.IndexFilter.create({
@@ -253,34 +227,3 @@ export const FILTER_TWELVE_12_STEP = v3.IndexFilter.create({
    p0: 11,
    p1: 12,
 });
-
-export const SMALL_RINGS_DRUM_INNER: Partial<
-   types.wrapper.IWrapLightColorEventAttribute
->[] = [
-   { color: EventBoxColor.WHITE, brightness: 1.2 },
-   { time: 0.0625, color: EventBoxColor.WHITE, brightness: 0 },
-   {
-      time: 0.125,
-      color: EventBoxColor.RED,
-   },
-   {
-      time: 0.5,
-      color: EventBoxColor.BLUE,
-      brightness: 0,
-      transition: TransitionType.INTERPOLATE,
-   },
-];
-
-export const SMALL_RINGS_DRUM_OUTER: Partial<
-   types.wrapper.IWrapLightColorEventAttribute
->[] = [
-   { color: EventBoxColor.WHITE, brightness: 1.2 },
-   { time: 0.0625, color: EventBoxColor.WHITE, brightness: 0 },
-   { time: 0.125, color: EventBoxColor.WHITE, brightness: 0.5 },
-   {
-      time: 0.25,
-      color: EventBoxColor.WHITE,
-      transition: TransitionType.INTERPOLATE,
-      brightness: 0.25,
-   },
-];

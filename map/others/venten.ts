@@ -27,16 +27,14 @@ info.customData = {
 info.colorSchemes = [
    {
       useOverride: true,
-      colorScheme: {
-         name: 'VENTEN',
-         saberLeftColor: toColorObject(colorFrom(30, 0.666, 0.9375, 'hsva'), true),
-         saberRightColor: toColorObject(colorFrom(270, 0.725, 0.9375, 'hsva'), true),
-         environment0Color: toColorObject(colorFrom(45, 1, 0.666, 'hsva'), true),
-         environment1Color: toColorObject(colorFrom(90, 0.8, 0.5, 'hsva'), true),
-         environment0ColorBoost: toColorObject(colorFrom(330, 1, 0.75, 'hsva'), true),
-         environment1ColorBoost: toColorObject(colorFrom(200, 1, 0.666, 'hsva'), true),
-         obstaclesColor: toColorObject(colorFrom(180, 0.333, 0.8, 'hsva'), true),
-      },
+      name: 'VENTEN',
+      saberLeftColor: toColorObject(colorFrom(30, 0.666, 0.9375, 'hsva'), true),
+      saberRightColor: toColorObject(colorFrom(270, 0.725, 0.9375, 'hsva'), true),
+      environment0Color: toColorObject(colorFrom(45, 1, 0.666, 'hsva'), true),
+      environment1Color: toColorObject(colorFrom(90, 0.8, 0.5, 'hsva'), true),
+      environment0ColorBoost: toColorObject(colorFrom(330, 1, 0.75, 'hsva'), true),
+      environment1ColorBoost: toColorObject(colorFrom(200, 1, 0.666, 'hsva'), true),
+      obstaclesColor: toColorObject(colorFrom(180, 0.333, 0.8, 'hsva'), true),
    },
 ];
 for (const [_, d] of info.listMap()) {
@@ -75,7 +73,7 @@ for (const [_, d] of info.listMap()) {
       d.customData._information.splice(2, 0, 'Music Sign "Double Score"');
    }
 
-   d.copyColorScheme(info.colorSchemes[0].colorScheme);
+   d.copyColorScheme(info.colorSchemes[0]);
 }
 
 save.infoSync(info);

@@ -8,10 +8,13 @@ import piano from './piano.ts';
 import build from './build.ts';
 import synth from './synth.ts';
 import synth2 from './synth2.ts';
+import synth3 from './synth3.ts';
 import transition from './transition.ts';
 
 export default function (data: v3.Difficulty) {
    v3.BasicEvent.default.et = 4;
+   v3.BasicEvent.default.f = 1;
+   v3.LightColorEvent.default.s = 1;
 
    intro(data);
    transition(data);
@@ -20,6 +23,7 @@ export default function (data: v3.Difficulty) {
    piano(data);
    synth(data);
    synth2(data);
+   synth3(data);
    humm(data);
 
    ambient(data);

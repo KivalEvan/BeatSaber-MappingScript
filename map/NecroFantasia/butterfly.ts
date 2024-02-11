@@ -1,10 +1,10 @@
 import { deepCopy, ext, normalize, pRandomFn, types, v3 } from '../../depsLocal.ts';
 import { itNum } from '../../utility/iterator.ts';
 
-const bflyMax = 100;
+const bflyMax = 80;
 const bflyScale = 1 / 4;
 const timeStart = 678;
-const motionJitterCount = 120;
+const motionJitterCount = 100;
 const motionJitterAmount = 0.3125;
 const motionduration = 68;
 const loopDuration = 0.75;
@@ -108,7 +108,7 @@ export default function (data: v3.Difficulty) {
          return i
             ? [
                prevX,
-               1.25 + prevY,
+               1.125 + prevY,
                -(it / 4) + i / 4,
                normalize(i, 0, motionJitterCount - 1),
                'splineCatmullRom',
@@ -229,7 +229,7 @@ export default function (data: v3.Difficulty) {
       if (!it) {
          data.customData.customEvents.push(
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: [`bfly_rf_${it}`, `bfly_rb_${it}`],
@@ -239,7 +239,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: [`bfly_lf_${it}`, `bfly_lb_${it}`],
@@ -249,7 +249,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: `bfly_rf_${it}`,
@@ -265,7 +265,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: `bfly_rb_${it}`,
@@ -281,7 +281,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: `bfly_lf_${it}`,
@@ -297,7 +297,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: `bfly_lb_${it}`,
@@ -313,7 +313,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + it / (bflyMax / 2),
+               b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: `bfly_${it}`,
@@ -326,7 +326,7 @@ export default function (data: v3.Difficulty) {
                },
             },
             {
-               b: 998 + motionduration + it / (bflyMax / 2),
+               b: 996 + motionduration + it / (bflyMax / 2),
                t: 'AnimateTrack',
                d: {
                   track: [

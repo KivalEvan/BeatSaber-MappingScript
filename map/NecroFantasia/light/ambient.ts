@@ -10,6 +10,7 @@ import {
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
+import { itNum } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
 
 const bakeTransitionInterval = 1 / 16;
@@ -81,8 +82,8 @@ export default function (data: v3.Difficulty) {
       { time: 724, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
       { time: 734, value: EventLightValue.BLUE_TRANSITION, floatValue: 1 },
       { time: 742, value: EventLightValue.RED_TRANSITION, floatValue: 0 },
-      { time: 998, value: EventLightValue.BLUE_ON, floatValue: 0 },
-      { time: 999, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
+      { time: 996.5, value: EventLightValue.BLUE_ON, floatValue: 0 },
+      { time: 997, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
       { time: 1002, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
       { time: 1010, value: EventLightValue.BLUE_TRANSITION, floatValue: 0 },
    );
@@ -171,6 +172,9 @@ export default function (data: v3.Difficulty) {
             },
          );
       }
+   }
+
+   for (const id of itNum(WeaveID.INNER_TOP_LEFT, WeaveID.INNER_TOP_RIGHT)) {
    }
 
    // bakeTransitionLight(data); // because linux build is broken for some reason

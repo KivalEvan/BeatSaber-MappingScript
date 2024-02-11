@@ -84,7 +84,7 @@ export default (d: v3.Difficulty) => {
                transition: TransitionType.INTERPOLATE,
                time: 0.25,
             },
-         ] as Partial<types.wrapper.IWrapLightColorBase>[];
+         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
          for (let time = rt; time <= rt + 28; time++) {
             d.addLightColorEventBoxGroups({
                time,

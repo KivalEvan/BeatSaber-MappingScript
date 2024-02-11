@@ -14,9 +14,9 @@ export default (d: v3.Difficulty) => {
    const repeatDownTiming = [198, 358];
    for (const rt of repeatDownTiming) {
       d.addColorBoostEvents(
-         { b: rt + 1.125, o: false },
-         { b: rt + 16, o: true },
-         { b: rt + 17.125, o: false },
+         { time: rt + 1.125, toggle: false },
+         { time: rt + 16, toggle: true },
+         { time: rt + 17.125, toggle: false },
       );
 
       for (let id = 0; id < 12; id++) {
@@ -455,7 +455,7 @@ export default (d: v3.Difficulty) => {
             time += 14, flipFlop = !flipFlop, first = false
          ) {
             d.addLightRotationEventBoxGroups({
-               b: Math.min(time, rt + 27.999),
+               time: Math.min(time, rt + 27.999),
                id,
                boxes: [
                   {
@@ -1475,7 +1475,7 @@ export default (d: v3.Difficulty) => {
                   frequency: 8,
                   time: 0.75,
                },
-            ] as Partial<types.wrapper.IWrapLightColorBase>[];
+            ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
             d.addLightRotationEventBoxGroups(
                {
                   time,
@@ -1591,7 +1591,7 @@ export default (d: v3.Difficulty) => {
                   frequency: 8,
                   time: 0.75,
                },
-            ] as Partial<types.wrapper.IWrapLightColorBase>[];
+            ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
             d.addLightRotationEventBoxGroups(
                {
                   time,

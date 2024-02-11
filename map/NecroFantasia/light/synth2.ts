@@ -19,7 +19,7 @@ const loopRight = loopArray([WeaveID.SIDE_BOTTOM_RIGHT, WeaveID.SIDE_TOP_RIGHT])
 export default function (data: v3.Difficulty) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = false;
-   for (const time of [...itNum(294, 541, timeInterval), ...itNum(614, 805, timeInterval)]) {
+   for (const time of [...itNum(294, 453, timeInterval), ...itNum(614, 805, timeInterval)]) {
       for (const timeOffset of timingAry) {
          if (
             (time + timeOffset >= 310 && time + timeOffset < 318) ||

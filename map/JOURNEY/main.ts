@@ -15,21 +15,21 @@ import { generateEnvironment } from '../../environment-enhancement/lotus/mod.ts'
 // import { sword } from './sword.ts';
 
 globals.directory =
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat SaberData/CustomWIPLevels/JOURNEY';
 
 const { at, between, where } = ext.selector;
 
-const INPUT_FILE = 'Lightshow.dat';
-const OUTPUT_FILE = 'EasyLightshow.dat';
+const INPUTFILE = 'Lightshow.dat';
+const OUTPUTFILE = 'EasyLightshow.dat';
 
-const lightshow = load.difficultySync(INPUT_FILE, 2);
+const lightshow = load.difficultySync(INPUTFILE, 2);
 lightshow.colorNotes = [];
 lightshow.obstacles = [];
 const envV3 = generateEnvironment();
 const animatedFELT = envV3
    .filter((e) => e.id?.includes('SideLaser'))
    .map((e, i) => {
-      e.track = `FELT_logo_${i}`;
+      e.track = `FELTlogo${i}`;
       return e;
    });
 envV3.push({
@@ -38,25 +38,25 @@ envV3.push({
    track: 'everythinglmao',
 });
 
-const env = ext.chroma.envV3toV2(envV3);
+const env = ext.chroma.envV3ToV2(envV3);
 
-lightshow.customData._customEvents = [
+lightshow.customData.customEvents = [
    {
-      _time: 0,
-      _type: 'AnimateTrack',
-      _data: {
-         _duration: 0,
-         _track: 'everythinglmao',
-         _position: [[0, 0, -160 / 0.6, 0]],
+      time: 0,
+      type: 'AnimateTrack',
+      data: {
+         duration: 0,
+         track: 'everythinglmao',
+         position: [[0, 0, -160 / 0.6, 0]],
       },
    },
    {
-      _time: 4,
-      _type: 'AnimateTrack',
-      _data: {
-         _duration: 2,
-         _track: 'everythinglmao',
-         _position: [
+      time: 4,
+      type: 'AnimateTrack',
+      data: {
+         duration: 2,
+         track: 'everythinglmao',
+         position: [
             [0, 0, -160 / 0.6, 0],
             [0, 0, 0, 1, 'easeInExpo'],
          ],
@@ -66,13 +66,13 @@ lightshow.customData._customEvents = [
 animatedFELT
    .map((e) => [e.track, [e.position![0] / 0.6, e.position![1] / 0.6, e.position![2] / 0.6]])
    .forEach((e) =>
-      lightshow.customData._customEvents?.push({
-         _time: 1036,
-         _type: 'AnimateTrack',
-         _data: {
-            _duration: 1,
-            _track: e[0] as string,
-            _position: [
+      lightshow.customData.customEvents?.push({
+         time: 1036,
+         type: 'AnimateTrack',
+         data: {
+            duration: 1,
+            track: e[0] as string,
+            position: [
                [...(e[1] as types.Vector3), 0],
                [(e[1] as types.Vector3)[0], (e[1] as types.Vector3)[1], 32 / 0.6, 1, 'easeInExpo'],
             ],
@@ -81,112 +81,112 @@ animatedFELT
    );
 lightshow.basicEvents.forEach((e) => {
    if (e.type === 1) {
-      e.customData._lightID = ext.chroma.LightIDList.BTSEnvironment[1];
+      e.customData.lightID = ext.chroma.LightIDList.BTSEnvironment[1];
    }
 });
 lightshow.addBasicEvents(
    {
       type: 1,
-      _value: 5,
-      _floatValue: 0.5,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 5,
+      floatValue: 0.5,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1,
+      time: 1,
       type: 1,
-      _value: 8,
-      _floatValue: 0.75,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 8,
+      floatValue: 0.75,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 4,
+      time: 4,
       type: 1,
-      _value: 8,
-      _floatValue: 1,
-      _customData: {
-         _easing: 'easeInQuad',
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 8,
+      floatValue: 1,
+      customData: {
+         easing: 'easeInQuad',
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 5,
+      time: 5,
       type: 1,
-      _value: 8,
-      _floatValue: 0.375,
-      _customData: {
-         _easing: 'easeOutQuad',
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 8,
+      floatValue: 0.375,
+      customData: {
+         easing: 'easeOutQuad',
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 6,
+      time: 6,
       type: 1,
-      _value: 4,
-      _floatValue: 0,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 4,
+      floatValue: 0,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1037.25,
+      time: 1037.25,
       type: 1,
-      _value: 1,
-      _floatValue: 0,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 1,
+      floatValue: 0,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1037.75,
+      time: 1037.75,
       type: 1,
-      _value: 4,
-      _floatValue: 1,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 4,
+      floatValue: 1,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1037.8125,
+      time: 1037.8125,
       type: 1,
-      _value: 0,
-      _floatValue: 1,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 0,
+      floatValue: 1,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1037.875,
+      time: 1037.875,
       type: 1,
-      _value: 1,
-      _floatValue: 0.75,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 1,
+      floatValue: 0.75,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1037.9375,
+      time: 1037.9375,
       type: 1,
-      _value: 1,
-      _floatValue: 0.25,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 1,
+      floatValue: 0.25,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
    {
-      _time: 1038,
+      time: 1038,
       type: 1,
-      _value: 1,
-      _floatValue: 0.875,
-      _customData: {
-         _lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      value: 1,
+      floatValue: 0.875,
+      customData: {
+         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
       },
    },
 );
-lightshow.customData._environment = env;
+lightshow.customData.environment = env;
 const makeWhite = (e: v2.Event, mult = 1) => {
    if (!e.isOff()) {
       e.value += e.value <= 4 ? 8 : 4;
@@ -209,7 +209,7 @@ where(at(lightshow.basicEvents, 277.749), { include: { type: 4 } }).forEach((e) 
    makeWhite(e, 0.5)
 );
 where(at(lightshow.basicEvents, 278), { include: { type: 0 } }).forEach((e) => makeWhite(e, 0.5));
-lightshow.addBasicEvents({ _time: 280, type: 0, _value: 8, _floatValue: 1 });
+lightshow.addBasicEvents({ time: 280, type: 0, value: 8, floatValue: 1 });
 where(between(lightshow.basicEvents, 599, 611), { include: { type: 4 } }).forEach((e) =>
    makeWhite(e, 0.5)
 );
@@ -234,30 +234,30 @@ where(between(lightshow.basicEvents, 966, 974), { include: { type: [1, 4] } }).f
 );
 
 const info = load.infoSync();
-for (const [_, d] of info.listMap()) {
-   delete d.customData._requirements;
-   d.customData._suggestions = ['Chroma'];
+for (const [, d] of info.listMap()) {
+   delete d.customData.requirements;
+   d.customData.suggestions = ['Chroma'];
    if (d.characteristic == 'OneSaber') continue;
    const difficulty = load.difficultySync(d.filename, 2);
 
-   difficulty.customData._environment = lightshow.customData!._environment;
-   difficulty.customData._customEvents = lightshow.customData!._customEvents;
-   const bookmarks = difficulty.customData._bookmarks;
+   difficulty.customData.environment = lightshow.customData!.environment;
+   difficulty.customData.customEvents = lightshow.customData!.customEvents;
+   const bookmarks = difficulty.customData.bookmarks;
    if (bookmarks) {
       for (const b of bookmarks) {
-         if (b._time < 262) {
-            b._color = lerpColor(
+         if (b.time < 262) {
+            b.color = lerpColor(
                [185, 0, 0.375],
                [175, 0.25, 0.5],
-               normalize(b._time, bookmarks.at(0)!._time, bookmarks.at(3)!._time),
+               normalize(b.time, bookmarks.at(0)!.time, bookmarks.at(3)!.time),
                'hsva',
             );
             continue;
          }
-         b._color = lerpColor(
+         b.color = lerpColor(
             [30, 1, 1],
             [390, 1, 1],
-            normalize(b._time, 262, bookmarks.at(-1)!._time),
+            normalize(b.time, 262, bookmarks.at(-1)!.time),
             'hsva',
          );
       }
@@ -269,7 +269,7 @@ for (const [_, d] of info.listMap()) {
 
 save.infoSync(info);
 
-const lightshowV3 = convert.toV3(lightshow);
+const lightshowV3 = convert.toV3Difficulty(lightshow);
 const oneSaberV3 = load.difficultySync('ExpertPlusOneSaber.dat', 3);
 
 oneSaberV3.customData.environment = envV3;
@@ -293,6 +293,6 @@ oneSaberV3.basicEvents = lightshowV3.basicEvents;
 oneSaberV3.colorBoostEvents = lightshowV3.colorBoostEvents;
 
 save.difficultySync(oneSaberV3);
-save.difficultySync(lightshowV3, { filePath: OUTPUT_FILE });
+save.difficultySync(lightshowV3, { filePath: OUTPUTFILE });
 
 // sword();

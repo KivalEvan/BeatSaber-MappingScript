@@ -8,7 +8,10 @@ export function getRepeatArray(start: number, gap: number, repeat: number) {
    return arr;
 }
 
-export function lerpVec3(alpha: number, points: types.Vector3PointDefinition[]): types.Vector3 {
+export function lerpVec3(
+   alpha: number,
+   points: types.Vector3PointDefinition[],
+): types.Vector3 {
    const pointBefore = [...points].reverse().find((p) => alpha >= p[3]);
    const pointAfter = points.slice(1).find((p) => alpha <= p[3]);
    if (!pointAfter) {
@@ -36,15 +39,15 @@ export function connectSlider(data: v3.Difficulty, notes: v3.ColorNote[]) {
       const n = notes[i];
       if (prevSlider[n.color] && prevSlider[n.color].time < n.time) {
          data.addArcs({
-            b: prevSlider[n.color].time,
-            c: n.color,
-            x: prevSlider[n.color].posX,
-            y: prevSlider[n.color].posY,
-            d: prevSlider[n.color].direction,
-            tb: n.time,
-            tx: n.posX,
-            ty: n.posY,
-            tc: n.direction,
+            time: prevSlider[n.color].time,
+            color: n.color,
+            posX: prevSlider[n.color].posX,
+            posY: prevSlider[n.color].posY,
+            direction: prevSlider[n.color].direction,
+            tailTime: n.time,
+            tailPosX: n.posX,
+            tailPosY: n.posY,
+            tailDirection: n.direction,
             customData: {
                ...n.customData,
                coordinates: prevSlider[n.color].getPosition(),
@@ -53,7 +56,13 @@ export function connectSlider(data: v3.Difficulty, notes: v3.ColorNote[]) {
          });
       }
       if (prevSlider[n.color] && prevSlider[n.color].time === n.time) {
-         if (ext.placement.isEnd(n, prevSlider[n.color], prevSlider[n.color].direction)) {
+         if (
+            ext.placement.isEnd(
+               n,
+               prevSlider[n.color],
+               prevSlider[n.color].direction,
+            )
+         ) {
             prevSlider[n.color] = n;
          }
          continue;

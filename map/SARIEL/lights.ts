@@ -16,6 +16,7 @@ import verse1 from './verse1.ts';
 import verse2 from './verse2.ts';
 
 export default (d: v3.Difficulty, bpm: BeatPerMinute) => {
+   v3.LightColorEvent.default.s = 1;
    start(d);
    kadosh(d);
    intro(d);

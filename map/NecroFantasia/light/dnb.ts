@@ -5,6 +5,7 @@ import {
    EaseType,
    EventBoxColor,
    IndexFilterType,
+   pRandomFn,
    TransitionType,
    types,
    v3,
@@ -28,7 +29,7 @@ const timePattern2 = [162, 242, 306, 370, 434, 514, 562, 602, 626, 818, 882, 962
 const timePattern3 = [194];
 const timePattern4 = [258, 290, 322, 386, 450, 578, 610, 642, 834, 898];
 
-const lightBaseBass: Partial<types.wrapper.IWrapLightColorBase>[] = [
+const lightBaseBass: Partial<types.wrapper.IWrapLightColorEvent>[] = [
    { transition: TransitionType.EXTEND },
    {
       time: 0.125,
@@ -56,7 +57,7 @@ const lightBass: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
       beatDistributionType: DistributionType.STEP,
    },
 ];
-const lightBaseBassShort: Partial<types.wrapper.IWrapLightColorBase>[] = [
+const lightBaseBassShort: Partial<types.wrapper.IWrapLightColorEvent>[] = [
    { transition: TransitionType.EXTEND },
    {
       time: 0.0625,
@@ -114,6 +115,7 @@ const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
    },
 ];
 
+const pRandom = pRandomFn('h');
 export default function (data: v3.Difficulty) {
    for (const time of itNum(timeStart, timeEnd, timeInterval)) {
       if (timeSkip.includes(time)) continue;
@@ -122,8 +124,31 @@ export default function (data: v3.Difficulty) {
       else if (timePattern4.includes(time)) doPattern4(data, time);
       else doPattern1(data, time);
    }
-   for (const time of itNum(742, 790, 8)) {
-      for (const id of itNum(WeaveID.DISTANT_LEFT, WeaveID.DISTANT_RIGHT)) {
+   for (const id of itNum(WeaveID.DISTANT_LEFT, WeaveID.DISTANT_RIGHT)) {
+      for (const time of itNum(742, 790, 16)) {
+         data.addLightRotationEventBoxGroups({
+            time,
+            id,
+            boxes: [
+               {
+                  events: [{ rotation: pRandom(-15, 15), easing: EaseType.INOUT_QUAD }],
+               },
+               {
+                  axis: Axis.Y,
+                  filter: { p0: 2, p1: 1 },
+                  events: [{ rotation: pRandom(-15, 15), easing: EaseType.INOUT_QUAD }],
+                  beatDistribution: 2,
+               },
+               {
+                  axis: Axis.Y,
+                  filter: { p0: 2, p1: 1, reverse: 1 },
+                  events: [{ rotation: pRandom(-15, 15), easing: EaseType.INOUT_QUAD }],
+                  beatDistribution: 2,
+               },
+            ],
+         });
+      }
+      for (const time of itNum(742, 790, 8)) {
          data.addLightColorEventBoxGroups(
             {
                time,
@@ -132,8 +157,9 @@ export default function (data: v3.Difficulty) {
                   {
                      filter: {
                         type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
                         p1: 2,
-                        reverse: id % 2 ? 0 : 1,
+                        reverse: ((id + 1) % 2) as 1,
                      },
                      events: [
                         { color: EventBoxColor.WHITE, brightness: 0 },
@@ -163,7 +189,7 @@ export default function (data: v3.Difficulty) {
                         type: IndexFilterType.STEP_AND_OFFSET,
                         p0: 1,
                         p1: 2,
-                        reverse: id % 2 ? 0 : 1,
+                        reverse: ((id + 1) % 2) as 1,
                      },
                      events: [
                         { color: EventBoxColor.WHITE, brightness: 0 },

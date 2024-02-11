@@ -1,6 +1,6 @@
 import { ICustomDataBase } from '../shared/custom/customData';
 
-export interface ILightTranslationBase {
+export interface ILightTranslationEvent {
    /** Relative beat time `<float>` to event box group. */
    b: number;
    /** Use previous event translation value `<int>` in light translation. */

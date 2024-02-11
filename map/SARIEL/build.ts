@@ -636,7 +636,7 @@ export default (d: v3.Difficulty) => {
          reverse: 0,
       } as types.wrapper.IWrapIndexFilter;
 
-      const e: Partial<types.wrapper.IWrapLightColorBase>[] = [
+      const e: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
          { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
          {
             time: 0.25,
@@ -653,7 +653,7 @@ export default (d: v3.Difficulty) => {
          },
       ];
 
-      const en: Partial<types.wrapper.IWrapLightColorBase>[] = [
+      const en: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
          { color: EventBoxColor.WHITE, brightness: Brightness.DOUBLE },
          {
             time: 0.125,

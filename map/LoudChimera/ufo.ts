@@ -151,10 +151,10 @@ export default class UFO {
    }
    beam(time: number, color = 2) {
       this.mapData.addBasicEvents({
-         b: time,
-         et: this.type,
-         i: color === 0 ? 7 : color === 1 ? 3 : 11,
-         f: 0.5,
+         time,
+         type: this.type,
+         value: color === 0 ? 7 : color === 1 ? 3 : 11,
+         floatValue: 0.5,
          customData: { lightID: this.lightID },
       });
    }
@@ -165,10 +165,10 @@ export default class UFO {
       easing?: types.Easings,
    ) {
       this.mapData.addBasicEvents({
-         b: time,
-         et: this.type,
-         i: value,
-         f: brightness,
+         time,
+         type: this.type,
+         value: value,
+         floatValue: brightness,
          customData: {
             lightID: Array.from(Array(8), (_, i) => i + this.lightID + 1),
             easing,

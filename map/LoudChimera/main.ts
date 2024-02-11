@@ -20,7 +20,7 @@ globals.directory = Deno.build.os === 'linux'
 // logger.setLevel(5);
 
 const info = load.infoSync();
-const BPM = BeatPerMinute.create(info.beatsPerMinute);
+const BPM = BeatPerMinute.create(info.audio.bpm);
 const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
 NE.settings.BPM = BPM;
 NE.settings.NJS = NJS;
