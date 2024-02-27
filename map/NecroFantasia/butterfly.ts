@@ -1,5 +1,4 @@
-import { deepCopy, ext, normalize, pRandomFn, types, v3 } from '../../depsLocal.ts';
-import { itNum } from '../../utility/iterator.ts';
+import { deepCopy, ext, normalize, pRandomFn, range, types, v3 } from '../../depsLocal.ts';
 
 const bflyMax = 80;
 const bflyScale = 1 / 4;
@@ -27,7 +26,7 @@ export default function (data: v3.Difficulty) {
       [0, 0, 320, 1, 'easeInOutCubic'],
    ];
 
-   for (const it of itNum(0, bflyMax - 1)) {
+   for (const it of range(0, bflyMax - 1)) {
       let prevX = it % 2 ? 2 : -2;
       let prevY = 0;
       const butterfly = ext.chroma.EnvironmentGroup.create([

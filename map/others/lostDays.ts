@@ -1,7 +1,14 @@
-import { colorFrom, globals, load, pRandomFn, save, toColorObject } from '../../depsLocal.ts';
+import {
+   colorFrom,
+   globals,
+   load,
+   pRandomFn,
+   range,
+   save,
+   toColorObject,
+} from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/railway/main.ts';
-import { itNum } from '../../utility/iterator.ts';
 
 globals.directory = wipPath('Lost Days');
 
@@ -847,7 +854,7 @@ for (const [m, d] of info.listMap()) {
    );
    const pRandom = pRandomFn('Lost Days');
    data.customData.customEvents = [];
-   for (const it of itNum(0, 9)) {
+   for (const it of range(0, 9)) {
       const r = pRandom(3, 4);
       data.customData.customEvents.push(
          {

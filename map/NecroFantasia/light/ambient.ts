@@ -1,41 +1,18 @@
 import {
    Axis,
+   deepCopy,
    DistributionType,
    EaseType,
    EventBoxColor,
    EventLightValue,
    IndexFilterType,
-   lerp,
-   normalize,
+   pRandomFn,
+   RandomType,
    TransitionType,
+   types,
    v3,
 } from '../../../depsLocal.ts';
-import { itNum } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
-
-const bakeTransitionInterval = 1 / 16;
-function bakeTransitionLight(data: v3.Difficulty) {
-   let previous: v3.BasicEvent | null = null;
-   data.basicEvents
-      .map((e) => e)
-      .forEach((next) => {
-         if (previous && next.isTransition()) {
-            next.value -= 3;
-            for (let time = previous.time; time < next.time; time += bakeTransitionInterval) {
-               data.addBasicEvents({
-                  time,
-                  value: previous.value,
-                  floatValue: lerp(
-                     normalize(time, previous.time, next.time),
-                     previous.floatValue,
-                     next.floatValue,
-                  ),
-               });
-            }
-         }
-         previous = next;
-      });
-}
 
 const flashTime = [
    102,
@@ -72,6 +49,9 @@ export default function (data: v3.Difficulty) {
       { time: 54, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
       { time: 64, value: EventLightValue.RED_TRANSITION, floatValue: 0.75 },
       { time: 70, value: EventLightValue.BLUE_TRANSITION, floatValue: 0 },
+      { time: 354, value: EventLightValue.BLUE_ON, floatValue: 0 },
+      { time: 354.25, value: EventLightValue.BLUE_TRANSITION, floatValue: 1.5 },
+      { time: 357, value: EventLightValue.BLUE_TRANSITION, floatValue: 0 },
       { time: 678, value: EventLightValue.WHITE_ON, floatValue: 0 },
       { time: 680, value: EventLightValue.RED_TRANSITION, floatValue: 2 },
       { time: 686, value: EventLightValue.BLUE_TRANSITION, floatValue: 1 },
@@ -82,19 +62,75 @@ export default function (data: v3.Difficulty) {
       { time: 724, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
       { time: 734, value: EventLightValue.BLUE_TRANSITION, floatValue: 1 },
       { time: 742, value: EventLightValue.RED_TRANSITION, floatValue: 0 },
-      { time: 996.5, value: EventLightValue.BLUE_ON, floatValue: 0 },
-      { time: 997, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
-      { time: 1002, value: EventLightValue.RED_TRANSITION, floatValue: 1 },
-      { time: 1010, value: EventLightValue.BLUE_TRANSITION, floatValue: 0 },
+      { time: 790, value: EventLightValue.BLUE_ON, floatValue: 0 },
+      { time: 792, value: EventLightValue.RED_TRANSITION, floatValue: 2 },
+      { time: 796, value: EventLightValue.RED_TRANSITION, floatValue: 4 },
+      { time: 800, value: EventLightValue.BLUE_TRANSITION, floatValue: 0 },
+      { time: 997.5, value: EventLightValue.WHITE_ON, floatValue: 0 },
+      { time: 998, value: EventLightValue.WHITE_TRANSITION, floatValue: 2 },
+      { time: 1002, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
+      { time: 1014, value: EventLightValue.RED_TRANSITION, floatValue: 0 },
    );
+   for (let id = 0; id < 12; id++) {
+      data.addLightRotationEventBoxGroups(
+         {
+            time: 797.999,
+            id,
+            boxes: [
+               {
+                  axis: Axis.Y,
+                  events: [{ previous: 1 }],
+               },
+            ],
+         },
+         {
+            time: 677.999,
+            id,
+            boxes: [
+               {
+                  axis: Axis.Y,
+                  events: [{ previous: 1 }],
+               },
+            ],
+         },
+         {
+            time: 661.999,
+            id,
+            boxes: [
+               {
+                  axis: Axis.Y,
+                  events: [{ previous: 1 }],
+               },
+            ],
+         },
+      );
+   }
 
    for (const time of flashTime) {
       data.addBasicEvents(
          { time, value: EventLightValue.WHITE_ON, floatValue: 0 },
-         { time: time + 1, value: EventLightValue.WHITE_TRANSITION, floatValue: 1 },
-         { time: time + 12, value: EventLightValue.WHITE_TRANSITION, floatValue: 0 },
+         {
+            time: time + 2,
+            value: EventLightValue.WHITE_TRANSITION,
+            floatValue: 2,
+         },
+         {
+            time: time + 8,
+            value: EventLightValue.RED_TRANSITION,
+            floatValue: 1,
+         },
+         {
+            time: time + 15.9999,
+            value: EventLightValue.BLUE_TRANSITION,
+            floatValue: 0,
+         },
       );
-      for (const id of [WeaveID.INNER_BOTTOM_LEFT, WeaveID.INNER_BOTTOM_RIGHT]) {
+      for (
+         const id of [
+            WeaveID.INNER_BOTTOM_LEFT,
+            WeaveID.INNER_BOTTOM_RIGHT,
+         ]
+      ) {
          data.addLightColorEventBoxGroups(
             {
                time,
@@ -143,11 +179,19 @@ export default function (data: v3.Difficulty) {
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 225, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -161,11 +205,19 @@ export default function (data: v3.Difficulty) {
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 95, easing: EaseType.OUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 240, easing: EaseType.OUT_QUAD }],
                   },
                ],
@@ -174,8 +226,68 @@ export default function (data: v3.Difficulty) {
       }
    }
 
-   for (const id of itNum(WeaveID.INNER_TOP_LEFT, WeaveID.INNER_TOP_RIGHT)) {
-   }
-
-   // bakeTransitionLight(data); // because linux build is broken for some reason
+   const pRandom = pRandomFn('sakura');
+   const lightBox: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribute>[] = [
+      {
+         filter: {
+            random: RandomType.RANDOM_ELEMENTS,
+            seed: pRandom(-999999, 999999, true),
+         },
+         beatDistribution: 16,
+         beatDistributionType: DistributionType.WAVE,
+         events: [
+            { color: EventBoxColor.WHITE, brightness: 0 },
+            {
+               time: 1,
+               color: EventBoxColor.WHITE,
+               brightness: 2,
+               transition: TransitionType.INTERPOLATE,
+            },
+            {
+               time: 4,
+               color: EventBoxColor.RED,
+               brightness: 1.5,
+               transition: TransitionType.INTERPOLATE,
+            },
+            {
+               time: 8,
+               color: EventBoxColor.RED,
+               brightness: 1,
+               transition: TransitionType.INTERPOLATE,
+            },
+            {
+               time: 14,
+               color: EventBoxColor.RED,
+               brightness: 0,
+               transition: TransitionType.INTERPOLATE,
+            },
+         ],
+      },
+   ];
+   data.addLightColorEventBoxGroups(
+      {
+         time: 997,
+         id: WeaveID.DISTANT_LEFT,
+         boxes: deepCopy(lightBox).map((e) => {
+            e.filter!.seed = pRandom(-999999, 999999, true);
+            return e;
+         }),
+      },
+      {
+         time: 997.25,
+         id: WeaveID.DISTANT_RIGHT,
+         boxes: deepCopy(lightBox).map((e) => {
+            e.filter!.seed = pRandom(-999999, 999999, true);
+            return e;
+         }),
+      },
+      {
+         time: 997.125,
+         id: WeaveID.DISTANT_BOTTOM,
+         boxes: deepCopy(lightBox).map((e) => {
+            e.filter!.seed = pRandom(-999999, 999999, true);
+            return e;
+         }),
+      },
+   );
 }

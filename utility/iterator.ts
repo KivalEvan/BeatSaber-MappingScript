@@ -1,11 +1,5 @@
 import { shuffle } from '../depsLocal.ts';
 
-export function* itNum(start: number, end: number, interval = 1) {
-   for (let num = start; num <= end; num += interval) {
-      yield num;
-   }
-}
-
 /** infinite loop, do not use in `for..of` */
 export function* autoShuffle<T>(ary: T[], randFn = Math.random) {
    if (ary.length < 2) throw new Error('array cannot contain less than 2 elements');

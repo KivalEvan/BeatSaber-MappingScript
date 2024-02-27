@@ -1,5 +1,6 @@
 import {
    Axis,
+   colorFrom,
    degToRad,
    DistributionType,
    EaseType,
@@ -8,6 +9,7 @@ import {
    load,
    round,
    save,
+   toColorObject,
    types,
 } from '../../depsLocal.ts';
 import copyLightshow from '../../utility/copyLightshow.ts';
@@ -22,15 +24,15 @@ info.colorSchemes = [
       useOverride: true,
       name: 'Necromantic',
       saberLeftColor: {
-         r: 0.8980392217636108,
+         r: 0.9098039269447327,
          g: 0.0,
-         b: 0.115031898021698,
+         b: 0.2705882489681244,
          a: 1.0,
       },
       saberRightColor: {
-         r: 0.5254902243614197,
-         g: 0.13333334028720857,
-         b: 0.6784313917160034,
+         r: 0.572549045085907,
+         g: 0.800000011920929,
+         b: 0.14901961386203767,
          a: 1.0,
       },
       environment0Color: {
@@ -58,9 +60,9 @@ info.colorSchemes = [
          a: 1.0 * ALPHA,
       },
       obstaclesColor: {
-         r: 0.7254902124404907,
-         g: 0.7254902124404907,
-         b: 0.7254902124404907,
+         r: 0.625,
+         g: 0.625,
+         b: 0.625,
          a: 1.0,
       },
    },
@@ -252,11 +254,11 @@ for (const [_, d] of info.listMap()) {
 
    if (d.characteristic === 'Standard' && d.difficulty === 'Expert') {
       d.customData._difficultyLabel = 'Lunatic';
-      d.customData._information.splice(2, 0, '');
+      d.customData._information.splice(2, 0, 'Evil Sign "Yang Xiaogui"');
    }
    if (d.characteristic === 'Standard' && d.difficulty === 'ExpertPlus') {
       d.customData._difficultyLabel = 'I wanna see you die';
-      d.customData._information.splice(2, 0, '');
+      d.customData._information.splice(2, 0, 'Demonify "Excessive Zouhuo Rumo"');
    }
 
    if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
@@ -264,11 +266,11 @@ for (const [_, d] of info.listMap()) {
    }
    if (d.characteristic === 'OneSaber' && d.difficulty === 'Expert') {
       d.customData._difficultyLabel = 'Love me';
-      d.customData._information.splice(2, 0, '');
+      d.customData._information.splice(2, 0, 'Necromancy "Corpse Tongji"');
    }
    if (d.characteristic === 'OneSaber' && d.difficulty === 'ExpertPlus') {
       d.customData._difficultyLabel = 'One more time';
-      d.customData._information.splice(2, 0, '');
+      d.customData._information.splice(2, 0, 'Spirit Link "Tongling Yoshika"');
    }
    d.copyColorScheme(info.colorSchemes[d.colorSchemeId]);
    save.difficultySync(difficulty);

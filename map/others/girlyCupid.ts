@@ -1,5 +1,17 @@
-import { ext, globals, load, save, types, v3 } from '../../depsLocal.ts';
+import {
+   ext,
+   globals,
+   load,
+   NoteDirectionAngle,
+   NoteJumpSpeed,
+   range,
+   remap,
+   save,
+   types,
+   v3,
+} from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
+const { between, at } = ext.selector;
 
 globals.directory = wipPath('Girly Cupid');
 
@@ -10,9 +22,63 @@ function makeBlackWhite(n: types.wrapper.IWrapBaseNote) {
    if (n.color === 1) n.customData.color = [0.625, 0.625, 0.625];
 }
 
-const { between, at } = ext.selector;
+function leaveTrail(d: v3.Difficulty, start: number, end: number) {
+   between(d.colorNotes, start, end).forEach((n) => {
+      let i = 0;
+      for (const step of range(0.09, 0.49, 0.05)) {
+         const json = n.toJSON();
+         json.b += step;
+         json.customData.uninteractable = true;
+         json.customData.animation = {};
+         json.customData.animation.dissolveArrow = 'none';
+         d.customData.pointDefinitions!['trail' + i] ||= [
+            [remap(step, 0.09, 0.49, 0.12, 0.02), 0],
+         ];
+         json.customData.animation.dissolve = 'trail' + i;
+         d.customData.fakeColorNotes!.push(json);
+         i++;
+      }
+   });
+}
+
+function drawNote(d: v3.Difficulty, start: number, end: number) {
+   between(d.colorNotes, start, end).forEach((n) => {
+      let i = 0;
+      const json = n.toJSON();
+      json.b += 0.49;
+      json.customData.noteJumpMovementSpeed = 50;
+      json.customData.noteJumpStartBeatOffset = -0.5;
+      json.customData.uninteractable = true;
+      json.customData.coordinates = [0, 0];
+      json.customData.animation = {};
+      json.customData.animation.dissolve = 'none';
+      json.customData.animation.scale = [[3, 3, 0.1, 0]];
+      json.customData.animation.definitePosition = [[0, -2, 10, 0]];
+      d.customData.fakeColorNotes!.push(json);
+      i++;
+   });
+}
+
+function makeItAppear(n: types.wrapper.IWrapBaseNote) {
+   if (n.color === 0) n.customData.color = [0.25, 0.25, 0.25];
+   if (n.color === 1) n.customData.color = [0.625, 0.625, 0.625];
+   n.customData.animation = {};
+   n.customData.animation.dissolve = 'popIntoExistence';
+}
+
 function funstuff(d: v3.Difficulty) {
    const allthestuff = [...d.arcs, ...d.chains, ...d.colorNotes];
+   allthestuff.forEach((n) => n.resetCustomData());
+   d.customData.fakeColorNotes = [];
+   d.customData.customEvents = [];
+   return;
+   d.customData.pointDefinitions = {
+      none: [[0, 0]],
+      popIntoExistence: [
+         [0, 0],
+         [1, 0.25, 'easeOutQuad'],
+      ],
+   };
    allthestuff.forEach((n) => {
       if (n.color === 0) n.customData.color = [0.875, 0.125, 0.125];
       if (n.color === 1) n.customData.color = [0.375, 0.5625, 0.875];
@@ -25,12 +91,14 @@ function funstuff(d: v3.Difficulty) {
       if (n.color === 1) n.customData.color = [0.5, 0.5, 0.5];
    });
    between(allthestuff, 101, 164).forEach(makeBlackWhite);
+   between(allthestuff, 101, 161).forEach(makeItAppear);
    between(allthestuff, 180.5, 182).forEach(makeBlackWhite);
    between(allthestuff, 196, 198 - 0.001).forEach(makeBlackWhite);
    between(allthestuff, 212, 214).forEach(makeBlackWhite);
    between(allthestuff, 228, 229 - 0.001).forEach(makeBlackWhite);
 
    between(allthestuff, 325, 388).forEach(makeBlackWhite);
+   between(allthestuff, 325, 385).forEach(makeItAppear);
    between(allthestuff, 396, 397 - 0.001).forEach(makeBlackWhite);
    between(allthestuff, 404.5, 406).forEach(makeBlackWhite);
    between(allthestuff, 420, 422 - 0.001).forEach(makeBlackWhite);
@@ -38,12 +106,75 @@ function funstuff(d: v3.Difficulty) {
    between(allthestuff, 452, 453 - 0.001).forEach(makeBlackWhite);
 
    between(allthestuff, 389, 395.5).forEach((n) => {
-      if (n.color === 0) n.customData.color = [0.8125, 0.375, 0.0625];
+      if (n.color === 0) n.customData.color = [1, 0.5, 0.0625];
       if (n.color === 1) n.customData.color = [0.375, 0.125, 0.875];
    });
+
+   leaveTrail(d, 101, 131.5);
+   leaveTrail(d, 325, 355.5);
+   drawNote(d, 449.5, 451.5);
+   drawNote(d, 225.5, 227.5);
+   d.customData.pointDefinitions.slashPosition = [
+      [0, 0, 8, 0],
+      [0, 0, 7, 1 / 32, 'easeStep'],
+      [0, 0, 9.5, 0.5, 'easeOutQuad'],
+      [0, 0, -999, 0.501, 'easeStep'],
+   ];
+   d.customData.pointDefinitions.slashExpand = [
+      [1, 0.75, 0.75, 0],
+      [0, 36, 0, 0.5, 'easeInQuad'],
+   ];
+   d.customData.pointDefinitions.slashGlitchEffect = [
+      [0, 0],
+      [0.75, 1 / 32, 'easeStep'],
+      [0, 0.375],
+   ];
+   d.customData.customEvents.push({
+      b: 0,
+      t: 'AssignPathAnimation',
+      d: {
+         track: 'trackDrop2PewPew',
+         dissolve: 'slashGlitchEffect',
+         dissolveArrow: 'none',
+         definitePosition: 'slashPosition',
+         scale: 'slashExpand',
+      },
+   });
+   for (
+      const time of [
+         165,
+         173,
+         189,
+         190,
+         192,
+         205,
+         221,
+         222,
+         224,
+         ...[165, 173, 189, 190, 192, 205, 221, 222, 224].map((e) => e + 224),
+         ...range(453, 509, 8),
+      ]
+   ) {
+      at(d.chains, time).forEach((c) => {
+         const json = new v3.ColorNote(c).toJSON();
+         json.b += 0.865;
+         json.customData.coordinates = [json.c ? 2 : -2, json.y];
+         json.customData.noteJumpMovementSpeed = 50;
+         json.customData.noteJumpStartBeatOffset = 0.375;
+         json.customData.uninteractable = true;
+         json.customData.track = 'trackDrop2PewPew';
+         json.customData.localRotation = [
+            0,
+            0,
+            (180 + (NoteDirectionAngle[json.d as 0] || 0)) % 360,
+         ];
+         d.customData.fakeColorNotes!.push(json);
+      });
+   }
 }
 
 const info = load.infoSync(2);
+info.song.title = '_Girly Cupid';
 info.colorSchemes = [
    {
       useOverride: true,

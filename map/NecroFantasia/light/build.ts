@@ -6,16 +6,32 @@ import {
    IndexFilterType,
    pRandomFn,
    RandomType,
+   range,
    TransitionType,
    types,
    v3,
 } from '../../../depsLocal.ts';
-import { itNum } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
 
 const buildTime = [294, 614];
 const sakuraTime = [310, 630];
-const patternTime1 = [1, 1.5, 3.5, 4.5, 5.5, 6.5, 33, 33.5, 37, 37.5, 41, 41.5, 43.5, 44];
+const burstTime = [674, 802];
+const patternTime1 = [
+   1,
+   1.5,
+   3.5,
+   4.5,
+   5.5,
+   6.5,
+   33,
+   33.5,
+   37,
+   37.5,
+   41,
+   41.5,
+   43.5,
+   44,
+];
 const patternTime2 = [1, 1.5, 5, 6, 33, 33.5, 36.5, 37];
 
 const lightSweepBase: Partial<types.wrapper.IWrapLightColorEvent>[] = [
@@ -44,12 +60,26 @@ export default function (data: v3.Difficulty) {
    const pRandom = pRandomFn('Sakura');
    let flipFlop = false;
    for (const time of sakuraTime) {
-      for (const id of itNum(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {
+      for (
+         const id of range(
+            WeaveID.SIDE_BOTTOM_LEFT,
+            WeaveID.SIDE_TOP_RIGHT,
+         )
+      ) {
          data.addLightColorEventBoxGroups(
             {
-               time: time - 0.001,
+               time: time - 0.125,
                id,
-               boxes: [{ events: [{ brightness: 0, transition: TransitionType.INTERPOLATE }] }],
+               boxes: [
+                  {
+                     events: [
+                        {
+                           brightness: 0,
+                           transition: TransitionType.INTERPOLATE,
+                        },
+                     ],
+                  },
+               ],
             },
             {
                time,
@@ -110,11 +140,19 @@ export default function (data: v3.Difficulty) {
                id,
                boxes: [
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 255 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 135 }],
                   },
                ],
@@ -124,23 +162,45 @@ export default function (data: v3.Difficulty) {
                id,
                boxes: [
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 240, easing: EaseType.IN_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 120, easing: EaseType.IN_QUAD }],
                   },
                ],
             },
          );
       }
-      for (const id of itNum(WeaveID.OUTER_BOTTOM_LEFT, WeaveID.OUTER_TOP_RIGHT)) {
+      for (
+         const id of range(
+            WeaveID.OUTER_BOTTOM_LEFT,
+            WeaveID.OUTER_TOP_RIGHT,
+         )
+      ) {
          data.addLightColorEventBoxGroups(
             {
                time: time - 0.001,
                id,
-               boxes: [{ events: [{ brightness: 0, transition: TransitionType.INTERPOLATE }] }],
+               boxes: [
+                  {
+                     events: [
+                        {
+                           brightness: 0,
+                           transition: TransitionType.INTERPOLATE,
+                        },
+                     ],
+                  },
+               ],
             },
             {
                time,
@@ -202,11 +262,17 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [{ rotation: 105 }],
                   },
                   {
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [{ rotation: 100 }],
                   },
                ],
@@ -217,14 +283,20 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [
                         { rotation: 110, easing: EaseType.IN_QUAD },
                         { time: 2, rotation: 112, easing: EaseType.OUT_QUAD },
                      ],
                   },
                   {
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [
                         { rotation: 90, easing: EaseType.IN_QUAD },
                         { time: 2, rotation: 87, easing: EaseType.OUT_QUAD },
@@ -234,12 +306,26 @@ export default function (data: v3.Difficulty) {
             },
          );
       }
-      for (const id of itNum(WeaveID.INNER_BOTTOM_LEFT, WeaveID.INNER_TOP_RIGHT)) {
+      for (
+         const id of range(
+            WeaveID.INNER_BOTTOM_LEFT,
+            WeaveID.INNER_TOP_RIGHT,
+         )
+      ) {
          data.addLightColorEventBoxGroups(
             {
                time: time - 0.001,
                id,
-               boxes: [{ events: [{ brightness: 0, transition: TransitionType.INTERPOLATE }] }],
+               boxes: [
+                  {
+                     events: [
+                        {
+                           brightness: 0,
+                           transition: TransitionType.INTERPOLATE,
+                        },
+                     ],
+                  },
+               ],
             },
             {
                time,
@@ -291,7 +377,7 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1 / 12,
                            brightness: 0,
@@ -309,7 +395,7 @@ export default function (data: v3.Difficulty) {
                   {
                      filter: { reverse: 1 },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1,
                            color: EventBoxColor.RED,
@@ -335,7 +421,7 @@ export default function (data: v3.Difficulty) {
                   {
                      filter: { reverse: 1 },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1,
                            color: EventBoxColor.RED,
@@ -361,7 +447,7 @@ export default function (data: v3.Difficulty) {
                   {
                      filter: { reverse: 1 },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1 / 12,
                            brightness: 0,
@@ -378,7 +464,7 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1,
                            color: EventBoxColor.RED,
@@ -403,7 +489,7 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 1 },
+                        { color: EventBoxColor.WHITE, brightness: 2 },
                         {
                            time: 1,
                            color: EventBoxColor.RED,
@@ -443,11 +529,17 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [{ rotation: 105 }],
                   },
                   {
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [{ rotation: 100 }],
                   },
                ],
@@ -458,14 +550,20 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [
                         { rotation: 110, easing: EaseType.IN_QUAD },
                         { time: 2, rotation: 112, easing: EaseType.OUT_QUAD },
                      ],
                   },
                   {
-                     filter: { random: 2, seed: pRandom(-999999, 999999, true) },
+                     filter: {
+                        random: 2,
+                        seed: pRandom(-999999, 999999, true),
+                     },
                      events: [
                         { rotation: 90, easing: EaseType.IN_QUAD },
                         { time: 2, rotation: 87, easing: EaseType.OUT_QUAD },
@@ -479,12 +577,18 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     events: [{ easing: EaseType.NONE }, { time: 0.125, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 0.125, easing: EaseType.NONE },
+                     ],
                      beatDistributionType: DistributionType.STEP,
                      beatDistribution: 1 / 12,
                   },
                   {
-                     events: [{ easing: EaseType.NONE }, { time: 0.125, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 0.125, easing: EaseType.NONE },
+                     ],
                      beatDistributionType: DistributionType.STEP,
                      beatDistribution: 1 / 12,
                   },
@@ -496,10 +600,17 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     events: [{ easing: EaseType.NONE }, { time: 3.5, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 3.5, easing: EaseType.NONE },
+                     ],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [
                         { rotation: -90, easing: EaseType.NONE },
                         { time: 2.999, rotation: -90, easing: EaseType.NONE },
@@ -508,7 +619,11 @@ export default function (data: v3.Difficulty) {
                      affectFirst: 1,
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [
                         { rotation: -90, easing: EaseType.NONE },
                         { time: 2.999, rotation: -90, easing: EaseType.NONE },
@@ -523,13 +638,19 @@ export default function (data: v3.Difficulty) {
                   {
                      filter: { reverse: 1 },
                      axis: Axis.Y,
-                     events: [{ easing: EaseType.NONE }, { time: 0.125, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 0.125, easing: EaseType.NONE },
+                     ],
                      beatDistributionType: DistributionType.STEP,
                      beatDistribution: 1 / 12,
                   },
                   {
                      filter: { reverse: 1 },
-                     events: [{ easing: EaseType.NONE }, { time: 0.125, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 0.125, easing: EaseType.NONE },
+                     ],
                      beatDistributionType: DistributionType.STEP,
                      beatDistribution: 1 / 12,
                   },
@@ -541,10 +662,18 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     events: [{ easing: EaseType.NONE }, { time: 3.5, easing: EaseType.NONE }],
+                     events: [
+                        { easing: EaseType.NONE },
+                        { time: 3.5, easing: EaseType.NONE },
+                     ],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2, reverse: 1 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                        reverse: 1,
+                     },
                      events: [
                         { rotation: 270, easing: EaseType.NONE },
                         { time: 3.5, rotation: 270, easing: EaseType.NONE },
@@ -553,7 +682,12 @@ export default function (data: v3.Difficulty) {
                      affectFirst: 1,
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2, reverse: 1 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                        reverse: 1,
+                     },
                      events: [
                         { rotation: 180, easing: EaseType.NONE },
                         { time: 3.5, rotation: 180, easing: EaseType.NONE },
@@ -594,7 +728,7 @@ export default function (data: v3.Difficulty) {
          });
          flipFlop = !flipFlop;
       }
-      for (const id of itNum(WeaveID.INNER_TOP_LEFT, WeaveID.INNER_TOP_RIGHT)) {
+      for (const id of range(WeaveID.INNER_TOP_LEFT, WeaveID.INNER_TOP_RIGHT)) {
          data.addLightColorEventBoxGroups(
             {
                time,
@@ -765,20 +899,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 120, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -789,20 +939,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -813,20 +979,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 120, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -837,27 +1019,48 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
             },
          );
       }
-      for (const id of itNum(WeaveID.INNER_BOTTOM_LEFT, WeaveID.INNER_BOTTOM_RIGHT)) {
+      for (
+         const id of range(
+            WeaveID.INNER_BOTTOM_LEFT,
+            WeaveID.INNER_BOTTOM_RIGHT,
+         )
+      ) {
          data.addLightColorEventBoxGroups(
             {
                time: time + 8,
@@ -970,20 +1173,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -994,20 +1213,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -1018,20 +1253,36 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 120, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
@@ -1042,25 +1293,232 @@ export default function (data: v3.Difficulty) {
                boxes: [
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 180 }],
                   },
                   {
                      axis: Axis.Y,
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 0 }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 0, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                     },
                      events: [{ rotation: 105, easing: EaseType.INOUT_QUAD }],
                   },
                   {
-                     filter: { type: IndexFilterType.STEP_AND_OFFSET, p0: 1, p1: 2 },
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                     },
                      events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
                   },
                ],
             },
          );
+      }
+   }
+   const burstIDOrder = [
+      WeaveID.SIDE_TOP_LEFT,
+      WeaveID.SIDE_BOTTOM_LEFT,
+      WeaveID.SIDE_BOTTOM_RIGHT,
+      WeaveID.SIDE_TOP_RIGHT,
+      WeaveID.OUTER_TOP_LEFT,
+      WeaveID.OUTER_BOTTOM_LEFT,
+      WeaveID.OUTER_BOTTOM_RIGHT,
+      WeaveID.OUTER_TOP_RIGHT,
+      WeaveID.INNER_TOP_LEFT,
+      WeaveID.INNER_BOTTOM_LEFT,
+      WeaveID.INNER_BOTTOM_RIGHT,
+      WeaveID.INNER_TOP_RIGHT,
+   ];
+   for (const time of burstTime) {
+      let offset = 0;
+      for (const id of burstIDOrder) {
+         data.addLightColorEventBoxGroups(
+            {
+               time: time + offset,
+               id,
+               boxes: [
+                  {
+                     filter: { reverse: 1 },
+                     beatDistribution: 1.25,
+                     events: [
+                        { color: EventBoxColor.WHITE, brightness: 4 },
+                        {
+                           time: 0.25,
+                           color: EventBoxColor.RED,
+                           brightness: 2,
+                        },
+                        {
+                           time: 1,
+                           color: EventBoxColor.BLUE,
+                           brightness: 0,
+                           transition: TransitionType.INTERPOLATE,
+                        },
+                     ],
+                  },
+               ],
+            },
+            {
+               time: time + 3,
+               id,
+               boxes: [
+                  {
+                     beatDistribution: 0.5,
+                     events: [
+                        { color: EventBoxColor.WHITE, brightness: 2 },
+                        {
+                           time: 0.125,
+                           color: EventBoxColor.WHITE,
+                           brightness: 0,
+                        },
+                     ],
+                  },
+               ],
+            },
+         );
+         data.addLightRotationEventBoxGroups(
+            {
+               time: time + offset,
+               id,
+               boxes: [
+                  {
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 180, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 0, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 4,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 3,
+                        p1: 4,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 270, easing: EaseType.INOUT_QUAD }],
+                  },
+               ],
+            },
+            {
+               time: time + 3.5,
+               id,
+               boxes: [
+                  {
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 180, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 0,
+                        p1: 2,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 0, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 1,
+                        p1: 4,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 90, easing: EaseType.INOUT_QUAD }],
+                  },
+                  {
+                     axis: Axis.Y,
+                     filter: {
+                        type: IndexFilterType.STEP_AND_OFFSET,
+                        p0: 3,
+                        p1: 4,
+                        reverse: 1,
+                     },
+                     beatDistribution: 0.25,
+                     events: [{ rotation: 270, easing: EaseType.INOUT_QUAD }],
+                  },
+               ],
+            },
+            {
+               time: time + 3.999,
+               id,
+               boxes: [
+                  { events: [{ easing: EaseType.NONE }] },
+                  { axis: Axis.Y, events: [{ easing: EaseType.NONE }] },
+               ],
+            },
+         );
+         offset += 0.25;
       }
    }
 }

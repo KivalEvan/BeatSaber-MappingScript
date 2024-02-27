@@ -1,5 +1,6 @@
 import {
    colorFrom,
+   ColorScheme,
    ext,
    globals,
    lerp,
@@ -20,17 +21,22 @@ import note from './note.ts';
 globals.directory = wipPath('Necro Fantasia');
 
 const info = load.infoSync(2);
-info.songName = '_Necro Fantasia';
+info.songName = 'Necro Fantasia';
+info.environmentName = 'WeaveEnvironment';
+info.environmentNames = ['WeaveEnvironment'];
+info.customData._contributors = [
+   { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
+];
 info.colorSchemes = [
    {
       useOverride: true,
       name: 'Necro Fantasia',
       saberLeftColor: toColorObject(
-         colorFrom(355, 0.8125, 0.9375, 'hsva'),
+         ColorScheme.Lattice._colorLeft!,
          true,
       ),
       saberRightColor: toColorObject(
-         colorFrom(215, 0.625, 0.875, 'hsva'),
+         ColorScheme.Lattice._colorRight!,
          true,
       ),
       environment0Color: toColorObject(colorFrom(320, 1, 0.9375, 'hsva'), true),
@@ -44,7 +50,7 @@ info.colorSchemes = [
          true,
       ),
       obstaclesColor: toColorObject(
-         colorFrom(335, 0.666, 0.4375, 'hsva'),
+         colorFrom(0.5),
          true,
       ),
    },
@@ -98,7 +104,9 @@ lightshow.customData.bookmarks = intervalBookmark(6, 32, [
    return b;
 });
 
+const promise = [];
 for (const [_, d] of info.listMap()) {
+   // if (d.difficulty !=='Easy') continue;
    const difficulty = load.difficultySync(d.filename, 3);
    difficulty.useNormalEventsAsCompatibleEvents = false;
    difficulty.basicEvents = lightshow.basicEvents;
@@ -111,12 +119,40 @@ for (const [_, d] of info.listMap()) {
    difficulty.customData.pointDefinitions = lightshow.customData.pointDefinitions;
    difficulty.customData.bookmarks = lightshow.customData.bookmarks;
    note(difficulty);
-   save.difficultySync(difficulty);
+   promise.push(save.difficulty(difficulty));
 
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];
    d.copyColorScheme(info.colorSchemes[0]);
+   d.customData._information = [
+      'Yukari Yakumo',
+      'Necrofantasia',
+      '4th track of album For Your Pieces',
+      'Illustration by ryosios',
+   ];
+
+   if (d.characteristic === 'Standard' && d.difficulty === 'Expert') {
+      d.customData._difficultyLabel = 'Lunatic';
+      d.customData._information.splice(2, 0, ' 	Evil Spirits "Dreamland of Straight and Curve"');
+   }
+   if (d.characteristic === 'Standard' && d.difficulty === 'ExpertPlus') {
+      d.customData._difficultyLabel = 'Phantasm';
+      d.customData._information.splice(2, 0, 'Barrier "Boundary of Life and Death"');
+   }
+
+   if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
+      d.customData._difficultyLabel = 'Petals';
+   }
+   if (d.characteristic === 'OneSaber' && d.difficulty === 'Expert') {
+      d.customData._difficultyLabel = 'Blooming Flower';
+      d.customData._information.splice(2, 0, 'Sinister Spirits "Double Black Death Butterfly"');
+   }
+   if (d.characteristic === 'OneSaber' && d.difficulty === 'ExpertPlus') {
+      d.customData._difficultyLabel = 'Cherry Blossom';
+      d.customData._information.splice(2, 0, '"Boundary of Humans and Youkai" ');
+   }
 }
+await Promise.allSettled(promise);
 
 save.infoSync(info);
 

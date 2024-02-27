@@ -1,14 +1,13 @@
 import {
-   Axis,
    DistributionType,
    EaseType,
    EventBoxColor,
    IndexFilterType,
    pRandom,
+   range,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
-import { itNum } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
 
 export default function (data: v3.Difficulty) {
@@ -95,7 +94,7 @@ export default function (data: v3.Difficulty) {
    //       }
    //    );
    // }
-   for (const id of itNum(WeaveID.INNER_BOTTOM_LEFT, WeaveID.INNER_BOTTOM_RIGHT)) {
+   for (const id of range(WeaveID.INNER_BOTTOM_LEFT, WeaveID.INNER_BOTTOM_RIGHT)) {
       data.addLightColorEventBoxGroups({
          time: 6,
          id,
@@ -116,7 +115,7 @@ export default function (data: v3.Difficulty) {
          ],
       });
       let flipFlop = false;
-      for (const time of itNum(12, 64, 8)) {
+      for (const time of range(12, 64, 8)) {
          data.addLightColorEventBoxGroups({
             time,
             id,

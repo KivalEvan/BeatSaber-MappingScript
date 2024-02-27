@@ -1,12 +1,12 @@
 import {
-   EaseType,
    EventBoxColor,
    IndexFilterType,
    pRandomFn,
+   range,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
-import { itNum, loopArray } from '../../../utility/iterator.ts';
+import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
 
 const loopGen = loopArray([5, 4, 2, 4, 3, 1, 5, 4, 2, 3, 0, 6]);
@@ -19,7 +19,7 @@ const loopRight = loopArray([WeaveID.SIDE_BOTTOM_RIGHT, WeaveID.SIDE_TOP_RIGHT])
 export default function (data: v3.Difficulty) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = false;
-   for (const time of [...itNum(358, 485, timeInterval), ...itNum(806, 933, timeInterval)]) {
+   for (const time of [...range(358, 485, timeInterval), ...range(806, 933, timeInterval)]) {
       for (const timeOffset of timingAry) {
          if (
             (time + timeOffset >= 310 && time + timeOffset < 318) ||
@@ -34,7 +34,7 @@ export default function (data: v3.Difficulty) {
          const currentId = flipFlop ? loopLeft.next().value! : loopRight.next().value!;
          const currentFilter = loopGen.next().value!;
          const currentRotation = pRandom(-60, 60);
-         for (const it of itNum(0, 1, 2)) {
+         for (const it of range(0, 1, 2)) {
             data.addLightColorEventBoxGroups({
                time: time + timeOffset,
                id: currentId + it,
@@ -51,6 +51,7 @@ export default function (data: v3.Difficulty) {
                            time: 0.375,
                            color: EventBoxColor.WHITE,
                            transition: TransitionType.INTERPOLATE,
+                           brightness: 1.5,
                         },
                         {
                            time: 1,
@@ -76,6 +77,7 @@ export default function (data: v3.Difficulty) {
                            time: 0.375,
                            color: EventBoxColor.WHITE,
                            transition: TransitionType.INTERPOLATE,
+                           brightness: 1.5,
                         },
                         {
                            time: 1,

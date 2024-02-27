@@ -1,10 +1,9 @@
-import { ext, lerp, normalize, pRandomFn, types, v3 } from '../../depsLocal.ts';
-import { itNum } from '../../utility/iterator.ts';
+import { pRandomFn, range, v3 } from '../../depsLocal.ts';
 
 export default function (data: v3.Difficulty) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.customData.customEvents ??= [];
-   for (const it of itNum(0, 9)) {
+   for (const it of range(0, 9)) {
       const r = pRandom(3, 4);
       data.customData.customEvents.push(
          {

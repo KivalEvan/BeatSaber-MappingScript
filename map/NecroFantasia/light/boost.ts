@@ -15,7 +15,7 @@ export default function (data: v3.Difficulty) {
       { time: 614, toggle: false },
       { time: 662, toggle: true },
       { time: 678, toggle: false },
-      { time: 790, toggle: true },
+      { time: 798, toggle: true },
       { time: 806, toggle: false },
    );
 }
