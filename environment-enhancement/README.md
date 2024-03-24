@@ -12,6 +12,14 @@ exist too.
 
 ## Gallery
 
+### [Panorama](./panorama/) (Partial Vanilla Support)
+
+#### Based on Pyro Environment
+
+Used in The Phoenix
+
+<img src="./panorama/environment.jpg">
+
 ### [Railway](./railway/) (Vanilla-compatible)
 
 #### Based on Weave Environment

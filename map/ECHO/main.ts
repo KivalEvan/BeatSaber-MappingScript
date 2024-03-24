@@ -13,14 +13,13 @@ import {
    v2,
 } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
-import scriptDirPath from '../../utility/scriptDirPath.ts';
 import { resolve } from '../../deps.ts';
 
 v2.Event.default._floatValue = 1;
 v2.Obstacle.default._duration = 1;
 v2.Obstacle.default._width = 1;
 
-const WORKING_DIRECTORY = scriptDirPath(import.meta.url);
+const WORKING_DIRECTORY = import.meta.dirname!;
 globals.directory = wipPath('ECHO');
 const OUTPUT_FILE = 'EasyLightshow.dat';
 

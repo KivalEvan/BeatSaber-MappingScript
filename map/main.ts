@@ -1,9 +1,8 @@
 import { parse, resolve } from '../deps.ts';
-import scriptDirPath from '../utility/scriptDirPath.ts';
 
 const args = parse(Deno.args);
 const name = args._.join('').toLowerCase();
-const path = scriptDirPath(import.meta.url);
+const path = import.meta.dirname!;
 
 if (!name) {
    throw new Error('You need the name of the script folder/files');

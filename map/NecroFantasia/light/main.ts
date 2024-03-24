@@ -7,7 +7,6 @@ import piano from './piano.ts';
 import build from './build.ts';
 import synth from './synth.ts';
 import synth2 from './synth2.ts';
-import synth3 from './synth3.ts';
 import transition from './transition.ts';
 import chorus from './chorus.ts';
 
@@ -24,7 +23,6 @@ export default function (data: v3.Difficulty) {
    synth(data);
    synth2(data);
    chorus(data);
-   // synth3(data);
 
    ambient(data);
    build(data);

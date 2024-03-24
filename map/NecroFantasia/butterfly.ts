@@ -1,4 +1,15 @@
-import { deepCopy, ext, normalize, pRandomFn, range, types, v3 } from '../../depsLocal.ts';
+import {
+   deepCopy,
+   ext,
+   normalize,
+   pRandomFn,
+   range as rangeEx,
+   types,
+   v3,
+} from '../../depsLocal.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const bflyMax = 80;
 const bflyScale = 1 / 4;

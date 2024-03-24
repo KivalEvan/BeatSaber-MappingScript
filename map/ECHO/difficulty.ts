@@ -1,5 +1,4 @@
 import { convert, globals, isV3, load, save } from '../../depsLocal.ts';
-import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 import wipPath from '../../utility/wipPath.ts';
 
 globals.directory = wipPath('ECHO');
@@ -18,9 +17,8 @@ difficultyList.forEach((d) => {
    d.data.basicEvents = lightshow.basicEvents;
    d.data.customData.environment = lightshow.customData.environment;
    d.data.customData.customEvents = lightshow.customData.customEvents;
-   jankySliderConvert(d.data);
    d.data.obstacles = [];
-   if (d.difficulty === 'Easy' || d.difficulty === 'Normal') {
+   if (d.settings.difficulty === 'Easy' || d.settings.difficulty === 'Normal') {
       for (let i = 0; i < 2; i++) {
          d.data.addObstacles(
             {

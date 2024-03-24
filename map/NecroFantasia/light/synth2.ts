@@ -2,12 +2,15 @@ import {
    EventBoxColor,
    IndexFilterType,
    pRandomFn,
-   range,
+   range as rangeEx,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
 import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const loopGen = loopArray([5, 4, 2, 4, 3, 1, 5, 4, 2, 3, 0, 6]);
 const timingAry = [0, 1.5, 3, 4.5, 6, 7, 8, 9.5, 11, 12.5, 14, 15];

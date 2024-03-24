@@ -1,6 +1,6 @@
 import { ensureFileSync } from 'https://deno.land/std@0.192.0/fs/mod.ts';
 
-export function counter(path = './') {
+export default function (path = './') {
    let CWD = new URL('.', path).pathname;
    if (Deno.build.os === 'windows') {
       CWD = CWD.replace(/^\/*/, '');
@@ -8,5 +8,5 @@ export function counter(path = './') {
    ensureFileSync(CWD + 'count.txt');
    const count = parseInt(Deno.readTextFileSync(CWD + 'count.txt')) + 1;
    Deno.writeTextFileSync(CWD + 'count.txt', count.toString());
-   console.log('GIVE IT UP FOR RUN ' + count);
+   console.log('Script run counter:', count);
 }

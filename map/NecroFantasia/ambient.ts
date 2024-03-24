@@ -1,4 +1,7 @@
-import { pRandomFn, range, v3 } from '../../depsLocal.ts';
+import { pRandomFn, range as rangeEx, v3 } from '../../depsLocal.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 export default function (data: v3.Difficulty) {
    const pRandom = pRandomFn('Necro Fantasia');

@@ -4,12 +4,15 @@ import {
    EaseType,
    EventBoxColor,
    pRandomFn,
-   range,
+   range as rangeEx,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
 import { autoShuffle, loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const repeatTime1 = [0, 8, 12];
 const repeatTime2 = [0, 8, 12, 16, 24, 28, 32, 40, 48, 52, 56, 60];

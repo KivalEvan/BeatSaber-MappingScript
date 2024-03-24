@@ -1,9 +1,13 @@
 import {
+   colorFrom,
+   deepCopy,
    ext,
    globals,
+   lerpColor,
    load,
    NoteDirectionAngle,
-   NoteJumpSpeed,
+   productAry,
+   random,
    range,
    remap,
    save,
@@ -18,21 +22,21 @@ globals.directory = wipPath('Girly Cupid');
 const lightshow = load.difficultySync('ExpertPlusLegacy.dat', 3);
 
 function makeBlackWhite(n: types.wrapper.IWrapBaseNote) {
-   if (n.color === 0) n.customData.color = [0.25, 0.25, 0.25];
-   if (n.color === 1) n.customData.color = [0.625, 0.625, 0.625];
+   if (n.color === 0) n.customData.color = colorFrom(0.25);
+   if (n.color === 1) n.customData.color = colorFrom(0.5625);
 }
 
 function leaveTrail(d: v3.Difficulty, start: number, end: number) {
    between(d.colorNotes, start, end).forEach((n) => {
       let i = 0;
-      for (const step of range(0.09, 0.49, 0.05)) {
+      for (const step of range(0.09, 0.25, 0.05)) {
          const json = n.toJSON();
          json.b += step;
          json.customData.uninteractable = true;
          json.customData.animation = {};
          json.customData.animation.dissolveArrow = 'none';
          d.customData.pointDefinitions!['trail' + i] ||= [
-            [remap(step, 0.09, 0.49, 0.12, 0.02), 0],
+            [remap(step, 0.09, 0.24, 0.05, 0.01), 0],
          ];
          json.customData.animation.dissolve = 'trail' + i;
          d.customData.fakeColorNotes!.push(json);
@@ -42,26 +46,27 @@ function leaveTrail(d: v3.Difficulty, start: number, end: number) {
 }
 
 function drawNote(d: v3.Difficulty, start: number, end: number) {
+   d.customData.pointDefinitions!.drawNoteScale = [[3, 3, 0.1, 0]];
+   d.customData.pointDefinitions!.drawNoteDefPos = [
+      [0, -2, 10, 0],
+      [0, -9999, -9999, 0.5, 'easeStep'],
+   ];
    between(d.colorNotes, start, end).forEach((n) => {
-      let i = 0;
       const json = n.toJSON();
       json.b += 0.49;
-      json.customData.noteJumpMovementSpeed = 50;
-      json.customData.noteJumpStartBeatOffset = -0.5;
+      json.customData.noteJumpMovementSpeed = 16;
+      json.customData.noteJumpStartBeatOffset = -1.5;
       json.customData.uninteractable = true;
-      json.customData.coordinates = [0, 0];
+      json.customData.coordinates = [-0.5, 0];
       json.customData.animation = {};
       json.customData.animation.dissolve = 'none';
-      json.customData.animation.scale = [[3, 3, 0.1, 0]];
-      json.customData.animation.definitePosition = [[0, -2, 10, 0]];
+      json.customData.animation.scale = 'drawNoteScale';
+      json.customData.animation.definitePosition = 'drawNoteDefPos';
       d.customData.fakeColorNotes!.push(json);
-      i++;
    });
 }
 
 function makeItAppear(n: types.wrapper.IWrapBaseNote) {
-   if (n.color === 0) n.customData.color = [0.25, 0.25, 0.25];
-   if (n.color === 1) n.customData.color = [0.625, 0.625, 0.625];
    n.customData.animation = {};
    n.customData.animation.dissolve = 'popIntoExistence';
 }
@@ -71,12 +76,11 @@ function funstuff(d: v3.Difficulty) {
    allthestuff.forEach((n) => n.resetCustomData());
    d.customData.fakeColorNotes = [];
    d.customData.customEvents = [];
-   return;
    d.customData.pointDefinitions = {
       none: [[0, 0]],
       popIntoExistence: [
          [0, 0],
-         [1, 0.25, 'easeOutQuad'],
+         [1, 0.2, 'easeOutQuad'],
       ],
    };
    allthestuff.forEach((n) => {
@@ -91,14 +95,14 @@ function funstuff(d: v3.Difficulty) {
       if (n.color === 1) n.customData.color = [0.5, 0.5, 0.5];
    });
    between(allthestuff, 101, 164).forEach(makeBlackWhite);
-   between(allthestuff, 101, 161).forEach(makeItAppear);
+   between(allthestuff, 101, 132).forEach(makeItAppear);
    between(allthestuff, 180.5, 182).forEach(makeBlackWhite);
    between(allthestuff, 196, 198 - 0.001).forEach(makeBlackWhite);
    between(allthestuff, 212, 214).forEach(makeBlackWhite);
    between(allthestuff, 228, 229 - 0.001).forEach(makeBlackWhite);
 
    between(allthestuff, 325, 388).forEach(makeBlackWhite);
-   between(allthestuff, 325, 385).forEach(makeItAppear);
+   between(allthestuff, 325, 356).forEach(makeItAppear);
    between(allthestuff, 396, 397 - 0.001).forEach(makeBlackWhite);
    between(allthestuff, 404.5, 406).forEach(makeBlackWhite);
    between(allthestuff, 420, 422 - 0.001).forEach(makeBlackWhite);
@@ -106,34 +110,34 @@ function funstuff(d: v3.Difficulty) {
    between(allthestuff, 452, 453 - 0.001).forEach(makeBlackWhite);
 
    between(allthestuff, 389, 395.5).forEach((n) => {
-      if (n.color === 0) n.customData.color = [1, 0.5, 0.0625];
+      if (n.color === 0) n.customData.color = [1, 0.5, 0.125];
       if (n.color === 1) n.customData.color = [0.375, 0.125, 0.875];
    });
 
-   leaveTrail(d, 101, 131.5);
-   leaveTrail(d, 325, 355.5);
+   leaveTrail(d, 101, 132.5);
+   leaveTrail(d, 325, 356.5);
    drawNote(d, 449.5, 451.5);
    drawNote(d, 225.5, 227.5);
    d.customData.pointDefinitions.slashPosition = [
-      [0, 0, 8, 0],
-      [0, 0, 7, 1 / 32, 'easeStep'],
-      [0, 0, 9.5, 0.5, 'easeOutQuad'],
+      [0, 0, 4, 0],
+      [0, 0, 4, 0.001, 'easeStep'],
+      [0, 0, 5.5, 0.5, 'easeOutQuad'],
       [0, 0, -999, 0.501, 'easeStep'],
    ];
    d.customData.pointDefinitions.slashExpand = [
-      [1, 0.75, 0.75, 0],
+      [0.5, 1, 0.5, 0],
       [0, 36, 0, 0.5, 'easeInQuad'],
    ];
    d.customData.pointDefinitions.slashGlitchEffect = [
       [0, 0],
-      [0.75, 1 / 32, 'easeStep'],
+      [0.75, 0.001, 'easeStep'],
       [0, 0.375],
    ];
    d.customData.customEvents.push({
       b: 0,
       t: 'AssignPathAnimation',
       d: {
-         track: 'trackDrop2PewPew',
+         track: 'pewPew',
          dissolve: 'slashGlitchEffect',
          dissolveArrow: 'none',
          definitePosition: 'slashPosition',
@@ -152,17 +156,17 @@ function funstuff(d: v3.Difficulty) {
          222,
          224,
          ...[165, 173, 189, 190, 192, 205, 221, 222, 224].map((e) => e + 224),
-         ...range(453, 509, 8),
+         ...range(453, 510, 8),
       ]
    ) {
       at(d.chains, time).forEach((c) => {
          const json = new v3.ColorNote(c).toJSON();
-         json.b += 0.865;
-         json.customData.coordinates = [json.c ? 2 : -2, json.y];
-         json.customData.noteJumpMovementSpeed = 50;
-         json.customData.noteJumpStartBeatOffset = 0.375;
+         json.b += 0.99;
+         json.customData.coordinates = [json.x - 2, json.y];
+         json.customData.noteJumpMovementSpeed = 16;
+         json.customData.noteJumpStartBeatOffset = -1;
          json.customData.uninteractable = true;
-         json.customData.track = 'trackDrop2PewPew';
+         json.customData.track = 'pewPew';
          json.customData.localRotation = [
             0,
             0,
@@ -171,10 +175,301 @@ function funstuff(d: v3.Difficulty) {
          d.customData.fakeColorNotes!.push(json);
       });
    }
+
+   d.customData.fakeObstacles = d.customData.fakeObstacles!.filter(
+      (e) =>
+         !(
+            (e.b! > 45.49 && e.b! < 45.52) ||
+            (e.b! > 77.49 && e.b! < 77.52) ||
+            (e.b! > 269.49 && e.b! < 269.52) ||
+            (e.b! > 301.49 && e.b! < 301.52)
+         ),
+   );
+
+   const wa = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 150 && o.b! < 160.875) || (o.b! > 374 && o.b! < 384.875)) &&
+         o.customData!.coordinates!.every((e) => e > -7 && e < 7),
+   );
+   d.customData.pointDefinitions.waDefPos = [
+      [0, 0, 32, 0],
+      [0, 0, -4, 0.45],
+      [0, 0, -64, 1],
+   ];
+   wa.forEach((o) => {
+      o.b! -= 1.75;
+      o.b! += 2;
+      o.customData!.noteJumpStartBeatOffset = 0;
+      o.customData!.animation = {
+         definitePosition: 'waDefPos',
+         dissolve: 'moveMeFade',
+      };
+   });
+
+   const night = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 38 && o.b! < 39) ||
+            (o.b! > 70 && o.b! < 71) ||
+            (o.b! > 262 && o.b! < 263) ||
+            (o.b! > 294 && o.b! < 295)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.nightPos = [
+      [0, 1, 16, 0],
+      [-0.5, 1, 16, 0.499],
+      [-0.5, -9999, -9999, 0.5, 'easeStep'],
+   ];
+   d.customData.pointDefinitions.nightFade = [
+      [0, 0],
+      [1, 1 / 64],
+      [1, 0.5 - 1 / 64],
+      [0, 0.5],
+   ];
+   night.forEach((o) => {
+      o.b! -= 1.75;
+      o.b! += 6;
+      o.customData!.noteJumpStartBeatOffset = 4;
+      o.customData!.animation = {
+         definitePosition: 'nightPos',
+         dissolve: 'nightFade',
+      };
+   });
+
+   const and = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 39 && o.b! < 40) ||
+            (o.b! > 71 && o.b! < 72) ||
+            (o.b! > 263 && o.b! < 264) ||
+            (o.b! > 295 && o.b! < 296)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.andPos = [
+      [0, 0.5, 16.5, 0],
+      [0, 0.5, 17, 0.499],
+      [0, -9999, -9999, 0.5, 'easeStep'],
+   ];
+   d.customData.pointDefinitions.andFade = [
+      [0, 0],
+      [1, 1 / 32],
+      [1, 0.5 - 1 / 32],
+      [0, 0.5],
+   ];
+   and.forEach((o) => {
+      o.b! -= 1.75;
+      o.b! += 5;
+      o.customData!.noteJumpStartBeatOffset = 3;
+      o.customData!.animation = {
+         definitePosition: 'andPos',
+         dissolve: 'andFade',
+      };
+   });
+
+   const day = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 40 && o.b! < 41) ||
+            (o.b! > 72 && o.b! < 73) ||
+            (o.b! > 264 && o.b! < 265) ||
+            (o.b! > 296 && o.b! < 297)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.dayPos = [
+      [0, 0, 16, 0],
+      [0.5, 0, 16, 0.499],
+      [0.5, -9999, -9999, 0.5, 'easeStep'],
+   ];
+   d.customData.pointDefinitions.dayFade = [
+      [0, 0],
+      [1, 1 / 16],
+      [1, 0.5 - 1 / 16],
+      [0, 0.5],
+   ];
+   day.forEach((o) => {
+      o.b! -= 1.75;
+      o.b! += 4;
+      o.customData!.noteJumpStartBeatOffset = 2;
+      o.customData!.animation = {
+         definitePosition: 'dayPos',
+         dissolve: 'dayFade',
+      };
+   });
+
+   const tune = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 45.24 && o.b! < 45.26) ||
+            (o.b! > 77.24 && o.b! < 77.26) ||
+            (o.b! > 269.24 && o.b! < 269.26) ||
+            (o.b! > 301.24 && o.b! < 301.26)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.tuneFade = [
+      [0, 0],
+      [1, 0.1],
+      [1, 0.5],
+      [0, 0.625],
+   ];
+   tune.forEach((o) => {
+      o.b! += 0.75;
+      o.customData!.noteJumpStartBeatOffset! += 0.75;
+      o.customData!.animation = {
+         definitePosition: [
+            [0, 0, 16, 0],
+            [0, 0.5, 16, 0.5, 'easeOutQuad'],
+            [o.customData!.coordinates![0] * 5, 0, 16, 0.625, 'easeInQuad'],
+         ],
+         dissolve: 'tuneFade',
+      };
+   });
+
+   const heart = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 48.24 && o.b! < 48.26) ||
+            (o.b! > 80.24 && o.b! < 80.26) ||
+            (o.b! > 272.24 && o.b! < 272.26) ||
+            (o.b! > 304.24 && o.b! < 304.26)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.heartFade = [
+      [0, 0],
+      [1, 0.0125],
+      [1, 0.485],
+      [0, 0.55],
+   ];
+   heart.forEach((o) => {
+      o.b! += 3.5;
+      o.customData!.noteJumpStartBeatOffset = 2.5;
+      o.customData!.animation = {
+         definitePosition: [
+            [0, -0.25, 0, 0],
+            [0, 0.5, 16, random(0.4875, 0.5125), 'easeOutCirc'],
+            [0, -32, 16, 0.75, 'easeInQuad'],
+         ],
+         dissolve: 'heartFade',
+      };
+   });
+
+   const moveMe = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 54.5 && o.b! < 55.5) || (o.b! > 278.5 && o.b! < 279.5)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.moveMeFade = [
+      [0, 0],
+      [1, 0.1],
+      [1, 0.95],
+      [0, 0.975],
+   ];
+   moveMe.forEach((o) => {
+      o.b! += 2.75;
+      o.customData!.noteJumpStartBeatOffset = 3;
+      o.customData!.animation = {
+         definitePosition: [
+            [0, 0.5, 16, 0],
+            [0, 0.5, 18, 0.95],
+            [
+               Math.sign(o.customData!.coordinates![0] - 0.8) +
+               (o.customData!.coordinates![0] - 0.8) * 5,
+               0.5,
+               18,
+               1,
+               'easeInQuad',
+            ],
+         ],
+         dissolve: 'moveMeFade',
+      };
+   });
+
+   const yourBody = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 64 && o.b! < 65) || (o.b! > 288 && o.b! < 289)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.yourBodyDefPos = [
+      [0, 0, 24, 0],
+      [0, 0.5, 25, 1, 'easeOutSine'],
+   ];
+   d.customData.pointDefinitions.yourBodyFade = [
+      [0, 0],
+      [1, 0.05],
+      [1, 0.75],
+      [0, 1],
+   ];
+   yourBody.forEach((o) => {
+      o.b! += 0.75;
+      o.customData!.noteJumpStartBeatOffset = 0.75;
+      o.customData!.animation = {
+         definitePosition: 'yourBodyDefPos',
+         dissolve: 'yourBodyFade',
+      };
+   });
+
+   const jumpAround = d.customData.fakeObstacles!.filter(
+      (o) =>
+         ((o.b! > 86.5 && o.b! < 92) || (o.b! > 310.5 && o.b! < 316)) &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         productAry(o.customData!.size as types.Vector2) > 0.001,
+   );
+   d.customData.pointDefinitions.jumpAroundDefPos = [
+      [0.5, -7, 25, 0],
+      [0.5, 0, 25, 0.125, 'easeInCirc'],
+      [0.5, 1, 25, 0.25, 'easeOutElastic'],
+      [0.5, 1.25, 25.5, 1, 'easeInQuad'],
+   ];
+   d.customData.pointDefinitions.jumpAroundFade = [
+      [0, 0],
+      [0, 0.05],
+      [1, 0.15],
+      [1, 0.5],
+      [0, 0.75],
+   ];
+   jumpAround.forEach((o) => {
+      o.customData!.animation = {
+         definitePosition: 'jumpAroundDefPos',
+         dissolve: 'jumpAroundFade',
+      };
+   });
+
+   const heartLogo = d.customData.fakeObstacles!.filter(
+      (o) =>
+         o.b! > 354.5 &&
+         o.b! < 357 &&
+         o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
+         o.customData!.coordinates![1] !== 0,
+   );
+   d.customData.pointDefinitions.heartLogoDefPos = [
+      [0, 0, 21, 0],
+      [0, 0, 20, 0.5, 'easeInOutQuad'],
+   ];
+   d.customData.pointDefinitions.heartLogoFade = [
+      [0, 0],
+      [1, 0.125],
+      [1, 0.45],
+      [0, 0.5],
+   ];
+   heartLogo.forEach((o) => {
+      if (o.b! > 354.74 && o.b! < 354.76) {
+         o.b! += 4;
+         o.customData!.noteJumpStartBeatOffset = 2;
+      } else {
+         o.b! += 2;
+         o.customData!.noteJumpStartBeatOffset = 0;
+      }
+      o.b! -= 1.75;
+      o.customData!.animation = {
+         definitePosition: 'heartLogoDefPos',
+         dissolve: 'heartLogoFade',
+      };
+   });
 }
 
 const info = load.infoSync(2);
-info.song.title = '_Girly Cupid';
+info.song.title = 'Girly Cupid';
 info.colorSchemes = [
    {
       useOverride: true,
@@ -190,15 +485,33 @@ info.colorSchemes = [
 ];
 for (const [_, d] of info.listMap()) {
    const difficulty = load.difficultySync(d.filename, 3);
-   difficulty.customData.bookmarks = lightshow.customData.bookmarks;
-   difficulty.basicEvents = lightshow.basicEvents.filter(
-      (e) => !e.isBpmEvent(),
-   );
-   difficulty.customData.fakeObstacles = lightshow.customData.fakeObstacles;
-   difficulty.obstacles = [];
-
-   if (d.characteristic === 'Standard') {
+   if (d.characteristic !== 'Legacy') {
+      difficulty.customData.fakeObstacles = deepCopy(
+         lightshow.customData.fakeObstacles,
+      );
+      difficulty.customData.bookmarks = deepCopy(
+         lightshow.customData.bookmarks,
+      );
+      difficulty.customData.bookmarks!.forEach(
+         (bm, i) => (bm.c = lerpColor(
+            [0.875, 0.125, 0.125],
+            [0.375, 0.125, 0.875],
+            i / difficulty.customData.bookmarks!.length,
+         )),
+      );
+      difficulty.basicEvents = lightshow.basicEvents.filter(
+         (e) => !e.isBpmEvent(),
+      );
+      difficulty.obstacles = [];
       funstuff(difficulty);
+   }
+
+   d.customData._information = [
+      'Submission #41',
+      '3rd place in Building Block 2020',
+      '5th track of album city hop',
+   ];
+   if (d.characteristic === 'Standard') {
       if (d.difficulty === 'Easy') d.customData._difficultyLabel = 'Move Me';
       if (d.difficulty === 'Normal') {
          d.customData._difficultyLabel = "Jumpin' Around";
@@ -215,7 +528,6 @@ for (const [_, d] of info.listMap()) {
    }
 
    if (d.characteristic === 'OneSaber') {
-      funstuff(difficulty);
       if (d.difficulty === 'Normal') {
          d.customData._difficultyLabel = 'Tune Never Stops';
       }

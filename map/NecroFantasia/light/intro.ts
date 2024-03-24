@@ -4,11 +4,14 @@ import {
    EventBoxColor,
    IndexFilterType,
    pRandom,
-   range,
+   range as rangeEx,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 export default function (data: v3.Difficulty) {
    // for (const id of itNum(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {

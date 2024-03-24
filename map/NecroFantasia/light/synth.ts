@@ -2,11 +2,14 @@ import {
    EaseType,
    EventBoxColor,
    IndexFilterType,
-   range,
+   range as rangeEx,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const pattern1 = [2, 0, 3, 1, 5, 4, 6, 7];
 const pattern2 = [2, 0, 3, 1, 6, 7, 0, 4];

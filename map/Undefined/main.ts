@@ -1,6 +1,5 @@
 import walls from './walls.ts';
 import lights from './lights.ts';
-import jankySliderConvert from '../../utility/jankySliderConvert.ts';
 import { convert, globals, isV3, lerp, load, normalize, save } from '../../depsLocal.ts';
 
 globals.directory = Deno.build.os === 'linux'
@@ -53,7 +52,6 @@ difficultyList.forEach((d) => {
    if (isV3(d.data)) {
       d.data.basicEvents = [];
       d.data.useNormalEventsAsCompatibleEvents = false;
-      jankySliderConvert(d.data);
       for (let i = 0, j = 0, len = d.data.colorNotes.length; i < len; i++) {
          const n = d.data.colorNotes[i];
          if (n.direction === 8) {

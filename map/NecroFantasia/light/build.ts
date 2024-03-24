@@ -6,12 +6,15 @@ import {
    IndexFilterType,
    pRandomFn,
    RandomType,
-   range,
+   range as rangeEx,
    TransitionType,
    types,
    v3,
 } from '../../../depsLocal.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const buildTime = [294, 614];
 const sakuraTime = [310, 630];

@@ -6,12 +6,15 @@ import {
    IndexFilterType,
    pRandomFn,
    RandomType,
-   range,
+   range as rangeEx,
    TransitionType,
    v3,
 } from '../../../depsLocal.ts';
 import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
+function range(start: number, end?: number, step?: number): number[] {
+   return rangeEx(start, end!, step!, true);
+}
 
 const timingAry = [
    0,

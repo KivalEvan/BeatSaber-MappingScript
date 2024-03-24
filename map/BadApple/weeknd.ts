@@ -1,12 +1,12 @@
 import { BeatPerMinute, ext, globals, load, save, v3 } from '../../depsLocal.ts';
-import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
+import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 
 globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/CustomWIPLevels/Bad Apple/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Bad Apple';
 
 const difficulty = load.difficultySync('EasyLawless.dat', 3);
-const info = load.infoSync();
+const info = load.infoSync(2);
 
 const BPM = BeatPerMinute.create(info.beatsPerMinute);
 
