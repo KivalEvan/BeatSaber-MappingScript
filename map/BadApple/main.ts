@@ -1,167 +1,225 @@
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
-import {
-   BeatPerMinute,
-   convert,
-   deepCopy,
-   ext,
-   globals,
-   load,
-   range,
-   save,
-   types,
-   v3,
-   v4,
-} from '../../depsLocal.ts';
+import { globals, random, range, save, v4 } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
+import { lightitup, LightPositionMapping } from './lightitup.ts';
 
-globals.directory = wipPath('Bad Apple');
-console.log('loading gif');
-const image = Deno.readFileSync('./map/BadApple/badapplelattice.gif');
-console.log('decoding gif');
-const img = await imagescript.GIF.decode(image);
-const screenX = 27;
-const screenY = 10;
-const fps = 30;
+globals.directory = wipPath('Bad Apple', true);
+const gifFile = Deno.readFile('./map/BadApple/badhiphop.gif');
 
-const lightshow = v3.Difficulty.create();
-const info = load.infoSync(2);
-info.audio.audioDataFilename = 'xdd.dat';
-info.environmentName = 'LatticeEnvironment';
-info.environmentNames = ['LatticeEnvironment'];
-info.listMap().forEach((e) => {
-   e[1].filename = 'DaftPunk.dat';
-   e[1].lightshowFilename = 'DaftPunk.dat';
-   e[1].authors.mappers = ['Kival Evan'];
-});
-save.infoSync(info);
+const lightshow = v4.Lightshow.create().setFilename('HipHop.lightshow.dat');
 
-const BPM = BeatPerMinute.create(info.audio.bpm);
-
-// difficulty.addBasicEvents({
-//    type: 6,
-//    value: 9,
-//    floatValue: 2,
-// });
-for (const i of range(4)) {
-   lightshow.addLightRotationEventBoxGroups(
-      {
-         id: i * 7 + 4,
-         boxes: [{ axis: 2, events: [{ rotation: i > 1 ? 180 : 0 }] }],
-      },
-      {
-         id: i * 7 + 1,
-         boxes: [{ events: [{ rotation: 315 }], flip: i > 1 ? 1 : 0 }],
-      },
-   );
+for (const id of range(14, 18, true)) {
+   // geo yeet
    lightshow.addLightTranslationEventBoxGroups({
-      id: i * 7 + 0,
+      id,
+      boxes: [{ axis: 1, events: [{ translation: -9999 }] }],
+   });
+}
+for (const id of [6, 8]) {
+   // 10 group window train
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         { axis: 0, events: [{ translation: -0.35 }] },
+         { axis: 1, events: [{ translation: id === 6 ? 0.1 : 0.3 }] },
+      ],
+   });
+}
+for (const id of [10, 12]) {
+   // 4 group window train
+   lightshow.addLightRotationEventBoxGroups({
+      id,
+      boxes: [{ axis: 1, events: [{ rotation: 90 }] }],
+   });
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         { axis: 0, events: [{ translation: -2.25 }] },
+         { axis: 1, events: [{ translation: id === 10 ? -0.1 : 0.5 }] },
+         { axis: 2, events: [{ translation: 0.3 }] },
+      ],
+   });
+}
+for (const id of [2, 5]) {
+   // ceiling lights
+   lightshow.addLightRotationEventBoxGroups({
+      id,
       boxes: [
          {
             axis: 0,
-            events: [{ translation: -1 }],
-            gapDistribution: 2,
-            affectFirst: 1,
+            events: [{ rotation: id === 2 ? 5 : 355 }],
          },
          {
             axis: 1,
-            events: [{ translation: -.5 + i * 0.34 }],
-            flip: i > 1 ? 1 : 0,
+            events: [{ rotation: 270 }],
          },
-         { axis: 2, events: [{ translation: 2 - i * 0.34 }] },
       ],
    });
-   lightshow.addFxEventBoxGroups({
-      id: i * 7 + 1,
-      boxes: [{ events: [{ value: -2.5 }] }],
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         {
+            axis: 0,
+            events: [{ translation: -1.1 }],
+            affectFirst: 1,
+            gapDistribution: 0.3525,
+            gapDistributionType: 2,
+         },
+         { axis: 1, events: [{ translation: id === 2 ? -0.05 : 1.4 }] },
+         { axis: 2, events: [{ translation: 5.1 }] },
+      ],
+   });
+}
+for (const id of [22, 25, 28, 31]) {
+   lightshow.addLightRotationEventBoxGroups({
+      id,
+      boxes: [
+         { axis: 0, events: [{ rotation: random(0, 360) }] },
+         { axis: 2, events: [{ rotation: random(0, 360) }] },
+      ],
+   }, {
+      time: 512,
+      id,
+      boxes: [
+         { axis: 0, events: [{ loop: 16, rotation: random(0, 360) }] },
+         { axis: 2, events: [{ loop: 16, rotation: random(0, 360) }] },
+      ],
+   });
+}
+for (const id of [22, 28]) {
+   // balls
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         { axis: 0, events: [{ translation: -1.45 }] },
+         { axis: 1, events: [{ translation: -0.25 }] },
+         { axis: 2, events: [{ translation: 4.85 }] },
+      ],
+   });
+}
+for (const id of [25, 31]) {
+   // balls 2
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         { axis: 0, events: [{ translation: -1.45 }] },
+         { axis: 1, events: [{ translation: 2 }] },
+         { axis: 2, events: [{ translation: 2.75 }] },
+      ],
+   });
+}
+for (const id of [20, 26]) {
+   // balls
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         {
+            axis: 0,
+            events: [{ translation: -0.55 }],
+            filter: { type: 2, p0: 0, p1: 0 },
+         },
+         {
+            axis: 0,
+            events: [{ translation: -0.15 }],
+            filter: { type: 2, p0: 1, p1: 0 },
+         },
+         {
+            axis: 0,
+            events: [{ translation: 0.2 }],
+            filter: { type: 2, p0: 2, p1: 0 },
+         },
+         { axis: 1, events: [{ translation: -0.25 }] },
+         { axis: 2, events: [{ translation: 4.85 }] },
+      ],
+   });
+}
+for (const id of [23, 29]) {
+   // balls
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         {
+            axis: 0,
+            events: [{ translation: -0.55 }],
+            filter: { type: 2, p0: 0, p1: 0 },
+         },
+         {
+            axis: 0,
+            events: [{ translation: -0.15 }],
+            filter: { type: 2, p0: 1, p1: 0 },
+         },
+         {
+            axis: 0,
+            events: [{ translation: 0.2 }],
+            filter: { type: 2, p0: 2, p1: 0 },
+         },
+         { axis: 1, events: [{ translation: 2 }] },
+         { axis: 2, events: [{ translation: 2.75 }] },
+      ],
+   });
+}
+for (const id of [21, 24, 27, 30]) {
+   // hoops shell
+   lightshow.addLightRotationEventBoxGroups({
+      id,
+      boxes: [
+         {
+            axis: 0,
+            events: [{ rotation: 180 }],
+         },
+      ],
+   });
+   lightshow.addLightTranslationEventBoxGroups({
+      id,
+      boxes: [
+         {
+            axis: 2,
+            events: [{ translation: 0.2 }],
+            gapDistribution: 0.4,
+            gapDistributionType: 2,
+            affectFirst: 1,
+         },
+      ],
    });
 }
 
-type LightPositionMapping = [
-   pos: types.Vector2,
-   group: number,
-   id: number,
-   mul?: number,
+const ballsMapping: LightPositionMapping[] = [
+   [[1, 8], 25, 0],
+   [[1, 1], 22, 0],
+   [[10, 8], 31, 0],
+   [[10, 1], 28, 0],
+];
+const hoopsMapping: LightPositionMapping[] = [
+   ...(range(3).map((e) => [[3 + e, 1], 20, e]) as LightPositionMapping[]),
+   ...(range(3).map((e) => [[3 + e, 8], 23, e]) as LightPositionMapping[]),
+   ...(range(3).map((e) => [[8 - e, 1], 26, e]) as LightPositionMapping[]),
+   ...(range(3).map((e) => [[8 - e, 8], 29, e]) as LightPositionMapping[]),
+];
+const trainsMapping: LightPositionMapping[] = [
+   ...(range(12).map((e) => [[e, 3], 11, e]) as LightPositionMapping[]),
+   ...(range(12).map((e) => [[11 - e, 6], 13, e]) as LightPositionMapping[]),
+   ...(range(12).map((e) => [[e, 4], 7, 9 + e]) as LightPositionMapping[]),
+   ...(range(12).map((e) => [[e, 5], 9, 9 + e]) as LightPositionMapping[]),
+];
+const ceilingMappings: LightPositionMapping[] = [
+   ...(range(12).map((e) => [[e, 2], 2, e]) as LightPositionMapping[]),
+   ...(range(12).map((e) => [[11 - e, 7], 5, e]) as LightPositionMapping[]),
 ];
 const allMapping: LightPositionMapping[] = [
-   ...range(8).map((e) => [[e, 7], 1, e]),
-   ...range(8).map((e) => [[e, 6], 4, e]),
-   ...range(8).map((e) => [[e, 5], 8, 7 - e]),
-   ...range(8).map((e) => [[e, 4], 11, 7 - e]),
-   ...range(8).map((e) => [[e, 3], 15, e]),
-   ...range(8).map((e) => [[e, 2], 18, e]),
-   ...range(8).map((e) => [[e, 1], 22, 7 - e]),
-   ...range(8).map((e) => [[e, 0], 25, 7 - e]),
-];
-
-const screenLight: { [key: string]: number } = {};
-img.forEach((frame, i) => {
-   console.log('reading frame', i);
-   frame.saturation(0, true);
-   const lightThis: { [key: string]: number } = {};
-   for (let y = 0; y < Math.min(frame.height); y++) {
-      for (let x = 0; x < Math.min(frame.width); x++) {
-         const pos = [-1 + x, y];
-         const colorAry = frame.getRGBAAt(x + 1, y + 1);
-         if (colorAry[3] === 0) {
-            continue;
-         }
-         if (screenLight[pos.toString()] === colorAry[0]) {
-            continue;
-         }
-         lightThis[pos.toString()] = colorAry[0] / 255;
-         screenLight[pos.toString()] = colorAry[0];
-      }
-   }
-   const group: Record<number, [id: number, val: number][]> = {};
-   for (const [key, value] of Object.entries(lightThis)) {
-      const pos = key.split(',').map((e) => +e) as types.Vector2;
-      const filtered = allMapping.filter(
-         (e) => e[0][0] === pos[0] && e[0][1] === pos[1],
-      );
-      for (const mapped of filtered) {
-         group[mapped[1]] ||= [];
-         group[mapped[1]].push([mapped[2], value * (mapped[3] || 1)]);
-      }
-   }
-   for (const [key, value] of Object.entries(group)) {
-      lightshow.addLightColorEventBoxGroups({
-         time: 22 + BPM.toBeatTime(i / fps),
-         id: +key,
-         boxes: value.map(
-            (e) =>
-               v3.LightColorEventBox.create({
-                  filter: { type: 2, p0: e[0] },
-                  events: [{ color: 1, brightness: e[1] }],
-               })[0],
-         ),
-      });
-   }
+   ...ballsMapping,
+   ...hoopsMapping,
+   ...trainsMapping,
+   ...ceilingMappings,
+].map((e) => {
+   e[0][1] = 9 - e[0][1];
+   e[3] = 2;
+   return e;
 });
-
-save.difficultySync(v4.Difficulty.create().setFilename('Empty.dat'));
-save.lightshowSync(lightshow.setFilename('DaftPunk.dat'));
-
-const bpmInfo = JSON.parse(
-   Deno.readTextFileSync(globals.directory + '/BPMInfo.dat'),
-) as types.v2.IBPMInfo;
-
-Deno.writeTextFileSync(
-   globals.directory + '/xdd.dat',
-   JSON.stringify(
-      {
-         version: '4.0.0',
-         songChecksum: '',
-         songFrequency: bpmInfo._songFrequency,
-         songSampleCount: bpmInfo._songSampleCount,
-         bpmData: bpmInfo._regions.map((r) => {
-            return {
-               si: r._startSampleIndex,
-               ei: r._endSampleIndex,
-               sb: r._startBeat,
-               eb: r._endBeat,
-            };
-         }),
-         lufsData: [],
-      } satisfies types.v4.IAudio,
-   ),
+lightitup(
+   await imagescript.GIF.decode(await gifFile),
+   30,
+   allMapping,
+   lightshow,
 );
+
+save.lightshowSync(lightshow);

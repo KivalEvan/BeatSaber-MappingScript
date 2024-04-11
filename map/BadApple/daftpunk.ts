@@ -1,42 +1,12 @@
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
-import {
-   BeatPerMinute,
-   convert,
-   deepCopy,
-   ext,
-   globals,
-   load,
-   range,
-   save,
-   types,
-   v3,
-   v4,
-} from '../../depsLocal.ts';
+import { deepCopy, globals, range, save, v4 } from '../../depsLocal.ts';
 import wipPath from '../../utility/wipPath.ts';
+import { lightitup, LightPositionMapping } from './lightitup.ts';
 
 globals.directory = wipPath('Bad Apple');
-console.log('loading gif');
-const image = Deno.readFileSync('./map/BadApple/badxdd.gif');
-console.log('decoding gif');
-const img = await imagescript.GIF.decode(image);
-const screenX = 27;
-const screenY = 10;
-const fps = 30;
+const gifFile = Deno.readFile('./map/BadApple/badxdd.gif');
 
-const lightshow = v3.Difficulty.create();
-const info = load.infoSync(2);
-info.environmentName = 'DaftPunkEnvironment';
-info.environmentNames = ['DaftPunkEnvironment'];
-info.audio.audioDataFilename = 'xdd.dat';
-info.listMap().forEach((e) => {
-   e[1].filename = 'DaftPunk.dat';
-   e[1].lightshowFilename = 'DaftPunk.dat';
-   e[1].authors.mappers = ['Kival Evan'];
-});
-save.infoSync(info);
-
-const BPM = BeatPerMinute.create(info.audio.bpm);
-
+const lightshow = v4.Lightshow.create().setFilename('DaftPunk.lightshow.dat');
 // difficulty.addBasicEvents({
 //    type: 6,
 //    value: 9,
@@ -146,12 +116,6 @@ lightshow.addLightRotationEventBoxGroups(
    },
 );
 
-type LightPositionMapping = [
-   pos: types.Vector2,
-   group: number,
-   id: number,
-   mul?: number,
-];
 const triangleMapping: LightPositionMapping[] = [
    range(0, 0, true).map((id, x) => [id, [9 + x, 9]]),
    range(1, 3, true)
@@ -257,75 +221,13 @@ const allMapping = [
    ...orbit4Map,
 ];
 
-const screenLight: { [key: string]: number } = {};
-img.forEach((frame, i) => {
-   console.log('reading frame', i);
-   frame.saturation(0, true);
-   const lightThis: { [key: string]: number } = {};
-   for (let y = 0; y < Math.min(frame.height); y++) {
-      for (let x = 0; x < Math.min(frame.width); x++) {
-         const pos = [x, -3 + y];
-         const colorAry = frame.getRGBAAt(x + 1, y + 1);
-         if (colorAry[3] === 0) {
-            continue;
-         }
-         if (screenLight[pos.toString()] === colorAry[0]) {
-            continue;
-         }
-         lightThis[pos.toString()] = colorAry[0] / 255;
-         screenLight[pos.toString()] = colorAry[0];
-      }
-   }
-   const group: Record<number, [id: number, val: number][]> = {};
-   for (const [key, value] of Object.entries(lightThis)) {
-      const pos = key.split(',').map((e) => +e) as types.Vector2;
-      const filtered = allMapping.filter(
-         (e) => e[0][0] === pos[0] && e[0][1] === pos[1],
-      );
-      for (const mapped of filtered) {
-         group[mapped[1]] ||= [];
-         group[mapped[1]].push([mapped[2], value * (mapped[3] || 1)]);
-      }
-   }
-   for (const [key, value] of Object.entries(group)) {
-      lightshow.addLightColorEventBoxGroups({
-         time: 22 + BPM.toBeatTime(i / fps),
-         id: +key,
-         boxes: value.map(
-            (e) =>
-               v3.LightColorEventBox.create({
-                  filter: { type: 2, p0: e[0] },
-                  events: [{ color: 1, brightness: e[1] }],
-               })[0],
-         ),
-      });
-   }
-});
-
-save.difficultySync(v4.Difficulty.create().setFilename('Empty.dat'));
-save.lightshowSync(lightshow.setFilename('DaftPunk.dat'));
-
-const bpmInfo = JSON.parse(
-   Deno.readTextFileSync(globals.directory + '/BPMInfo.dat'),
-) as types.v2.IBPMInfo;
-
-Deno.writeTextFileSync(
-   globals.directory + '/xdd.dat',
-   JSON.stringify(
-      {
-         version: '4.0.0',
-         songChecksum: '',
-         songFrequency: bpmInfo._songFrequency,
-         songSampleCount: bpmInfo._songSampleCount,
-         bpmData: bpmInfo._regions.map((r) => {
-            return {
-               si: r._startSampleIndex,
-               ei: r._endSampleIndex,
-               sb: r._startBeat,
-               eb: r._endBeat,
-            };
-         }),
-         lufsData: [],
-      } satisfies types.v4.IAudio,
-   ),
+lightitup(
+   await imagescript.GIF.decode(await gifFile),
+   30,
+   allMapping,
+   lightshow,
+   0,
+   -3,
 );
+
+save.lightshowSync(lightshow);

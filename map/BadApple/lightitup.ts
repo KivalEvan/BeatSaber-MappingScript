@@ -1,0 +1,60 @@
+import { GIF } from 'https://deno.land/x/imagescript@1.2.17/ImageScript.js';
+import { BeatPerMinute, types } from '../../depsLocal.ts';
+
+export type LightPositionMapping = [
+   pos: types.Vector2,
+   group: number,
+   id: number,
+   mul?: number,
+];
+export function lightitup(
+   gif: GIF,
+   fps: number,
+   pixelMap: LightPositionMapping[],
+   lightshow: types.wrapper.IWrapLightshow,
+   xOffset = 0,
+   yOffset = 0,
+): void {
+   const BPM = new BeatPerMinute(138);
+   const screenLight: { [key: string]: number } = {};
+   gif.forEach((frame, i) => {
+      console.log('reading frame', i);
+      frame.saturation(0, true);
+      const lightThis: { [key: string]: number } = {};
+      for (let y = 0; y < Math.min(frame.height); y++) {
+         for (let x = 0; x < Math.min(frame.width); x++) {
+            const pos = [x + xOffset, y + yOffset];
+            const colorAry = frame.getRGBAAt(x + 1, y + 1);
+            if (colorAry[3] === 0) {
+               continue;
+            }
+            if (screenLight[pos.toString()] === colorAry[0]) {
+               continue;
+            }
+            lightThis[pos.toString()] = colorAry[0] / 255;
+            screenLight[pos.toString()] = colorAry[0];
+         }
+      }
+      const group: Record<number, [id: number, brightness: number][]> = {};
+      for (const [position, brightness] of Object.entries(lightThis)) {
+         const pos = position.split(',').map((e) => +e) as types.Vector2;
+         const filtered = pixelMap.filter(
+            (e) => e[0][0] === pos[0] && e[0][1] === pos[1],
+         );
+         for (const mapped of filtered) {
+            group[mapped[1]] ||= [];
+            group[mapped[1]].push([mapped[2], brightness * (mapped[3] || 1)]);
+         }
+      }
+      for (const [gid, bid] of Object.entries(group)) {
+         lightshow.addLightColorEventBoxGroups({
+            time: 22 + BPM.toBeatTime(i / fps),
+            id: +gid,
+            boxes: bid.map((e) => ({
+               filter: { type: 2, p0: e[0] },
+               events: [{ color: 1, brightness: e[1], easing: -1 }],
+            })),
+         });
+      }
+   });
+}

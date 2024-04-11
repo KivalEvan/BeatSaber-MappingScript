@@ -1,4 +1,4 @@
-import { genCircle } from '../../circ.ts';
+import { genCircle } from '../../utility/circ.ts';
 import {
    colorFrom,
    degToRad,
@@ -83,7 +83,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       {
          lookupMethod: 'EndsWith',
          id: 'EnergyPanel',
-         position: [0, 0.125, 6.5],
+         position: [0, 0.125, 6],
       },
       {
          lookupMethod: 'EndsWith',

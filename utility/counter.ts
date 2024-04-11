@@ -1,4 +1,4 @@
-import { ensureFileSync } from 'https://deno.land/std@0.192.0/fs/mod.ts';
+import { ensureFileSync } from 'https://deno.land/std@0.221.0/fs/mod.ts';
 
 export default function (path = './') {
    let CWD = new URL('.', path).pathname;

@@ -1,6 +1,6 @@
 import * as bsmap from '../../depsLocal.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
-import { dirname } from 'https://deno.land/std@0.217.0/path/mod.ts';
+import { dirname } from 'https://deno.land/std@0.221.0/path/mod.ts';
 
 const WORKING_DIRECTORY = dirname(Deno.mainModule).replace('file:///', '') + '/'; // for some reason deno doesnt like to deal with file:///
 const MAP_DIRECTORY =

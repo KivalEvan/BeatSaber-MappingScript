@@ -1,6 +1,6 @@
-import { deepCopy, mod, radToDeg, vectorAdd } from '../../depsLocal.ts';
-import { ext, isVector4, types, v3, vectorMul } from '../../depsLocal.ts';
-import phoenixModel from './phoenix.json' assert { type: 'json' };
+import { mod, radToDeg, vectorAdd } from '../../depsLocal.ts';
+import { isVector4, types, v3, vectorMul } from '../../depsLocal.ts';
+import phoenixModel from './phoenix.json' with { type: 'json' };
 
 export default function (data: v3.Difficulty, is360?: boolean) {
    const envAry: types.v3.IChromaEnvironment[] = [];

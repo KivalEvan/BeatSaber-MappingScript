@@ -1,15 +1,16 @@
-import { ext, load } from './depsLocal.ts';
-
+import { ext, globals, load } from '../depsLocal.ts';
+import wipPath from '../utility/wipPath.ts';
 const countEbg = ext.stats.countEbg;
-const data = load.difficultySync(
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Jaroslav Beck - Beat Saber (Built in)/OneSaberEasy.dat',
-);
+
+globals.directory = wipPath('Bad Apple', true);
+const data = load.lightshowSync('Common.lightshow.dat');
 
 console.log(Object.keys(countEbg(data.lightColorEventBoxGroups)));
 console.log(Object.keys(countEbg(data.lightRotationEventBoxGroups)));
 console.log(Object.keys(countEbg(data.lightTranslationEventBoxGroups)));
 console.log(Object.keys(countEbg(data.fxEventBoxGroups)));
 
+console.log(data.basicEvents.map((e) => e.type));
 console.log(
    Array.from(
       new Set([
@@ -22,4 +23,3 @@ console.log(
       ]),
    ).sort((a, b) => a - b),
 );
-console.log(data.basicEvents.map((e) => e.type));
