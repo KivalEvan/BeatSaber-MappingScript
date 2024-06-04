@@ -621,7 +621,7 @@ export default async function () {
    }
    for (const id of range(40)) {
       const j = id % 4;
-      const x = j >= 2 ? MAX_X - 3 + (j % 2) : 0 + (j % 2);
+      const x = j >= 2 ? MAX_X - 2 + (j % 2) : 0 + (j % 2);
       const y = Math.floor(id / 4);
       allMapping.push([[x, MAX_Y - y], 3, id, 2.5]);
    }
@@ -683,24 +683,24 @@ export default async function () {
    allMapping.push([[MAX_X / 2, 1], 5, 19, 2.5]);
    allMapping.push([[1, 3], 5, 20, 2.5]);
    allMapping.push([[0, 3], 5, 21, 2.5]);
-   allMapping.push([[MAX_X - 2, 3], 5, 22, 2.5]);
-   allMapping.push([[MAX_X - 1, 3], 5, 23, 2.5]);
+   allMapping.push([[MAX_X - 1, 3], 5, 22, 2.5]);
+   allMapping.push([[MAX_X - 2, 3], 5, 23, 2.5]);
    allMapping.push([[1, 2], 5, 24, 2.5]);
    allMapping.push([[0, 2], 5, 25, 2.5]);
-   allMapping.push([[MAX_X - 2, 2], 5, 26, 2.5]);
-   allMapping.push([[MAX_X - 1, 2], 5, 27, 2.5]);
+   allMapping.push([[MAX_X - 1, 2], 5, 26, 2.5]);
+   allMapping.push([[MAX_X - 2, 2], 5, 27, 2.5]);
    allMapping.push([[1, 1], 5, 28, 2.5]);
    allMapping.push([[0, 1], 5, 29, 2.5]);
-   allMapping.push([[MAX_X - 2, 1], 5, 30, 2.5]);
-   allMapping.push([[MAX_X - 1, 1], 5, 31, 2.5]);
+   allMapping.push([[MAX_X - 1, 1], 5, 30, 2.5]);
+   allMapping.push([[MAX_X - 2, 1], 5, 31, 2.5]);
    allMapping.push([[3, MAX_Y], 5, 32, 2.5]);
    allMapping.push([[2, MAX_Y], 5, 33, 2.5]);
-   allMapping.push([[MAX_X - 4, MAX_Y], 5, 34, 2.5]);
-   allMapping.push([[MAX_X - 3, MAX_Y], 5, 35, 2.5]);
+   allMapping.push([[MAX_X - 3, MAX_Y], 5, 34, 2.5]);
+   allMapping.push([[MAX_X - 4, MAX_Y], 5, 35, 2.5]);
    allMapping.push([[3, MAX_Y - 1], 5, 36, 2.5]);
    allMapping.push([[2, MAX_Y - 1], 5, 37, 2.5]);
-   allMapping.push([[MAX_X - 4, MAX_Y - 1], 5, 38, 2.5]);
-   allMapping.push([[MAX_X - 3, MAX_Y - 1], 5, 39, 2.5]);
+   allMapping.push([[MAX_X - 3, MAX_Y - 1], 5, 38, 2.5]);
+   allMapping.push([[MAX_X - 4, MAX_Y - 1], 5, 39, 2.5]);
 
    allMapping.forEach((e) => {
       if (e[3]) {
