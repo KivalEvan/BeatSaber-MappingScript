@@ -11,7 +11,7 @@
    },
    "tasks": {
       "environment": "deno run --allow-read=. --allow-write=. --allow-hrtime ./environment-enhancement/main.ts",
-      "map": "deno run --allow-read --allow-write --allow-hrtime --allow-net ./map/main.ts",
-      "map:watch": "deno run --allow-read --allow-write --allow-hrtime --allow-net --watch ./map/main.ts"
+      "map": "deno run --allow-read --allow-write --allow-hrtime --allow-run --allow-net ./map/main.ts",
+      "map:watch": "deno run --allow-read --allow-write --allow-hrtime --allow-net --allow-run --watch ./map/main.ts"
    }
 }

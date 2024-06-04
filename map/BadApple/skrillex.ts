@@ -51,7 +51,7 @@ for (let y = 0; y < screenY; y++) {
 }
 
 console.log('loading gif');
-const image = Deno.readFileSync(WORKING_DIRECTORY + 'badapple.gif');
+const image = Deno.readFileSync(WORKING_DIRECTORY + 'badApple.gif');
 console.log('decoding gif');
 const img = await imagescript.GIF.decode(image);
 let i = 0;

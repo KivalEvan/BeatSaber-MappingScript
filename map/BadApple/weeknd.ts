@@ -47,7 +47,7 @@ for (let id = 20; id < 22; id++) {
 }
 
 console.log('loading gif');
-const image = Deno.readFileSync('./map/BadApple/badsmall.gif');
+const image = Deno.readFileSync('./map/BadApple/badWeeknd.gif');
 console.log('decoding gif');
 const img = await imagescript.GIF.decode(image);
 let i = 0;

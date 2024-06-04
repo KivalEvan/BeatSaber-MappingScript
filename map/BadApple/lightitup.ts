@@ -1,5 +1,5 @@
 import { GIF } from 'https://deno.land/x/imagescript@1.2.17/ImageScript.js';
-import { BeatPerMinute, types } from '../../depsLocal.ts';
+import { logger, TimeProcessor, types } from '../../depsLocal.ts';
 
 export type LightPositionMapping = [
    pos: types.Vector2,
@@ -11,14 +11,21 @@ export function lightitup(
    gif: GIF,
    fps: number,
    pixelMap: LightPositionMapping[],
-   lightshow: types.wrapper.IWrapLightshow,
+   lightshow: types.wrapper.IWrapBeatmap,
    xOffset = 0,
    yOffset = 0,
 ): void {
-   const BPM = new BeatPerMinute(138);
+   const timeProc = new TimeProcessor(138);
    const screenLight: { [key: string]: number } = {};
+   let skip = false;
    gif.forEach((frame, i) => {
-      console.log('reading frame', i);
+      const prog = Math.floor(((i + 1) / gif.length) * 100);
+      if (prog % 20 === 0 && !skip) {
+         logger.info('Bad Apple-ing progress (%):', prog);
+         skip = true;
+      } else if (prog % 20 !== 0) {
+         skip = false;
+      }
       frame.saturation(0, true);
       const lightThis: { [key: string]: number } = {};
       for (let y = 0; y < Math.min(frame.height); y++) {
@@ -48,7 +55,7 @@ export function lightitup(
       }
       for (const [gid, bid] of Object.entries(group)) {
          lightshow.addLightColorEventBoxGroups({
-            time: 22 + BPM.toBeatTime(i / fps),
+            time: 1 + timeProc.toBeatTime(i / fps),
             id: +gid,
             boxes: bid.map((e) => ({
                filter: { type: 2, p0: e[0] },
