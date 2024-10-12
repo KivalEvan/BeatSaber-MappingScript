@@ -1,6 +1,6 @@
 import { colorFrom, lerp, normalize, v3 } from '../../depsLocal.ts';
 
-export function walls(data: v3.Difficulty) {
+export function walls(data: types.wrapper.IWrapBeatmap) {
    let tempWall = v3.Obstacle.create(
       {
          b: 68.75,

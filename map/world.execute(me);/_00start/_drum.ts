@@ -10,7 +10,7 @@ import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_c
 import { generateSeed, objectTimeShift } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const light: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
       {
          color: EventBoxColor.WHITE,
@@ -21,19 +21,19 @@ export default function (data: v3.Difficulty) {
          time: 0.25,
          color: EventBoxColor.WHITE,
          brightness: Brightness.FLASH,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 0.3125,
          color: EventBoxColor.WHITE,
          brightness: Brightness.MODERATE,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 0.375,
          color: EventBoxColor.WHITE,
          brightness: Brightness.FULL,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
    ];
 
@@ -90,7 +90,7 @@ export default function (data: v3.Difficulty) {
                      {
                         color: EventBoxColor.WHITE,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.EXTEND,
+                        previous: 1,
                      },
                   ],
                },
@@ -107,7 +107,7 @@ export default function (data: v3.Difficulty) {
                      {
                         color: EventBoxColor.WHITE,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         frequency: 12,
                      },
                   ],

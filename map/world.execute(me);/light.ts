@@ -1,4 +1,4 @@
-import { BeatPerMinute, v3 } from '../../depsLocal.ts';
+import { TimeProcessor, v3 } from '../../depsLocal.ts';
 import * as debug from './_debug.ts';
 import _00 from './_00start/mod.ts';
 import _01 from './_01intro/mod.ts';
@@ -15,7 +15,7 @@ import _11 from './_11chorus/mod.ts';
 import _12 from './_12chorus/mod.ts';
 import _13 from './_13outro/mod.ts';
 
-export default (d: v3.Difficulty, bpm: BeatPerMinute) => {
+export default (d: types.wrapper.IWrapBeatmap, bpm: TimeProcessor) => {
    _00(d);
    _01(d);
    _02(d);

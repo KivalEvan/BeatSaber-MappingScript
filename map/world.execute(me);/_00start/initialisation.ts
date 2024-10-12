@@ -5,7 +5,7 @@ import {
    EaseType,
    EventLightValue,
    LightRotationDirection,
-   v3,
+   types,
 } from '../../../depsLocal.ts';
 import {
    Brightness,
@@ -14,13 +14,9 @@ import {
    FILTER_HALF_2_DIV,
    FILTER_HALF_2_STEP,
    FILTER_QUARTET_1_DIV,
-   FILTER_QUARTET_1_STEP,
    FILTER_QUARTET_2_DIV,
-   FILTER_QUARTET_2_STEP,
    FILTER_QUARTET_3_DIV,
-   FILTER_QUARTET_3_STEP,
    FILTER_QUARTET_4_DIV,
-   FILTER_QUARTET_4_STEP,
    Group,
    SMALL_RINGS_DRUM_INNER,
    SMALL_RINGS_DRUM_OUTER,
@@ -28,7 +24,7 @@ import {
 import { objectTimeScale } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    data.addColorBoostEvents(
       { time: START_TIME + 21.5, toggle: true },
       { time: START_TIME + 24, toggle: false },

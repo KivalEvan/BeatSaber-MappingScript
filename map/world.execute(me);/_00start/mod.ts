@@ -6,7 +6,7 @@ import simulation from './simulation.ts';
 import _drum from './_drum.ts';
 import _ambient from './_ambient.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    _drum(data);
    _ambient(data);
    protection(data);

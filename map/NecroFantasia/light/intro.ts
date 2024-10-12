@@ -13,7 +13,7 @@ function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    // for (const id of itNum(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {
    //    data.addLightColorEventBoxGroups(
    //       {
@@ -27,7 +27,7 @@ export default function (data: v3.Difficulty) {
    //                      time: 2,
    //                      color: EventBoxColor.WHITE,
    //                      brightness: 1,
-   //                      transition: TransitionType.INTERPOLATE,
+   //                      easing: EaseType.LINEAR,
    //                   },
    //                ],
    //                beatDistributionType: DistributionType.STEP,
@@ -44,7 +44,7 @@ export default function (data: v3.Difficulty) {
    //                   {
    //                      color: EventBoxColor.WHITE,
    //                      brightness: 0,
-   //                      transition: TransitionType.INTERPOLATE,
+   //                      easing: EaseType.LINEAR,
    //                   },
    //                ],
    //                beatDistributionType: DistributionType.STEP,
@@ -109,7 +109,7 @@ export default function (data: v3.Difficulty) {
                      time: 2,
                      color: EventBoxColor.RED,
                      brightness: 1,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                   },
                ],
                beatDistributionType: DistributionType.STEP,
@@ -129,12 +129,12 @@ export default function (data: v3.Difficulty) {
                      {
                         color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                         brightness: 0.25,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      {
                         time: 2,
                         color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                   beatDistributionType: DistributionType.STEP,
@@ -153,7 +153,7 @@ export default function (data: v3.Difficulty) {
                   {
                      color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                      brightness: 0,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                   },
                ],
                beatDistributionType: DistributionType.STEP,

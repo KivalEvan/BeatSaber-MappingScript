@@ -1,7 +1,10 @@
-import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, types } from '../../depsLocal.ts';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './main.ts';
 
-export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAllName) {
+export function convertLight(
+   d: types.wrapper.IWrapBeatmap,
+   environment: types.EnvironmentAllName,
+) {
    const events = d.basicEvents;
    const newEvents = [];
 
@@ -31,7 +34,9 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
    for (const ev of events) {
       let noChromaColor = false;
       if (ev.value >= 2000000000) {
-         currentColor[ev.type] = oldChromaColorConvert(ev.value) as types.ColorArray;
+         currentColor[ev.type] = oldChromaColorConvert(
+            ev.value,
+         ) as types.ColorArray;
       }
       if (!currentColor[ev.type]) {
          noChromaColor = true;
@@ -43,11 +48,8 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
          ev.value = 0;
       }
       if (ev.value !== 0 && !(ev.value >= 2000000000)) {
-         if (ev.customData && !ev.customData.color) {
-            ev.customData = { color: currentColor[ev.type] };
-         }
-         if (!ev.customData) {
-            ev.customData = { color: currentColor[ev.type] };
+         if (!ev.customData.color) {
+            ev.customData.color = currentColor[ev.type]!;
          }
       }
       if (!(ev.value >= 2000000000)) {
@@ -77,19 +79,78 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
       15: 0,
    };
    const typeLightIDMap: { [key: number]: number[] } = {
-      0: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      0: [
+         1,
+         2,
+         3,
+         4,
+         5,
+         6,
+         7,
+         8,
+         9,
+         10,
+         11,
+         12,
+         13,
+         14,
+         15,
+         16,
+         17,
+         18,
+         19,
+         20,
+      ],
       4: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       5: tempID,
       6: tempID.map((val) => val + 2),
       7: tempID.map((val) => val + 4),
       10: tempID.map((val) => val + 6),
       11: tempID.map((val) => val + 8),
-      14: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-         (val, i) => val + idOffsetType0 + i,
-      ),
-      15: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(
-         (val, i) => val + idOffsetType0 + i,
-      ),
+      14: [
+         1,
+         2,
+         3,
+         4,
+         5,
+         6,
+         7,
+         8,
+         9,
+         10,
+         11,
+         12,
+         13,
+         14,
+         15,
+         16,
+         17,
+         18,
+         19,
+         20,
+      ].map((val, i) => val + idOffsetType0 + i),
+      15: [
+         1,
+         2,
+         3,
+         4,
+         5,
+         6,
+         7,
+         8,
+         9,
+         10,
+         11,
+         12,
+         13,
+         14,
+         15,
+         16,
+         17,
+         18,
+         19,
+         20,
+      ].map((val, i) => val + idOffsetType0 + i),
    };
 
    const ignoreConversion = [1, 2, 3, 8, 9, 12, 13];

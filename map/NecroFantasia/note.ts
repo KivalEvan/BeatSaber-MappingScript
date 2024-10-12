@@ -7,7 +7,7 @@ function rotateGradient45<T extends types.wrapper.IWrapColorNote>(note: T, i: nu
    note.angleOffset = round(lerp(normalize(i, 0, ary.length - 1), 0, 45));
 }
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.colorNotes.forEach((n) => (n.angleOffset = 0));
 

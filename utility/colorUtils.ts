@@ -1,7 +1,6 @@
-import { Serializable } from '../../BeatSaber-Deno/beatmap/shared/serializable.ts';
-import { colorFrom, hsvaToRgba, normalize, rgbaToHsva, types } from '../depsLocal.ts';
+import { Cloneable, colorFrom, hsvaToRgba, normalize, rgbaToHsva, types } from '../depsLocal.ts';
 
-export class ColorUtils extends Serializable<types.IColor> implements types.IColor {
+export class ColorUtils extends Cloneable implements types.IColor {
    r: number;
    g: number;
    b: number;
@@ -26,8 +25,18 @@ export class ColorUtils extends Serializable<types.IColor> implements types.ICol
          : { r: this.r, g: this.g, b: this.b, a: this.a };
    }
 
+   toArray(): types.ColorArray;
+   toArray(noAlpha: false): Omit<types.ColorArray, 'a'>;
+   toArray(noAlpha: true): Required<types.ColorArray>;
    toArray(noAlpha?: boolean): types.ColorArray {
       return noAlpha ? [this.r, this.g, this.b] : [this.r, this.g, this.b, this.a];
+   }
+
+   *[Symbol.iterator](): IterableIterator<number> {
+      yield this.r;
+      yield this.g;
+      yield this.b;
+      yield this.a;
    }
 
    red(value: number): this {

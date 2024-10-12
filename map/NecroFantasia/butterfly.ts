@@ -21,7 +21,7 @@ const loopDuration = 0.75;
 const loopRepeat = 128;
 const posHide: types.Vector3 = [0, -99999, -99999];
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.customData.environment ??= [];
    data.customData.customEvents ??= [];

@@ -1,12 +1,12 @@
-import { resolve } from '../deps.ts';
+import { process, readdirSync, resolve } from '../deps.ts';
 import { logger, round } from '../depsLocal.ts';
 
 const path = import.meta.dirname!;
-for await (const dir of Deno.readDir(path)) {
-   if (dir.isDirectory) {
+for (const dir of readdirSync(path, { withFileTypes: true })) {
+   if (dir.isDirectory()) {
       try {
          const scr = await import(
-            (Deno.build.os === 'windows' ? 'file:///' : '') +
+            (process.platform === 'win32' ? 'file:///' : '') +
                resolve(path, dir.name, 'main.ts')
          );
          const startTime = performance.now();

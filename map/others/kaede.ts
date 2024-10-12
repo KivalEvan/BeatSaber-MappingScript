@@ -1,16 +1,16 @@
 import * as bsmap from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 bsmap.globals.logLevel = 1;
-bsmap.globals.directory =
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/KAEDE/';
+bsmap.globals.directory = beatmapWipPath('KAEDE');
 
-const difficulty = bsmap.load.difficultySync('ExpertPlusStandard.dat', 3);
+const difficulty = bsmap.readDifficultyFileSync('ExpertPlusStandard.dat', 3);
 
 const prevSlider: {
-   [key: number]: bsmap.v3.ColorNote;
+   [key: number]: bsmap.types.wrapper.IWrapColorNote;
 } = {};
 const possibleBurst: {
-   [key: number]: bsmap.v3.ColorNote[];
+   [key: number]: bsmap.types.wrapper.IWrapColorNote[];
 } = { 0: [], 1: [] };
 for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
    const n = difficulty.colorNotes[i];
@@ -28,8 +28,8 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       }
       if (n.customData._color[0] === 1) {
          if (prevSlider[n.color]) {
-            difficulty.arcs.push(
-               bsmap.v3.Arc.fromJSON({
+            difficulty.addArcs(
+               bsmap.v3.arc.deserialize({
                   b: prevSlider[n.color].time,
                   c: prevSlider[n.color].color,
                   x: prevSlider[n.color].posX,
@@ -37,7 +37,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                   d: prevSlider[n.color].direction,
                   mu: prevSlider[n.color].customData!._disableSpawnEffect
                      ? 0
-                     : prevSlider[n.color].customData!._color[2],
+                     : prevSlider[n.color].customData!._color![2],
                   tb: n.time,
                   tx: n.posX,
                   ty: n.posY,
@@ -46,8 +46,8 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                      : n.direction,
                   tmu: prevSlider[n.color].customData!._disableSpawnEffect
                      ? 0
-                     : prevSlider[n.color].customData!._color[3],
-                  m: prevSlider[n.color].customData!._color[1],
+                     : prevSlider[n.color].customData!._color![3],
+                  m: prevSlider[n.color].customData!._color![1],
                }),
             );
          }
@@ -64,8 +64,8 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                }
                x = bsmap.clamp(x, 0, 3);
                y = bsmap.clamp(y, 0, 2);
-               difficulty.arcs.push(
-                  bsmap.v3.Arc.fromJSON({
+               difficulty.addArcs(
+                  bsmap.v3.arc.deserialize({
                      b: n.time,
                      c: n.color,
                      x: n.posX,
@@ -90,8 +90,8 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       }
    }
    if (possibleBurst[n.color].length === 2) {
-      difficulty.chains.push(
-         bsmap.v3.Chain.fromJSON({
+      difficulty.addChains(
+         bsmap.v3.chain.deserialize({
             b: possibleBurst[n.color][0].time,
             c: possibleBurst[n.color][0].color,
             x: possibleBurst[n.color][0].posX,
@@ -100,9 +100,9 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
             tb: possibleBurst[n.color][1].time,
             tx: possibleBurst[n.color][1].posX,
             ty: possibleBurst[n.color][1].posY,
-            sc: possibleBurst[n.color][0].customData!._color[1] / 2,
-            s: possibleBurst[n.color][0].customData!._color[2]
-               ? possibleBurst[n.color][0].customData!._color[2]
+            sc: possibleBurst[n.color][0].customData!._color![1] / 2,
+            s: possibleBurst[n.color][0].customData!._color![2]
+               ? possibleBurst[n.color][0].customData!._color![2]
                : 1,
          }),
       );
@@ -593,10 +593,12 @@ difficulty.arcs.push(
          tmu: 1,
          m: 0,
       },
-   ].map((n) => bsmap.v3.Arc.fromJSON(n)),
+   ]
+      .map(bsmap.v3.arc.deserialize)
+      .map(bsmap.Arc.createOne),
 );
 
-bsmap.save.difficultySync(difficulty, {
-   filePath: 'ExpertPlusStandard.dat',
+bsmap.writeDifficultyFileSync(difficulty, {
+   filename: 'ExpertPlusStandard.dat',
    directory: 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/KAEDE/',
 });

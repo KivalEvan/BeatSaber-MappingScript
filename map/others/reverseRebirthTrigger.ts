@@ -1,17 +1,24 @@
-import { ext, globals, lerpColor, load, normalize, save } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import {
+   ext,
+   globals,
+   lerpColor,
+   normalize,
+   readDifficultyFileSync,
+   writeDifficultyFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-globals.directory = wipPath('Reverse Rebirth Trigger');
+globals.directory = beatmapWipPath('Reverse Rebirth Trigger');
 
-const lightshow = load.difficultySync('Lightshow.dat', 2);
+const lightshow = readDifficultyFileSync('Lightshow.dat', 2);
 
 const lightMapper = new ext.chroma.LightMapper('SkrillexEnvironment');
 
 lightMapper.process(lightshow, false);
 
-const data = load.difficultySync('EasyStandard.dat', 2);
+const data = readDifficultyFileSync('EasyStandard.dat', 2);
 data.basicEvents = lightshow.basicEvents;
-const bookmarks = data.customData._bookmarks;
+const bookmarks = data.difficulty.customData._bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
       b._color = lerpColor(
@@ -58,4 +65,4 @@ _environment.push(
       _rotation: [0, 0, 135],
    },
 );
-save.difficultySync(data);
+writeDifficultyFileSync(data);

@@ -22,7 +22,7 @@ const loopRight = loopArray([
    WeaveID.SIDE_TOP_RIGHT,
 ]);
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = false;
    for (
@@ -65,17 +65,17 @@ export default function (data: v3.Difficulty) {
                         {
                            time: 0.375,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: 1.5,
                         },
                         {
                            time: 1,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: duration,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: 0,
                         },
                      ],
@@ -91,16 +91,16 @@ export default function (data: v3.Difficulty) {
                         {
                            time: 0.375,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 1,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: duration,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: 0,
                         },
                      ],

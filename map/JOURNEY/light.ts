@@ -1,4 +1,4 @@
-import { globals, load, save } from '../../depsLocal.ts';
+import { globals, readDifficultyFileSync, writeDifficultyFileSync } from '../../depsLocal.ts';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
@@ -6,7 +6,7 @@ globals.directory =
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
-const difficulty = load.difficultySync(INPUT_FILE, 2);
+const difficulty = readDifficultyFileSync(INPUT_FILE, 2);
 const _events = difficulty.basicEvents;
 
 const isLight = (t: number) => {
@@ -562,4 +562,4 @@ _events.forEach((e) => {
    }
 });
 
-save.difficultySync(difficulty, { filePath: OUTPUT_FILE });
+writeDifficultyFileSync(difficulty, { filename: OUTPUT_FILE });

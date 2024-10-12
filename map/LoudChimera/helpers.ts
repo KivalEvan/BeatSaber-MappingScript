@@ -31,7 +31,7 @@ export function lerpVec3(
    ];
 }
 
-export function connectSlider(data: v3.Difficulty, notes: v3.ColorNote[]) {
+export function connectSlider(data: types.wrapper.IWrapBeatmap, notes: v3.ColorNote[]) {
    const prevSlider: {
       [key: number]: v3.ColorNote;
    } = {};

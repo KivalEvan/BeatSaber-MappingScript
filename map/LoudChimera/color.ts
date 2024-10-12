@@ -1,9 +1,9 @@
-import { BeatPerMinute, ext, logger, NoteJumpSpeed, v3 } from '../../depsLocal.ts';
+import { ext, logger, NoteJumpSpeed, TimeProcessor, v3 } from '../../depsLocal.ts';
 
 const { NE } = ext;
 const { between } = ext.selector;
 
-export function color(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function color(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    if (!data.filename.includes('OneSaber')) {
       logger.info('Not One Saber, skipping color');
       return;

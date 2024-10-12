@@ -1,10 +1,19 @@
-import { colorFrom, ColorScheme, globals, load, save, toColorObject } from '../../depsLocal.ts';
-import copyLightshow from '../../utility/copyLightshow.ts';
-import wipPath from '../../utility/wipPath.ts';
+import {
+   colorFrom,
+   ColorScheme,
+   globals,
+   readDifficultyFileSync,
+   readInfoFileSync,
+   toColorObject,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('TRIPLE PLAY');
+globals.directory = beatmapWipPath('TRIPLE PLAY');
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.colorSchemes = [
    {
       useOverride: true,
@@ -62,20 +71,19 @@ info.colorSchemes = [
       ),
    },
 ];
-info.environmentName = 'LatticeEnvironment';
 info.environmentNames = ['LatticeEnvironment', 'TriangleEnvironment'];
-const lightshow = load.difficultySync('EasyStandard.dat', 3);
+const lightshow = readDifficultyFileSync('EasyStandard.dat', 3);
 
-for (const [m, d] of info.listMap()) {
-   const difficulty = load.difficultySync(d.filename, 3);
-   difficulty.useNormalEventsAsCompatibleEvents = m === 'Legacy';
-   if (m !== 'Legacy') copyLightshow(lightshow, difficulty);
+for (const d of info.difficulties) {
+   const difficulty = readDifficultyFileSync(d.filename, 3);
+   difficulty.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
+   if (d.characteristic !== 'Legacy') difficulty.lightshow = lightshow.lightshow;
 
    delete d.customData._requirements;
-   d.colorSchemeId = m === 'Legacy' ? 1 : 0;
-   d.environmentId = m === 'Legacy' ? 1 : 0;
-   d.copyColorScheme(info.colorSchemes[d.colorSchemeId]);
-   save.difficultySync(difficulty);
+   d.colorSchemeId = d.characteristic === 'Legacy' ? 1 : 0;
+   d.environmentId = d.characteristic === 'Legacy' ? 1 : 0;
+   copyToCustomColor(d, info.colorSchemes[d.colorSchemeId]);
+   writeDifficultyFileSync(difficulty);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

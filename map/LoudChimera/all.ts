@@ -13,9 +13,9 @@ import { misc } from './misc.ts';
 import { text } from './text.ts';
 import { sus } from './imposter.ts';
 import { color } from './color.ts';
-import { BeatPerMinute, logger, NoteJumpSpeed, save, v3 } from '../../depsLocal.ts';
+import { logger, NoteJumpSpeed, save, TimeProcessor, v3 } from '../../depsLocal.ts';
 
-export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function main(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Processing ' + data.filename);
 
    preset(data);
@@ -42,5 +42,5 @@ export function main(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed
    // );
 
    postProcess(data);
-   save.difficultySync(data);
+   writeDifficultyFileSync(data);
 }

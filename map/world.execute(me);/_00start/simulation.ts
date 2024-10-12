@@ -39,7 +39,7 @@ import {
 import { generateSeed, objectTimeScale } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    data.addColorBoostEvents(
       { time: START_TIME + 30, toggle: true },
       { time: START_TIME + 32, toggle: false },
@@ -98,13 +98,13 @@ export default function (data: v3.Difficulty) {
             filter: FILTER_QUARTET_1_DIV,
             beatDistribution: 0.03125,
             beatDistributionType: DistributionType.STEP,
-            events: [{ brightness: 0, transition: TransitionType.INTERPOLATE }],
+            events: [{ brightness: 0, easing: EaseType.LINEAR }],
          },
          {
             filter: FILTER_QUARTET_2_DIV,
             beatDistribution: 0.03125,
             beatDistributionType: DistributionType.STEP,
-            events: [{ brightness: 0, transition: TransitionType.INTERPOLATE }],
+            events: [{ brightness: 0, easing: EaseType.LINEAR }],
          },
       ],
    });
@@ -398,13 +398,13 @@ export default function (data: v3.Difficulty) {
                { color: EventBoxColor.WHITE, brightness: Brightness.MODERATE },
                {
                   time: 0.25,
-                  transition: TransitionType.EXTEND,
+                  previous: 1,
                },
                {
                   time: 1,
                   color: EventBoxColor.WHITE,
                   brightness: Brightness.OFF,
-                  transition: TransitionType.INTERPOLATE,
+                  easing: EaseType.LINEAR,
                   frequency: 8,
                },
             ],

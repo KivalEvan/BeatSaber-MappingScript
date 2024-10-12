@@ -1,7 +1,7 @@
 import { logger, v3 } from '../../depsLocal.ts';
 import UFO from './ufo.ts';
 
-export function preset(data: v3.Difficulty) {
+export function preset(data: types.wrapper.IWrapBeatmap) {
    logger.info('Run Preset');
    data.customData.pointDefinitions = data.customData.pointDefinitions ?? {};
    data.customData.customEvents = data.customData.customEvents ?? [];

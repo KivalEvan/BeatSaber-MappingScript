@@ -1,10 +1,11 @@
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 import { Beatmap, range, writeLightshowFileSync } from '../../depsLocal.ts';
 import { lightitup, LightPositionMapping } from './lightitup.ts';
+import { readFile } from '../../deps.ts';
 
 export default async function () {
-   const gifFile = Deno.readFile('./map/BadApple/badLattice.gif');
-   const lightshow = new Beatmap().setLightshowFilename(
+   const gifFile = readFile('./map/BadApple/badLattice.gif');
+   const lightshow = new Beatmap().setVersion(4).setLightshowFilename(
       'Lattice.lightshow.dat',
    );
    // difficulty.addBasicEvents({

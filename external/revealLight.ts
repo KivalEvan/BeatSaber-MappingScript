@@ -1,14 +1,14 @@
-import { ext, globals, load } from '../depsLocal.ts';
-import wipPath from '../utility/wipPath.ts';
+import { ext, globals, readLightshowFileSync } from '../depsLocal.ts';
+import beatmapWipPath from '../utility/beatmapWipPath.ts';
 const countEbg = ext.stats.countEbg;
 
-globals.directory = wipPath('Bad Apple', true);
-const data = load.lightshowSync('Common.lightshow.dat');
+globals.directory = beatmapWipPath('Bad Apple');
+const data = readLightshowFileSync('BritneySpears.lightshow.dat');
 
-console.log(Object.keys(countEbg(data.lightColorEventBoxGroups)));
-console.log(Object.keys(countEbg(data.lightRotationEventBoxGroups)));
-console.log(Object.keys(countEbg(data.lightTranslationEventBoxGroups)));
-console.log(Object.keys(countEbg(data.fxEventBoxGroups)));
+console.log(Object.keys(countEbg(data.lightColorEventBoxGroups)).map((e) => +e));
+console.log(Object.keys(countEbg(data.lightRotationEventBoxGroups)).map((e) => +e));
+console.log(Object.keys(countEbg(data.lightTranslationEventBoxGroups)).map((e) => +e));
+console.log(Object.keys(countEbg(data.fxEventBoxGroups)).map((e) => +e));
 
 console.log(data.basicEvents.map((e) => e.type));
 console.log(

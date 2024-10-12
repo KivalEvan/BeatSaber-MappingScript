@@ -8,6 +8,7 @@ import {
    writeLightshowFileSync,
 } from '../../depsLocal.ts';
 import { lightitup, LightPositionMapping } from './lightitup.ts';
+import { readFile } from '../../deps.ts';
 
 // FIXME: no hardcore drug will fix me
 
@@ -15,8 +16,8 @@ const MAX_X = 18;
 const MAX_Y = 13;
 
 export default async function () {
-   const gifFile = Deno.readFile('./map/BadApple/badCollider.gif');
-   const lightshow = new Beatmap().setLightshowFilename(
+   const gifFile = readFile('./map/BadApple/badCollider.gif');
+   const lightshow = new Beatmap().setVersion(4).setLightshowFilename(
       'Collider.lightshow.dat',
    );
    const allMapping: LightPositionMapping[] = [];

@@ -1,9 +1,16 @@
-import { convertColorType, globals, lerpColor, load, normalize, save } from '../../depsLocal.ts';
+import {
+   convertColorType,
+   globals,
+   lerpColor,
+   normalize,
+   readDifficultyFileSync,
+   writeDifficultyFileSync,
+} from '../../depsLocal.ts';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/crescent moon';
 
-const data = load.difficultySync('ExpertPlusStandard.dat', 2);
+const data = readDifficultyFileSync('ExpertPlusStandard.dat', 2);
 
 const bookmarks = data.customData._bookmarks;
 if (bookmarks) {
@@ -62,4 +69,4 @@ if (bookmarks) {
    }
 }
 
-save.difficultySync(data);
+writeDifficultyFileSync(data);

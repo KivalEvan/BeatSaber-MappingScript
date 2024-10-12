@@ -1,11 +1,20 @@
-import { colorFrom, globals, load, save, toColorObject } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import {
+   colorFrom,
+   globals,
+   readDifficultyFileSync,
+   readInfoFileSync,
+   toColorObject,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('VENTEN');
+globals.directory = beatmapWipPath('VENTEN');
 
-const lightshow = load.difficultySync('Lightshow.dat', 2);
+const lightshow = readDifficultyFileSync('Lightshow.dat', 2);
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.customData = {
    _contributors: [
       {
@@ -37,11 +46,11 @@ info.colorSchemes = [
       obstaclesColor: toColorObject(colorFrom(180, 0.333, 0.8, 'hsva'), true),
    },
 ];
-for (const [_, d] of info.listMap()) {
-   const difficulty = load.difficultySync(d.filename, 2);
-   difficulty.customData._bookmarks = lightshow.customData!._bookmarks;
+for (const d of info.difficulties) {
+   const difficulty = readDifficultyFileSync(d.filename, 2);
+   difficulty.difficulty.customData._bookmarks = lightshow.difficulty.customData!._bookmarks;
    difficulty.basicEvents = lightshow.basicEvents.filter((e) => !e.isBpmEvent());
-   save.difficultySync(difficulty);
+   writeDifficultyFileSync(difficulty);
 
    delete d.customData._requirements;
    delete d.customData._suggestions;
@@ -73,7 +82,7 @@ for (const [_, d] of info.listMap()) {
       d.customData._information.splice(2, 0, 'Music Sign "Double Score"');
    }
 
-   d.copyColorScheme(info.colorSchemes[0]);
+   copyToCustomColor(d, info.colorSchemes[0]);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

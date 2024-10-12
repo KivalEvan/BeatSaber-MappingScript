@@ -1,10 +1,11 @@
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 import { Beatmap, random, range, writeLightshowFileSync } from '../../depsLocal.ts';
 import { lightitup, LightPositionMapping } from './lightitup.ts';
+import { readFile } from '../../deps.ts';
 
 export default async function () {
-   const gifFile = Deno.readFile('./map/BadApple/badHH.gif');
-   const lightshow = new Beatmap().setLightshowFilename('HipHop.lightshow.dat');
+   const gifFile = readFile('./map/BadApple/badHH.gif');
+   const lightshow = new Beatmap().setVersion(4).setLightshowFilename('HipHop.lightshow.dat');
 
    for (const id of range(14, 18, true)) {
       // geo yeet

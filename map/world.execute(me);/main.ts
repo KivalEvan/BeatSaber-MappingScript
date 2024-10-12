@@ -1,23 +1,23 @@
 import {
-   BeatPerMinute,
-   convert,
+   Beatmap,
    globals,
-   isV3,
-   load,
    pRandomSeed,
-   save,
-   v2,
-   v3,
+   readFromInfoSync,
+   readInfoFileSync,
+   TimeProcessor,
+   toV3Beatmap,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import light from './light.ts';
 
 pRandomSeed('EXECUTION');
 
-globals.directory = wipPath('world.execute(me);', true);
+globals.directory = beatmapWipPath('world.execute(me);', true);
 
-const info = load.infoSync(2);
-info.environmentName = 'Dragons2Environment';
+const info = readInfoFileSync();
+info.environmentBase.normal = 'Dragons2Environment';
 info.customData._contributors = [
    {
       _role: 'Mapper',
@@ -25,29 +25,31 @@ info.customData._contributors = [
       _iconPath: 'iconKivalEvan.png',
    },
 ];
-for (const [_, d] of info.listMap()) {
+for (const d of info.difficulties) {
    d.customData._information = [];
    delete d.customData._requirements;
    delete d.customData._suggestions;
 }
-const bpm = BeatPerMinute.create(info.beatsPerMinute);
+const timeProc = TimeProcessor.create(info.audio.bpm);
 
-const lightshow = v3.Difficulty.create();
-light(lightshow, bpm);
+const lightshow = new Beatmap();
+light(lightshow, timeProc);
 
-const difficultyList = load.difficultyFromInfoSync(info);
+const difficultyList = readFromInfoSync(info);
 
 difficultyList.forEach((d) => {
-   if (!isV3(d.data)) {
-      d.data = convert.toV3(d.data as v2.Difficulty);
+   if (d.beatmap.version !== 3) {
+      toV3Beatmap(d.beatmap, d.beatmap.version);
    }
 
-   d.data.basicEvents = lightshow.basicEvents;
-   d.data.colorBoostEvents = lightshow.colorBoostEvents;
-   d.data.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
-   d.data.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   d.data.lightTranslationEventBoxGroups = lightshow.lightTranslationEventBoxGroups;
-   d.data.useNormalEventsAsCompatibleEvents = false;
+   d.beatmap.basicEvents = lightshow.basicEvents;
+   d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
+   d.beatmap.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
+   d.beatmap.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
+   d.beatmap.lightTranslationEventBoxGroups = lightshow.lightTranslationEventBoxGroups;
+   d.beatmap.useNormalEventsAsCompatibleEvents = false;
+
+   writeDifficultyFileSync(d.beatmap);
 });
 
 // const oldDirectory = globals.directory;
@@ -58,5 +60,4 @@ difficultyList.forEach((d) => {
 //     overwrite: true,
 // });
 // copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
-save.difficultyListSync(difficultyList);
-save.infoSync(info);
+writeInfoFileSync(info);

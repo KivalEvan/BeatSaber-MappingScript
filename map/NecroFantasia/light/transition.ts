@@ -13,7 +13,7 @@ function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    for (const id of range(WeaveID.INNER_TOP_LEFT, WeaveID.INNER_TOP_RIGHT)) {
       data.addLightColorEventBoxGroups(
          {
@@ -26,7 +26,7 @@ export default function (data: v3.Difficulty) {
                      {
                         color: EventBoxColor.BLUE,
                         brightness: 0,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                   beatDistributionType: DistributionType.STEP,
@@ -44,13 +44,13 @@ export default function (data: v3.Difficulty) {
                         color: EventBoxColor.WHITE,
                         brightness: 1.5,
                         frequency: 32,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      {
                         time: 1,
                         color: EventBoxColor.WHITE,
                         brightness: 0,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -151,24 +151,24 @@ export default function (data: v3.Difficulty) {
                   },
                   events: [
                      { color: EventBoxColor.RED, brightness: 1 },
-                     { time: 1, transition: TransitionType.EXTEND },
+                     { time: 1, previous: 1 },
                      {
                         time: 1.5,
                         color: EventBoxColor.WHITE,
                         brightness: 1,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      {
                         time: 2,
                         color: EventBoxColor.BLUE,
                         brightness: 1,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      {
                         time: 3,
                         color: EventBoxColor.RED,
                         brightness: 0,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -184,13 +184,13 @@ export default function (data: v3.Difficulty) {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 1.249,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -215,13 +215,13 @@ export default function (data: v3.Difficulty) {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 0.999,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -246,13 +246,13 @@ export default function (data: v3.Difficulty) {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 0.999,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -280,7 +280,7 @@ export default function (data: v3.Difficulty) {
                         time: 1,
                         color: EventBoxColor.RED,
                         brightness: 0,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -313,13 +313,13 @@ export default function (data: v3.Difficulty) {
                            {
                               time: 0.25,
                               color: EventBoxColor.BLUE,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 0.999,
                               color: EventBoxColor.RED,
                               brightness: 0,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                      },
@@ -341,13 +341,13 @@ export default function (data: v3.Difficulty) {
                            {
                               time: 0.25,
                               color: EventBoxColor.BLUE,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 1,
                               color: EventBoxColor.RED,
                               brightness: 0,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                      },

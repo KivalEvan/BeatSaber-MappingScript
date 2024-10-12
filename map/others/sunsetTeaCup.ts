@@ -1,9 +1,19 @@
-import { colorFrom, ColorScheme, globals, load, save, toColorObject } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import {
+   colorFrom,
+   ColorScheme,
+   globals,
+   readDifficultyFileSync,
+   readInfoFileSync,
+   toColorObject,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('Sunset Tea Cup');
+globals.directory = beatmapWipPath('Sunset Tea Cup');
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.customData = {
    _contributors: [
       {
@@ -81,11 +91,11 @@ info.colorSchemes = [
       ),
    },
 ];
-const lightshow = load.difficultySync('Lightshow.dat', 3);
-const walls = load.difficultySync('ExpertPlusStandard.dat', 3);
+const lightshow = readDifficultyFileSync('Lightshow.dat', 3);
+const walls = readDifficultyFileSync('ExpertPlusStandard.dat', 3);
 
-for (const [_, d] of info.listMap()) {
-   const difficulty = load.difficultySync(d.filename, 3);
+for (const d of info.difficulties) {
+   const difficulty = readDifficultyFileSync(d.filename, 3);
    difficulty.useNormalEventsAsCompatibleEvents = true;
    if (d.characteristic === 'Legacy') {
       if (d.difficulty === 'ExpertPlus') {
@@ -117,8 +127,8 @@ for (const [_, d] of info.listMap()) {
 
    delete d.customData._requirements;
    d.colorSchemeId = 1;
-   d.copyColorScheme(info.colorSchemes[1]);
-   save.difficultySync(difficulty);
+   copyToCustomColor(d, info.colorSchemes[1]);
+   writeDifficultyFileSync(difficulty);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

@@ -34,7 +34,7 @@ const timingAry = [
 const loopGen = loopArray(
    range(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT),
 );
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = true;
    for (const time of [358, 806]) {
@@ -65,37 +65,37 @@ export default function (data: v3.Difficulty) {
                            {
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 1,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 2,
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 3,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 4,
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 5,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                         beatDistributionType: DistributionType.STEP,
@@ -127,7 +127,7 @@ export default function (data: v3.Difficulty) {
                         {
                            color: EventBoxColor.WHITE,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistributionType: DistributionType.STEP,
@@ -241,37 +241,37 @@ export default function (data: v3.Difficulty) {
                            {
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 1,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 2,
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 3,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 4,
                               color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               time: 5,
                               color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                               brightness: 1,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                         beatDistributionType: DistributionType.STEP,
@@ -339,13 +339,13 @@ export default function (data: v3.Difficulty) {
                            time: 1,
                            color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
                            brightness: 1.5,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 2,
                            color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                            brightness: 1,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistributionType: DistributionType.STEP,
@@ -371,20 +371,20 @@ export default function (data: v3.Difficulty) {
                   {
                      events: [
                         {
-                           transition: TransitionType.EXTEND,
+                           previous: 1,
                         },
                         {
                            time: 1,
                            color: EventBoxColor.WHITE,
                            brightness: 2,
                            frequency: 16,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 3,
                            color: EventBoxColor.WHITE,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistributionType: DistributionType.STEP,
@@ -418,7 +418,7 @@ export default function (data: v3.Difficulty) {
                         {
                            color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistribution: 1.999,

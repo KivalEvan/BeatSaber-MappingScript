@@ -1,7 +1,7 @@
-import { random, v3 } from '../../depsLocal.ts';
+import { Obstacle, random, types, v3 } from '../../depsLocal.ts';
 
-export default (d: v3.Difficulty) => {
-   let obs: v3.Obstacle[] = [];
+export default (d: types.wrapper.IWrapBeatmap) => {
+   let obs: Obstacle[] = [];
    obs = [
       {
          b: 33.5,
@@ -35,21 +35,25 @@ export default (d: v3.Difficulty) => {
          x: 5,
          y: 2,
       },
-   ].map(v3.Obstacle.fromJSON);
+   ]
+      .map(v3.obstacle.deserialize)
+      .map(Obstacle.createOne);
    obs = obs.concat(obs.map((w) => w.clone().mirror()));
    d.obstacles.push(...obs);
    for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 2; j++) {
          for (let x = 0; x < 4; x++) {
             obs = [
-               v3.Obstacle.fromJSON({
-                  b: 37 + i * 16 + j * 4 + x * 0.25,
-                  x: -2 + j - random(0, 2, true),
-                  y: random(0, 2, true),
-                  d: 0.1875,
-                  w: 2 - j,
-                  h: 1 + j * 2,
-               }),
+               new Obstacle(
+                  v3.obstacle.deserialize({
+                     b: 37 + i * 16 + j * 4 + x * 0.25,
+                     x: -2 + j - random(0, 2, true),
+                     y: random(0, 2, true),
+                     d: 0.1875,
+                     w: 2 - j,
+                     h: 1 + j * 2,
+                  }),
+               ),
             ];
             d.addObstacles(
                ...obs,
@@ -137,7 +141,9 @@ export default (d: v3.Difficulty) => {
          x: 6,
          y: 1,
       },
-   ].map(v3.Obstacle.fromJSON);
+   ]
+      .map(v3.obstacle.deserialize)
+      .map(Obstacle.createOne);
    obs = obs.concat(obs.map((w) => w.clone().mirror()));
    d.obstacles.push(...obs);
 };

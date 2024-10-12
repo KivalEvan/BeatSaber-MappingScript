@@ -10,7 +10,7 @@ import synth2 from './synth2.ts';
 import transition from './transition.ts';
 import chorus from './chorus.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    v3.BasicEvent.default.et = 4;
    v3.BasicEvent.default.f = 1;
    v3.LightColorBase.default.s = 1;

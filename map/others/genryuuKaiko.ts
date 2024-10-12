@@ -1,26 +1,27 @@
 import {
    globals,
    lerpColor,
-   load,
    normalize,
    random,
+   readDifficultyFileSync,
+   readFromInfoSync,
+   readInfoFileSync,
    round,
-   save,
    shuffle,
+   writeDifficultyFile,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 console.time('Runtime');
 
-globals.directory = wipPath('2eafa (Genryuu Kaiko - Kival Evan)');
+globals.directory = beatmapWipPath('2eafa (Genryuu Kaiko - Kival Evan)');
 
-const info = load.infoSync(2, {
-   dataCheck: { enabled: true, throwError: false },
-});
-const difficultyList = load.beatmapFromInfoSync(info);
-const cd = load.difficultySync('EasyNoArrows.dat', 3);
-cd.customData.bookmarks?.forEach((b) => {
+const info = readInfoFileSync();
+const difficultyList = readFromInfoSync(info);
+const cd = readDifficultyFileSync('EasyNoArrows.dat', 3);
+cd.difficulty.customData.bookmarks?.forEach((b) => {
    b.c = lerpColor([0, 0, 0.25], [0, 0, 0.5], normalize(b.b, 0, 1000), 'hsva');
    if (b.b === 294 || b.b === 518 || b.b === 774) b.c = [1, 1, 1];
    if (b.b === 198 || b.b === 214 || b.b === 422 || b.b === 438) {
@@ -46,14 +47,14 @@ cd.customData.bookmarks?.forEach((b) => {
    if (b.b === 719 || b.b === 734 || b.b === 751) b.c = [1, 1, 1];
 });
 
-cd.customData.bookmarks
+cd.difficulty.customData.bookmarks
    ?.map((b) => b)
    .forEach((b) => {
       if ((b.b >= 135 && b.b <= 183) || (b.b >= 391 && b.b <= 407)) {
          for (let i = 1; i <= 8; i++) {
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b - i / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [0, 0, 0], i / 8),
@@ -63,7 +64,7 @@ cd.customData.bookmarks
             if (b.b === 183 || b.b === 407) continue;
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 14 + (i - 1) / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [0, 0, 0], i / 8),
@@ -71,11 +72,15 @@ cd.customData.bookmarks
          }
       }
       if (b.b === 183 || b.b === 407) {
-         cd.customData.bookmarks!.push({ b: b.b + 13, n: '...', c: [0, 0, 0] });
+         cd.difficulty.customData.bookmarks!.push({
+            b: b.b + 13,
+            n: '...',
+            c: [0, 0, 0],
+         });
          for (let i = 1; i <= 16; i++) {
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 11 + (i - 1) / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [0, 0, 0], i / 16),
@@ -87,7 +92,7 @@ cd.customData.bookmarks
          for (let i = 1; i <= 8; i++) {
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b - i / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [1, 1, 1], i / 8),
@@ -97,7 +102,7 @@ cd.customData.bookmarks
             if (b.b === 278 || b.b === 502) continue;
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 14 + (i - 1) / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [1, 1, 1], i / 8),
@@ -109,7 +114,7 @@ cd.customData.bookmarks
             for (let i = 1; i <= 8; i++) {
                const str = b.n.split('');
                shuffle(str);
-               cd.customData.bookmarks!.push({
+               cd.difficulty.customData.bookmarks!.push({
                   b: b.b - i / 8,
                   n: str.slice(0, round(b.n.length / i)).join(''),
                   c: lerpColor(b.c!, [0, 0, 0], i / 8),
@@ -119,7 +124,7 @@ cd.customData.bookmarks
             for (let i = 1; i <= 8; i++) {
                const str = b.n.split('');
                shuffle(str);
-               cd.customData.bookmarks!.push({
+               cd.difficulty.customData.bookmarks!.push({
                   b: b.b - i / 8,
                   n: str.join(''),
                   c: lerpColor(b.c!, [0, 0, 0], i / 8),
@@ -130,7 +135,7 @@ cd.customData.bookmarks
             for (let i = 0; i < 8; i++) {
                const str = b.n.split('');
                shuffle(str);
-               cd.customData.bookmarks!.push({
+               cd.difficulty.customData.bookmarks!.push({
                   b: b.b + 7 + i / 8 + j * 4,
                   n: str.join(''),
                   c: [random()].reduce(
@@ -144,7 +149,7 @@ cd.customData.bookmarks
                   ),
                });
             }
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 8 + j * 4,
                n: b.n,
                c: b.c,
@@ -155,7 +160,7 @@ cd.customData.bookmarks
          for (let i = 1; i <= 8; i++) {
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 14 + (i - 1) / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [0, 0, 0], i / 8),
@@ -167,7 +172,7 @@ cd.customData.bookmarks
          for (let i = 1; i <= 8; i++) {
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b - i / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [1, 1, 1], i / 8),
@@ -177,7 +182,7 @@ cd.customData.bookmarks
             if (b.b === 694) continue;
             const str = b.n.split('');
             shuffle(str);
-            cd.customData.bookmarks!.push({
+            cd.difficulty.customData.bookmarks!.push({
                b: b.b + 14 + (i - 1) / 8,
                n: str.slice(0, round(b.n.length / i)).join(''),
                c: lerpColor(b.c!, [1, 1, 1], i / 8),
@@ -187,12 +192,12 @@ cd.customData.bookmarks
    });
 
 difficultyList.forEach((d) => {
-   if (d.version === 3) insertEnvironment(d.data);
-   d.data.customData.bookmarks = cd.customData.bookmarks;
-   delete d.settings.customData._requirements;
+   if (d.beatmap.version === 3) insertEnvironment(d.beatmap);
+   d.beatmap.difficulty.customData.bookmarks = cd.difficulty.customData.bookmarks;
+   delete d.info.customData._requirements;
+   writeDifficultyFile(d.beatmap);
 });
 
-save.beatmapListSync(difficultyList);
-save.infoSync(info);
+writeInfoFileSync(info);
 
 // await ext.zip.compress(info, 'komachi.zip');

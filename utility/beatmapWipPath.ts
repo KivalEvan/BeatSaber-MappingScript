@@ -1,5 +1,7 @@
+import { process } from '../deps.ts';
+
 export default function (name: string, nonWip?: boolean) {
-   return Deno.build.os === 'linux'
+   return process.platform === 'linux'
       ? nonWip
          ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/' +
             name

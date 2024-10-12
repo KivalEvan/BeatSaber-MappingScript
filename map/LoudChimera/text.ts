@@ -1,9 +1,9 @@
-import { BeatPerMinute, ext, NoteJumpSpeed, types, v3 } from '../../depsLocal.ts';
+import { ext, NoteJumpSpeed, TimeProcessor, types, v3 } from '../../depsLocal.ts';
 
 const { NE } = ext;
 const { between } = ext.selector;
 
-export function text(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function text(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    const diffText = {
       danmakuX: [
          [

@@ -8,7 +8,7 @@ export function sword() {
    const INPUT_FILE = 'HardOneSaber.dat';
    const OUTPUT_FILE = 'ExpertPlusOneSaber.dat';
 
-   const data = load.difficultySync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
+   const data = readDifficultyFileSync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
 
    where(at(data.colorNotes, 262), { include: { posX: 0 } }).forEach((n) => {
       n.customData.track = 'swordBit0';
@@ -182,7 +182,7 @@ export function sword() {
    walls(data);
    arcs(data);
 
-   save.difficultySync(data);
+   writeDifficultyFileSync(data);
 }
 
 if (import.meta.main) {

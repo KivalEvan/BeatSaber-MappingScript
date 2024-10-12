@@ -37,7 +37,7 @@ const flashTime = [
    934,
 ];
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    data.addBasicEvents(
       { time: 6, value: EventLightValue.BLUE_ON, floatValue: 0 },
       { time: 10, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
@@ -143,7 +143,7 @@ export default function (data: v3.Difficulty) {
                            time: 1,
                            color: EventBoxColor.WHITE,
                            brightness: 1,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistributionType: DistributionType.STEP,
@@ -160,7 +160,7 @@ export default function (data: v3.Difficulty) {
                         {
                            color: EventBoxColor.WHITE,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistribution: time === 294 || time === 614 ? 0 : 1 / 2,
@@ -241,25 +241,25 @@ export default function (data: v3.Difficulty) {
                time: 1,
                color: EventBoxColor.WHITE,
                brightness: 2,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
             },
             {
                time: 4,
                color: EventBoxColor.RED,
                brightness: 1.5,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
             },
             {
                time: 8,
                color: EventBoxColor.RED,
                brightness: 1,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
             },
             {
                time: 14,
                color: EventBoxColor.RED,
                brightness: 0,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
             },
          ],
       },

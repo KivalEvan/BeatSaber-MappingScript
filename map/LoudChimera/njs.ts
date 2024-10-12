@@ -1,11 +1,11 @@
-import { BeatPerMinute, ext, logger, NoteJumpSpeed, v3 } from '../../depsLocal.ts';
+import { ext, logger, NoteJumpSpeed, TimeProcessor, v3 } from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
 const { NE } = ext;
 const { between } = ext.selector;
 
 export function njsVibe(
-   data: v3.Difficulty,
-   BPM: BeatPerMinute,
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {
    logger.info('Run NJS Vibe');

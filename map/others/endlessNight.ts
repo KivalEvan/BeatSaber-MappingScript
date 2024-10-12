@@ -1,24 +1,30 @@
-import { globals, isV3, load, save } from '../../depsLocal.ts';
+import {
+   globals,
+   readDifficultyFileSync,
+   readFromInfoSync,
+   readInfoFileSync,
+   writeDifficultyFileSync,
+} from '../../depsLocal.ts';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-globals.directory = wipPath('23d4d (Endless Night - Kival Evan)');
+globals.directory = beatmapWipPath('23d4d (Endless Night - Kival Evan)');
 
-const info = load.infoSync();
-const difficultyList = load.beatmapFromInfoSync(info);
-const lightshow = load.difficultySync('ExpertPlusStandard.dat', 3);
+const info = readInfoFileSync();
+const difficultyList = readFromInfoSync(info);
+const lightshow = readDifficultyFileSync('ExpertPlusStandard.dat', 3);
 
 difficultyList.forEach((d) => {
-   if (isV3(d.data)) {
-      insertEnvironment(d.data);
-      d.data.basicEvents = lightshow.basicEvents;
-      d.data.colorBoostEvents = lightshow.colorBoostEvents;
+   if (d.beatmap.version === 3) {
+      insertEnvironment(d.beatmap);
+      d.beatmap.basicEvents = lightshow.basicEvents;
+      d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
 
       let isRight = true;
       let justOnce = true;
       const wallDuration = 0.125;
-      d.data.obstacles = d.data.obstacles.filter((o) => o.time < 194);
-      for (const n of d.data.colorNotes) {
+      d.beatmap.obstacles = d.beatmap.obstacles.filter((o) => o.time < 194);
+      for (const n of d.beatmap.colorNotes) {
          if ((n.time >= 194 && n.time < 322) || (n.time >= 354 && n.time < 386)) {
             if (
                (n.time >= 197 && n.time < 198) ||
@@ -52,7 +58,7 @@ difficultyList.forEach((d) => {
                (n.time >= 217 + 160 && n.time < 218 + 160) ||
                (n.time >= 222 + 160 && n.time < 226 + 160)
             ) {
-               d.data.addObstacles({
+               d.beatmap.addObstacles({
                   time: n.time,
                   duration: wallDuration,
                   posX: n.posX,
@@ -104,7 +110,7 @@ difficultyList.forEach((d) => {
             } else {
                justOnce = true;
             }
-            d.data.addObstacles({
+            d.beatmap.addObstacles({
                time: n.time,
                duration: wallDuration,
                posX: (isRight ? 4 : -4) + n.posX,
@@ -116,5 +122,5 @@ difficultyList.forEach((d) => {
       }
    }
 
-   save.difficultySync(d.data);
+   writeDifficultyFileSync(d.beatmap);
 });

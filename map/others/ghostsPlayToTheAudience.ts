@@ -1,13 +1,26 @@
-import { ext, globals, load, save, shuffle, types, v3 } from '../../depsLocal.ts';
+import {
+   ext,
+   globals,
+   Obstacle,
+   readDifficultyFileSync,
+   shuffle,
+   types,
+   v3,
+   writeDifficultyFileSync,
+} from '../../depsLocal.ts';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/GhostsPlayToTheAudience';
 
 const { where, at, between } = ext.selector;
 
-const lightshow = load.difficultySync('Expert.dat', 3);
-const osExpertP = load.difficultySync('HardOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat');
-const osExpert = load.difficultySync('NormalOneSaber.dat', 3).setFileName('ExpertOneSaber.dat');
+const lightshow = readDifficultyFileSync('Expert.dat', 3);
+const osExpertP = readDifficultyFileSync('HardOneSaber.dat', 3).setFilename(
+   'ExpertPlusOneSaber.dat',
+);
+const osExpert = readDifficultyFileSync('NormalOneSaber.dat', 3).setFilename(
+   'ExpertOneSaber.dat',
+);
 
 const pointDefinitions: types.v3.IPointDefinition = {
    ghostPoint: [
@@ -48,15 +61,15 @@ const customEvents: types.v3.ICustomEvent[] = [
 
 osExpertP.basicEvents = lightshow.basicEvents;
 osExpertP.colorBoostEvents = lightshow.colorBoostEvents;
-osExpertP.customData.environment = lightshow.customData.environment;
-osExpertP.customData.pointDefinitions = pointDefinitions;
-osExpertP.customData.customEvents = customEvents;
+osExpertP.difficulty.customData.environment = lightshow.difficulty.customData.environment;
+osExpertP.difficulty.customData.pointDefinitions = pointDefinitions;
+osExpertP.difficulty.customData.customEvents = customEvents;
 
 osExpert.basicEvents = lightshow.basicEvents;
 osExpert.colorBoostEvents = lightshow.colorBoostEvents;
-osExpert.customData.environment = lightshow.customData.environment;
-osExpert.customData.pointDefinitions = pointDefinitions;
-osExpert.customData.customEvents = customEvents;
+osExpert.difficulty.customData.environment = lightshow.difficulty.customData.environment;
+osExpert.difficulty.customData.pointDefinitions = pointDefinitions;
+osExpert.difficulty.customData.customEvents = customEvents;
 
 const introTime = [20, 180, 504];
 const chorusTime = [116, 276];
@@ -79,18 +92,41 @@ for (const it of introTime) {
          (n) => (n.customData.track = 'ghostTrack'),
       );
       const walls = i % 2
-         ? v3.Obstacle.create(
+         ? Obstacle.create(
             { time: it + bt[0], duration: 0.125, posX: 3, posY: 0 },
             { time: it + bt[0] + 0.25, duration: 0.125, posX: 4, posY: 2 },
-            { time: it + bt[0] + 0.5, duration: 0.125, posX: 5, posY: 1, width: 2 },
+            {
+               time: it + bt[0] + 0.5,
+               duration: 0.125,
+               posX: 5,
+               posY: 1,
+               width: 2,
+            },
             { time: it + bt[0] + 1, duration: 0.125, posX: 0, posY: 0 },
-            { time: it + bt[0] + 1.25, duration: 0.125, posX: -1, posY: 2 },
-            { time: it + bt[0] + 1.5, duration: 0.125, posX: -3, posY: 1, width: 2 },
+            {
+               time: it + bt[0] + 1.25,
+               duration: 0.125,
+               posX: -1,
+               posY: 2,
+            },
+            {
+               time: it + bt[0] + 1.5,
+               duration: 0.125,
+               posX: -3,
+               posY: 1,
+               width: 2,
+            },
          )
-         : v3.Obstacle.create(
+         : Obstacle.create(
             { time: it + bt[0], duration: 0.125, posX: 2, posY: 2 },
             { time: it + bt[0] + 0.25, duration: 0.125, posX: 3, posY: 0 },
-            { time: it + bt[0] + 0.5, duration: 0.125, posX: 4, posY: 1, width: 2 },
+            {
+               time: it + bt[0] + 0.5,
+               duration: 0.125,
+               posX: 4,
+               posY: 1,
+               width: 2,
+            },
          );
       if (!(i % 2)) {
          walls.push(
@@ -106,7 +142,7 @@ for (const it of introTime) {
          walls.forEach((w) => w.mirror());
       }
       if (i === 3) {
-         let temp = v3.Obstacle.create(
+         let temp = Obstacle.create(
             { time: it + bt[0] + 2, duration: 1, posX: 5, posY: 1, width: 2 },
             { time: it + bt[0] + 3, duration: 1, posX: 4, posY: 0 },
             { time: it + bt[0] + 3, duration: 1, posX: 4, posY: 2 },
@@ -173,231 +209,237 @@ for (const it of introTime) {
       },
    );
    osExpertP.addArcs(
-      {
-         b: it + 6,
-         tb: it + 6.5,
-         c: 1,
-         d: 6,
-         tc: 3,
-         x: 0,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 7,
-         tb: it + 7.5,
-         c: 1,
-         d: 6,
-         tc: 3,
-         x: 0,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 14,
-         tb: it + 14.5,
-         c: 1,
-         d: 2,
-         tc: 4,
-         x: 2,
-         y: 0,
-         tx: 3,
-         ty: 2,
-      },
-      {
-         b: it + 15,
-         tb: it + 15.5,
-         c: 1,
-         d: 3,
-         tc: 5,
-         x: 1,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 22,
-         tb: it + 22.5,
-         c: 1,
-         d: 7,
-         tc: 2,
-         x: 3,
-         y: 0,
-         tx: 3,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 23,
-         tb: it + 23.5,
-         c: 1,
-         d: 7,
-         tc: 2,
-         x: 3,
-         y: 0,
-         tx: 3,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 28,
-         tb: it + 28.5,
-         c: 1,
-         d: 5,
-         tc: 6,
-         x: 3,
-         y: 2,
-         tx: 0,
-         ty: flipFlop ? 0 : 1,
-         m: 0,
-      },
-      {
-         b: it + 29,
-         tb: it + 29.5,
-         c: 1,
-         d: 4,
-         tc: 7,
-         x: 0,
-         y: 2,
-         tx: 3,
-         ty: flipFlop ? 0 : 1,
-         m: 0,
-      },
+      ...[
+         {
+            b: it + 6,
+            tb: it + 6.5,
+            c: 1,
+            d: 6,
+            tc: 3,
+            x: 0,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 7,
+            tb: it + 7.5,
+            c: 1,
+            d: 6,
+            tc: 3,
+            x: 0,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 14,
+            tb: it + 14.5,
+            c: 1,
+            d: 2,
+            tc: 4,
+            x: 2,
+            y: 0,
+            tx: 3,
+            ty: 2,
+         },
+         {
+            b: it + 15,
+            tb: it + 15.5,
+            c: 1,
+            d: 3,
+            tc: 5,
+            x: 1,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 22,
+            tb: it + 22.5,
+            c: 1,
+            d: 7,
+            tc: 2,
+            x: 3,
+            y: 0,
+            tx: 3,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 23,
+            tb: it + 23.5,
+            c: 1,
+            d: 7,
+            tc: 2,
+            x: 3,
+            y: 0,
+            tx: 3,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 28,
+            tb: it + 28.5,
+            c: 1,
+            d: 5,
+            tc: 6,
+            x: 3,
+            y: 2,
+            tx: 0,
+            ty: flipFlop ? 0 : 1,
+            m: 0,
+         },
+         {
+            b: it + 29,
+            tb: it + 29.5,
+            c: 1,
+            d: 4,
+            tc: 7,
+            x: 0,
+            y: 2,
+            tx: 3,
+            ty: flipFlop ? 0 : 1,
+            m: 0,
+         },
+      ].map(v3.arc.deserialize),
    );
    osExpert.addArcs(
-      {
-         b: it + 6,
-         tb: it + 6.5,
-         c: 1,
-         d: 6,
-         tc: 3,
-         x: 0,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 7,
-         tb: it + 7.5,
-         c: 1,
-         d: 6,
-         tc: 3,
-         x: 0,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 14,
-         tb: it + 14.5,
-         c: 1,
-         d: 2,
-         tc: 4,
-         x: 2,
-         y: 0,
-         tx: 3,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 15,
-         tb: it + 15.5,
-         c: 1,
-         d: 3,
-         tc: 5,
-         x: 1,
-         y: 0,
-         tx: 0,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 22,
-         tb: it + 22.5,
-         c: 1,
-         d: 7,
-         tc: 2,
-         x: 3,
-         y: 0,
-         tx: 3,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 23,
-         tb: it + 23.5,
-         c: 1,
-         d: 7,
-         tc: 2,
-         x: 3,
-         y: 0,
-         tx: 3,
-         ty: 2,
-         m: 0,
-      },
-      {
-         b: it + 28,
-         tb: it + 28.5,
-         c: 1,
-         d: 5,
-         tc: 6,
-         x: 3,
-         y: 2,
-         tx: 0,
-         ty: flipFlop ? 0 : 1,
-         m: 0,
-      },
-      {
-         b: it + 29,
-         tb: it + 29.5,
-         c: 1,
-         d: 4,
-         tc: 7,
-         x: 0,
-         y: 2,
-         tx: 3,
-         ty: flipFlop ? 0 : 1,
-         m: 0,
-      },
+      ...[
+         {
+            b: it + 6,
+            tb: it + 6.5,
+            c: 1,
+            d: 6,
+            tc: 3,
+            x: 0,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 7,
+            tb: it + 7.5,
+            c: 1,
+            d: 6,
+            tc: 3,
+            x: 0,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 14,
+            tb: it + 14.5,
+            c: 1,
+            d: 2,
+            tc: 4,
+            x: 2,
+            y: 0,
+            tx: 3,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 15,
+            tb: it + 15.5,
+            c: 1,
+            d: 3,
+            tc: 5,
+            x: 1,
+            y: 0,
+            tx: 0,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 22,
+            tb: it + 22.5,
+            c: 1,
+            d: 7,
+            tc: 2,
+            x: 3,
+            y: 0,
+            tx: 3,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 23,
+            tb: it + 23.5,
+            c: 1,
+            d: 7,
+            tc: 2,
+            x: 3,
+            y: 0,
+            tx: 3,
+            ty: 2,
+            m: 0,
+         },
+         {
+            b: it + 28,
+            tb: it + 28.5,
+            c: 1,
+            d: 5,
+            tc: 6,
+            x: 3,
+            y: 2,
+            tx: 0,
+            ty: flipFlop ? 0 : 1,
+            m: 0,
+         },
+         {
+            b: it + 29,
+            tb: it + 29.5,
+            c: 1,
+            d: 4,
+            tc: 7,
+            x: 0,
+            y: 2,
+            tx: 3,
+            ty: flipFlop ? 0 : 1,
+            m: 0,
+         },
+      ].map(v3.arc.deserialize),
    );
    flipFlop = !flipFlop;
 }
 for (const ct of chorusTime) {
-   let walls = v3.Obstacle.create(
-      {
-         b: ct - 1,
-         d: 0.5,
-         x: 6,
-         y: 2,
-         w: 3,
-         h: 1,
-         customData: { color: [0.25, 0.25, 0.25, 1] },
-      },
-      {
-         b: ct - 0.5,
-         d: 0.25,
-         x: 5,
-         y: 1,
-         w: 1,
-         h: 3,
-         customData: { color: [0.5, 0.5, 0.5, 1] },
-      },
-      {
-         b: ct - 0.25,
-         d: 0.25,
-         x: 4,
-         y: 0,
-         w: 1,
-         h: 5,
-         customData: { color: [1, 1, 1, 1] },
-      },
+   let walls = Obstacle.create(
+      ...[
+         {
+            b: ct - 1,
+            d: 0.5,
+            x: 6,
+            y: 2,
+            w: 3,
+            h: 1,
+            customData: { color: [0.25, 0.25, 0.25, 1] as types.ColorArray },
+         },
+         {
+            b: ct - 0.5,
+            d: 0.25,
+            x: 5,
+            y: 1,
+            w: 1,
+            h: 3,
+            customData: { color: [0.5, 0.5, 0.5, 1] as types.ColorArray },
+         },
+         {
+            b: ct - 0.25,
+            d: 0.25,
+            x: 4,
+            y: 0,
+            w: 1,
+            h: 5,
+            customData: { color: [1, 1, 1, 1] as types.ColorArray },
+         },
+      ].map(v3.obstacle.deserialize),
    );
    walls = walls.concat(walls.concat(walls.map((w) => w.clone().mirror())));
    const arr = [0, 1, 2, 3];
@@ -405,11 +447,11 @@ for (const ct of chorusTime) {
    for (let i = 0; i < 3; i++) {
       for (const a in arr) {
          walls.push(
-            v3.Obstacle.create({
-               b: ct - 4 + i + parseInt(a) * 0.25,
-               d: 0.25,
-               x: arr[a],
-               y: 0,
+            Obstacle.create({
+               time: ct - 4 + i + parseInt(a) * 0.25,
+               duration: 0.25,
+               posX: arr[a],
+               posY: 0,
                customData: { color: [0, 0, 0, 1] },
             })[0],
          );
@@ -429,85 +471,97 @@ for (let i = 0; i < 6; i++) {
 }
 
 {
-   const walls = v3.Obstacle.create(
+   const walls = [
       {
          b: 404,
          d: 4,
          x: 0,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 408,
          d: 4,
          x: 1,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 412,
          d: 4,
          x: 3,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 416,
          d: 4,
          x: 2,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 420,
          d: 4,
          x: 0,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 424,
          d: 4,
          x: 1,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
       {
          b: 428,
          d: 4,
          x: 3,
          y: 0,
-         customData: { color: [0, 0, 0, 1] },
+         customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
-   );
+   ]
+      .map(v3.obstacle.deserialize)
+      .map(Obstacle.createOne);
    osExpertP.obstacles.push(...walls);
    osExpert.obstacles.push(...walls);
 }
 
 osExpertP.addChains(
-   { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
-   { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
-   { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
-   { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
+   ...[
+      { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
+      { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
+      { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
+      { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
+   ].map(v3.chain.deserialize),
 );
 osExpertP.addArcs(
-   { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
-   { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
-   { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
+   ...[
+      { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
+      { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
+      { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
+   ].map(v3.arc.deserialize),
 );
 osExpert.addChains(
-   { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
-   { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
-   { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
-   { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
+   ...[
+      { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
+      { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
+      { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
+      { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
+   ].map(v3.chain.deserialize),
 );
 osExpert.addArcs(
-   { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
-   { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
-   { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
+   ...[
+      { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
+      { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
+      { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
+   ].map(v3.arc.deserialize),
 );
 
-const sliderApplyColor = (s: v3.Arc | v3.Chain) => {
+const sliderApplyColor = (
+   s: types.wrapper.IWrapArcAttribute | types.wrapper.IWrapChainAttribute,
+) => {
    const note = osExpert.colorNotes.filter(
       (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
    );
@@ -663,5 +717,5 @@ osExpert.chains.forEach(sliderApplyColor);
 osExpertP.arcs.forEach(sliderApplyColor);
 osExpertP.chains.forEach(sliderApplyColor);
 
-save.difficultySync(osExpertP);
-save.difficultySync(osExpert);
+writeDifficultyFileSync(osExpertP);
+writeDifficultyFileSync(osExpert);

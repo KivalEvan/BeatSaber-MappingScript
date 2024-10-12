@@ -5,7 +5,6 @@ import {
    normalize,
    pRandomFn,
    types,
-   v3,
    vectorAdd,
    vectorMul,
 } from '../../depsLocal.ts';
@@ -170,22 +169,6 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const pillarBlock = ext.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cylinder', material: 'RailwayStandard' },
-      },
-      [0, 0, 0],
-   );
-   const pillarLight = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Cylinder', material: 'RailwayTransparentLight' },
-         components: {
-            ILightWithId: { type: 4 },
-            TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
-         },
-      },
-      [0, 0, 0],
-   );
-   const sphereBlock = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Sphere', material: 'RailwayStandard' },
       },
       [0, 0, 0],
    );
@@ -1177,12 +1160,12 @@ export function generateMaterial() {
    } as Record<string, types.v3.IChromaMaterial>;
 }
 
-export const insertEnvironment = (d: v3.Difficulty) => {
-   if (d.customData.environment?.length) {
+export const insertEnvironment = (d: types.wrapper.IWrapBeatmap) => {
+   if (d.difficulty.customData.environment?.length) {
       logger.warn('Environment enhancement previously existed, replacing');
    }
-   d.customData.environment = generateEnvironment();
-   d.customData.materials = generateMaterial();
+   d.difficulty.customData.environment = generateEnvironment();
+   d.difficulty.customData.materials = generateMaterial();
 };
 
 export function save(path = import.meta.url) {

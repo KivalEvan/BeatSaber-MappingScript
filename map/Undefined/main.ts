@@ -1,13 +1,21 @@
 import walls from './walls.ts';
 import lights from './lights.ts';
-import { convert, globals, isV3, lerp, load, normalize, save } from '../../depsLocal.ts';
+import {
+   globals,
+   lerp,
+   normalize,
+   readFromInfoSync,
+   readInfoFileSync,
+   toV3Beatmap,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/Undefined/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Undefined';
+globals.directory = beatmapWipPath('Undefined');
 
-const info = load.infoSync(2);
-info.environmentName = 'WeaveEnvironment';
+const info = readInfoFileSync();
+info.environmentBase.normal = 'WeaveEnvironment';
 info.customData._contributors = [
    {
       _role: 'Mapper',
@@ -16,7 +24,7 @@ info.customData._contributors = [
    },
 ];
 
-for (const [_, d] of info.listMap()) {
+for (const d of info.difficulties) {
    d.customData._information = [
       'Yuuka Kazami',
       'Gensokyo, Past and Present ~ Flower Land',
@@ -45,67 +53,63 @@ for (const [_, d] of info.listMap()) {
    delete d.customData._suggestions;
 }
 
-const difficultyList = load.beatmapFromInfoSync(info);
+const difficultyList = readFromInfoSync(info);
 
 difficultyList.forEach((d) => {
-   d.data = convert.toV3Difficulty(d.data);
-   if (isV3(d.data)) {
-      d.data.basicEvents = [];
-      d.data.useNormalEventsAsCompatibleEvents = false;
-      for (let i = 0, j = 0, len = d.data.colorNotes.length; i < len; i++) {
-         const n = d.data.colorNotes[i];
-         if (n.direction === 8) {
-            n.angleOffset = 45;
+   d.beatmap = toV3Beatmap(d.beatmap, d.beatmap.version);
+   d.beatmap.basicEvents = [];
+   d.beatmap.useNormalEventsAsCompatibleEvents = false;
+   for (let i = 0, j = 0, len = d.beatmap.colorNotes.length; i < len; i++) {
+      const n = d.beatmap.colorNotes[i];
+      if (n.direction === 8) {
+         n.angleOffset = 45;
+      }
+      if (d.info.characteristic === 'OneSaber') {
+         if (n.time >= 98.25 + j * 4 && n.time <= 100.5 + j * 4) {
+            n.angleOffset = Math.round(
+               lerp(
+                  normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
+                  -22.5,
+                  22.5,
+               ) * (j % 2 ? 1 : -1),
+            );
          }
-         if (d.characteristic === 'OneSaber') {
-            if (n.time >= 98.25 + j * 4 && n.time <= 100.5 + j * 4) {
+         if (n.time >= 100.5 + j * 4) {
+            j++;
+         }
+         continue;
+      }
+      if (d.info.difficulty === 'ExpertPlus' || d.info.difficulty === 'Expert') {
+         if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
+            n.angleOffset = Math.round(
+               lerp(normalize(n.time, 32, 32.75), -45, 0),
+            );
+         }
+         if (n.color === 0 && n.time >= 33 && n.time < 33.75) {
+            n.angleOffset = Math.round(
+               lerp(normalize(n.time, 33, 33.75), 45, 0),
+            );
+         }
+         if (n.time >= 98 + j * 4 && n.time <= 101 + j * 4) {
+            if (n.color === (d.info.difficulty === 'Expert' ? j + 1 : j) % 2) {
                n.angleOffset = Math.round(
                   lerp(
                      normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
-                     -22.5,
-                     22.5,
+                     d.info.difficulty === 'Expert' ? -30 : -45,
+                     d.info.difficulty === 'Expert' ? 30 : 45,
                   ) * (j % 2 ? 1 : -1),
                );
             }
-            if (n.time >= 100.5 + j * 4) {
-               j++;
-            }
-            continue;
          }
-         if (d.difficulty === 'ExpertPlus' || d.difficulty === 'Expert') {
-            if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
-               n.angleOffset = Math.round(
-                  lerp(normalize(n.time, 32, 32.75), -45, 0),
-               );
-            }
-            if (n.color === 0 && n.time >= 33 && n.time < 33.75) {
-               n.angleOffset = Math.round(
-                  lerp(normalize(n.time, 33, 33.75), 45, 0),
-               );
-            }
-            if (n.time >= 98 + j * 4 && n.time <= 101 + j * 4) {
-               if (n.color === (d.difficulty === 'Expert' ? j + 1 : j) % 2) {
-                  n.angleOffset = Math.round(
-                     lerp(
-                        normalize(n.time, 98.25 + j * 4, 100.5 + j * 4),
-                        d.difficulty === 'Expert' ? -30 : -45,
-                        d.difficulty === 'Expert' ? 30 : 45,
-                     ) * (j % 2 ? 1 : -1),
-                  );
-               }
-            }
-            if (n.time >= 101 + j * 4) {
-               j++;
-            }
+         if (n.time >= 101 + j * 4) {
+            j++;
          }
       }
-      walls(d.data);
-      lights(d.data);
    }
+   walls(d.beatmap);
+   lights(d.beatmap);
+
+   writeDifficultyFileSync(d.beatmap);
 });
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Undefined';
-save.beatmapListSync(difficultyList);
-save.infoSync(info);
+writeInfoFileSync(info);

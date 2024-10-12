@@ -1,10 +1,10 @@
 import {
-   BeatPerMinute,
    clamp,
    ext,
    logger,
    normalize,
    NoteJumpSpeed,
+   TimeProcessor,
    types,
    unityToGridUnit,
    v3,
@@ -14,7 +14,7 @@ import UFO from './ufo.ts';
 const { NE, selector } = ext;
 const { between } = selector;
 
-export function slow(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function slow(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Slow');
    const slowTiming = [136, 648];
    const ufoSlow = new UFO(data, 'Slow');

@@ -1,17 +1,23 @@
-import { ColorScheme, globals, load, save } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import {
+   ColorScheme,
+   globals,
+   readDifficultyFileSync,
+   readInfoFileSync,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/panorama/main.ts';
 import { ColorUtils } from '../../utility/colorUtils.ts';
 import phoenix from './phoenix.ts';
-import copyLightshow from '../../utility/copyLightshow.ts';
 import shortenName from '../../preprocess/shortenName.ts';
 import applyLabel from '../../utility/applyLabel.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('The Phoenix');
+globals.directory = beatmapWipPath('The Phoenix');
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.song.title = 'The Phoenix';
-info.environmentName = 'PyroEnvironment';
 info.environmentNames = ['PyroEnvironment'];
 info.colorSchemes = [
    {
@@ -31,7 +37,9 @@ info.colorSchemes = [
       environment1ColorBoost: ColorUtils.create(
          ColorScheme.Lattice._envColorRight,
       ),
-      obstaclesColor: ColorUtils.create(0.75), // for whatever weird reason, editor use this for boosted white color
+      obstaclesColor: ColorUtils.create(
+         ColorScheme['Panic 2.0']._envColorLeftBoost,
+      ),
    },
 ];
 info.customData._contributors = [
@@ -42,6 +50,7 @@ applyLabel(info, [
       characteristic: 'Standard',
       difficulty: 'ExpertPlus',
       label: 'Rise from the ashes',
+      // label: 'Eternal',
    },
    {
       characteristic: 'OneSaber',
@@ -60,20 +69,24 @@ applyLabel(info, [
    },
 ]);
 
-const lightshow = load.difficultySync('EasyStandard.dat', 3);
-for (const [m, d] of info.listMap()) {
-   const data = load.difficultySync(d.filename, 3);
-   copyLightshow(lightshow, data);
-   data.useNormalEventsAsCompatibleEvents = m === 'Legacy';
+const lightshow = readDifficultyFileSync('EasyStandard.dat', 3);
+for (const d of info.difficulties) {
+   const data = readDifficultyFileSync(d.filename);
+   data.lightshow = lightshow.lightshow;
    insertEnvironment(data);
-   phoenix(data);
-   save.difficultySync(data, { preprocess: [shortenName] });
+   phoenix(data, d.characteristic === '360Degree');
+   writeDifficultyFileSync(data, {
+      save: { preprocess: [shortenName] },
+   });
 
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];
-   d.customData._information = ['Illustration by Genzoman'];
+   d.customData._information = [
+      '1st track of album Save Rock and Roll',
+      'Illustration by Genzoman',
+   ];
 
-   d.copyColorScheme(0, info);
+   copyToCustomColor(d, info.colorSchemes[0]);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

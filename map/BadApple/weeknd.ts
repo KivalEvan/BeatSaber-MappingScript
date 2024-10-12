@@ -1,14 +1,13 @@
-import { BeatPerMinute, ext, globals, load, save, v3 } from '../../depsLocal.ts';
+import { ext, globals, TimeProcessor, v3 } from '../../depsLocal.ts';
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/Bad Apple/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/Bad Apple';
+globals.directory = beatmapWipPath('Bad Apple');
 
-const difficulty = load.difficultySync('EasyLawless.dat', 3);
-const info = load.infoSync(2);
+const difficulty = readDifficultyFileSync('EasyLawless.dat', 3);
+const info = readInfoFileSync();
 
-const BPM = BeatPerMinute.create(info.beatsPerMinute);
+const BPM = TimeProcessor.create(info.beatsPerMinute);
 
 difficulty.customData = {};
 difficulty.basicEvents = [];
@@ -166,5 +165,5 @@ globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple';
 console.log(ext.stats.countEbg(difficulty.lightColorEventBoxGroups));
-save.difficultySync(difficulty, { format: 4 });
+writeDifficultyFileSync(difficulty, { format: 4 });
 console.log('done');

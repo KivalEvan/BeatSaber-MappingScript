@@ -1,68 +1,72 @@
 import {
    colorFrom,
+   ColorNote,
    deepCopy,
    ext,
    globals,
    lerpColor,
-   load,
    NoteDirectionAngle,
    productAry,
    random,
    range,
+   readDifficultyFileSync,
+   readInfoFileSync,
    remap,
-   save,
    types,
    v3,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 const { between, at } = ext.selector;
 
-globals.directory = wipPath('Girly Cupid');
+globals.directory = beatmapWipPath('Girly Cupid');
 
-const lightshow = load.difficultySync('ExpertPlusLegacy.dat', 3);
+const lightshow = readDifficultyFileSync('ExpertPlusLegacy.dat', 3);
 
 function makeBlackWhite(n: types.wrapper.IWrapBaseNote) {
    if (n.color === 0) n.customData.color = colorFrom(0.25);
    if (n.color === 1) n.customData.color = colorFrom(0.5625);
 }
 
-function leaveTrail(d: v3.Difficulty, start: number, end: number) {
+function leaveTrail(d: types.wrapper.IWrapBeatmap, start: number, end: number) {
    between(d.colorNotes, start, end).forEach((n) => {
       let i = 0;
       for (const step of range(0.09, 0.25, 0.05)) {
-         const json = n.toJSON();
-         json.b += step;
-         json.customData.uninteractable = true;
-         json.customData.animation = {};
-         json.customData.animation.dissolveArrow = 'none';
-         d.customData.pointDefinitions!['trail' + i] ||= [
+         const json = v3.colorNote.serialize(n);
+         json.b! += step;
+         json.customData!.uninteractable = true;
+         json.customData!.animation = {};
+         json.customData!.animation.dissolveArrow = 'none';
+         d.difficulty.customData.pointDefinitions!['trail' + i] ||= [
             [remap(step, 0.09, 0.24, 0.05, 0.01), 0],
          ];
-         json.customData.animation.dissolve = 'trail' + i;
-         d.customData.fakeColorNotes!.push(json);
+         json.customData!.animation.dissolve = 'trail' + i;
+         d.difficulty.customData.fakeColorNotes!.push(json);
          i++;
       }
    });
 }
 
-function drawNote(d: v3.Difficulty, start: number, end: number) {
-   d.customData.pointDefinitions!.drawNoteScale = [[3, 3, 0.1, 0]];
-   d.customData.pointDefinitions!.drawNoteDefPos = [
+function drawNote(d: types.wrapper.IWrapBeatmap, start: number, end: number) {
+   d.difficulty.customData.pointDefinitions!.drawNoteScale = [[3, 3, 0.1, 0]];
+   d.difficulty.customData.pointDefinitions!.drawNoteDefPos = [
       [0, -2, 10, 0],
       [0, -9999, -9999, 0.5, 'easeStep'],
    ];
    between(d.colorNotes, start, end).forEach((n) => {
-      const json = n.toJSON();
-      json.b += 0.49;
-      json.customData.noteJumpMovementSpeed = 16;
-      json.customData.noteJumpStartBeatOffset = -1.5;
-      json.customData.uninteractable = true;
-      json.customData.coordinates = [-0.5, 0];
-      json.customData.animation = {};
-      json.customData.animation.dissolve = 'none';
-      json.customData.animation.scale = 'drawNoteScale';
-      json.customData.animation.definitePosition = 'drawNoteDefPos';
-      d.customData.fakeColorNotes!.push(json);
+      const json = v3.colorNote.serialize(n);
+      json.b! += 0.49;
+      json.customData!.noteJumpMovementSpeed = 16;
+      json.customData!.noteJumpStartBeatOffset = -1.5;
+      json.customData!.uninteractable = true;
+      json.customData!.coordinates = [-0.5, 0];
+      json.customData!.animation = {};
+      json.customData!.animation.dissolve = 'none';
+      json.customData!.animation.scale = 'drawNoteScale';
+      json.customData!.animation.definitePosition = 'drawNoteDefPos';
+      d.difficulty.customData.fakeColorNotes!.push(json);
    });
 }
 
@@ -71,12 +75,12 @@ function makeItAppear(n: types.wrapper.IWrapBaseNote) {
    n.customData.animation.dissolve = 'popIntoExistence';
 }
 
-function funstuff(d: v3.Difficulty) {
+function funstuff(d: types.wrapper.IWrapBeatmap) {
    const allthestuff = [...d.arcs, ...d.chains, ...d.colorNotes];
    allthestuff.forEach((n) => n.resetCustomData());
-   d.customData.fakeColorNotes = [];
-   d.customData.customEvents = [];
-   d.customData.pointDefinitions = {
+   d.difficulty.customData.fakeColorNotes = [];
+   d.difficulty.customData.customEvents = [];
+   d.difficulty.customData.pointDefinitions = {
       none: [[0, 0]],
       popIntoExistence: [
          [0, 0],
@@ -118,22 +122,22 @@ function funstuff(d: v3.Difficulty) {
    leaveTrail(d, 325, 356.5);
    drawNote(d, 449.5, 451.5);
    drawNote(d, 225.5, 227.5);
-   d.customData.pointDefinitions.slashPosition = [
+   d.difficulty.customData.pointDefinitions.slashPosition = [
       [0, 0, 4, 0],
       [0, 0, 4, 0.001, 'easeStep'],
       [0, 0, 5.5, 0.5, 'easeOutQuad'],
       [0, 0, -999, 0.501, 'easeStep'],
    ];
-   d.customData.pointDefinitions.slashExpand = [
+   d.difficulty.customData.pointDefinitions.slashExpand = [
       [0.5, 1, 0.5, 0],
       [0, 36, 0, 0.5, 'easeInQuad'],
    ];
-   d.customData.pointDefinitions.slashGlitchEffect = [
+   d.difficulty.customData.pointDefinitions.slashGlitchEffect = [
       [0, 0],
       [0.75, 0.001, 'easeStep'],
       [0, 0.375],
    ];
-   d.customData.customEvents.push({
+   d.difficulty.customData.customEvents.push({
       b: 0,
       t: 'AssignPathAnimation',
       d: {
@@ -160,23 +164,23 @@ function funstuff(d: v3.Difficulty) {
       ]
    ) {
       at(d.chains, time).forEach((c) => {
-         const json = new v3.ColorNote(c).toJSON();
-         json.b += 0.99;
-         json.customData.coordinates = [json.x - 2, json.y];
-         json.customData.noteJumpMovementSpeed = 16;
-         json.customData.noteJumpStartBeatOffset = -1;
-         json.customData.uninteractable = true;
-         json.customData.track = 'pewPew';
-         json.customData.localRotation = [
+         const json = v3.colorNote.serialize(new ColorNote(c));
+         json.b! += 0.99;
+         json.customData!.coordinates = [json.x! - 2, json.y!];
+         json.customData!.noteJumpMovementSpeed = 16;
+         json.customData!.noteJumpStartBeatOffset = -1;
+         json.customData!.uninteractable = true;
+         json.customData!.track = 'pewPew';
+         json.customData!.localRotation = [
             0,
             0,
             (180 + (NoteDirectionAngle[json.d as 0] || 0)) % 360,
          ];
-         d.customData.fakeColorNotes!.push(json);
+         d.difficulty.customData.fakeColorNotes!.push(json);
       });
    }
 
-   d.customData.fakeObstacles = d.customData.fakeObstacles!.filter(
+   d.difficulty.customData.fakeObstacles = d.difficulty.customData.fakeObstacles!.filter(
       (e) =>
          !(
             (e.b! > 45.49 && e.b! < 45.52) ||
@@ -186,12 +190,12 @@ function funstuff(d: v3.Difficulty) {
          ),
    );
 
-   const wa = d.customData.fakeObstacles!.filter(
+   const wa = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 150 && o.b! < 160.875) || (o.b! > 374 && o.b! < 384.875)) &&
          o.customData!.coordinates!.every((e) => e > -7 && e < 7),
    );
-   d.customData.pointDefinitions.waDefPos = [
+   d.difficulty.customData.pointDefinitions.waDefPos = [
       [0, 0, 32, 0],
       [0, 0, -4, 0.45],
       [0, 0, -64, 1],
@@ -206,7 +210,7 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const night = d.customData.fakeObstacles!.filter(
+   const night = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 38 && o.b! < 39) ||
             (o.b! > 70 && o.b! < 71) ||
@@ -215,12 +219,12 @@ function funstuff(d: v3.Difficulty) {
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.nightPos = [
+   d.difficulty.customData.pointDefinitions.nightPos = [
       [0, 1, 16, 0],
       [-0.5, 1, 16, 0.499],
       [-0.5, -9999, -9999, 0.5, 'easeStep'],
    ];
-   d.customData.pointDefinitions.nightFade = [
+   d.difficulty.customData.pointDefinitions.nightFade = [
       [0, 0],
       [1, 1 / 64],
       [1, 0.5 - 1 / 64],
@@ -236,7 +240,7 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const and = d.customData.fakeObstacles!.filter(
+   const and = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 39 && o.b! < 40) ||
             (o.b! > 71 && o.b! < 72) ||
@@ -245,12 +249,12 @@ function funstuff(d: v3.Difficulty) {
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.andPos = [
+   d.difficulty.customData.pointDefinitions.andPos = [
       [0, 0.5, 16.5, 0],
       [0, 0.5, 17, 0.499],
       [0, -9999, -9999, 0.5, 'easeStep'],
    ];
-   d.customData.pointDefinitions.andFade = [
+   d.difficulty.customData.pointDefinitions.andFade = [
       [0, 0],
       [1, 1 / 32],
       [1, 0.5 - 1 / 32],
@@ -266,7 +270,7 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const day = d.customData.fakeObstacles!.filter(
+   const day = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 40 && o.b! < 41) ||
             (o.b! > 72 && o.b! < 73) ||
@@ -275,12 +279,12 @@ function funstuff(d: v3.Difficulty) {
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.dayPos = [
+   d.difficulty.customData.pointDefinitions.dayPos = [
       [0, 0, 16, 0],
       [0.5, 0, 16, 0.499],
       [0.5, -9999, -9999, 0.5, 'easeStep'],
    ];
-   d.customData.pointDefinitions.dayFade = [
+   d.difficulty.customData.pointDefinitions.dayFade = [
       [0, 0],
       [1, 1 / 16],
       [1, 0.5 - 1 / 16],
@@ -296,7 +300,7 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const tune = d.customData.fakeObstacles!.filter(
+   const tune = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 45.24 && o.b! < 45.26) ||
             (o.b! > 77.24 && o.b! < 77.26) ||
@@ -305,7 +309,7 @@ function funstuff(d: v3.Difficulty) {
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.tuneFade = [
+   d.difficulty.customData.pointDefinitions.tuneFade = [
       [0, 0],
       [1, 0.1],
       [1, 0.5],
@@ -324,7 +328,7 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const heart = d.customData.fakeObstacles!.filter(
+   const heart = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 48.24 && o.b! < 48.26) ||
             (o.b! > 80.24 && o.b! < 80.26) ||
@@ -333,7 +337,7 @@ function funstuff(d: v3.Difficulty) {
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.heartFade = [
+   d.difficulty.customData.pointDefinitions.heartFade = [
       [0, 0],
       [1, 0.0125],
       [1, 0.485],
@@ -352,13 +356,13 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const moveMe = d.customData.fakeObstacles!.filter(
+   const moveMe = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 54.5 && o.b! < 55.5) || (o.b! > 278.5 && o.b! < 279.5)) &&
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.moveMeFade = [
+   d.difficulty.customData.pointDefinitions.moveMeFade = [
       [0, 0],
       [1, 0.1],
       [1, 0.95],
@@ -384,17 +388,17 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const yourBody = d.customData.fakeObstacles!.filter(
+   const yourBody = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 64 && o.b! < 65) || (o.b! > 288 && o.b! < 289)) &&
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.yourBodyDefPos = [
+   d.difficulty.customData.pointDefinitions.yourBodyDefPos = [
       [0, 0, 24, 0],
       [0, 0.5, 25, 1, 'easeOutSine'],
    ];
-   d.customData.pointDefinitions.yourBodyFade = [
+   d.difficulty.customData.pointDefinitions.yourBodyFade = [
       [0, 0],
       [1, 0.05],
       [1, 0.75],
@@ -409,19 +413,19 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const jumpAround = d.customData.fakeObstacles!.filter(
+   const jumpAround = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          ((o.b! > 86.5 && o.b! < 92) || (o.b! > 310.5 && o.b! < 316)) &&
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          productAry(o.customData!.size as types.Vector2) > 0.001,
    );
-   d.customData.pointDefinitions.jumpAroundDefPos = [
+   d.difficulty.customData.pointDefinitions.jumpAroundDefPos = [
       [0.5, -7, 25, 0],
       [0.5, 0, 25, 0.125, 'easeInCirc'],
       [0.5, 1, 25, 0.25, 'easeOutElastic'],
       [0.5, 1.25, 25.5, 1, 'easeInQuad'],
    ];
-   d.customData.pointDefinitions.jumpAroundFade = [
+   d.difficulty.customData.pointDefinitions.jumpAroundFade = [
       [0, 0],
       [0, 0.05],
       [1, 0.15],
@@ -435,18 +439,18 @@ function funstuff(d: v3.Difficulty) {
       };
    });
 
-   const heartLogo = d.customData.fakeObstacles!.filter(
+   const heartLogo = d.difficulty.customData.fakeObstacles!.filter(
       (o) =>
          o.b! > 354.5 &&
          o.b! < 357 &&
          o.customData!.color!.every((e, i) => e === 0 || i === 3) &&
          o.customData!.coordinates![1] !== 0,
    );
-   d.customData.pointDefinitions.heartLogoDefPos = [
+   d.difficulty.customData.pointDefinitions.heartLogoDefPos = [
       [0, 0, 21, 0],
       [0, 0, 20, 0.5, 'easeInOutQuad'],
    ];
-   d.customData.pointDefinitions.heartLogoFade = [
+   d.difficulty.customData.pointDefinitions.heartLogoFade = [
       [0, 0],
       [1, 0.125],
       [1, 0.45],
@@ -468,7 +472,7 @@ function funstuff(d: v3.Difficulty) {
    });
 }
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.song.title = 'Girly Cupid';
 info.colorSchemes = [
    {
@@ -483,27 +487,27 @@ info.colorSchemes = [
       obstaclesColor: { r: 0.75, g: 0.75, b: 0.75, a: 1 },
    },
 ];
-for (const [_, d] of info.listMap()) {
-   const difficulty = load.difficultySync(d.filename, 3);
+for (const d of info.difficulties) {
+   const bm = readDifficultyFileSync(d.filename, 3);
    if (d.characteristic !== 'Legacy') {
-      difficulty.customData.fakeObstacles = deepCopy(
-         lightshow.customData.fakeObstacles,
+      bm.difficulty.customData.fakeObstacles = deepCopy(
+         lightshow.difficulty.customData.fakeObstacles,
       );
-      difficulty.customData.bookmarks = deepCopy(
-         lightshow.customData.bookmarks,
+      bm.difficulty.customData.bookmarks = deepCopy(
+         lightshow.difficulty.customData.bookmarks,
       );
-      difficulty.customData.bookmarks!.forEach(
-         (bm, i) => (bm.c = lerpColor(
+      bm.difficulty.customData.bookmarks!.forEach(
+         (bookmark, i) => (bookmark.c = lerpColor(
             [0.875, 0.125, 0.125],
             [0.375, 0.125, 0.875],
-            i / difficulty.customData.bookmarks!.length,
+            i / bm.difficulty.customData.bookmarks!.length,
          )),
       );
-      difficulty.basicEvents = lightshow.basicEvents.filter(
+      bm.basicEvents = lightshow.basicEvents.filter(
          (e) => !e.isBpmEvent(),
       );
-      difficulty.obstacles = [];
-      funstuff(difficulty);
+      bm.obstacles = [];
+      funstuff(bm);
    }
 
    d.customData._information = [
@@ -512,7 +516,9 @@ for (const [_, d] of info.listMap()) {
       '5th track of album city hop',
    ];
    if (d.characteristic === 'Standard') {
-      if (d.difficulty === 'Easy') d.customData._difficultyLabel = 'Move Me';
+      if (d.difficulty === 'Easy') {
+         d.customData._difficultyLabel = 'Move Me';
+      }
       if (d.difficulty === 'Normal') {
          d.customData._difficultyLabel = "Jumpin' Around";
       }
@@ -538,9 +544,9 @@ for (const [_, d] of info.listMap()) {
          d.customData._difficultyLabel = "Don't Forget About Me!";
       }
    }
-   save.difficultySync(difficulty);
+   writeDifficultyFileSync(bm);
 
-   d.copyColorScheme(info.colorSchemes[0]);
+   copyToCustomColor(d, info.colorSchemes[0]);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

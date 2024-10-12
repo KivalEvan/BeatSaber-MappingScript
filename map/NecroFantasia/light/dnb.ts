@@ -7,9 +7,7 @@ import {
    IndexFilterType,
    pRandomFn,
    range as rangeEx,
-   TransitionType,
    types,
-   v3,
 } from '../../../depsLocal.ts';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
@@ -19,9 +17,6 @@ function range(start: number, end?: number, step?: number): number[] {
 type Pattern = { bass: number[]; kick: number[] };
 
 const pattern1: Pattern = { bass: [0, 2.5], kick: [1, 3] };
-const pattern2: Pattern = { bass: [0, 0.5, 2.5], kick: [1, 1.5, 3] };
-const pattern3: Pattern = { bass: [0, 2, 2.5, 3.5], kick: [1, 1.5, 3] };
-const pattern4: Pattern = { bass: [0, 3.5], kick: [1, 2, 2.25, 2.5, 3] };
 const timeStart = 102;
 const timeEnd = 990 - 1;
 const timeInterval = 4;
@@ -58,16 +53,16 @@ const timePattern3 = [194];
 const timePattern4 = [258, 290, 322, 386, 450, 578, 610, 642, 834, 898];
 
 const lightBaseBass: Partial<types.wrapper.IWrapLightColorEvent>[] = [
-   { time: 0, transition: TransitionType.EXTEND },
+   { time: 0, previous: 1 },
    {
       time: 0.125,
       color: EventBoxColor.WHITE,
-      transition: TransitionType.INTERPOLATE,
+      easing: EaseType.LINEAR,
    },
    {
       time: 0.4999,
       color: EventBoxColor.WHITE,
-      transition: TransitionType.INTERPOLATE,
+      easing: EaseType.LINEAR,
       brightness: 0,
    },
 ];
@@ -86,16 +81,16 @@ const lightBass: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
    },
 ];
 const lightBaseBassShort: Partial<types.wrapper.IWrapLightColorEvent>[] = [
-   { transition: TransitionType.EXTEND },
+   { previous: 1 },
    {
       time: 0.0625,
       color: EventBoxColor.WHITE,
-      transition: TransitionType.INTERPOLATE,
+      easing: EaseType.LINEAR,
    },
    {
       time: 0.375,
       color: EventBoxColor.WHITE,
-      transition: TransitionType.INTERPOLATE,
+      easing: EaseType.LINEAR,
       brightness: 0,
    },
 ];
@@ -109,16 +104,16 @@ const lightBassShort: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAtt
    {
       filter: { p0: 2, p1: 1, reverse: 1, limit: 0.5 },
       events: [
-         { transition: TransitionType.EXTEND },
+         { previous: 1 },
          {
             time: 0.125,
             color: EventBoxColor.WHITE,
-            transition: TransitionType.INTERPOLATE,
+            easing: EaseType.LINEAR,
          },
          {
             time: 0.375,
             color: EventBoxColor.WHITE,
-            transition: TransitionType.INTERPOLATE,
+            easing: EaseType.LINEAR,
             brightness: 0,
          },
       ],
@@ -134,7 +129,7 @@ const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
          {
             time: 0.5,
             color: EventBoxColor.WHITE,
-            transition: TransitionType.INTERPOLATE,
+            easing: EaseType.LINEAR,
             brightness: 0,
          },
       ],
@@ -144,7 +139,7 @@ const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
 ];
 
 const pRandom = pRandomFn('h');
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    for (const time of range(timeStart, timeEnd, timeInterval)) {
       if (timeSkip.includes(time)) continue;
       if (timePattern2.includes(time)) doPattern2(data, time);
@@ -210,13 +205,13 @@ export default function (data: v3.Difficulty) {
                         {
                            time: 0.5,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 2,
                            color: EventBoxColor.WHITE,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistribution: 1,
@@ -240,13 +235,13 @@ export default function (data: v3.Difficulty) {
                         {
                            time: 0.5,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 2,
                            color: EventBoxColor.WHITE,
                            brightness: 0,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                      beatDistribution: 1,
@@ -259,7 +254,7 @@ export default function (data: v3.Difficulty) {
    }
 }
 
-function doPattern1(data: v3.Difficulty, time: number) {
+function doPattern1(data: types.wrapper.IWrapBeatmap, time: number) {
    const pattern = pattern1;
    data.addLightRotationEventBoxGroups({
       time,
@@ -332,7 +327,7 @@ function doPattern1(data: v3.Difficulty, time: number) {
                      {
                         time: 0.5,
                         color: EventBoxColor.WHITE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -388,7 +383,7 @@ function doPattern1(data: v3.Difficulty, time: number) {
 }
 
 let flipFlop2 = false;
-function doPattern2(data: v3.Difficulty, time: number) {
+function doPattern2(data: types.wrapper.IWrapBeatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time: time,
@@ -544,7 +539,7 @@ function doPattern2(data: v3.Difficulty, time: number) {
                   {
                      time: 0.5,
                      color: EventBoxColor.WHITE,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: 0,
                   },
                ],
@@ -566,7 +561,7 @@ function doPattern2(data: v3.Difficulty, time: number) {
                   {
                      time: 0.5,
                      color: EventBoxColor.WHITE,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: 0,
                   },
                ],
@@ -661,7 +656,7 @@ function doPattern2(data: v3.Difficulty, time: number) {
    flipFlop2 = !flipFlop2;
 }
 
-function doPattern3(data: v3.Difficulty, time: number) {
+function doPattern3(data: types.wrapper.IWrapBeatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time,
@@ -819,7 +814,7 @@ function doPattern3(data: v3.Difficulty, time: number) {
                   {
                      time: 0.5,
                      color: EventBoxColor.WHITE,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: 0,
                   },
                ],
@@ -841,7 +836,7 @@ function doPattern3(data: v3.Difficulty, time: number) {
                   {
                      time: 0.5,
                      color: EventBoxColor.WHITE,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: 0,
                   },
                ],
@@ -936,7 +931,7 @@ function doPattern3(data: v3.Difficulty, time: number) {
    flipFlop2 = !flipFlop2;
 }
 
-function doPattern4(data: v3.Difficulty, time: number) {
+function doPattern4(data: types.wrapper.IWrapBeatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time,
@@ -1043,7 +1038,7 @@ function doPattern4(data: v3.Difficulty, time: number) {
                   {
                      time: 0.5,
                      color: EventBoxColor.WHITE,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: 0,
                   },
                ],
@@ -1106,7 +1101,7 @@ function doPattern4(data: v3.Difficulty, time: number) {
                      {
                         time: 0.5,
                         color: EventBoxColor.WHITE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -1161,7 +1156,7 @@ function doPattern4(data: v3.Difficulty, time: number) {
    }
 }
 
-function bigbuild(data: v3.Difficulty) {
+function bigbuild(data: types.wrapper.IWrapBeatmap) {
    const buildTime = [342, 346, 350, 662, 666, 670, 798];
    for (const time of buildTime) {
       data.addLightRotationEventBoxGroups(
@@ -1276,17 +1271,17 @@ function bigbuild(data: v3.Difficulty) {
                boxes: [
                   {
                      events: [
-                        { time: 0, transition: TransitionType.EXTEND },
+                        { time: 0, previous: 1 },
                         {
                            time: 0.125,
                            color: EventBoxColor.BLUE,
                            brightness: 2,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                         {
                            time: 0.7499,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: 0,
                         },
                      ],
@@ -1318,17 +1313,17 @@ function bigbuild(data: v3.Difficulty) {
             boxes: [
                {
                   events: [
-                     { time: 0, transition: TransitionType.EXTEND },
+                     { time: 0, previous: 1 },
                      {
                         time: 0.125,
                         color: EventBoxColor.BLUE,
                         brightness: 2,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      {
                         time: 0.7499,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: 0,
                      },
                   ],
@@ -1458,31 +1453,31 @@ function bigbuild(data: v3.Difficulty) {
          time: 0.2499,
          color: EventBoxColor.WHITE,
          brightness: 1,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 0.75,
          color: EventBoxColor.WHITE,
          brightness: 1.5,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 2,
          color: EventBoxColor.WHITE,
          brightness: 0,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 3,
          color: EventBoxColor.WHITE,
          brightness: 1,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       {
          time: 4,
          color: EventBoxColor.WHITE,
          brightness: 0,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
    ];
    data.addLightColorEventBoxGroups({

@@ -1,19 +1,23 @@
-import { convert, load, v3 } from '../../depsLocal.ts';
+import { writeTextFileSync } from '../../deps.ts';
+import {
+   chromaLightGradientToVanillaGradient,
+   readDifficultyFileSync,
+   types,
+} from '../../depsLocal.ts';
 
 let init = false;
-let data: v3.Difficulty;
+let data: types.wrapper.IWrapBeatmap;
 
 export function lightshow() {
    if (init) {
       return data;
    }
    init = true;
-   const d2 = load.difficultySync('Lightshow.dat', 2);
-   convert.chromaLightGradientToVanillaGradient(d2);
-   data = convert.toV3Difficulty(d2);
+   data = readDifficultyFileSync('Lightshow.dat', 3);
+   chromaLightGradientToVanillaGradient(data);
 
    // const e = data.customData.environment?.filter((e) => e.id).map((e) => e.id);
-   data.customData.environment?.forEach((e) => {
+   data.difficulty.customData.environment?.forEach((e) => {
       if (e.id) {
          e.id = e.id
             .replace('d+', 'd*')
@@ -34,7 +38,7 @@ export function lightshow() {
       delete e.track;
    });
    let lightIDType0 = 101;
-   data.customData.environment
+   data.difficulty.customData.environment
       ?.filter((e) => e.duplicate)
       .filter((e) => !e.id?.includes('RotatingLasersPair') && !e.id?.includes('Construction'))
       .forEach((e) => {
@@ -55,10 +59,10 @@ export function lightshow() {
             },
          };
       });
-   data.customData.environment = data.customData.environment?.filter(
+   data.difficulty.customData.environment = data.difficulty.customData.environment?.filter(
       (e) => !(e.geometry && e.rotation && e.rotation[0] === 90 && e.scale && e.scale[1] === 0),
    );
-   data.customData.environment
+   data.difficulty.customData.environment
       ?.filter((e) => e.geometry)
       .forEach((e) => {
          if (e.scale) {
@@ -96,6 +100,6 @@ export function lightshow() {
          }
       }
    });
-   Deno.writeTextFileSync('env.json', JSON.stringify(data.customData.environment!, null, 2));
+   writeTextFileSync('env.json', JSON.stringify(data.difficulty.customData.environment!, null, 2));
    return data;
 }

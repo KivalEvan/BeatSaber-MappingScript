@@ -1,36 +1,38 @@
 // holy shit image are so tedious to work with and optimise
-import * as imagescript from 'https://deno.land/x/imagescript@v1.2.12/mod.ts';
+import * as imagescript from 'npm:imagescript@1.3.0';
 import {
+   BasicEvent,
+   Beatmap,
    EasingsFn,
    globals,
    interleave,
    lerp,
    normalize,
    NoteDirectionSpace,
+   Obstacle,
    random as randomFn,
-   save,
    shuffle,
-   v2,
+   writeDifficultyFileSync,
 } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
-import { resolve } from '../../deps.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import { readFileSync, resolve } from '../../deps.ts';
 
-v2.Event.default._floatValue = 1;
-v2.Obstacle.default._duration = 1;
-v2.Obstacle.default._width = 1;
+BasicEvent.defaultValue.floatValue = 1;
+Obstacle.defaultValue.duration = 1;
+Obstacle.defaultValue.width = 1;
 
 const WORKING_DIRECTORY = import.meta.dirname!;
-globals.directory = wipPath('ECHO');
+globals.directory = beatmapWipPath('ECHO');
 const OUTPUT_FILE = 'EasyLightshow.dat';
 
-const difficulty = v2.Difficulty.create();
+const bm = new Beatmap();
 
-difficulty.customData._environment = [];
-difficulty.customData.time = difficulty.customData.time ?? 0;
-difficulty.customData.time++;
-difficulty.basicEvents = [];
-const envEnh = difficulty.customData._environment;
-const { addBasicEvents } = difficulty;
+bm.difficulty.customData._environment = [];
+bm.difficulty.customData.time = bm.difficulty.customData.time ?? 0;
+bm.difficulty.customData.time++;
+bm.basicEvents = [];
+const envEnh = bm.difficulty.customData._environment;
+const { addBasicEvents } = bm;
 
 //#region environment and events order declaration stuff
 let itFrame = 0;
@@ -176,9 +178,12 @@ const screenEndID = offsetLightID + screenX * screenY;
 const screenArray = [];
 for (let y = 0; y < screenY; y++) {
    for (let x = 0; x < screenX; x++) {
-      const posX = screenXOffset + -(((screenX - 1) / 2) * screenSize) +
+      const posX = screenXOffset +
+         -(((screenX - 1) / 2) * screenSize) +
          x * (screenSize + screenGap);
-      const posY = screenYOffset + -((screenY / 2) * screenSize) - y * (screenSize + screenGap);
+      const posY = screenYOffset +
+         -((screenY / 2) * screenSize) -
+         y * (screenSize + screenGap);
       const posZ = 32 - Math.tan(345 * (Math.PI / 180)) * screenSize * y;
       envEnh.push({
          _id: regexGlowLine,
@@ -195,7 +200,14 @@ for (let y = 0; y < screenY; y++) {
 }
 
 const chevronID = [3, 4];
-const centerOrder = [screenEndID + 1, screenEndID + 2, 1, 2, screenEndID + 3, screenEndID + 4];
+const centerOrder = [
+   screenEndID + 1,
+   screenEndID + 2,
+   1,
+   2,
+   screenEndID + 3,
+   screenEndID + 4,
+];
 
 for (let i = 0, offset = 0; i < 77; i++) {
    if (i === 26) {
@@ -470,7 +482,7 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       override: options.override ?? false,
       easings: options.easings ?? EasingsFn.easeLinear,
    };
-   const gifFile = Deno.readFileSync(resolve(WORKING_DIRECTORY, 'image', imagePath));
+   const gifFile = readFileSync(resolve(WORKING_DIRECTORY, 'image', imagePath));
    const gif = await imagescript.GIF.decode(gifFile, !opt.animated);
    let itFrame = 0;
    gif.forEach((frame) => {
@@ -530,10 +542,14 @@ const screenDraw = async (imagePath: string, options: ImageGIFOption) => {
       for (const color in colorID) {
          addBasicEvents({
             time: (opt.animated
-               ? lerp(opt.easings(normalize(itFrame, 0, gif.length)), opt.time, opt.endTime)
+               ? lerp(
+                  opt.easings(normalize(itFrame, 0, gif.length)),
+                  opt.time,
+                  opt.endTime,
+               )
                : opt.time) + opt.fadeInDuration,
             type: 4,
-            value: opt.fadeInDuration ? (opt.eventValue > 4 ? 8 : 4) : opt.eventValue,
+            value: opt.fadeInDuration ? opt.eventValue > 4 ? 8 : 4 : opt.eventValue,
             floatValue: (parseInt(color) / 255) * opt.floatValue,
             customData: {
                _lightID: colorID[color],
@@ -939,7 +955,7 @@ for (const x in roadOrder) {
 }
 
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'clock.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'clock.gif');
    const img = await imagescript.GIF.decode(image, true);
    const xOffset = 0;
    const yOffset = 0;
@@ -983,7 +999,7 @@ for (let i = 0; i < 2; i++) {
 }
 screenClear(23, 0.5);
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'forever.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'forever.gif');
    const img = await imagescript.GIF.decode(image);
    const xOffset = 0;
    const yOffset = 0;
@@ -1041,7 +1057,7 @@ screenClear(23, 0.5);
    screenClear(26.75);
 }
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'hourglass.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'hourglass.gif');
    const img = await imagescript.GIF.decode(image, true);
    const xOffset = 0;
    const yOffset = 0;
@@ -1091,7 +1107,7 @@ screenClear(23, 0.5);
    screenClear(31.25, 0.375);
 }
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'frown.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'frown.gif');
    const img = await imagescript.GIF.decode(image, true);
    const xOffset = 11;
    const yOffset = 5;
@@ -1477,7 +1493,7 @@ for (let i = 0; i < 7; i++) {
 }
 
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'qma.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'qma.gif');
    const img = await imagescript.GIF.decode(image);
    const xOffset = 0;
    const yOffset = 0;
@@ -1544,7 +1560,7 @@ for (let i = 0; i < 2; i++) {
 }
 {
    itFrame = 0;
-   const image = Deno.readFileSync(WORKING_DIRECTORY + `/gradienth.gif`);
+   const image = readFileSync(WORKING_DIRECTORY + `/gradienth.gif`);
    const img = await imagescript.GIF.decode(image);
    const xOffset = 0;
    const yOffset = 0;
@@ -1679,7 +1695,7 @@ screenClear(66.75, 0.5);
 }
 itFrame = 0;
 {
-   const image = Deno.readFileSync(WORKING_DIRECTORY + 'gradientcone.gif');
+   const image = readFileSync(WORKING_DIRECTORY + 'gradientcone.gif');
    const img = await imagescript.GIF.decode(image);
    const xOffset = 0;
    const yOffset = 0;
@@ -2093,15 +2109,24 @@ for (const ctp of crystalTimingPeriod) {
          if (r === crystalShuffle.length) {
             let old = crystalShuffleLeft[crystalShuffleLeft.length - 1];
             shuffle(crystalShuffleLeft);
-            while (crystalShuffleLeft[0] === old || crystalShuffleLeft[1] === old) {
+            while (
+               crystalShuffleLeft[0] === old ||
+               crystalShuffleLeft[1] === old
+            ) {
                shuffle(crystalShuffleLeft);
             }
             old = crystalShuffleRight[crystalShuffleRight.length - 1];
             shuffle(crystalShuffleRight);
-            while (crystalShuffleRight[0] === old || crystalShuffleRight[1] === old) {
+            while (
+               crystalShuffleRight[0] === old ||
+               crystalShuffleRight[1] === old
+            ) {
                shuffle(crystalShuffleRight);
             }
-            crystalShuffle = interleave(crystalShuffleLeft, crystalShuffleRight);
+            crystalShuffle = interleave(
+               crystalShuffleLeft,
+               crystalShuffleRight,
+            );
             r = 0;
          }
       }
@@ -2183,14 +2208,24 @@ addBasicEvents(
       time: 83.5,
       value: 1,
       customData: {
-         _lightID: [centerOrder[0], centerOrder[1], centerOrder[4], centerOrder[5]],
+         _lightID: [
+            centerOrder[0],
+            centerOrder[1],
+            centerOrder[4],
+            centerOrder[5],
+         ],
       },
    },
    {
       type: 4,
       time: 83.875,
       customData: {
-         _lightID: [centerOrder[0], centerOrder[1], centerOrder[4], centerOrder[5]],
+         _lightID: [
+            centerOrder[0],
+            centerOrder[1],
+            centerOrder[4],
+            centerOrder[5],
+         ],
       },
    },
 );
@@ -3181,7 +3216,7 @@ for (const t of chorus1Timing) {
       );
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'tv.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'tv.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -3216,7 +3251,7 @@ for (const t of chorus1Timing) {
       });
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'tvqm.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'tvqm.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -3412,7 +3447,10 @@ for (const t of chorus1Timing) {
             },
             {
                type: 4,
-               time: 15.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               time: 15.1875 +
+                  t +
+                  (parseInt(x) / roadShuffle.length) * 0.25 +
+                  j * 0.25,
                floatValue: 0,
                customData: { _lightID: roadShuffle[x] },
             },
@@ -3420,7 +3458,7 @@ for (const t of chorus1Timing) {
       }
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'black.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'black.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -3541,7 +3579,7 @@ for (const t of chorus1Timing) {
       }
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'white.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'white.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -3887,7 +3925,10 @@ for (const t of chorus1Timing) {
             },
             {
                type: 4,
-               time: 23.1875 + t + (parseInt(x) / roadShuffle.length) * 0.25 + j * 0.25,
+               time: 23.1875 +
+                  t +
+                  (parseInt(x) / roadShuffle.length) * 0.25 +
+                  j * 0.25,
                floatValue: 0,
                customData: { _lightID: roadShuffle[x] },
             },
@@ -3973,7 +4014,7 @@ for (const t of chorus1Timing) {
       );
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'enemy.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'enemy.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -4017,7 +4058,7 @@ for (const t of chorus1Timing) {
       await screenDraw('enemy.gif', { time: t + 25.5, invert: true });
    }
    {
-      const image = Deno.readFileSync(WORKING_DIRECTORY + 'enemyinvisible.gif');
+      const image = readFileSync(WORKING_DIRECTORY + 'enemyinvisible.gif');
       const img = await imagescript.GIF.decode(image, true);
       const xOffset = 0;
       const yOffset = 0;
@@ -4362,13 +4403,20 @@ for (const t of chorus2Timing) {
             addBasicEvents(
                {
                   type: 4,
-                  time: t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                  time: t +
+                     i * 4 +
+                     (parseInt(x) / roadShuffle.length) * 1.25 +
+                     j * 0.25,
                   value: 7,
                   customData: { _lightID: roadShuffle[x] },
                },
                {
                   type: 4,
-                  time: 0.25 + t + i * 4 + (parseInt(x) / roadShuffle.length) * 1.25 + j * 0.25,
+                  time: 0.25 +
+                     t +
+                     i * 4 +
+                     (parseInt(x) / roadShuffle.length) * 1.25 +
+                     j * 0.25,
                   floatValue: 0,
                   customData: { _lightID: roadShuffle[x] },
                },
@@ -5923,7 +5971,22 @@ const synthTiming = [
    [515, 1],
    [515.5, 0],
 ];
-const synthDownTiming = [212, 220, 228, 236, 244, 252, 260, 268, 292, 300, 484, 492, 500, 508];
+const synthDownTiming = [
+   212,
+   220,
+   228,
+   236,
+   244,
+   252,
+   260,
+   268,
+   292,
+   300,
+   484,
+   492,
+   500,
+   508,
+];
 for (const sdt of synthDownTiming) {
    for (let i = 1; i <= 7; i++) {
       addBasicEvents(
@@ -6759,7 +6822,7 @@ envEnh.push({
    _lookupMethod: 'Regex',
    _track: 'everythinglmao',
 });
-difficulty.customData._customEvents = [
+bm.difficulty.customData._customEvents = [
    {
       _time: 384,
       _type: 'AnimateTrack',
@@ -6802,8 +6865,8 @@ difficulty.customData._customEvents = [
 //     }
 // }
 
-save.difficultySync(difficulty, {
-   filePath: OUTPUT_FILE,
+writeDifficultyFileSync(bm, {
+   filename: OUTPUT_FILE,
 });
 
-console.log(difficulty.basicEvents.length, 'events');
+console.log(bm.basicEvents.length, 'events');

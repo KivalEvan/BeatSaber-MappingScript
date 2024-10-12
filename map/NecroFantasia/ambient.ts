@@ -3,7 +3,7 @@ function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.customData.customEvents ??= [];
    for (const it of range(0, 9)) {

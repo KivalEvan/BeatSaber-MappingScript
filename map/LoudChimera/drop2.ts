@@ -1,10 +1,10 @@
 import {
-   BeatPerMinute,
    ext,
    logger,
    NoteDirectionAngle,
    NoteDirectionSpace,
    NoteJumpSpeed,
+   TimeProcessor,
    types,
    v3,
 } from '../../depsLocal.ts';
@@ -33,7 +33,7 @@ function slashGlitchHit(fakeNotes: v3.ColorNote[], duration: number) {
    });
 }
 
-export function drop2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Drop 2');
    const fakeNotes: v3.ColorNote[] = [];
    data.customData.pointDefinitions!.slashPosition = [

@@ -1,15 +1,7 @@
-import {
-   Axis,
-   EaseType,
-   EventBoxColor,
-   IndexFilterType,
-   pRandom,
-   TransitionType,
-   v3,
-} from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, pRandom, types } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
 
-export default (d: v3.Difficulty) => {
+export default (d: types.wrapper.IWrapBeatmap) => {
    for (let i = 0; i < 2; i++) {
       d.addLightColorEventBoxGroups(
          {
@@ -24,7 +16,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -42,7 +34,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -60,7 +52,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.5,
                         color: EventBoxColor.BLUE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -80,17 +72,17 @@ export default (d: v3.Difficulty) => {
                         p1: 8,
                      },
                      events: [
-                        { transition: TransitionType.EXTEND },
+                        { previous: 1 },
                         {
                            time: 0.125,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: Brightness.FLASH,
                         },
                         {
                            time: 0.375,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                   },
@@ -107,17 +99,17 @@ export default (d: v3.Difficulty) => {
                         p1: 8,
                      },
                      events: [
-                        { transition: TransitionType.EXTEND },
+                        { previous: 1 },
                         {
                            time: 0.125,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: Brightness.FLASH,
                         },
                         {
                            time: 0.375,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                   },
@@ -134,17 +126,17 @@ export default (d: v3.Difficulty) => {
                         p1: 8,
                      },
                      events: [
-                        { transition: TransitionType.EXTEND },
+                        { previous: 1 },
                         {
                            time: 0.125,
                            color: EventBoxColor.WHITE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: Brightness.FLASH,
                         },
                         {
                            time: 0.375,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                         },
                      ],
                   },
@@ -498,7 +490,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.5,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -515,7 +507,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.417,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -532,7 +524,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.333,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -549,7 +541,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 0.249,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -606,7 +598,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 2,
                         color: EventBoxColor.WHITE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -637,7 +629,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 2,
                         color: EventBoxColor.WHITE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -668,7 +660,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 4,
                         color: EventBoxColor.WHITE,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -781,12 +773,12 @@ export default (d: v3.Difficulty) => {
                   },
                   {
                      time: 1.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.ON,
                   },
                   {
                      time: 4.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
                   },
                ],
@@ -830,12 +822,12 @@ export default (d: v3.Difficulty) => {
                   },
                   {
                      time: 1.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.ON,
                   },
                   {
                      time: 4.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
                   },
                ],
@@ -875,12 +867,12 @@ export default (d: v3.Difficulty) => {
                   },
                   {
                      time: 1.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.ON,
                   },
                   {
                      time: 4.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
                   },
                ],
@@ -920,12 +912,12 @@ export default (d: v3.Difficulty) => {
                   },
                   {
                      time: 1.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.ON,
                   },
                   {
                      time: 4.5,
-                     transition: TransitionType.INTERPOLATE,
+                     easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
                   },
                ],
@@ -973,12 +965,12 @@ export default (d: v3.Difficulty) => {
                      },
                      {
                         time: 1.5,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.ON,
                      },
                      {
                         time: 2.5,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -995,7 +987,7 @@ export default (d: v3.Difficulty) => {
                      { brightness: Brightness.EXTRA },
                      {
                         time: 0.5,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -1012,7 +1004,7 @@ export default (d: v3.Difficulty) => {
                      { brightness: Brightness.EXTRA },
                      {
                         time: 0.5,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],
@@ -1029,7 +1021,7 @@ export default (d: v3.Difficulty) => {
                      { brightness: Brightness.EXTRA },
                      {
                         time: 0.5,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                         brightness: Brightness.OFF,
                      },
                   ],

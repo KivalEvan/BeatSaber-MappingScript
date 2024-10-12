@@ -4,8 +4,9 @@ A bunch of script compilation I made for mapping.
 
 ## Prerequisite
 
-- [Deno](https://deno.land/) 1.21.0 or higher (For `.ts` script)
-- [Node.js](https://nodejs.org/en/) 16.6.1 or higher (For `.js` script)
+- Any ESM, Node module, and TS supported runtime
+  - [Deno](https://deno.land/) 1.45 or latest
+  - [Bun](https://deno.land/) 1.1 or latest
 
 ## Important Note
 

@@ -1,21 +1,16 @@
-import { logger, types, v3 } from '../depsLocal.ts';
+import { types } from '../depsLocal.ts';
 
-export default function (data: types.wrapper.IWrapDifficulty) {
-   if (!(data instanceof v3.Difficulty)) {
-      logger.warn('Preprocess name shortening: data is not v3 difficulty');
-      return data;
-   }
-
+export default function (bm: types.wrapper.IWrapBeatmap) {
    const remapPd = new Map();
    const newPd: types.v3.IPointDefinition = {};
-   for (const k in data.customData.pointDefinitions) {
-      if (!remapPd.has(k)) remapPd.set(k, (remapPd.size + 1).toString(16));
-      newPd[remapPd.get(k)!] = data.customData.pointDefinitions[k];
+   for (const k in bm.difficulty.customData.pointDefinitions) {
+      if (!remapPd.has(k)) remapPd.set(k, (remapPd.size + 1).toString(36));
+      newPd[remapPd.get(k)!] = bm.difficulty.customData.pointDefinitions[k];
    }
-   data.customData.pointDefinitions = newPd;
+   bm.difficulty.customData.pointDefinitions = newPd;
 
    const remapTrack = new Map();
-   data.customData?.customEvents?.forEach((e, i) => {
+   bm.difficulty.customData?.customEvents?.forEach((e, i) => {
       switch (e.t) {
          case 'AnimateTrack':
          case 'AnimateComponent':
@@ -23,14 +18,14 @@ export default function (data: types.wrapper.IWrapDifficulty) {
          case 'AssignPlayerToTrack':
             if (typeof e.d.track === 'string') {
                if (!remapTrack.has(e.d.track)) {
-                  remapTrack.set(e.d.track, (remapTrack.size + 1).toString(16));
+                  remapTrack.set(e.d.track, (remapTrack.size + 1).toString(36));
                }
                e.d.track = remapTrack.get(e.d.track)!;
             } else if (Array.isArray(e.d.track)) {
                const newTrack = [];
                for (const t of e.d.track) {
                   if (!remapTrack.has(t)) {
-                     remapTrack.set(t, (remapTrack.size + 1).toString(16));
+                     remapTrack.set(t, (remapTrack.size + 1).toString(36));
                   }
                   newTrack.push(remapTrack.get(t)!);
                }
@@ -150,16 +145,16 @@ export default function (data: types.wrapper.IWrapDifficulty) {
          if (typeof e.d.scale === 'string') e.d.scale = remapPd.get(e.d.scale)!;
       }
    });
-   data.customData?.customEvents?.forEach((e) => {
+   bm.difficulty.customData?.customEvents?.forEach((e) => {
       if (e.t === 'AssignTrackParent') {
          if (!remapTrack.has(e.d.parentTrack)) {
-            remapTrack.set(e.d.parentTrack, (remapTrack.size + 1).toString(16));
+            remapTrack.set(e.d.parentTrack, (remapTrack.size + 1).toString(36));
          }
          e.d.parentTrack = remapTrack.get(e.d.parentTrack)!;
          const newTrack = [];
          for (const t of e.d.childrenTracks) {
             if (!remapTrack.has(t)) {
-               remapTrack.set(t, (remapTrack.size + 1).toString(16));
+               remapTrack.set(t, (remapTrack.size + 1).toString(36));
             }
             newTrack.push(remapTrack.get(t));
          }
@@ -236,17 +231,18 @@ export default function (data: types.wrapper.IWrapDifficulty) {
 
    const remapMaterial = new Map();
    const newMaterial: Record<string, types.v3.IChromaMaterial> = {};
-   for (const k in data.customData.materials ?? {}) {
-      data.customData.materials![k].track = remapTrack.get(
-         data.customData.materials![k].track,
+   for (const k in bm.difficulty.customData.materials ?? {}) {
+      bm.difficulty.customData.materials![k].track = remapTrack.get(
+         bm.difficulty.customData.materials![k].track,
       )!;
       if (!remapMaterial.has(k)) {
-         remapMaterial.set(k, (remapMaterial.size + 1).toString(16));
+         remapMaterial.set(k, (remapMaterial.size + 1).toString(36));
       }
-      newMaterial[remapMaterial.get(k)!] = data.customData.materials![k];
+      newMaterial[remapMaterial.get(k)!] = bm.difficulty.customData.materials![k];
    }
+   bm.difficulty.customData.materials = newMaterial;
 
-   data.customData.environment?.forEach((e) => {
+   bm.difficulty.customData.environment?.forEach((e) => {
       if (e.track) e.track = remapTrack.get(e.track) || e.track;
       if (e.geometry) {
          if (typeof e.geometry.material === 'string') {
@@ -258,19 +254,16 @@ export default function (data: types.wrapper.IWrapDifficulty) {
       }
    });
 
-   data.bombNotes.forEach(remapObjectTrack);
-   data.colorNotes.forEach(remapObjectTrack);
-   data.arcs.forEach(remapObjectTrack);
-   data.chains.forEach(remapObjectTrack);
-   data.obstacles.forEach(remapObjectTrack);
+   bm.bombNotes.forEach(remapObjectTrack);
+   bm.colorNotes.forEach(remapObjectTrack);
+   bm.arcs.forEach(remapObjectTrack);
+   bm.chains.forEach(remapObjectTrack);
+   bm.obstacles.forEach(remapObjectTrack);
 
-   data.customData.environment?.forEach((e) => {
-      if (e.track) e.track = remapTrack.get(e.track)!;
-   });
-   data.customData.fakeBombNotes?.forEach(remapObjectTrack);
-   data.customData.fakeColorNotes?.forEach(remapObjectTrack);
-   data.customData.fakeBurstSliders?.forEach(remapObjectTrack);
-   data.customData.fakeObstacles?.forEach(remapObjectTrack);
+   bm.difficulty.customData.fakeBombNotes?.forEach(remapObjectTrack);
+   bm.difficulty.customData.fakeColorNotes?.forEach(remapObjectTrack);
+   bm.difficulty.customData.fakeBurstSliders?.forEach(remapObjectTrack);
+   bm.difficulty.customData.fakeObstacles?.forEach(remapObjectTrack);
 
-   return data;
+   return bm;
 }

@@ -1,22 +1,8 @@
 import { genCircle } from '../../utility/circ.ts';
-import {
-   colorFrom,
-   degToRad,
-   ext,
-   LANE_SIZE,
-   lerp,
-   logger,
-   normalize,
-   pRandomFn,
-   range,
-   types,
-   v3,
-   vectorAdd,
-   vectorMul,
-} from '../../depsLocal.ts';
+import { degToRad, ext, logger, range, types, vectorMul } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 const EnvGrab = ext.chroma.EnvironmentGrab;
-const { EnvironmentBlock, EnvironmentGroup } = ext.chroma;
+const { EnvironmentGroup } = ext.chroma;
 
 const info: types.external.IEnvironmentJSON = {
    version: '1.0.0',
@@ -35,46 +21,10 @@ const mirrorBaseScale = 14.25;
 export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const envAry: types.v3.IChromaEnvironment[] = [];
    const baseAry: types.v3.IChromaEnvironment[] = [];
-   const pRandom = pRandomFn('Panorama');
 
    const cubeBlock = ext.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'PanoramaStandard' },
-      },
-      [0, 0, 0],
-   );
-   const cubeLight = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Cube', material: 'PanoramaTransparentLight' },
-         components: {
-            ILightWithId: { type: 4 },
-            TubeBloomPrePassLight: {
-               colorAlphaMultiplier: 2,
-               bloomFogIntensityMultiplier: 0.25,
-            },
-         },
-      },
-      [0, 0, 0],
-   );
-   const pillarBlock = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Cylinder', material: 'PanoramaStandard' },
-      },
-      [0, 0, 0],
-   );
-   const pillarLight = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Cylinder', material: 'PanoramaTransparentLight' },
-         components: {
-            ILightWithId: { type: 4 },
-            TubeBloomPrePassLight: { colorAlphaMultiplier: 2 },
-         },
-      },
-      [0, 0, 0],
-   );
-   const sphereBlock = ext.chroma.EnvironmentBlock.create(
-      {
-         geometry: { type: 'Sphere', material: 'PanoramaStandard' },
       },
       [0, 0, 0],
    );
@@ -123,6 +73,20 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          lookupMethod: 'EndsWith',
          id: 'Stairs',
          position: [0, -2, 51.5],
+      },
+      {
+         lookupMethod: 'EndsWith',
+         id: 'Stairs',
+         duplicate: 1,
+         position: [51.5, -2, 0],
+         rotation: [0, 90, 0],
+      },
+      {
+         lookupMethod: 'EndsWith',
+         id: 'Stairs',
+         duplicate: 1,
+         position: [-51.5, -2, 0],
+         rotation: [0, 270, 0],
       },
       {
          lookupMethod: 'EndsWith',
@@ -290,19 +254,17 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       const leftBurst = EnvGrab.create('Fire')
          .child()
          .name('Left')
-         .child()
+         .child((i + 1) * 2)
          .name('FlameBurst');
       const rightBurst = EnvGrab.create('Fire')
          .child()
          .name('Right')
-         .child()
+         .child((i + 1) * 2)
          .name('FlameBurst');
       if (i) {
          rightProjector.id(i * 2);
          leftLoop.id(i);
          rightLoop.id(i);
-         leftBurst.id(i);
-         rightBurst.id(i);
       }
       const leftGroup = EnvironmentGroup.create([
          {
@@ -314,15 +276,15 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             lookupMethod: 'Regex',
             id: leftBurst.end().regex,
-            position: [3.09, 0, 0],
-            rotation: [0, 180, 7.5],
+            position: [2.6, 0.375, 0],
+            rotation: [0, 180, 0],
          },
          {
             lookupMethod: 'Regex',
-            id: leftProjector.end().regex,
-            position: [0, 0.4375 / 2, -1],
-            rotation: [0, 0, 180],
-            scale: [0.5, 0.5, 0.5],
+            id: leftProjector.regex + '$',
+            position: [0, 6.275, -2],
+            rotation: [0, 0, 0],
+            scale: [0.75, 0.75, 0.75],
          },
       ]);
       const rightGroup = EnvironmentGroup.create([
@@ -335,30 +297,30 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             lookupMethod: 'Regex',
             id: rightBurst.end().regex,
-            position: [-3.09, 0, 0],
-            rotation: [0, 0, 7.5],
+            position: [-2.6, 0.375, 0],
+            rotation: [0, 0, 0],
          },
          {
             lookupMethod: 'Regex',
-            id: rightProjector.end().regex,
-            position: [0, 0.4375 / 2, -1],
-            rotation: [0, 0, 180],
-            scale: [0.5, 0.5, 0.5],
+            id: rightProjector.regex + '$',
+            position: [0, 6.275, -2],
+            rotation: [0, 0, 0],
+            scale: [0.75, 0.75, 0.75],
          },
       ]);
       envAry.push(
          ...leftGroup.place({
-            position: [circ[i][0], 0, circ[i][1]],
-            rotation: [0, 180 + (18 + i * 36), 0],
-         }),
-         ...rightGroup.place({
             position: [-circ[i][0], 0, circ[i][1]],
             rotation: [0, 180 + -(18 + i * 36), 0],
+         }),
+         ...rightGroup.place({
+            position: [circ[i][0], 0, circ[i][1]],
+            rotation: [0, 180 + (18 + i * 36), 0],
          }),
       );
    }
 
-   circ = genCircle(7, 8, [0, 0], -22.5 + 90);
+   circ = genCircle(6.25, 8, [0, 0], -22.5 + 90);
    for (const i of range(4)) {
       const leftProjector = EnvGrab.create('LightGroupLeft')
          .child(i)
@@ -372,8 +334,8 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             lookupMethod: 'Regex',
             id: leftProjector.regex,
-            position: [0, 0, -1],
-            rotation: [0, 0, 180],
+            position: [0, 0, 1],
+            rotation: [0, 0, 0],
             scale: [0.25, 0.25, 0.25],
          },
       ]);
@@ -381,19 +343,19 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          {
             lookupMethod: 'Regex',
             id: rightProjector.regex,
-            position: [0, 0, -1],
-            rotation: [0, 0, 180],
+            position: [0, 0, 1],
+            rotation: [0, 0, 0],
             scale: [0.25, 0.25, 0.25],
          },
       ]);
       envAry.push(
-         ...leftGroup.place({
-            position: [circ[i][0], 6.625, circ[i][1]],
-            rotation: [0, 180 + (22.5 + i * 45), 0],
-         }),
          ...rightGroup.place({
-            position: [-circ[i][0], 6.625, circ[i][1]],
-            rotation: [0, 180 + -(22.5 + i * 45), 0],
+            position: [circ[i][0], 0, circ[i][1]],
+            rotation: [0, 22.5 + i * 45, 0],
+         }),
+         ...leftGroup.place({
+            position: [-circ[i][0], 0, circ[i][1]],
+            rotation: [0, -(22.5 + i * 45), 0],
          }),
       );
    }
@@ -428,13 +390,23 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
 
    circ = genCircle(8, 3, [0, 0], 90);
    for (const i of range(3)) {
-      envAry.push({
-         lookupMethod: 'EndsWith',
-         id: `ProjectorC (${i + 2})`,
-         position: [circ[i][0], 6.3, circ[i][1]],
-         rotation: [0, 180 + i * (360 / 3), 0],
-         scale: [0.25, 0.25, 0.25],
-      });
+      envAry.push(
+         {
+            lookupMethod: 'EndsWith',
+            id: `ProjectorC (${i + 2})`,
+            position: [circ[i][0], 6.3, circ[i][1]],
+            rotation: [0, 180, 0],
+            scale: [0.25, 0.25, 0.25],
+         },
+         // {
+         //    lookupMethod: 'Regex',
+         //    id:
+         //       EnvGrab.create('ProjectorC')
+         //          .id(i + 2)
+         //          .child().regex + 'Projector(Handle)?$',
+         //    rotation: [0, 180 + i * (360 / 3), 0],
+         // }
+      );
    }
 
    circ = genCircle(1, 24);
@@ -446,11 +418,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          r3 = 7,
          s3 = 0.1,
          rb = 7.5625,
-         sb = 0.875,
-         rf = 26,
-         sf = 0.125,
-         rf2 = 24,
-         sf2 = 0.125;
+         sb = 0.875;
+      // rf = 26,
+      // sf = 0.125,
+      // rf2 = 24,
+      // sf2 = 0.125;
       envAry.push(
          {
             geometry: { type: 'Cube', material: 'PanoramaOpaqueLight' },
@@ -534,28 +506,27 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       );
    }
    circ = genCircle(1, 24, [0, 0], -7.5);
-   for (const i of range(24)) {
-      continue;
-      const rf = 25,
-         sf = 0.125;
-      envAry.push({
-         geometry: { type: 'Plane', material: 'PanoramaOpaqueLight' },
-         scale: [
-            (2 * rf * Math.sin(degToRad(180 / 24)) + sf / 4) * 0.095,
-            sf,
-            sf,
-         ],
-         position: [circ[i][0] * rf, 10, circ[i][1] * rf],
-         rotation: [270, 97.5 + i * (360 / 24), 0],
-         components: {
-            ILightWithId: { type: 4 },
-            TubeBloomPrePassLight: {
-               colorAlphaMultiplier: 2,
-               bloomFogIntensityMultiplier: 0.25,
-            },
-         },
-      });
-   }
+   // for (const i of range(24)) {
+   //    const rf = 25,
+   //       sf = 0.125;
+   //    envAry.push({
+   //       geometry: { type: 'Plane', material: 'PanoramaOpaqueLight' },
+   //       scale: [
+   //          (2 * rf * Math.sin(degToRad(180 / 24)) + sf / 4) * 0.095,
+   //          sf,
+   //          sf,
+   //       ],
+   //       position: [circ[i][0] * rf, 10, circ[i][1] * rf],
+   //       rotation: [270, 97.5 + i * (360 / 24), 0],
+   //       components: {
+   //          ILightWithId: { type: 4 },
+   //          TubeBloomPrePassLight: {
+   //             colorAlphaMultiplier: 2,
+   //             bloomFogIntensityMultiplier: 0.25,
+   //          },
+   //       },
+   //    });
+   // }
 
    envAry.push(
       {
@@ -1055,21 +1026,21 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    );
 
    circ = genCircle(16, 24, [0, 0], -90);
-   for (const i of range(24)) {
-      continue;
-      envAry.push({
-         geometry: {
-            type: 'Cube',
-            material: {
-               shader: 'BTSPillar',
-               color: colorFrom(i * (360 / 24), 1, 2, 1, 'hsva'),
-            },
-         },
-         position: [circ[i][0], 0 + i * 0.001, circ[i][1]],
-         rotation: [0, i * (360 / 24), 0],
-         scale: [LANE_SIZE * 4, 0.125, 20],
-      });
-   }
+   // for (const i of range(24)) {
+   //    continue;
+   //    envAry.push({
+   //       geometry: {
+   //          type: 'Cube',
+   //          material: {
+   //             shader: 'BTSPillar',
+   //             color: colorFrom(i * (360 / 24), 1, 2, 1, 'hsva'),
+   //          },
+   //       },
+   //       position: [circ[i][0], 0 + i * 0.001, circ[i][1]],
+   //       rotation: [0, i * (360 / 24), 0],
+   //       scale: [LANE_SIZE * 4, 0.125, 20],
+   //    });
+   // }
 
    return envAry.concat(baseAry);
 }
@@ -1082,12 +1053,12 @@ export function generateMaterial() {
    } as Record<string, types.v3.IChromaMaterial>;
 }
 
-export const insertEnvironment = (d: v3.Difficulty) => {
-   if (d.customData.environment?.length) {
+export const insertEnvironment = (d: types.wrapper.IWrapBeatmap) => {
+   if (d.difficulty.customData.environment?.length) {
       logger.warn('Environment enhancement previously existed, replacing');
    }
-   d.customData.environment = generateEnvironment();
-   d.customData.materials = generateMaterial();
+   d.difficulty.customData.environment = generateEnvironment();
+   d.difficulty.customData.materials = generateMaterial();
 };
 
 export function save(path = import.meta.url) {

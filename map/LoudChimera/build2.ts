@@ -1,17 +1,17 @@
 import {
-   BeatPerMinute,
    ext,
    logger,
    normalize,
    NoteJumpSpeed,
    pRandom,
+   TimeProcessor,
    v3,
 } from '../../depsLocal.ts';
 
 const { NE } = ext;
 const { between } = ext.selector;
 
-export function build2(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Build 2');
    const fakeNotes: v3.ColorNote[] = [];
    const slowBuildTiming = [264, 778];

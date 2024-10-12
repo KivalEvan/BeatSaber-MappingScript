@@ -1,6 +1,6 @@
 import { v3 } from '../../../depsLocal.ts';
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    data.addColorBoostEvents(
       { time: 0, toggle: false },
       { time: 102, toggle: true },

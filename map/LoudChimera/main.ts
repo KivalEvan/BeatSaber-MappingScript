@@ -1,37 +1,48 @@
 import {
-   BeatPerMinute,
    ColorScheme,
    ext,
    globals,
    load,
    NoteJumpSpeed,
    save,
+   TimeProcessor,
 } from '../../depsLocal.ts';
-import { counter } from '../../utility/counter.ts';
+import counter from '../../utility/counter.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { main } from './all.ts';
-const { NE } = ext;
+const { ne } = ext;
 
 counter(import.meta.url);
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/loudchimera/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/loudchimera';
+globals.directory = beatmapWipPath('loudchimera');
 
 // logger.setLevel(5);
 
-const info = load.infoSync();
-const BPM = BeatPerMinute.create(info.audio.bpm);
-const NJS = NoteJumpSpeed.create(BPM, 19, -1.75);
-NE.settings.BPM = BPM;
-NE.settings.NJS = NJS;
+const info = readInfoFileSync();
+const timeProcessor = TimeProcessor.create(info.audio.bpm);
+const NJS = NoteJumpSpeed.create(timeProcessor.bpm, 19, -1.75);
+ne.settings.BPM = timeProcessor;
+ne.settings.NJS = NJS;
 
-main(load.difficultySync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'), BPM, NJS);
+main(
+   readDifficultyFileSync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'),
+   timeProcessor,
+   NJS,
+);
 
-main(load.difficultySync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'), BPM, NJS);
+main(
+   readDifficultyFileSync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'),
+   timeProcessor,
+   NJS,
+);
 
 NJS.value = 16;
 NJS.offset = -1.25;
-main(load.difficultySync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'), BPM, NJS);
+main(
+   readDifficultyFileSync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'),
+   timeProcessor,
+   NJS,
+);
 
 for (const [_, d] of info.listMap()) {
    d.customData._requirements = ['Noodle Extensions'];
@@ -39,4 +50,4 @@ for (const [_, d] of info.listMap()) {
    d.customData = { ...d.customData, ...ColorScheme.Weave };
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

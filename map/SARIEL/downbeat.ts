@@ -1,15 +1,7 @@
-import {
-   Axis,
-   EaseType,
-   EventBoxColor,
-   IndexFilterType,
-   TransitionType,
-   types,
-   v3,
-} from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, types } from '../../depsLocal.ts';
 import { Brightness, eventBoxSwapColor, objectTimeScale } from './helpers.ts';
 
-export default (d: v3.Difficulty) => {
+export default (d: types.wrapper.IWrapBeatmap) => {
    const downbeatTiming: [number, number, number, boolean?, boolean?][] = [
       [70, 20, 2, false, true],
       [102, 26, 1, true],
@@ -42,15 +34,15 @@ export default (d: v3.Difficulty) => {
          time: 0.1875,
          color: EventBoxColor.WHITE,
          brightness: Brightness.ON,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
       { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.ON },
-      { time: 0.375, transition: TransitionType.EXTEND },
+      { time: 0.375, previous: 1 },
       {
          color: EventBoxColor.BLUE,
          time: 0.5,
          brightness: Brightness.OFF,
-         transition: TransitionType.INTERPOLATE,
+         easing: EaseType.LINEAR,
       },
    ];
    const fastBeat = [
@@ -310,19 +302,19 @@ export default (d: v3.Difficulty) => {
                               time: 0.125,
                               color: EventBoxColor.WHITE,
                               brightness: Brightness.ON,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               color: EventBoxColor.BLUE,
                               time: 0.25,
                               brightness: Brightness.ON,
                            },
-                           { time: 0.375, transition: TransitionType.EXTEND },
+                           { time: 0.375, previous: 1 },
                            {
                               color: EventBoxColor.BLUE,
                               time: 0.5,
                               brightness: Brightness.OFF,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                      },
@@ -335,19 +327,19 @@ export default (d: v3.Difficulty) => {
                               time: 0.125,
                               color: EventBoxColor.WHITE,
                               brightness: Brightness.ON,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                            {
                               color: EventBoxColor.BLUE,
                               time: 0.25,
                               brightness: Brightness.ON,
                            },
-                           { time: 0.375, transition: TransitionType.EXTEND },
+                           { time: 0.375, previous: 1 },
                            {
                               color: EventBoxColor.BLUE,
                               time: 0.5,
                               brightness: Brightness.OFF,
-                              transition: TransitionType.INTERPOLATE,
+                              easing: EaseType.LINEAR,
                            },
                         ],
                      },

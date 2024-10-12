@@ -16,7 +16,7 @@ export default class UFO {
    private mapData;
    private ufoMaterial;
    private ufoParent;
-   constructor(mapData: v3.Difficulty, name = '') {
+   constructor(mapData: types.wrapper.IWrapBeatmap, name = '') {
       if (UFO.nameList.includes(name)) {
          throw new Error('UFO name ' + name + ' already existed');
       }

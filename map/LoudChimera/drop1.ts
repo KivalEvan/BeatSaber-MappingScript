@@ -1,5 +1,4 @@
 import {
-   BeatPerMinute,
    EasingsFn,
    ext,
    lerp,
@@ -8,6 +7,7 @@ import {
    NoteDirectionAngle,
    NoteJumpSpeed,
    pRandom,
+   TimeProcessor,
    v3,
 } from '../../depsLocal.ts';
 import { getRepeatArray } from './helpers.ts';
@@ -45,7 +45,7 @@ function doArrowthing(fakeNotes: v3.ColorNote[], duration: number) {
    });
 }
 
-export function drop1(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Drop 1');
    const fakeNotes: v3.ColorNote[] = [];
 

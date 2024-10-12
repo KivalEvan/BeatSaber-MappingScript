@@ -1,18 +1,22 @@
 import {
    colorFrom,
    globals,
-   load,
    pRandomFn,
    range,
-   save,
+   readDifficultyFileSync,
+   readInfoFileSync,
    toColorObject,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/railway/main.ts';
+import applyLabel from '../../utility/applyLabel.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('Lost Days');
+globals.directory = beatmapWipPath('Lost Days');
 
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.colorSchemes = [
    {
       useOverride: true,
@@ -44,15 +48,41 @@ info.colorSchemes = [
       ),
    },
 ];
-info.environmentName = 'WeaveEnvironment';
 info.environmentNames = ['WeaveEnvironment'];
 info.customData._contributors = [
    { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
 ];
 
-for (const [m, d] of info.listMap()) {
-   const data = load.difficultySync(d.filename, 3);
-   data.useNormalEventsAsCompatibleEvents = m === 'Legacy';
+applyLabel(info, [
+   {
+      characteristic: 'Standard',
+      difficulty: 'ExpertPlus',
+      label: 'Sorrowful Memory',
+   },
+   {
+      characteristic: 'Standard',
+      difficulty: 'Expert',
+      label: 'Lunatic',
+   },
+   {
+      characteristic: 'OneSaber',
+      difficulty: 'ExpertPlus',
+      label: 'Shattered Dreams',
+   },
+   {
+      characteristic: 'OneSaber',
+      difficulty: 'Expert',
+      label: 'Tranquil Heart',
+   },
+   {
+      characteristic: 'OneSaber',
+      difficulty: 'Normal',
+      label: 'Distant Apart',
+   },
+]);
+
+for (const d of info.difficulties) {
+   const data = readDifficultyFileSync(d.filename, 3);
    insertEnvironment(data);
 
    const pRandom = pRandomFn('Lost Days');
@@ -87,7 +117,6 @@ for (const [m, d] of info.listMap()) {
    }
 
    delete d.customData._requirements;
-   delete d.customData._difficultyLabel;
    d.customData._suggestions = ['Chroma'];
    d.customData._information = [
       'Kana Anaberal',
@@ -96,25 +125,8 @@ for (const [m, d] of info.listMap()) {
       'Illustration by c7777',
    ];
 
-   if (d.characteristic === 'Standard' && d.difficulty === 'Expert') {
-      d.customData._difficultyLabel = 'Lunatic';
-   }
-   if (d.characteristic === 'Standard' && d.difficulty === 'ExpertPlus') {
-      d.customData._difficultyLabel = 'Sorrowful Memory';
-   }
-
-   if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
-      d.customData._difficultyLabel = 'Distant Apart';
-   }
-   if (d.characteristic === 'OneSaber' && d.difficulty === 'Expert') {
-      d.customData._difficultyLabel = 'Tranquil Heart';
-   }
-   if (d.characteristic === 'OneSaber' && d.difficulty === 'ExpertPlus') {
-      d.customData._difficultyLabel = 'Shattered Dreams';
-   }
-
-   d.copyColorScheme(info.colorSchemes[d.colorSchemeId]);
-   save.difficultySync(data);
+   copyToCustomColor(d, info.colorSchemes[d.colorSchemeId]);
+   writeDifficultyFileSync(data);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

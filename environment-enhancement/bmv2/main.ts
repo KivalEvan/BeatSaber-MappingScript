@@ -1,4 +1,4 @@
-import { logger, types, v3 } from '../../depsLocal.ts';
+import { logger, types } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -364,11 +364,11 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    return environment;
 }
 
-export function insertEnvironment(d: v3.Difficulty) {
-   if (d.customData.environment?.length) {
+export function insertEnvironment(d: types.wrapper.IWrapBeatmap) {
+   if (d.difficulty.customData.environment?.length) {
       logger.warn('Environment enhancement previously existed, replacing');
    }
-   d.customData.environment = generateEnvironment();
+   d.difficulty.customData.environment = generateEnvironment();
 }
 
 export function save(path = import.meta.url) {

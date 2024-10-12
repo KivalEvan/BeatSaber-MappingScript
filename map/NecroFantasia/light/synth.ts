@@ -20,7 +20,7 @@ const timeEnd = 614;
 const timeSkip = [130, 222, 226];
 const timeOverride = [578, 610];
 
-export default function (data: v3.Difficulty) {
+export default function (data: types.wrapper.IWrapBeatmap) {
    for (const id of range(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {
       let flipFlop = false;
       for (
@@ -51,7 +51,7 @@ export default function (data: v3.Difficulty) {
                         {
                            time: 1,
                            color: EventBoxColor.BLUE,
-                           transition: TransitionType.INTERPOLATE,
+                           easing: EaseType.LINEAR,
                            brightness: 0,
                         },
                      ],

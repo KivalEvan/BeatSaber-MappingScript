@@ -1,23 +1,21 @@
 import {
-   BeatPerMinute,
-   convert,
+   Beatmap,
    globals,
-   isV3,
-   load,
    pRandomSeed,
-   save,
-   v3,
+   readFromInfoSync,
+   readInfoFileSync,
+   TimeProcessor,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import lights from './lights.ts';
 
 pRandomSeed('S.A.R.I.E.L.');
 
-globals.directory = Deno.build.os === 'linux'
-   ? '/home/kival/CustomWIPLevels/S.A.R.I.E.L/'
-   : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/S.A.R.I.E.L';
+globals.directory = beatmapWipPath('S.A.R.I.E.L');
 
-const info = load.infoSync(2);
-info.environmentName = 'WeaveEnvironment';
+const info = readInfoFileSync();
 info.customData!._contributors = [
    {
       _role: 'Mapper',
@@ -25,7 +23,7 @@ info.customData!._contributors = [
       _iconPath: 'iconKivalEvan.png',
    },
 ];
-for (const [_, d] of info.listMap()) {
+for (const d of info.difficulties) {
    d.customData._information = [
       'Sariel',
       'Now, Until the Moment You Die',
@@ -59,23 +57,21 @@ for (const [_, d] of info.listMap()) {
    delete d.customData._suggestions;
 }
 
-const bpm = BeatPerMinute.create(info.beatsPerMinute);
+const bpm = TimeProcessor.create(info.audio.bpm);
 
-const lightshow = v3.Difficulty.create();
+const lightshow = new Beatmap();
 lights(lightshow, bpm);
 
-const difficultyList = load.beatmapFromInfoSync(info);
+const difficultyList = readFromInfoSync(info);
 
 difficultyList.forEach((d) => {
-   if (!isV3(d.data)) {
-      d.data = convert.toV3Difficulty(d.data);
-   }
+   d.beatmap.basicEvents = [];
+   d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
+   d.beatmap.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
+   d.beatmap.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
+   d.beatmap.useNormalEventsAsCompatibleEvents = false;
 
-   d.data.basicEvents = [];
-   d.data.colorBoostEvents = lightshow.colorBoostEvents;
-   d.data.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
-   d.data.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   d.data.useNormalEventsAsCompatibleEvents = false;
+   writeDifficultyFileSync(d.beatmap, 3);
 });
 
 // const oldDirectory = globals.directory;
@@ -86,5 +82,4 @@ difficultyList.forEach((d) => {
 //     overwrite: true,
 // });
 // copySync(oldDirectory + info._coverImageFilename, globals.directory + info._coverImageFilename, { overwrite: true });
-save.beatmapListSync(difficultyList);
-save.infoSync(info);
+writeInfoFileSync(info);

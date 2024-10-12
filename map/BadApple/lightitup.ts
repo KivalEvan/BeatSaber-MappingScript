@@ -64,4 +64,16 @@ export function lightitup(
          });
       }
    });
+   lightshow.addColorBoostEvents(
+      { time: 35, toggle: true },
+      { time: 63.75, toggle: false },
+      { time: 98, toggle: true },
+      { time: 130.25, toggle: false },
+      { time: 163.25, toggle: true },
+      { time: 196, toggle: false },
+      { time: 258, toggle: true },
+      { time: 259, toggle: false },
+      { time: 260, toggle: true },
+      { time: 290, toggle: false },
+   );
 }

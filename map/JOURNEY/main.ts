@@ -22,7 +22,7 @@ const { at, between, where } = ext.selector;
 const INPUTFILE = 'Lightshow.dat';
 const OUTPUTFILE = 'EasyLightshow.dat';
 
-const lightshow = load.difficultySync(INPUTFILE, 2);
+const lightshow = readDifficultyFileSync(INPUTFILE, 2);
 lightshow.colorNotes = [];
 lightshow.obstacles = [];
 const envV3 = generateEnvironment();
@@ -233,12 +233,12 @@ where(between(lightshow.basicEvents, 966, 974), { include: { type: [1, 4] } }).f
    (e) => (e.floatValue *= lerp(normalize(e.time, 966, 974), 4, 1, EasingsFn.easeOutQuad)),
 );
 
-const info = load.infoSync();
+const info = readInfoFileSync();
 for (const [, d] of info.listMap()) {
    delete d.customData.requirements;
    d.customData.suggestions = ['Chroma'];
    if (d.characteristic == 'OneSaber') continue;
-   const difficulty = load.difficultySync(d.filename, 2);
+   const difficulty = readDifficultyFileSync(d.filename, 2);
 
    difficulty.customData.environment = lightshow.customData!.environment;
    difficulty.customData.customEvents = lightshow.customData!.customEvents;
@@ -264,13 +264,13 @@ for (const [, d] of info.listMap()) {
    }
    difficulty.basicEvents = lightshow.basicEvents;
 
-   save.difficultySync(difficulty);
+   writeDifficultyFileSync(difficulty);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);
 
 const lightshowV3 = convert.toV3Difficulty(lightshow);
-const oneSaberV3 = load.difficultySync('ExpertPlusOneSaber.dat', 3);
+const oneSaberV3 = readDifficultyFileSync('ExpertPlusOneSaber.dat', 3);
 
 oneSaberV3.customData.environment = envV3;
 oneSaberV3.customData.customEvents = lightshowV3.customData!.customEvents;
@@ -292,7 +292,7 @@ if (bookmarks) {
 oneSaberV3.basicEvents = lightshowV3.basicEvents;
 oneSaberV3.colorBoostEvents = lightshowV3.colorBoostEvents;
 
-save.difficultySync(oneSaberV3);
-save.difficultySync(lightshowV3, { filePath: OUTPUTFILE });
+writeDifficultyFileSync(oneSaberV3);
+writeDifficultyFileSync(lightshowV3, { filePath: OUTPUTFILE });
 
 // sword();

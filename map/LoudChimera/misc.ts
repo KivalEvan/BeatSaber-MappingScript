@@ -1,16 +1,16 @@
 import {
-   BeatPerMinute,
    ext,
    logger,
    NoteDirectionAngle,
    NoteJumpSpeed,
    random,
+   TimeProcessor,
    v3,
 } from '../../depsLocal.ts';
 
 const { at } = ext.selector;
 
-export function misc(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function misc(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Misc');
 
    const slapTiming = [392, 456, 584, 904, 968, 1096];

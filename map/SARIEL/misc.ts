@@ -1,15 +1,7 @@
-import {
-   Axis,
-   EaseType,
-   EventBoxColor,
-   IndexFilterType,
-   TransitionType,
-   types,
-   v3,
-} from '../../depsLocal.ts';
+import { Axis, EaseType, EventBoxColor, IndexFilterType, types } from '../../depsLocal.ts';
 import { Brightness } from './helpers.ts';
 
-export default (d: v3.Difficulty) => {
+export default (d: types.wrapper.IWrapBeatmap) => {
    //#region ding sound
    const dingTiming = [
       38,
@@ -64,7 +56,7 @@ export default (d: v3.Difficulty) => {
                         time: 0.25,
                         color: EventBoxColor.WHITE,
                         brightness: Brightness.OFF,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                   ],
                },
@@ -213,7 +205,7 @@ export default (d: v3.Difficulty) => {
                      {
                         time: 2,
                         frequency: 6,
-                        transition: TransitionType.INTERPOLATE,
+                        easing: EaseType.LINEAR,
                      },
                      { time: 2.5, frequency: 6, brightness: Brightness.HALF },
                   ],
@@ -259,18 +251,18 @@ export default (d: v3.Difficulty) => {
                brightness: Brightness.EXTRA,
                frequency: 12,
             },
-            { time: 0.25, transition: TransitionType.EXTEND },
+            { time: 0.25, previous: 1 },
             {
                color: EventBoxColor.RED,
                brightness: Brightness.ON,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
                frequency: 8,
                time: 0.5,
             },
             {
                color: EventBoxColor.RED,
                brightness: Brightness.OFF,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
                frequency: 8,
                time: 0.75,
             },
@@ -395,7 +387,7 @@ export default (d: v3.Difficulty) => {
                brightness: Brightness.DOUBLE,
                frequency: 12,
             },
-            { time: 0.25, transition: TransitionType.EXTEND },
+            { time: 0.25, previous: 1 },
             { time: 0.375, brightness: Brightness.OFF },
             {
                color: EventBoxColor.RED,
@@ -406,7 +398,7 @@ export default (d: v3.Difficulty) => {
             {
                color: EventBoxColor.RED,
                brightness: Brightness.OFF,
-               transition: TransitionType.INTERPOLATE,
+               easing: EaseType.LINEAR,
                frequency: 8,
                time: 0.75,
             },

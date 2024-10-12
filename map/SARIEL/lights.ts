@@ -1,4 +1,4 @@
-import { BeatPerMinute, v3 } from '../../depsLocal.ts';
+import { LightColorEvent, TimeProcessor, types } from '../../depsLocal.ts';
 import bridge from './bridge.ts';
 import build from './build.ts';
 import chorus1 from './chorus1.ts';
@@ -15,8 +15,8 @@ import transition from './transition.ts';
 import verse1 from './verse1.ts';
 import verse2 from './verse2.ts';
 
-export default (d: v3.Difficulty, bpm: BeatPerMinute) => {
-   v3.LightColorEvent.default.s = 1;
+export default (d: types.wrapper.IWrapBeatmap, bpm: TimeProcessor) => {
+   LightColorEvent.defaultValue.brightness = 1;
    start(d);
    kadosh(d);
    intro(d);

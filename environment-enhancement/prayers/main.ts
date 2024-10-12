@@ -1,4 +1,4 @@
-import { logger, types, v3 } from '../../depsLocal.ts';
+import { logger, types } from '../../depsLocal.ts';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {
@@ -28,7 +28,6 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const roadOffset = 6;
 
    // regex for environment enhancement
-   const regexFloor = `\\[\\d+\\]Floor(\\.\\[\\d+\\]FloorSetDepth)?$`;
    const regexNearBuilding = `\\[\\d+\\]NearBuilding(Left|Right)$`;
    const regexBigRingLights =
       `\\[\\d+\\]BigTrackLaneRing\\(Clone\\)\\.\\[\\d+\\]NeonTubeBothSidesDirectional(.?\\(\\d+\\))?$`;
@@ -40,11 +39,6 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const posAddX = (posArr: types.Vector3, x: number): types.Vector3 => {
       const arr: types.Vector3 = [...posArr];
       arr[0] += x;
-      return arr;
-   };
-   const posAddY = (posArr: types.Vector3, y: number): types.Vector3 => {
-      const arr: types.Vector3 = [...posArr];
-      arr[1] += y;
       return arr;
    };
    const posAddZ = (posArr: types.Vector3, z: number): types.Vector3 => {
@@ -414,12 +408,12 @@ export function generateMaterial() {
    } as Record<string, types.v3.IChromaMaterial>;
 }
 
-export function insertEnvironment(d: v3.Difficulty) {
-   if (d.customData.environment?.length) {
+export function insertEnvironment(d: types.wrapper.IWrapBeatmap) {
+   if (d.difficulty.customData.environment?.length) {
       logger.warn('Environment enhancement previously existed, replacing');
    }
-   d.customData.environment = generateEnvironment();
-   d.customData.materials = generateMaterial();
+   d.difficulty.customData.environment = generateEnvironment();
+   d.difficulty.customData.materials = generateMaterial();
 }
 
 export function save(path = import.meta.url) {

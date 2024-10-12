@@ -1,7 +1,10 @@
-import { ColorScheme, EnvironmentSchemeName, types, v3 } from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, types } from '../../depsLocal.ts';
 import { idOffsetType4, ringCount, ringRepeat } from './main.ts';
 
-export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAllName) {
+export function convertLight(
+   d: types.wrapper.IWrapBeatmap,
+   environment: types.EnvironmentAllName,
+) {
    const events = d.basicEvents;
    const newEvents = [];
 
@@ -31,7 +34,9 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
    for (const ev of events) {
       let noChromaColor = false;
       if (ev.value >= 2000000000) {
-         currentColor[ev.type] = oldChromaColorConvert(ev.value) as types.ColorArray;
+         currentColor[ev.type] = oldChromaColorConvert(
+            ev.value,
+         ) as types.ColorArray;
       }
       if (!currentColor[ev.type]) {
          noChromaColor = true;
@@ -43,11 +48,8 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
          ev.value = 0;
       }
       if (ev.value !== 0 && !(ev.value >= 2000000000)) {
-         if (ev.customData && !ev.customData.color) {
-            ev.customData = { color: currentColor[ev.type] };
-         }
-         if (!ev.customData) {
-            ev.customData = { color: currentColor[ev.type] };
+         if (!ev.customData.color) {
+            ev.customData.color = currentColor[ev.type]!;
          }
       }
       if (!(ev.value >= 2000000000)) {
@@ -75,7 +77,28 @@ export function convertLight(d: v3.Difficulty, environment: types.EnvironmentAll
    };
    // 0 doesnt need conversion as there's no extra light
    const typeLightIDMap: { [key: number]: number[] } = {
-      4: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+      4: [
+         11,
+         12,
+         13,
+         14,
+         15,
+         16,
+         17,
+         18,
+         19,
+         20,
+         21,
+         22,
+         23,
+         24,
+         25,
+         26,
+         27,
+         28,
+         29,
+         30,
+      ],
       5: tempID,
       6: tempID.map((val) => val + 4),
       7: tempID.map((val) => val + 8),

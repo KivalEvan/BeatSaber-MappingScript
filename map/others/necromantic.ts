@@ -1,24 +1,24 @@
 import {
    Axis,
-   colorFrom,
    degToRad,
    DistributionType,
    EaseType,
    globals,
    IndexFilterType,
-   load,
+   readDifficultyFileSync,
+   readInfoFileSync,
    round,
-   save,
-   toColorObject,
    types,
+   writeDifficultyFileSync,
+   writeInfoFileSync,
 } from '../../depsLocal.ts';
-import copyLightshow from '../../utility/copyLightshow.ts';
-import wipPath from '../../utility/wipPath.ts';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
-globals.directory = wipPath('Necromantic');
+globals.directory = beatmapWipPath('Necromantic');
 
 const ALPHA = 1.5;
-const info = load.infoSync(2);
+const info = readInfoFileSync();
 info.colorSchemes = [
    {
       useOverride: true,
@@ -67,7 +67,6 @@ info.colorSchemes = [
       },
    },
 ];
-info.environmentName = 'TheRollingStonesEnvironment';
 info.environmentNames = ['TheRollingStonesEnvironment'];
 info.customData._contributors = [
    { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
@@ -93,7 +92,7 @@ export function createCircle(
    return points;
 }
 
-function speiny(data: types.wrapper.IWrapDifficulty) {
+function speiny(data: types.wrapper.IWrapBeatmap) {
    for (let i = 0, r = 0; r < 360; r += 15, i++) {
       const circ = createCircle(1.5, 3, [0.05, 2.15], r + 270).map((e) =>
          e.map((p) => round(p, 2))
@@ -241,10 +240,10 @@ function speiny(data: types.wrapper.IWrapDifficulty) {
    }
 }
 
-const lightshow = load.difficultySync('EasyStandard.dat', 3);
-for (const [_, d] of info.listMap()) {
-   const difficulty = load.difficultySync(d.filename, 3);
-   copyLightshow(lightshow, difficulty);
+const lightshow = readDifficultyFileSync('EasyStandard.dat', 3);
+for (const d of info.difficulties) {
+   const difficulty = readDifficultyFileSync(d.filename, 3);
+   difficulty.lightshow = lightshow.lightshow;
    // speiny(data);
    d.customData._information = [
       'Seiga Kaku',
@@ -258,7 +257,11 @@ for (const [_, d] of info.listMap()) {
    }
    if (d.characteristic === 'Standard' && d.difficulty === 'ExpertPlus') {
       d.customData._difficultyLabel = 'I wanna see you die';
-      d.customData._information.splice(2, 0, 'Demonify "Excessive Zouhuo Rumo"');
+      d.customData._information.splice(
+         2,
+         0,
+         'Demonify "Excessive Zouhuo Rumo"',
+      );
    }
 
    if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {
@@ -272,8 +275,8 @@ for (const [_, d] of info.listMap()) {
       d.customData._difficultyLabel = 'One more time';
       d.customData._information.splice(2, 0, 'Spirit Link "Tongling Yoshika"');
    }
-   d.copyColorScheme(info.colorSchemes[d.colorSchemeId]);
-   save.difficultySync(difficulty);
+   copyToCustomColor(d, info.colorSchemes[d.colorSchemeId]);
+   writeDifficultyFileSync(difficulty);
 }
 
-save.infoSync(info);
+writeInfoFileSync(info);

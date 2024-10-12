@@ -1,17 +1,17 @@
 import { at } from '../../../BeatSaber-Deno/extensions/selector/time.ts';
 import {
-   BeatPerMinute,
    ext,
    logger,
    NoteDirectionAngle,
    NoteJumpSpeed,
+   TimeProcessor,
    v3,
 } from '../../depsLocal.ts';
 import { connectSlider } from './helpers.ts';
 const { NE } = ext;
 const { between } = ext.selector;
 
-export function intro(data: v3.Difficulty, BPM: BeatPerMinute, NJS: NoteJumpSpeed) {
+export function intro(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Intro');
    connectSlider(data, between(data.colorNotes, 70, 72));
    for (let t = 10; t < 130; t += 4) {
