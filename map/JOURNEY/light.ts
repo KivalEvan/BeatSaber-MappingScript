@@ -1,4 +1,4 @@
-import { globals, readDifficultyFileSync, writeDifficultyFileSync } from '../../depsLocal.ts';
+import { globals, readDifficultyFileSync, writeDifficultyFileSync } from '@bsmap';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';

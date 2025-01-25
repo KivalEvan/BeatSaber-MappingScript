@@ -1,4 +1,4 @@
-import { colorFrom, random, types } from '../depsLocal.ts';
+import { colorFrom, random, types } from '@bsmap';
 
 export default function (time: number, interval: number, names: string[]): types.v3.IBookmark[] {
    return names.map((n, i) => {

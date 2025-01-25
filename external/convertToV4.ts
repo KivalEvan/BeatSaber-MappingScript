@@ -7,16 +7,16 @@ import {
    writeDifficultyFileSync,
    writeInfoFileSync,
    writeLightshowFileSync,
-} from './depsLocal.ts';
+} from '@bsmap';
+import beatmapWipPath from '../utility/beatmapWipPath.ts';
 
-globals.directory = 'PATH_TO_YOUR_MAP';
 const info = readInfoFileSync();
 const bpmInfo = readAudioDataFileSync('BPMInfo.dat').setFilename('AudioData.dat');
 writeAudioDataFileSync(bpmInfo, 4);
 info.audio.audioDataFilename = 'AudioData.dat';
 
 const lm = readDifficultyFileSync(
-   'YOUR_LIGHTSHOW_FILE.dat',
+   'Easy.dat',
 ).setLightshowFilename('Common.lightshow.dat');
 writeLightshowFileSync(lm, 4);
 

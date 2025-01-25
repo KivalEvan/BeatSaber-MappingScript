@@ -6,7 +6,7 @@ import {
    toV3Beatmap,
    v3,
    writeDifficultyFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 globals.directory = beatmapWipPath('ECHO');

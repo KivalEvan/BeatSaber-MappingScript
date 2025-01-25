@@ -1,4 +1,4 @@
-import { BasicEvent, EventList, types } from '../depsLocal.ts';
+import { BasicEvent, EventList, types } from '@bsmap';
 
 export default (
    bm: types.wrapper.IWrapBeatmap,

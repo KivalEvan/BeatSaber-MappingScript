@@ -5,8 +5,9 @@ import {
    NoteJumpSpeed,
    random,
    TimeProcessor,
+   types,
    v3,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 
 const { at } = ext.selector;
 
@@ -29,7 +30,7 @@ export function misc(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
       });
    });
    const fwoompNotes = at(data.colorNotes, slapTiming);
-   const fwoompNJS = NoteJumpSpeed.create(BPM, NJS.value * 0.875);
+   const fwoompNJS = NoteJumpSpeed.create(BPM.bpm, NJS.value * 0.875);
    fwoompNJS.offset = NoteJumpSpeed.HJD_START - (fwoompNJS.calcHjd(0) + 1);
    fwoompNotes.forEach((n) => {
       n.addCustomData({

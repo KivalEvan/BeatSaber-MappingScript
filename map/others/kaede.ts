@@ -1,7 +1,7 @@
-import * as bsmap from '../../depsLocal.ts';
+import * as bsmap from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-bsmap.globals.logLevel = 1;
+bsmap.logger.logLevel = 1;
 bsmap.globals.directory = beatmapWipPath('KAEDE');
 
 const difficulty = bsmap.readDifficultyFileSync('ExpertPlusStandard.dat', 3);

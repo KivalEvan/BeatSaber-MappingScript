@@ -3,12 +3,13 @@ import {
    deepCopy,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    EventLightValue,
    LightRotationDirection,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import {
    Brightness,
    FILTER_HALF_1_DIV,

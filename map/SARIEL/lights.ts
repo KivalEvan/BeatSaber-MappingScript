@@ -1,4 +1,4 @@
-import { LightColorEvent, TimeProcessor, types } from '../../depsLocal.ts';
+import { LightColorEvent, TimeProcessor, types } from '@bsmap';
 import bridge from './bridge.ts';
 import build from './build.ts';
 import chorus1 from './chorus1.ts';

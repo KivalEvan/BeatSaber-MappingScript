@@ -1,5 +1,5 @@
 import { GIF } from 'https://deno.land/x/imagescript@1.2.17/ImageScript.js';
-import { logger, TimeProcessor, types } from '../../depsLocal.ts';
+import { logger, TimeProcessor, types } from '@bsmap';
 
 export type LightPositionMapping = [
    pos: types.Vector2,
@@ -65,6 +65,7 @@ export function lightitup(
       }
    });
    lightshow.addColorBoostEvents(
+      { time: 0, toggle: false },
       { time: 35, toggle: true },
       { time: 63.75, toggle: false },
       { time: 98, toggle: true },

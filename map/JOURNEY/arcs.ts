@@ -1,4 +1,4 @@
-import { types, v3 } from '../../depsLocal.ts';
+import { types, v3 } from '@bsmap';
 
 export function arcs(data: types.wrapper.IWrapBeatmap) {
    data.addArcs(

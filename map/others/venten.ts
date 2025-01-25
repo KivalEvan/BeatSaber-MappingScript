@@ -6,7 +6,7 @@ import {
    toColorObject,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
@@ -35,8 +35,9 @@ info.customData = {
 };
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'VENTEN',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(colorFrom(30, 0.666, 0.9375, 'hsva'), true),
       saberRightColor: toColorObject(colorFrom(270, 0.725, 0.9375, 'hsva'), true),
       environment0Color: toColorObject(colorFrom(45, 1, 0.666, 'hsva'), true),

@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, IndexFilterType, types } from '../../depsLocal.ts';
+import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness, eventBoxSwapColor, objectTimeScale } from './helpers.ts';
 
 export default (d: types.wrapper.IWrapBeatmap) => {
@@ -29,17 +29,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
       reverse: 0,
    } as types.wrapper.IWrapIndexFilter;
    const e: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
-      { color: EventBoxColor.WHITE, brightness: 1.25 },
+      { color: EventLightColor.WHITE, brightness: 1.25 },
       {
          time: 0.1875,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: Brightness.ON,
          easing: EaseType.LINEAR,
       },
-      { color: EventBoxColor.BLUE, time: 0.25, brightness: Brightness.ON },
+      { color: EventLightColor.BLUE, time: 0.25, brightness: Brightness.ON },
       { time: 0.375, previous: 1 },
       {
-         color: EventBoxColor.BLUE,
+         color: EventLightColor.BLUE,
          time: 0.5,
          brightness: Brightness.OFF,
          easing: EaseType.LINEAR,
@@ -297,21 +297,21 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                         filter: fltrR,
                         beatDistribution: 0.75,
                         events: [
-                           { color: EventBoxColor.WHITE, brightness: 1.25 },
+                           { color: EventLightColor.WHITE, brightness: 1.25 },
                            {
                               time: 0.125,
-                              color: EventBoxColor.WHITE,
+                              color: EventLightColor.WHITE,
                               brightness: Brightness.ON,
                               easing: EaseType.LINEAR,
                            },
                            {
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               time: 0.25,
                               brightness: Brightness.ON,
                            },
                            { time: 0.375, previous: 1 },
                            {
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               time: 0.5,
                               brightness: Brightness.OFF,
                               easing: EaseType.LINEAR,
@@ -322,21 +322,21 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                         filter: fltr,
                         beatDistribution: 0.75,
                         events: [
-                           { color: EventBoxColor.WHITE, brightness: 1.25 },
+                           { color: EventLightColor.WHITE, brightness: 1.25 },
                            {
                               time: 0.125,
-                              color: EventBoxColor.WHITE,
+                              color: EventLightColor.WHITE,
                               brightness: Brightness.ON,
                               easing: EaseType.LINEAR,
                            },
                            {
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               time: 0.25,
                               brightness: Brightness.ON,
                            },
                            { time: 0.375, previous: 1 },
                            {
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               time: 0.5,
                               brightness: Brightness.OFF,
                               easing: EaseType.LINEAR,

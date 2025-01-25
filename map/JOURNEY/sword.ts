@@ -1,4 +1,4 @@
-import { ext, globals, load, save } from '../../depsLocal.ts';
+import { ext, globals, readDifficultyFileSync } from '@bsmap';
 import { arcs } from './arcs.ts';
 import { walls } from './walls.ts';
 
@@ -8,11 +8,11 @@ export function sword() {
    const INPUT_FILE = 'HardOneSaber.dat';
    const OUTPUT_FILE = 'ExpertPlusOneSaber.dat';
 
-   const data = readDifficultyFileSync(INPUT_FILE, 3).setFileName(OUTPUT_FILE);
+   const data = readDifficultyFileSync(INPUT_FILE, 3).setFilename(OUTPUT_FILE);
 
    where(at(data.colorNotes, 262), { include: { posX: 0 } }).forEach((n) => {
       n.customData.track = 'swordBit0';
-      data.customData.customEvents?.push({
+      data.difficulty.customData.customEvents?.push({
          b: 260.125,
          t: 'AnimateTrack',
          d: {
@@ -28,7 +28,7 @@ export function sword() {
    });
    where(at(data.colorNotes, 262), { include: { posX: 1 } }).forEach((n) => {
       n.customData.track = 'swordBit1';
-      data.customData.customEvents?.push({
+      data.difficulty.customData.customEvents?.push({
          b: 260.25,
          t: 'AnimateTrack',
          d: {
@@ -50,7 +50,7 @@ export function sword() {
    });
    where(at(data.colorNotes, 262), { include: { posX: 2 } }).forEach((n) => {
       n.customData.track = 'swordBit2';
-      data.customData.customEvents?.push({
+      data.difficulty.customData.customEvents?.push({
          b: 260.375,
          t: 'AnimateTrack',
          d: {
@@ -72,7 +72,7 @@ export function sword() {
    });
    where(at(data.colorNotes, 262), { include: { posX: 3 } }).forEach((n) => {
       n.customData.track = 'swordBit3';
-      data.customData.customEvents?.push({
+      data.difficulty.customData.customEvents?.push({
          b: 260.5,
          t: 'AnimateTrack',
          d: {
@@ -96,7 +96,7 @@ export function sword() {
    between(data.colorNotes, 259, 261.5).forEach(
       (n) => (n.customData.track = 'noteBuildUpJourney'),
    );
-   data.customData.customEvents?.push(
+   data.difficulty.customData.customEvents?.push(
       {
          b: 0,
          t: 'AnimateTrack',

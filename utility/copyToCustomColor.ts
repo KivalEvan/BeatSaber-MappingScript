@@ -1,4 +1,4 @@
-import { colorFrom, toColorObject, types } from '../depsLocal.ts';
+import { colorFrom, toColorObject, types } from '@bsmap';
 
 export default function (
    infoBeatmap: types.wrapper.IWrapInfoBeatmap,

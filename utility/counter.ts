@@ -1,12 +1,12 @@
 import { ensureFileSync, process, readTextFileSync, writeTextFileSync } from '../deps.ts';
 
 export default function (path = './') {
-   let CWD = new URL('.', path).pathname;
+   let target = new URL('.', path).pathname;
    if (process.platform === 'win32') {
-      CWD = CWD.replace(/^\/*/, '');
+      target = target.replace(/^\/*/, '');
    }
-   ensureFileSync(CWD + 'count.txt');
-   const count = parseInt(readTextFileSync(CWD + 'count.txt')) + 1;
-   writeTextFileSync(CWD + 'count.txt', count.toString());
+   ensureFileSync(target + 'count.txt');
+   const count = parseInt(readTextFileSync(target + 'count.txt')) + 1;
+   writeTextFileSync(target + 'count.txt', count.toString());
    console.log('Script run counter:', count);
 }

@@ -1,4 +1,4 @@
-import { types } from '../depsLocal.ts';
+import { types } from '@bsmap';
 
 export default function (bm: types.wrapper.IWrapBeatmap) {
    const remapPd = new Map();

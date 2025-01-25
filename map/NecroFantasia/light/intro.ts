@@ -1,13 +1,14 @@
 import {
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    IndexFilterType,
    pRandom,
    range as rangeEx,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
@@ -22,10 +23,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
    //          boxes: [
    //             {
    //                events: [
-   //                   { color: EventBoxColor.RED, brightness: 0 },
+   //                   { color: EventLightColor.RED, brightness: 0 },
    //                   {
    //                      time: 2,
-   //                      color: EventBoxColor.WHITE,
+   //                      color: EventLightColor.WHITE,
    //                      brightness: 1,
    //                      easing: EaseType.LINEAR,
    //                   },
@@ -42,7 +43,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
    //             {
    //                events: [
    //                   {
-   //                      color: EventBoxColor.WHITE,
+   //                      color: EventLightColor.WHITE,
    //                      brightness: 0,
    //                      easing: EaseType.LINEAR,
    //                   },
@@ -104,10 +105,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
          boxes: [
             {
                events: [
-                  { color: EventBoxColor.RED, brightness: 0 },
+                  { color: EventLightColor.RED, brightness: 0 },
                   {
                      time: 2,
-                     color: EventBoxColor.RED,
+                     color: EventLightColor.RED,
                      brightness: 1,
                      easing: EaseType.LINEAR,
                   },
@@ -127,13 +128,13 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   filter: { random: 2, seed: pRandom(-9999999, 9999999, true) },
                   events: [
                      {
-                        color: flipFlop ? EventBoxColor.BLUE : EventBoxColor.RED,
+                        color: flipFlop ? EventLightColor.BLUE : EventLightColor.RED,
                         brightness: 0.25,
                         easing: EaseType.LINEAR,
                      },
                      {
                         time: 2,
-                        color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
+                        color: flipFlop ? EventLightColor.RED : EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                      },
                   ],
@@ -151,7 +152,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             {
                events: [
                   {
-                     color: flipFlop ? EventBoxColor.RED : EventBoxColor.BLUE,
+                     color: flipFlop ? EventLightColor.RED : EventLightColor.BLUE,
                      brightness: 0,
                      easing: EaseType.LINEAR,
                   },

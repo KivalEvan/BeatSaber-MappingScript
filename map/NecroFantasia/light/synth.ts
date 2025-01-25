@@ -1,11 +1,12 @@
 import {
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    IndexFilterType,
    range as rangeEx,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
@@ -47,10 +48,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         p1: 0,
                      },
                      events: [
-                        { color: EventBoxColor.RED, brightness: 1.25 },
+                        { color: EventLightColor.RED, brightness: 1.25 },
                         {
                            time: 1,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                            brightness: 0,
                         },

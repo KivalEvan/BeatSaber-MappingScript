@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, IndexFilterType, types } from '../../depsLocal.ts';
+import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
 export default (d: types.wrapper.IWrapBeatmap) => {
@@ -49,12 +49,12 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.5,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.DOUBLE,
                      },
                      {
                         time: 0.25,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.OFF,
                         easing: EaseType.LINEAR,
                      },
@@ -197,7 +197,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 2.78125,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.DOUBLE,
                      },
                      { time: 0.03125, frequency: 6 },
@@ -221,7 +221,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.125,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.DOUBLE,
                      },
                      { time: 0.03125, brightness: Brightness.OFF },
@@ -247,20 +247,20 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          } as types.wrapper.IWrapIndexFilter;
          const events = [
             {
-               color: EventBoxColor.WHITE,
+               color: EventLightColor.WHITE,
                brightness: Brightness.EXTRA,
                frequency: 12,
             },
             { time: 0.25, previous: 1 },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.ON,
                easing: EaseType.LINEAR,
                frequency: 8,
                time: 0.5,
             },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.OFF,
                easing: EaseType.LINEAR,
                frequency: 8,
@@ -383,20 +383,20 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          } as types.wrapper.IWrapIndexFilter;
          const events = [
             {
-               color: EventBoxColor.WHITE,
+               color: EventLightColor.WHITE,
                brightness: Brightness.DOUBLE,
                frequency: 12,
             },
             { time: 0.25, previous: 1 },
             { time: 0.375, brightness: Brightness.OFF },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.ON,
                frequency: 8,
                time: 0.5,
             },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.OFF,
                easing: EaseType.LINEAR,
                frequency: 8,
@@ -656,7 +656,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      filter: { reverse: 1 },
                      beatDistribution: 0.28125,
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 2.5 },
+                        { color: EventLightColor.WHITE, brightness: 2.5 },
                         { time: 0.03125, frequency: 6 },
                      ],
                   },
@@ -670,7 +670,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      filter: { reverse: 1 },
                      beatDistribution: 0.28125,
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 2.5 },
+                        { color: EventLightColor.WHITE, brightness: 2.5 },
                         { time: 0.03125, brightness: Brightness.OFF },
                      ],
                   },

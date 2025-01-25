@@ -9,10 +9,10 @@ import {
    writeDifficultyFileSync,
    writeInfoFileSync,
    writeLightshowFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import applyLabel from '../../utility/applyLabel.ts';
-import infoAudioDur from '../../utility/infoAudioDur.ts';
+import infoAudioDur from '../../utility/audioDuration.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
 globals.directory = beatmapWipPath('Other Side');

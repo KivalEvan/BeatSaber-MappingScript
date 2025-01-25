@@ -1,5 +1,5 @@
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
-import { Beatmap, random, range, writeLightshowFileSync } from '../../depsLocal.ts';
+import { Beatmap, random, range, writeLightshowFileSync } from '@bsmap';
 import { lightitup, LightPositionMapping } from './lightitup.ts';
 import { readFile } from '../../deps.ts';
 

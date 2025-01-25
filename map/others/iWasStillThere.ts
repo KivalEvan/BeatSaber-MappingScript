@@ -11,7 +11,7 @@ import {
    TimeProcessor,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 globals.directory = beatmapWipPath(

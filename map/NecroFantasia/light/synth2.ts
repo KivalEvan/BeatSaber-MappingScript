@@ -1,11 +1,13 @@
 import {
-   EventBoxColor,
+   EaseType,
+   EventLightColor,
    IndexFilterType,
    pRandomFn,
    range as rangeEx,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
@@ -61,10 +63,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         p1: 0,
                      },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 0 },
+                        { color: EventLightColor.WHITE, brightness: 0 },
                         {
                            time: 0.375,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            easing: EaseType.LINEAR,
                            brightness: 1.5,
                         },
@@ -74,7 +76,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         },
                         {
                            time: duration,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                            brightness: 0,
                         },
@@ -87,10 +89,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         p1: 0,
                      },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 0 },
+                        { color: EventLightColor.WHITE, brightness: 0 },
                         {
                            time: 0.375,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            easing: EaseType.LINEAR,
                         },
                         {
@@ -99,7 +101,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         },
                         {
                            time: duration,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                            brightness: 0,
                         },

@@ -1,13 +1,14 @@
 import {
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    IndexFilterType,
    pRandom,
    range as rangeEx,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
@@ -24,7 +25,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   filter: { random: 2, seed: pRandom(-999999, 999999, true) },
                   events: [
                      {
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: 0,
                         easing: EaseType.LINEAR,
                      },
@@ -41,14 +42,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                {
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: 1.5,
                         frequency: 32,
                         easing: EaseType.LINEAR,
                      },
                      {
                         time: 1,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: 0,
                         easing: EaseType.LINEAR,
                      },
@@ -127,10 +128,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             boxes: [
                {
                   events: [
-                     { color: EventBoxColor.RED, brightness: 1 },
+                     { color: EventLightColor.RED, brightness: 1 },
                      {
                         time: 1 / 8,
-                        color: EventBoxColor.RED,
+                        color: EventLightColor.RED,
                         brightness: 0,
                      },
                   ],
@@ -150,23 +151,23 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                      reverse: 1,
                   },
                   events: [
-                     { color: EventBoxColor.RED, brightness: 1 },
+                     { color: EventLightColor.RED, brightness: 1 },
                      { time: 1, previous: 1 },
                      {
                         time: 1.5,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: 1,
                         easing: EaseType.LINEAR,
                      },
                      {
                         time: 2,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: 1,
                         easing: EaseType.LINEAR,
                      },
                      {
                         time: 3,
-                        color: EventBoxColor.RED,
+                        color: EventLightColor.RED,
                         brightness: 0,
                         easing: EaseType.LINEAR,
                      },
@@ -180,16 +181,16 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             boxes: [
                {
                   events: [
-                     { color: EventBoxColor.WHITE, brightness: 1.5 },
+                     { color: EventLightColor.WHITE, brightness: 1.5 },
                      {
                         time: 0.5,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 1.249,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -211,16 +212,16 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                      reverse: 1,
                   },
                   events: [
-                     { color: EventBoxColor.WHITE, brightness: 1.5 },
+                     { color: EventLightColor.WHITE, brightness: 1.5 },
                      {
                         time: 0.5,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 0.999,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -242,16 +243,16 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                      reverse: 1,
                   },
                   events: [
-                     { color: EventBoxColor.WHITE, brightness: 1.5 },
+                     { color: EventLightColor.WHITE, brightness: 1.5 },
                      {
                         time: 0.5,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 1.2,
                      },
                      {
                         time: 0.999,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -273,12 +274,12 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   },
                   events: [
                      {
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: 1,
                      },
                      {
                         time: 1,
-                        color: EventBoxColor.RED,
+                        color: EventLightColor.RED,
                         brightness: 0,
                         easing: EaseType.LINEAR,
                      },
@@ -309,15 +310,15 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                            reverse: 1,
                         },
                         events: [
-                           { color: EventBoxColor.WHITE, brightness: 1.5 },
+                           { color: EventLightColor.WHITE, brightness: 1.5 },
                            {
                               time: 0.25,
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               easing: EaseType.LINEAR,
                            },
                            {
                               time: 0.999,
-                              color: EventBoxColor.RED,
+                              color: EventLightColor.RED,
                               brightness: 0,
                               easing: EaseType.LINEAR,
                            },
@@ -337,15 +338,15 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                            reverse: 1,
                         },
                         events: [
-                           { color: EventBoxColor.RED, brightness: 1.5 },
+                           { color: EventLightColor.RED, brightness: 1.5 },
                            {
                               time: 0.25,
-                              color: EventBoxColor.BLUE,
+                              color: EventLightColor.BLUE,
                               easing: EaseType.LINEAR,
                            },
                            {
                               time: 1,
-                              color: EventBoxColor.RED,
+                              color: EventLightColor.RED,
                               brightness: 0,
                               easing: EaseType.LINEAR,
                            },

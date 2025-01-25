@@ -5,7 +5,7 @@ import {
    readInfoFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/panorama/main.ts';
 import { ColorUtils } from '../../utility/colorUtils.ts';
@@ -22,7 +22,8 @@ info.environmentNames = ['PyroEnvironment'];
 info.colorSchemes = [
    {
       name: 'Panorama',
-      useOverride: true,
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: ColorUtils.create(ColorScheme.Rocket._colorLeft),
       saberRightColor: ColorUtils.create(ColorScheme.Rocket._colorRight),
       environment0Color: ColorUtils.create(

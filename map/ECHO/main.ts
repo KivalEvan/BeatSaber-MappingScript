@@ -13,7 +13,7 @@ import {
    random as randomFn,
    shuffle,
    writeDifficultyFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { readFileSync, resolve } from '../../deps.ts';
 

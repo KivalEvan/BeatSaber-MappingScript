@@ -1,6 +1,6 @@
-import { ext, NoteJumpSpeed, TimeProcessor, types, v3 } from '../../depsLocal.ts';
+import { ext, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
 
-const { NE } = ext;
+const { ne: NE } = ext;
 const { between } = ext.selector;
 
 export function text(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
@@ -566,7 +566,7 @@ export function text(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
          });
          for (const i in sizes) {
             const time = 25 + coordinates[i][1] * 1;
-            data.customData.fakeObstacles?.push({
+            data.difficulty.customData.fakeObstacles?.push({
                b: time,
                d: 0.001,
                h: 1,

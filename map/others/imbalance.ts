@@ -1,4 +1,4 @@
-import * as bsmap from '../../depsLocal.ts';
+import * as bsmap from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 bsmap.globals.directory = beatmapWipPath('Imbalance');

@@ -5,7 +5,7 @@ import {
    normalize,
    readDifficultyFileSync,
    writeDifficultyFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 globals.directory = beatmapWipPath('Reverse Rebirth Trigger');
@@ -37,8 +37,8 @@ const regexPlaneTop = `\\[\\d+\\]SkrillexLogo$`;
 const regexPlaneBottom = `\\[\\d+\\]SkrillexLogo.?\\(1\\)$`;
 
 // beyond you're on your own
-data.customData._environment = [];
-const _environment = data.customData._environment;
+data.difficulty.customData._environment = [];
+const _environment = data.difficulty.customData._environment;
 
 //#region
 _environment.push(

@@ -1,12 +1,4 @@
-import {
-   deepCopy,
-   ext,
-   normalize,
-   pRandomFn,
-   range as rangeEx,
-   types,
-   v3,
-} from '../../depsLocal.ts';
+import { deepCopy, ext, normalize, pRandomFn, range as rangeEx, types, v3 } from '@bsmap';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
@@ -23,15 +15,15 @@ const posHide: types.Vector3 = [0, -99999, -99999];
 
 export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
-   data.customData.environment ??= [];
-   data.customData.customEvents ??= [];
-   data.customData.pointDefinitions ??= {};
-   data.customData.pointDefinitions.flapR = [
+   data.difficulty.customData.environment ??= [];
+   data.difficulty.customData.customEvents ??= [];
+   data.difficulty.customData.pointDefinitions ??= {};
+   data.difficulty.customData.pointDefinitions.flapR = [
       [0, 0, 40, 0],
       [0, 0, 340, 0.5, 'easeInOutCubic'],
       [0, 0, 40, 1, 'easeInOutCubic'],
    ];
-   data.customData.pointDefinitions.flapL = [
+   data.difficulty.customData.pointDefinitions.flapL = [
       [0, 0, 320, 0],
       [0, 0, 20, 0.5, 'easeInOutCubic'],
       [0, 0, 320, 1, 'easeInOutCubic'],
@@ -126,7 +118,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             : [-(it / 4) + 2, 1, 0, 0, 'easeStep'];
       }) as types.Vector3PointDefinition[];
       if (!(it % 9)) {
-         data.customData.customEvents.push(
+         data.difficulty.customData.customEvents.push(
             {
                b: 2 + it / (bflyMax / 2),
                t: 'AnimateTrack',
@@ -154,6 +146,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_rf_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += 0.15 * bflyScale;
                      e[1] += 0.03 * bflyScale;
                      e[2] += 0.09 * bflyScale;
@@ -169,6 +162,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_rb_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += 0.12 * bflyScale;
                      e[1] += 0.02 * bflyScale;
                      e[2] += -0.15 * bflyScale;
@@ -184,6 +178,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_lf_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += -0.15 * bflyScale;
                      e[1] += 0.03 * bflyScale;
                      e[2] += 0.09 * bflyScale;
@@ -199,6 +194,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_lb_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += -0.12 * bflyScale;
                      e[1] += 0.02 * bflyScale;
                      e[2] += -0.15 * bflyScale;
@@ -214,6 +210,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[2] = -e[2] + 6;
                      return e;
                   }),
@@ -237,7 +234,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
          );
       }
       if (!it) {
-         data.customData.customEvents.push(
+         data.difficulty.customData.customEvents.push(
             {
                b: 996 + it / (bflyMax / 2),
                t: 'AnimateTrack',
@@ -265,6 +262,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_rf_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += 0.15 * bflyScale;
                      e[1] += 0.03 * bflyScale;
                      e[2] += 0.09 * bflyScale;
@@ -281,6 +279,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_rb_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += 0.12 * bflyScale;
                      e[1] += 0.02 * bflyScale;
                      e[2] += -0.15 * bflyScale;
@@ -297,6 +296,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_lf_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += -0.15 * bflyScale;
                      e[1] += 0.03 * bflyScale;
                      e[2] += 0.09 * bflyScale;
@@ -313,6 +313,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_lb_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += -0.12 * bflyScale;
                      e[1] += 0.02 * bflyScale;
                      e[2] += -0.15 * bflyScale;
@@ -329,6 +330,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   track: `bfly_${it}`,
                   duration: motionduration,
                   position: deepCopy(basePosition).map((e) => {
+                     if (typeof e === 'string') return e;
                      e[0] += 2;
                      e[2] = -e[2] + 12;
                      return e;
@@ -352,7 +354,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             },
          );
       }
-      data.customData.customEvents.push(
+      data.difficulty.customData.customEvents.push(
          {
             b: timeStart + it / (bflyMax / 2),
             t: 'AnimateTrack',
@@ -380,6 +382,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                track: `bfly_rf_${it}`,
                duration: motionduration,
                position: deepCopy(basePosition).map((e) => {
+                  if (typeof e === 'string') return e;
                   e[0] += 0.15 * bflyScale;
                   e[1] += 0.03 * bflyScale;
                   e[2] += 0.09 * bflyScale;
@@ -394,6 +397,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                track: `bfly_rb_${it}`,
                duration: motionduration,
                position: deepCopy(basePosition).map((e) => {
+                  if (typeof e === 'string') return e;
                   e[0] += 0.12 * bflyScale;
                   e[1] += 0.02 * bflyScale;
                   e[2] += -0.15 * bflyScale;
@@ -408,6 +412,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                track: `bfly_lf_${it}`,
                duration: motionduration,
                position: deepCopy(basePosition).map((e) => {
+                  if (typeof e === 'string') return e;
                   e[0] += -0.15 * bflyScale;
                   e[1] += 0.03 * bflyScale;
                   e[2] += 0.09 * bflyScale;
@@ -422,6 +427,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                track: `bfly_lb_${it}`,
                duration: motionduration,
                position: deepCopy(basePosition).map((e) => {
+                  if (typeof e === 'string') return e;
                   e[0] += -0.12 * bflyScale;
                   e[1] += 0.02 * bflyScale;
                   e[2] += -0.15 * bflyScale;
@@ -454,7 +460,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             },
          },
       );
-      data.customData.environment.push(
+      data.difficulty.customData.environment.push(
          ...butterfly.place({ scale: [bflyScale, bflyScale, bflyScale] }),
       );
    }

@@ -1,6 +1,6 @@
-import { EventLightValue, ext, logger, types, v3 } from '../../depsLocal.ts';
+import { EventLightValue, ext, logger, types, v3 } from '@bsmap';
 
-const { NE } = ext;
+const { ne: NE } = ext;
 
 export default class UFO {
    static bulbCount = 8;
@@ -24,7 +24,7 @@ export default class UFO {
       this.type = UFO.type;
       this.lightID = UFO.startID + UFO.index;
       if (!UFO.init) {
-         mapData.customData.pointDefinitions!.ufoSpinLoop = [
+         mapData.difficulty.customData.pointDefinitions!.ufoSpinLoop = [
             [0, 0, 0, 0],
             [0, 90, 10, 0.25],
             [0, 180, 0, 0.5],
@@ -37,12 +37,12 @@ export default class UFO {
       this.mapData = mapData;
       this.ufoMaterial = 'ufoMaterial_' + name;
       this.ufoParent = 'ufoParent_' + name;
-      mapData.customData.materials![this.ufoMaterial] = {
+      mapData.difficulty.customData.materials![this.ufoMaterial] = {
          shader: 'Standard',
          color: [0, 0, 1],
          track: this.ufoMaterial,
       };
-      mapData.customData.environment?.push(
+      mapData.difficulty.customData.environment?.push(
          {
             geometry: {
                type: 'Sphere',
@@ -81,7 +81,7 @@ export default class UFO {
       const ufoLegTrack = [];
       for (const p in ufoLegPoint) {
          const partName = `ufoLeg${p}_${name}`;
-         mapData.customData.environment?.push({
+         mapData.difficulty.customData.environment?.push({
             geometry: {
                type: 'Sphere',
                material: this.ufoMaterial,
@@ -96,7 +96,7 @@ export default class UFO {
       const ufoBulbTrack = [];
       for (const p in ufoBulbPoint) {
          const partName = `ufoBulb${p}_${name}`;
-         mapData.customData.environment?.push({
+         mapData.difficulty.customData.environment?.push({
             geometry: {
                type: 'Sphere',
                material: 'lightMaterialOpaque',
@@ -116,7 +116,7 @@ export default class UFO {
          });
          ufoBulbTrack.push(partName);
       }
-      mapData.customData.customEvents?.push({
+      mapData.difficulty.customData.customEvents?.push({
          b: 0,
          t: 'AssignTrackParent',
          d: {
@@ -184,7 +184,7 @@ export default class UFO {
       >,
       material?: boolean,
    ) {
-      this.mapData.customData.customEvents?.push({
+      this.mapData.difficulty.customData.customEvents?.push({
          b: from,
          t: 'AnimateTrack',
          d: {

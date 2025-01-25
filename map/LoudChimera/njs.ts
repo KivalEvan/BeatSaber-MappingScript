@@ -1,6 +1,6 @@
-import { ext, logger, NoteJumpSpeed, TimeProcessor, v3 } from '../../depsLocal.ts';
+import { ext, logger, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
 import { getRepeatArray } from './helpers.ts';
-const { NE } = ext;
+const { ne: NE } = ext;
 const { between } = ext.selector;
 
 export function njsVibe(
@@ -33,28 +33,28 @@ export function njsVibe(
    const slowBuildSection = [264, 776];
    for (const t of slowBuildSection) {
       NE.setNjs(between(data.colorNotes, t - 64, t + 64), {
-         bpm: BPM,
+         timeProc: BPM,
          njs: NJS.value * 0.9375,
          jd: NJS.jd,
       });
       NE.setNjs(between(data.colorNotes, t + 112, t + 126), {
-         bpm: BPM,
+         timeProc: BPM,
          njs: NJS.value * 1.0625,
          jd: NJS.jd,
       });
       NE.setNjs(between(data.colorNotes, t + 72, t + 96), {
-         bpm: BPM,
+         timeProc: BPM,
          njs: NJS.value * 0.9375,
          jd: NJS.jd,
       });
       NE.gradientNjs(between(data.colorNotes, t + 64, t + 72), {
-         bpm: BPM,
+         timeProc: BPM,
          njsStart: NJS.value * 0.9375,
          njsEnd: NJS.value * 0.875,
          jd: NJS.jd,
       });
       NE.gradientNjs(between(data.colorNotes, t + 96, t + 112), {
-         bpm: BPM,
+         timeProc: BPM,
          njsStart: NJS.value * 0.875,
          njsEnd: NJS.value * 1.0625,
          jd: NJS.jd,
@@ -69,14 +69,14 @@ export function njsVibe(
       const notes = between(data.colorNotes, fpp, fpp + 6);
       NE.setNoteGravity(notes, false);
       NE.simultaneousSpawn(notes, {
-         bpm: BPM,
+         timeProc: BPM,
          njs: NJS.value * 0.875,
          njsOverride: true,
          jd: NJS.calcJd(2.25),
          speed: 4,
       });
       NE.gradientNjs(between(data.colorNotes, fpp + 6.01, fpp + 10), {
-         bpm: BPM,
+         timeProc: BPM,
          njsStart: NJS.value * 0.9,
          njsEnd: NJS.value,
          jd: NJS.calcJd() + 0.5,
@@ -86,60 +86,60 @@ export function njsVibe(
    const slowPart = [136, 648];
    for (const sp of slowPart) {
       NE.gradientNjs(between(data.colorNotes, sp + 0.001, sp + 16), {
-         bpm: BPM,
+         timeProc: BPM,
          njsStart: NJS.value * 0.975,
          njsEnd: NJS.value * 0.625,
          jd: NJS.calcJd() + NJS.calcDistance(0.5),
       });
       NE.gradientNjs(between(data.obstacles, sp + 0.001, sp + 16), {
-         bpm: BPM,
+         timeProc: BPM,
          njsStart: NJS.value * 0.975,
          njsEnd: NJS.value * 0.625,
          jd: NJS.calcJd() + NJS.calcDistance(0.5),
       });
       NE.simultaneousSpawn(between(data.colorNotes, sp + 16.001, sp + 63.999), {
          speed: 1.0625,
-         bpm: BPM,
-         njs: NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
+         timeProc: BPM,
+         njs: NoteJumpSpeed.create(BPM.bpm, NJS.value * 0.625, 0),
          jd: NJS.calcJd() + NJS.calcDistance(0.5),
       });
       NE.simultaneousSpawn(between(data.obstacles, sp + 16.001, sp + 63.999), {
          speed: 1.0625,
-         bpm: BPM,
-         njs: NoteJumpSpeed.create(BPM, NJS.value * 0.625, 0),
+         timeProc: BPM,
+         njs: NoteJumpSpeed.create(BPM.bpm, NJS.value * 0.625, 0),
          jd: NJS.calcJd() + NJS.calcDistance(0.5),
       });
    }
    NE.setNjs(between(data.colorNotes, 8, 70), {
-      bpm: BPM,
+      timeProc: BPM,
       njs: NJS.value * 0.9375,
       jd: NJS.jd,
    });
    NE.gradientNjs(between(data.colorNotes, 72, 120), {
-      bpm: BPM,
+      timeProc: BPM,
       njsStart: NJS.value * 0.9375,
       njsEnd: NJS.value,
       jd: NJS.jd,
    });
    NE.setNjs(between(data.colorNotes, 1160, 1288), {
-      bpm: BPM,
+      timeProc: BPM,
       njs: NJS.value * 0.9375,
       jd: NJS.jd,
    });
    NE.gradientNjs(between(data.colorNotes, 1160, 1176), {
-      bpm: BPM,
+      timeProc: BPM,
       njsStart: NJS.value,
       njsEnd: NJS.value * 0.9375,
       jd: NJS.jd,
    });
    NE.gradientNjs(between(data.colorNotes, 1224, 1256), {
-      bpm: BPM,
+      timeProc: BPM,
       njsStart: NJS.value * 0.9375,
       njsEnd: NJS.value,
       jd: NJS.jd,
    });
    NE.setNjs(between(data.colorNotes, 1256, 1288), {
-      bpm: BPM,
+      timeProc: BPM,
       njs: NJS.value,
       jd: NJS.jd,
    });

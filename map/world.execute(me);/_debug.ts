@@ -1,5 +1,4 @@
-import logger from '../../../BeatSaber-Deno/logger.ts';
-import { Axis, EventBoxColor, TimeProcessor, v3 } from '../../depsLocal.ts';
+import { Axis, EventLightColor, logger, TimeProcessor, types } from '@bsmap';
 
 export function fixRotation(d: types.wrapper.IWrapBeatmap) {
    const rot = [0, 3, 9, 10, 11, 12];
@@ -48,10 +47,10 @@ export function rotation(d: types.wrapper.IWrapBeatmap) {
                   events: [
                      {
                         color: id < 4
-                           ? EventBoxColor.RED
+                           ? EventLightColor.RED
                            : id < 8
-                           ? EventBoxColor.BLUE
-                           : EventBoxColor.WHITE,
+                           ? EventLightColor.BLUE
+                           : EventLightColor.WHITE,
                      },
                   ],
                },
@@ -62,8 +61,8 @@ export function rotation(d: types.wrapper.IWrapBeatmap) {
 }
 
 export function stackedEvent(d: types.wrapper.IWrapBeatmap, bpm: TimeProcessor) {
-   const lightColorAry: v3.LightColorEventBoxGroup[] = [];
-   const lightRotationAry: v3.LightRotationEventBoxGroup[] = [];
+   const lightColorAry: types.wrapper.IWrapLightColorEventBoxGroup[] = [];
+   const lightRotationAry: types.wrapper.IWrapLightRotationEventBoxGroup[] = [];
    for (let i = 0, len = d.lightColorEventBoxGroups.length; i < len; i++) {
       for (let j = i + 1; j < len; j++) {
          if (

@@ -1,6 +1,6 @@
-import { ext, logger, NoteJumpSpeed, TimeProcessor, v3 } from '../../depsLocal.ts';
+import { ext, logger, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
 
-const { NE } = ext;
+const { ne: NE } = ext;
 const { between } = ext.selector;
 
 export function sus(
@@ -9,7 +9,7 @@ export function sus(
    NJS: NoteJumpSpeed,
 ) {
    logger.info('Run Sus');
-   data.customData.environment?.push(
+   data.difficulty.customData.environment?.push(
       {
          geometry: {
             type: 'Capsule',

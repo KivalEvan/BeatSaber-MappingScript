@@ -1,6 +1,6 @@
-import { ext, logger, v3 } from '../../depsLocal.ts';
+import { ext, logger, types, v3 } from '@bsmap';
 
-const { NE } = ext;
+const { ne: NE } = ext;
 
 export function postProcess(data: types.wrapper.IWrapBeatmap) {
    logger.info('Run Post Process');

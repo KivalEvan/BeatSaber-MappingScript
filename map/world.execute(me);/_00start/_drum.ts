@@ -1,11 +1,12 @@
 import {
    deepCopy,
    DistributionType,
-   EventBoxColor,
+   EaseType,
+   EventLightColor,
    TransitionType,
    types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_common.ts';
 import { generateSeed, objectTimeShift } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
@@ -13,25 +14,25 @@ import { START_TIME } from './_time.ts';
 export default function (data: types.wrapper.IWrapBeatmap) {
    const light: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
       {
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: Brightness.OFF,
          frequency: 12,
       },
       {
          time: 0.25,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: Brightness.FLASH,
          easing: EaseType.LINEAR,
       },
       {
          time: 0.3125,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: Brightness.MODERATE,
          easing: EaseType.LINEAR,
       },
       {
          time: 0.375,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: Brightness.FULL,
          easing: EaseType.LINEAR,
       },
@@ -88,7 +89,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                {
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.OFF,
                         previous: 1,
                      },
@@ -105,7 +106,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   beatDistribution: 0.5,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.OFF,
                         easing: EaseType.LINEAR,
                         frequency: 12,

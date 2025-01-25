@@ -1,4 +1,4 @@
-import { Axis, EaseType, EventBoxColor, IndexFilterType, pRandom, types } from '../../depsLocal.ts';
+import { Axis, EaseType, EventLightColor, IndexFilterType, pRandom, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
 export default (d: types.wrapper.IWrapBeatmap) => {
@@ -16,13 +16,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
             {
                beatDistribution: id >= 8 && id < 12 ? 0.499 : 1,
                events: [
-                  { color: EventBoxColor.WHITE, brightness: 2.5 },
+                  { color: EventLightColor.WHITE, brightness: 2.5 },
                   {
                      time: 0.09375,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
-                  { time: 0.125, color: EventBoxColor.RED },
+                  { time: 0.125, color: EventLightColor.RED },
                ],
             },
          ],
@@ -108,10 +108,10 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   reverse: 0,
                },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -119,7 +119,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
@@ -131,10 +131,10 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   reverse: 1,
                },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -142,17 +142,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
             {
                filter: { p0: 6, p1: 2 },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -160,17 +160,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
             {
                filter: { p0: 6, p1: 3 },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -178,7 +178,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
@@ -225,10 +225,10 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   reverse: 0,
                },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -236,7 +236,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
@@ -248,10 +248,10 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   reverse: 1,
                },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -259,17 +259,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
             {
                filter: { p0: 4, p1: 1 },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -277,17 +277,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
             {
                filter: { p0: 4, p1: 2 },
                events: [
-                  { color: EventBoxColor.BLUE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.BLUE, brightness: Brightness.FLASH },
                   {
                      time: 0.125,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 2.5,
                   },
@@ -295,7 +295,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      time: 0.999,
                      easing: EaseType.LINEAR,
                      brightness: Brightness.OFF,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                   },
                ],
             },
@@ -443,13 +443,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.499,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.28125,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                      },
                   ],
                },
@@ -464,7 +464,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      events: [
                         {
                            time: 1,
-                           color: time === 486 + 15 ? EventBoxColor.RED : EventBoxColor.BLUE,
+                           color: time === 486 + 15 ? EventLightColor.RED : EventLightColor.BLUE,
                            brightness: Brightness.ON,
                            easing: EaseType.LINEAR,
                         },
@@ -565,13 +565,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.499,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.28125,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                      },
                   ],
                },
@@ -585,7 +585,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   events: [
                      {
                         time: 0.5,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: Brightness.ON,
                         easing: EaseType.LINEAR,
                      },
@@ -601,13 +601,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.5,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.DOUBLE,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
                      { time: 0.125 },
                   ],
@@ -622,11 +622,11 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   filter: { reverse: 1 },
                   beatDistribution: 0.499,
                   events: [
-                     { color: EventBoxColor.RED, brightness: Brightness.EXTRA },
+                     { color: EventLightColor.RED, brightness: Brightness.EXTRA },
                      {
                         time: 0.28125,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                      },
                   ],
                },
@@ -640,7 +640,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   events: [
                      {
                         time: 0.5,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: Brightness.ON,
                         easing: EaseType.LINEAR,
                      },
@@ -667,13 +667,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      { previous: 1 },
                      {
                         time: 0.125,
-                        color: EventBoxColor.RED,
+                        color: EventLightColor.RED,
                         easing: EaseType.LINEAR,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.375,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                      },
                   ],
@@ -689,10 +689,10 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                filter: { reverse: 1 },
                beatDistribution: 0.499,
                events: [
-                  { color: EventBoxColor.WHITE, brightness: Brightness.EXTRA },
+                  { color: EventLightColor.WHITE, brightness: Brightness.EXTRA },
                   {
                      time: 0.25,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      brightness: Brightness.OFF,
                   },
                ],
@@ -792,17 +792,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.999,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.28125,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                         {
                            time: 0.78125,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                         },
                      ],
@@ -818,17 +818,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.999,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.28125,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                         {
                            time: 0.78125,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                         },
                      ],
@@ -845,17 +845,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.999,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.28125,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                         {
                            time: 0.78125,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                         },
                      ],
@@ -871,17 +871,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.999,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.28125,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                         {
                            time: 0.78125,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                         },
                      ],
@@ -899,12 +899,12 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.499,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.25,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                      ],
@@ -921,17 +921,17 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                      beatDistribution: 0.999,
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.EXTRA,
                         },
                         {
                            time: 0.25,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: Brightness.OFF,
                         },
                         {
                            time: 0.75,
-                           color: time === 486 + 12 ? EventBoxColor.RED : EventBoxColor.BLUE,
+                           color: time === 486 + 12 ? EventLightColor.RED : EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                         },
                      ],
@@ -966,15 +966,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1004,15 +1004,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1042,15 +1042,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.125, color: EventBoxColor.RED },
+                     { time: 0.125, color: EventLightColor.RED },
                      {
                         time: 0.25,
                         brightness: Brightness.OFF,
@@ -1114,15 +1114,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1152,15 +1152,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1190,15 +1190,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   beatDistribution: 0.999,
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.125, color: EventBoxColor.RED },
+                     { time: 0.125, color: EventLightColor.RED },
                      {
                         time: 0.25,
                         brightness: Brightness.OFF,
@@ -1280,15 +1280,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                {
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1337,15 +1337,15 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                {
                   events: [
                      {
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         brightness: Brightness.EXTRA,
                      },
                      {
                         time: 0.09375,
                         brightness: Brightness.OFF,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                      },
-                     { time: 0.25, color: EventBoxColor.RED },
+                     { time: 0.25, color: EventLightColor.RED },
                   ],
                },
             ],
@@ -1401,20 +1401,20 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          } as types.wrapper.IWrapIndexFilter;
          const events = [
             {
-               color: EventBoxColor.WHITE,
+               color: EventLightColor.WHITE,
                brightness: Brightness.EXTRA,
                frequency: 12,
             },
             { time: 0.25, previous: 1 },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.ON,
                easing: EaseType.LINEAR,
                frequency: 8,
                time: 0.5,
             },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.OFF,
                easing: EaseType.LINEAR,
                frequency: 8,
@@ -1517,20 +1517,20 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          } as types.wrapper.IWrapIndexFilter;
          const events = [
             {
-               color: EventBoxColor.WHITE,
+               color: EventLightColor.WHITE,
                brightness: Brightness.DOUBLE,
                frequency: 12,
             },
             { time: 0.25, previous: 1 },
             { time: 0.375, brightness: Brightness.OFF },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.ON,
                frequency: 8,
                time: 0.5,
             },
             {
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: Brightness.OFF,
                easing: EaseType.LINEAR,
                frequency: 8,

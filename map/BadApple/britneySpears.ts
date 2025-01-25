@@ -8,7 +8,7 @@ import {
    normalize,
    range,
    writeLightshowFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import { lightitup, LightPositionMapping } from './lightitup.ts';
 import { readFile } from '../../deps.ts';
 

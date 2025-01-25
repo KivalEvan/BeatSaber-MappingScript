@@ -1,4 +1,4 @@
-import { shuffle } from '../depsLocal.ts';
+import { shuffle } from '@bsmap';
 
 /** infinite loop, do not use in `for..of` */
 export function* autoShuffle<T>(ary: T[], randFn = Math.random) {

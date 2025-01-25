@@ -1,4 +1,4 @@
-import { v3 } from '../../../depsLocal.ts';
+import { BasicEvent, LightColorEvent, types, v3 } from '@bsmap';
 import ambient from './ambient.ts';
 import boost from './boost.ts';
 import dnb from './dnb.ts';
@@ -11,9 +11,9 @@ import transition from './transition.ts';
 import chorus from './chorus.ts';
 
 export default function (data: types.wrapper.IWrapBeatmap) {
-   v3.BasicEvent.default.et = 4;
-   v3.BasicEvent.default.f = 1;
-   v3.LightColorBase.default.s = 1;
+   BasicEvent.defaultValue.type = 4;
+   BasicEvent.defaultValue.floatValue = 1;
+   LightColorEvent.defaultValue.brightness = 1;
 
    intro(data);
    transition(data);

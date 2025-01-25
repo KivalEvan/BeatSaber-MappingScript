@@ -6,7 +6,7 @@ import {
    EventLightValue,
    LightRotationDirection,
    types,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import {
    Brightness,
    FILTER_HALF_1_DIV,

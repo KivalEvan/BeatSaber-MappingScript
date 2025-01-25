@@ -1,4 +1,12 @@
-import { ext, globals, TimeProcessor, v3 } from '../../depsLocal.ts';
+import {
+   ext,
+   globals,
+   LightColorEventBox,
+   readDifficultyFileSync,
+   readInfoFileSync,
+   TimeProcessor,
+   v3,
+} from '@bsmap';
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
@@ -7,7 +15,7 @@ globals.directory = beatmapWipPath('Bad Apple');
 const difficulty = readDifficultyFileSync('EasyLawless.dat', 3);
 const info = readInfoFileSync();
 
-const BPM = TimeProcessor.create(info.beatsPerMinute);
+const BPM = TimeProcessor.create(info.audio.bpm);
 
 difficulty.customData = {};
 difficulty.basicEvents = [];
@@ -72,8 +80,8 @@ img.forEach((frame) => {
          screenLight[pos] = colorAry[0];
       }
    }
-   const leftSide: v3.LightColorEventBox[] = [];
-   const rightSide: v3.LightColorEventBox[] = [];
+   const leftSide: LightColorEventBox[] = [];
+   const rightSide: LightColorEventBox[] = [];
    const mapped = [
       0,
       1,
@@ -130,14 +138,14 @@ img.forEach((frame) => {
       const id = parseInt(key);
       if (id % 10 < 5) {
          leftSide.push(
-            v3.LightColorEventBox.create({
+            LightColorEventBox.create({
                filter: { type: 2, p0: mapped[id] },
                events: [{ color: 2, brightness: value }],
             })[0],
          );
       } else {
          rightSide.push(
-            v3.LightColorEventBox.create({
+            LightColorEventBox.create({
                filter: { type: 2, p0: mapped[id] },
                events: [{ color: 2, brightness: value }],
             })[0],
@@ -165,5 +173,5 @@ globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple';
 console.log(ext.stats.countEbg(difficulty.lightColorEventBoxGroups));
-writeDifficultyFileSync(difficulty, { format: 4 });
+readDifficultyFileSync(difficulty, { format: 4 });
 console.log('done');

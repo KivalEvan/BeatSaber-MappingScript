@@ -11,7 +11,7 @@ import {
    types,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
@@ -21,8 +21,9 @@ const ALPHA = 1.5;
 const info = readInfoFileSync();
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'Necromantic',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: {
          r: 0.9098039269447327,
          g: 0.0,

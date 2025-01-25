@@ -1,4 +1,4 @@
-import { Axis, EventBoxColor, logger, TimeProcessor, types } from '../../depsLocal.ts';
+import { Axis, EventLightColor, logger, TimeProcessor, types } from '@bsmap';
 
 export function fixRot(d: types.wrapper.IWrapBeatmap) {
    for (let id = 0; id < 16; id++) {
@@ -25,10 +25,10 @@ export function rotation(d: types.wrapper.IWrapBeatmap) {
             {
                events: [{
                   color: id < 4
-                     ? EventBoxColor.RED
+                     ? EventLightColor.RED
                      : id < 8
-                     ? EventBoxColor.BLUE
-                     : EventBoxColor.WHITE,
+                     ? EventLightColor.BLUE
+                     : EventLightColor.WHITE,
                }],
             },
          ],

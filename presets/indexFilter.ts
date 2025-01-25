@@ -1,4 +1,4 @@
-import { IndexFilter, IndexFilterType } from '../depsLocal.ts';
+import { IndexFilter, IndexFilterType } from '@bsmap';
 
 export const FILTER_CHUNK_2_DIV: Readonly<IndexFilter> = new IndexFilter({
    type: IndexFilterType.DIVISION,

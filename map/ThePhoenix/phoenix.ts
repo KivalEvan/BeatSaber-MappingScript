@@ -1,6 +1,6 @@
-import { mod, radToDeg, randomNormal, range, vectorAdd } from '../../depsLocal.ts';
-import { pRandomFn } from '../../depsLocal.ts';
-import { isVector4, types, vectorMul } from '../../depsLocal.ts';
+import { mod, radToDeg, randomNormal, range, vectorAdd } from '@bsmap';
+import { pRandomFn } from '@bsmap';
+import { isVector4, types, vectorMul } from '@bsmap';
 import phoenixModel from './phoenix.json' with { type: 'json' };
 
 const DEBRI_COUNT = 125;

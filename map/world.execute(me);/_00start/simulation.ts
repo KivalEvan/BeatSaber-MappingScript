@@ -2,13 +2,14 @@ import {
    Axis,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    EventLightValue,
    LightRotationDirection,
    RandomType,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import {
    Brightness,
    FILTER_HALF_1_STEP,
@@ -395,14 +396,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             beatDistribution: 0.5,
             beatDistributionType: DistributionType.STEP,
             events: [
-               { color: EventBoxColor.WHITE, brightness: Brightness.MODERATE },
+               { color: EventLightColor.WHITE, brightness: Brightness.MODERATE },
                {
                   time: 0.25,
                   previous: 1,
                },
                {
                   time: 1,
-                  color: EventBoxColor.WHITE,
+                  color: EventLightColor.WHITE,
                   brightness: Brightness.OFF,
                   easing: EaseType.LINEAR,
                   frequency: 8,

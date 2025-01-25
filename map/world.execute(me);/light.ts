@@ -1,4 +1,4 @@
-import { TimeProcessor, v3 } from '../../depsLocal.ts';
+import { TimeProcessor, types, v3 } from '@bsmap';
 import * as debug from './_debug.ts';
 import _00 from './_00start/mod.ts';
 import _01 from './_01intro/mod.ts';

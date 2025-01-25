@@ -11,7 +11,7 @@ import {
    toColorObject,
    writeDifficultyFile,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import intervalBookmark from '../../utility/intervalBookmark.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/railway/main.ts';
@@ -25,15 +25,16 @@ globals.directory = beatmapWipPath('Necro Fantasia');
 
 const info = readInfoFileSync();
 info.song.title = 'Necro Fantasia';
-info.baseEnvironment = 'WeaveEnvironment';
+info.environmentBase.normal = 'WeaveEnvironment';
 info.environmentNames = ['WeaveEnvironment'];
 info.customData._contributors = [
    { _role: 'Mapper', _name: 'Kival Evan', _iconPath: 'iconKivalEvan.png' },
 ];
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'Necro Fantasia',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(ColorScheme.Lattice._colorLeft!, true),
       saberRightColor: toColorObject(ColorScheme.Lattice._colorRight!, true),
       environment0Color: toColorObject(colorFrom(320, 1, 0.9375, 'hsva'), true),
@@ -55,7 +56,7 @@ insertEnvironment(lightshow);
 light(lightshow);
 butterfly(lightshow);
 ambient(lightshow);
-lightshow.customData.bookmarks = intervalBookmark(6, 32, [
+lightshow.lightshow.customData.bookmarks = intervalBookmark(6, 32, [
    'Start-1',
    'Start-2',
    'Intro-1',
@@ -107,11 +108,11 @@ for (const d of info.difficulties) {
    bm.colorBoostEvents = lightshow.colorBoostEvents;
    bm.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
    bm.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   bm.difficulty.customData.environment = lightshow.customData.environment;
-   bm.difficulty.customData.materials = lightshow.customData.materials;
-   bm.difficulty.customData.customEvents = lightshow.customData.customEvents;
-   bm.difficulty.customData.pointDefinitions = lightshow.customData.pointDefinitions;
-   bm.difficulty.customData.bookmarks = lightshow.customData.bookmarks;
+   bm.difficulty.customData.environment = lightshow.lightshow.customData.environment;
+   bm.difficulty.customData.materials = lightshow.lightshow.customData.materials;
+   bm.difficulty.customData.customEvents = lightshow.lightshow.customData.customEvents;
+   bm.difficulty.customData.pointDefinitions = lightshow.lightshow.customData.pointDefinitions;
+   bm.difficulty.customData.bookmarks = lightshow.lightshow.customData.bookmarks;
    note(bm);
    promise.push(writeDifficultyFile(bm));
 
@@ -196,7 +197,7 @@ console.table(
       { groups: 0, boxes: 0, bases: 0 },
    ),
 );
-console.log('custom events', lightshow.customData.customEvents?.length);
+console.log('custom events', lightshow.lightshow.customData.customEvents?.length);
 console.log(
    'custom events position points',
    lightshow.difficulty.customData.customEvents?.reduce((p, v) => {
@@ -206,4 +207,4 @@ console.log(
       return p;
    }, 0),
 );
-console.log('environment', lightshow.customData.environment?.length);
+console.log('environment', lightshow.lightshow.customData.environment?.length);

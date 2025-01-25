@@ -4,7 +4,7 @@ import {
    readInfoFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import { insertEnvironment } from '../../environment-enhancement/torii/mod.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 

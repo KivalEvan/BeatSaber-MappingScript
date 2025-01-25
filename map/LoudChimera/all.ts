@@ -13,9 +13,13 @@ import { misc } from './misc.ts';
 import { text } from './text.ts';
 import { sus } from './imposter.ts';
 import { color } from './color.ts';
-import { logger, NoteJumpSpeed, save, TimeProcessor, v3 } from '../../depsLocal.ts';
+import { logger, NoteJumpSpeed, TimeProcessor, types, writeDifficultyFileSync } from '@bsmap';
 
-export function main(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function main(
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
+   NJS: NoteJumpSpeed,
+) {
    logger.info('Processing ' + data.filename);
 
    preset(data);
@@ -37,8 +41,8 @@ export function main(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
 
    const lightData = lightshow();
    data.basicEvents = data.basicEvents.concat(lightData.basicEvents);
-   // data.customData.environment = data.customData.environment?.concat(
-   //     lightData.customData.environment!,
+   // data.difficulty.customData.environment = data.difficulty.customData.environment?.concat(
+   //     lightdata.difficulty.customData.environment!,
    // );
 
    postProcess(data);

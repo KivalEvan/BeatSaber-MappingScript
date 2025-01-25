@@ -1,16 +1,18 @@
 import {
-   convert,
+   BasicEvent,
    EasingsFn,
    ext,
    globals,
    lerp,
    lerpColor,
-   load,
    normalize,
-   save,
+   readDifficultyFileSync,
+   readInfoFileSync,
    types,
    v2,
-} from '../../depsLocal.ts';
+   writeDifficultyFileSync,
+   writeInfoFileSync,
+} from '@bsmap';
 import { generateEnvironment } from '../../environment-enhancement/lotus/mod.ts';
 // import { sword } from './sword.ts';
 
@@ -40,20 +42,20 @@ envV3.push({
 
 const env = ext.chroma.envV3ToV2(envV3);
 
-lightshow.customData.customEvents = [
+lightshow.lightshow.customData.customEvents = [
    {
-      time: 0,
-      type: 'AnimateTrack',
-      data: {
+      b: 0,
+      t: 'AnimateTrack',
+      d: {
          duration: 0,
          track: 'everythinglmao',
          position: [[0, 0, -160 / 0.6, 0]],
       },
    },
    {
-      time: 4,
-      type: 'AnimateTrack',
-      data: {
+      b: 4,
+      t: 'AnimateTrack',
+      d: {
          duration: 2,
          track: 'everythinglmao',
          position: [
@@ -64,17 +66,26 @@ lightshow.customData.customEvents = [
    },
 ];
 animatedFELT
-   .map((e) => [e.track, [e.position![0] / 0.6, e.position![1] / 0.6, e.position![2] / 0.6]])
+   .map((e) => [
+      e.track,
+      [e.position![0] / 0.6, e.position![1] / 0.6, e.position![2] / 0.6],
+   ])
    .forEach((e) =>
-      lightshow.customData.customEvents?.push({
-         time: 1036,
-         type: 'AnimateTrack',
-         data: {
+      lightshow.lightshow.customData.customEvents?.push({
+         b: 1036,
+         t: 'AnimateTrack',
+         d: {
             duration: 1,
             track: e[0] as string,
             position: [
                [...(e[1] as types.Vector3), 0],
-               [(e[1] as types.Vector3)[0], (e[1] as types.Vector3)[1], 32 / 0.6, 1, 'easeInExpo'],
+               [
+                  (e[1] as types.Vector3)[0],
+                  (e[1] as types.Vector3)[1],
+                  32 / 0.6,
+                  1,
+                  'easeInExpo',
+               ],
             ],
          },
       })
@@ -90,7 +101,22 @@ lightshow.addBasicEvents(
       value: 5,
       floatValue: 0.5,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -99,7 +125,22 @@ lightshow.addBasicEvents(
       value: 8,
       floatValue: 0.75,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -109,7 +150,22 @@ lightshow.addBasicEvents(
       floatValue: 1,
       customData: {
          easing: 'easeInQuad',
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -119,7 +175,22 @@ lightshow.addBasicEvents(
       floatValue: 0.375,
       customData: {
          easing: 'easeOutQuad',
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -128,7 +199,22 @@ lightshow.addBasicEvents(
       value: 4,
       floatValue: 0,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -137,7 +223,22 @@ lightshow.addBasicEvents(
       value: 1,
       floatValue: 0,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -146,7 +247,22 @@ lightshow.addBasicEvents(
       value: 4,
       floatValue: 1,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -155,7 +271,22 @@ lightshow.addBasicEvents(
       value: 0,
       floatValue: 1,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -164,7 +295,22 @@ lightshow.addBasicEvents(
       value: 1,
       floatValue: 0.75,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -173,7 +319,22 @@ lightshow.addBasicEvents(
       value: 1,
       floatValue: 0.25,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
    {
@@ -182,66 +343,93 @@ lightshow.addBasicEvents(
       value: 1,
       floatValue: 0.875,
       customData: {
-         lightID: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+         lightID: [
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+         ],
       },
    },
 );
-lightshow.customData.environment = env;
-const makeWhite = (e: v2.Event, mult = 1) => {
+lightshow.lightshow.customData._environment = env;
+const makeWhite = (e: types.wrapper.IWrapBasicEvent, mult = 1) => {
    if (!e.isOff()) {
       e.value += e.value <= 4 ? 8 : 4;
       e.floatValue *= mult;
    }
 };
-where(between(lightshow.basicEvents, 258, 261.999), { include: { type: 0 } }).forEach((e) =>
-   makeWhite(e, 0)
+where(between(lightshow.basicEvents, 258, 261.999), {
+   include: { type: 0 },
+}).forEach((e) => makeWhite(e, 0));
+where(at(lightshow.basicEvents, 262), { include: { type: [0, 2, 3] } }).forEach(
+   (e) => makeWhite(e, 2.5),
 );
-where(at(lightshow.basicEvents, 262), { include: { type: [0, 2, 3] } }).forEach((e) =>
-   makeWhite(e, 2.5)
-);
-where(between(lightshow.basicEvents, 262, 264), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e)
-);
-where(between(lightshow.basicEvents, 262, 274), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= lerp(normalize(e.time, 262, 274), 5, 1)),
-);
-where(at(lightshow.basicEvents, 277.749), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e, 0.5)
+where(between(lightshow.basicEvents, 262, 264), {
+   include: { type: 4 },
+}).forEach((e) => makeWhite(e));
+where(between(lightshow.basicEvents, 262, 274), {
+   include: { type: [1, 4] },
+}).forEach((e) => (e.floatValue *= lerp(normalize(e.time, 262, 274), 5, 1)));
+where(at(lightshow.basicEvents, 277.749), { include: { type: 4 } }).forEach(
+   (e) => makeWhite(e, 0.5),
 );
 where(at(lightshow.basicEvents, 278), { include: { type: 0 } }).forEach((e) => makeWhite(e, 0.5));
 lightshow.addBasicEvents({ time: 280, type: 0, value: 8, floatValue: 1 });
-where(between(lightshow.basicEvents, 599, 611), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e, 0.5)
+where(between(lightshow.basicEvents, 599, 611), {
+   include: { type: 4 },
+}).forEach((e) => makeWhite(e, 0.5));
+where(between(lightshow.basicEvents, 614, 616), {
+   include: { type: 4 },
+}).forEach((e) => makeWhite(e, 1));
+where(between(lightshow.basicEvents, 614, 622), {
+   include: { type: [1, 4] },
+}).forEach(
+   (e) => (e.floatValue *= lerp(
+      EasingsFn.easeOutQuad(normalize(e.time, 614, 622)),
+      4,
+      1,
+   )),
 );
-where(between(lightshow.basicEvents, 614, 616), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e, 1)
-);
-where(between(lightshow.basicEvents, 614, 622), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= lerp(normalize(e.time, 614, 622), 4, 1, EasingsFn.easeOutQuad)),
-);
-where(between(lightshow.basicEvents, 862, 864), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e, 0.25)
-);
-where(between(lightshow.basicEvents, 870, 880), { include: { type: 4 } }).forEach((e) =>
-   makeWhite(e, 0.75)
-);
+where(between(lightshow.basicEvents, 862, 864), {
+   include: { type: 4 },
+}).forEach((e) => makeWhite(e, 0.25));
+where(between(lightshow.basicEvents, 870, 880), {
+   include: { type: 4 },
+}).forEach((e) => makeWhite(e, 0.75));
 where(at(lightshow.basicEvents, [886, 888, 890, 892]), {
    include: { type: 4 },
 }).forEach((e) => makeWhite(e, 0.875));
 at(lightshow.basicEvents, 901).forEach((e) => makeWhite(e, 0.75));
-where(between(lightshow.basicEvents, 966, 974), { include: { type: [1, 4] } }).forEach(
-   (e) => (e.floatValue *= lerp(normalize(e.time, 966, 974), 4, 1, EasingsFn.easeOutQuad)),
+where(between(lightshow.basicEvents, 966, 974), {
+   include: { type: [1, 4] },
+}).forEach(
+   (e) => (e.floatValue *= lerp(
+      EasingsFn.easeOutQuad(normalize(e.time, 966, 974)),
+      4,
+      1,
+   )),
 );
 
 const info = readInfoFileSync();
-for (const [, d] of info.listMap()) {
+for (const d of info.difficulties) {
    delete d.customData.requirements;
    d.customData.suggestions = ['Chroma'];
    if (d.characteristic == 'OneSaber') continue;
    const difficulty = readDifficultyFileSync(d.filename, 2);
 
-   difficulty.customData.environment = lightshow.customData!.environment;
-   difficulty.customData.customEvents = lightshow.customData!.customEvents;
+   difficulty.customData.environment = lightshow.lightshow.customData!.environment;
+   difficulty.customData.customEvents = lightshow.lightshow.customData!.customEvents;
    const bookmarks = difficulty.customData.bookmarks;
    if (bookmarks) {
       for (const b of bookmarks) {
@@ -269,11 +457,11 @@ for (const [, d] of info.listMap()) {
 
 writeInfoFileSync(info);
 
-const lightshowV3 = convert.toV3Difficulty(lightshow);
+const lightshowV3 = lightshow.clone().setVersion(3);
 const oneSaberV3 = readDifficultyFileSync('ExpertPlusOneSaber.dat', 3);
 
-oneSaberV3.customData.environment = envV3;
-oneSaberV3.customData.customEvents = lightshowV3.customData!.customEvents;
+oneSaberV3.difficulty.customData.environment = envV3;
+oneSaberV3.difficulty.customData.customEvents = lightshowV3.difficulty.customData!.customEvents;
 const bookmarks = oneSaberV3.customData.bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {
@@ -286,13 +474,18 @@ if (bookmarks) {
          );
          continue;
       }
-      b.c = lerpColor([30, 1, 1], [390, 1, 1], normalize(b.b, 262, bookmarks.at(-1)!.b), 'hsva');
+      b.c = lerpColor(
+         [30, 1, 1],
+         [390, 1, 1],
+         normalize(b.b, 262, bookmarks.at(-1)!.b),
+         'hsva',
+      );
    }
 }
 oneSaberV3.basicEvents = lightshowV3.basicEvents;
 oneSaberV3.colorBoostEvents = lightshowV3.colorBoostEvents;
 
 writeDifficultyFileSync(oneSaberV3);
-writeDifficultyFileSync(lightshowV3, { filePath: OUTPUTFILE });
+writeDifficultyFileSync(lightshowV3, { filename: OUTPUTFILE });
 
 // sword();

@@ -1,4 +1,4 @@
-import { logger, pRandomFn, types } from '../../depsLocal.ts';
+import { logger, pRandomFn, types } from '@bsmap';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {

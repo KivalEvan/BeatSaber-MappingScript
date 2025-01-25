@@ -3,7 +3,7 @@ import {
    deepCopy,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    EventLightValue,
    IndexFilterType,
    pRandomFn,
@@ -11,7 +11,7 @@ import {
    TransitionType,
    types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { WeaveID } from './id.ts';
 
 const flashTime = [
@@ -138,10 +138,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                boxes: [
                   {
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 0 },
+                        { color: EventLightColor.WHITE, brightness: 0 },
                         {
                            time: 1,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: 1,
                            easing: EaseType.LINEAR,
                         },
@@ -158,7 +158,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                   {
                      events: [
                         {
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: 0,
                            easing: EaseType.LINEAR,
                         },
@@ -236,28 +236,28 @@ export default function (data: types.wrapper.IWrapBeatmap) {
          beatDistribution: 16,
          beatDistributionType: DistributionType.WAVE,
          events: [
-            { color: EventBoxColor.WHITE, brightness: 0 },
+            { color: EventLightColor.WHITE, brightness: 0 },
             {
                time: 1,
-               color: EventBoxColor.WHITE,
+               color: EventLightColor.WHITE,
                brightness: 2,
                easing: EaseType.LINEAR,
             },
             {
                time: 4,
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: 1.5,
                easing: EaseType.LINEAR,
             },
             {
                time: 8,
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: 1,
                easing: EaseType.LINEAR,
             },
             {
                time: 14,
-               color: EventBoxColor.RED,
+               color: EventLightColor.RED,
                brightness: 0,
                easing: EaseType.LINEAR,
             },

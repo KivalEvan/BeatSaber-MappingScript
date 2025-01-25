@@ -1,4 +1,4 @@
-import { Obstacle, random, types, v3 } from '../../depsLocal.ts';
+import { Obstacle, random, types, v3 } from '@bsmap';
 
 export default (d: types.wrapper.IWrapBeatmap) => {
    let obs: Obstacle[] = [];

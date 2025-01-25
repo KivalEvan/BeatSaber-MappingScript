@@ -2,11 +2,12 @@ import {
    ColorScheme,
    ext,
    globals,
-   load,
    NoteJumpSpeed,
-   save,
+   readDifficultyFileSync,
+   readInfoFileSync,
    TimeProcessor,
-} from '../../depsLocal.ts';
+   writeInfoFileSync,
+} from '@bsmap';
 import counter from '../../utility/counter.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { main } from './all.ts';
@@ -21,17 +22,21 @@ globals.directory = beatmapWipPath('loudchimera');
 const info = readInfoFileSync();
 const timeProcessor = TimeProcessor.create(info.audio.bpm);
 const NJS = NoteJumpSpeed.create(timeProcessor.bpm, 19, -1.75);
-ne.settings.BPM = timeProcessor;
+ne.settings.timeProc = timeProcessor;
 ne.settings.NJS = NJS;
 
 main(
-   readDifficultyFileSync('HardStandard.dat', 3).setFileName('ExpertPlusStandard.dat'),
+   readDifficultyFileSync('HardStandard.dat', 3).setFilename(
+      'ExpertPlusStandard.dat',
+   ),
    timeProcessor,
    NJS,
 );
 
 main(
-   readDifficultyFileSync('ExpertOneSaber.dat', 3).setFileName('ExpertPlusOneSaber.dat'),
+   readDifficultyFileSync('ExpertOneSaber.dat', 3).setFilename(
+      'ExpertPlusOneSaber.dat',
+   ),
    timeProcessor,
    NJS,
 );
@@ -39,12 +44,14 @@ main(
 NJS.value = 16;
 NJS.offset = -1.25;
 main(
-   readDifficultyFileSync('NormalStandard.dat', 3).setFileName('ExpertStandard.dat'),
+   readDifficultyFileSync('NormalStandard.dat', 3).setFilename(
+      'ExpertStandard.dat',
+   ),
    timeProcessor,
    NJS,
 );
 
-for (const [_, d] of info.listMap()) {
+for (const d of info.difficulties) {
    d.customData._requirements = ['Noodle Extensions'];
    d.customData._suggestions = ['Chroma'];
    d.customData = { ...d.customData, ...ColorScheme.Weave };

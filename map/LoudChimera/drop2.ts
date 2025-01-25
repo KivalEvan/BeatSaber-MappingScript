@@ -7,12 +7,15 @@ import {
    TimeProcessor,
    types,
    v3,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import { connectSlider } from './helpers.ts';
-const { NE } = ext;
+const { ne: NE } = ext;
 const { between, at, where } = ext.selector;
 
-function slashGlitchHit(fakeNotes: v3.ColorNote[], duration: number) {
+function slashGlitchHit(
+   fakeNotes: types.wrapper.IWrapColorNote[],
+   duration: number,
+) {
    if (duration < NoteJumpSpeed.HJD_MIN) {
       throw new Error('re');
    }
@@ -28,30 +31,38 @@ function slashGlitchHit(fakeNotes: v3.ColorNote[], duration: number) {
             noteJumpMovementSpeed: 10,
             noteJumpStartBeatOffset: -NoteJumpSpeed.HJD_START + duration,
             uninteractable: true,
-            localRotation: [0, 0, (180 + (NoteDirectionAngle[n.direction as 0] || 0)) % 360],
+            localRotation: [
+               0,
+               0,
+               (180 + (NoteDirectionAngle[n.direction as 0] || 0)) % 360,
+            ],
          });
    });
 }
 
-export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function drop2(
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
+   NJS: NoteJumpSpeed,
+) {
    logger.info('Run Drop 2');
-   const fakeNotes: v3.ColorNote[] = [];
-   data.customData.pointDefinitions!.slashPosition = [
+   const fakeNotes: types.wrapper.IWrapColorNote[] = [];
+   data.difficulty.customData.pointDefinitions!.slashPosition = [
       [0, 0, 3, 0],
       [0, 0, 2, 1 / 32, 'easeStep'],
       [0, 0, 4.5, 0.5, 'easeOutQuad'],
       [0, 0, -999, 0.501, 'easeStep'],
    ];
-   data.customData.pointDefinitions!.slashExpand = [
+   data.difficulty.customData.pointDefinitions!.slashExpand = [
       [1, 0.75, 0.75, 0],
       [0, 36, 0, 0.5, 'easeInQuad'],
    ];
-   data.customData.pointDefinitions!.slashGlitchEffect = [
+   data.difficulty.customData.pointDefinitions!.slashGlitchEffect = [
       [0, 0],
       [0.75, 1 / 32, 'easeStep'],
       [0, 0.375],
    ];
-   data.customData.customEvents?.push({
+   data.difficulty.customData.customEvents?.push({
       b: 0,
       t: 'AssignPathAnimation',
       d: {
@@ -106,7 +117,7 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
          );
          glitchNotes.forEach((n) => {
             const noteNJS = NoteJumpSpeed.create(
-               BPM,
+               BPM.bpm,
                n.customData.noteJumpMovementSpeed,
                n.customData.noteJumpStartBeatOffset!,
             );
@@ -119,14 +130,21 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                ],
                offsetPosition: [
                   [
-                     ...(NoteDirectionSpace[n.direction as 0].map((n) => -n * 24) as types.Vector2),
+                     ...(NoteDirectionSpace[n.direction as 0].map(
+                        (n) => -n * 24,
+                     ) as types.Vector2),
                      0,
                      0,
                   ],
                   [0, 0, 0, 0.28125, 'easeInOutCirc'],
                ],
                localRotation: [
-                  [0, 0, (180 + (NoteDirectionAngle[n.direction as 0] || 0)) % 360, 0],
+                  [
+                     0,
+                     0,
+                     (180 + (NoteDirectionAngle[n.direction as 0] || 0)) % 360,
+                     0,
+                  ],
                   [0, 0, 0, 0.3125, 'easeInOutCirc'],
                ],
             };
@@ -145,8 +163,10 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                   noteJumpMovementSpeed: n.customData.noteJumpMovementSpeed,
                   noteJumpStartBeatOffset: n.customData.noteJumpStartBeatOffset,
                   tailCoordinates: [
-                     n.getPosition()[0] + (NoteDirectionSpace[n.direction as 0][0] || 0),
-                     n.getPosition()[1] + (NoteDirectionSpace[n.direction as 0][1] || 0),
+                     n.getPosition()[0] +
+                     (NoteDirectionSpace[n.direction as 0][0] || 0),
+                     n.getPosition()[1] +
+                     (NoteDirectionSpace[n.direction as 0][1] || 0),
                   ],
                   animation: n.customData.animation,
                },
@@ -160,7 +180,7 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
             const glitchNotesLong = at(data.colorNotes, dt + gl + repeat, BPM);
             glitchNotesLong.forEach((n) => {
                const noteNJS = NoteJumpSpeed.create(
-                  BPM,
+                  BPM.bpm,
                   n.customData.noteJumpMovementSpeed,
                   n.customData.noteJumpStartBeatOffset!,
                );
@@ -182,7 +202,13 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                      [0, 0, 0, 0.28125, 'easeInOutCirc'],
                   ],
                   localRotation: [
-                     [0, 0, (180 + (NoteDirectionAngle[n.direction as 0] || 0)) % 360, 0],
+                     [
+                        0,
+                        0,
+                        (180 + (NoteDirectionAngle[n.direction as 0] || 0)) %
+                        360,
+                        0,
+                     ],
                      [0, 0, 0, 0.3125, 'easeInOutCirc'],
                   ],
                };
@@ -201,8 +227,10 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                      noteJumpMovementSpeed: n.customData.noteJumpMovementSpeed,
                      noteJumpStartBeatOffset: n.customData.noteJumpStartBeatOffset,
                      tailCoordinates: [
-                        n.getPosition()[0] + (NoteDirectionSpace[n.direction as 0][0] || 0) * 2,
-                        n.getPosition()[1] + (NoteDirectionSpace[n.direction as 0][1] || 0) * 2,
+                        n.getPosition()[0] +
+                        (NoteDirectionSpace[n.direction as 0][0] || 0) * 2,
+                        n.getPosition()[1] +
+                        (NoteDirectionSpace[n.direction as 0][1] || 0) * 2,
                      ],
                      animation: n.customData.animation,
                   },
@@ -211,10 +239,19 @@ export function drop2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
             fakeNotes.push(...slashGlitchHit(glitchNotesLong, 2));
          }
          for (const nsb of noteSwapBullshit) {
-            connectSlider(data, between(data.colorNotes, dt + repeat + nsb - 2, dt + repeat + nsb));
+            connectSlider(
+               data,
+               between(
+                  data.colorNotes,
+                  dt + repeat + nsb - 2,
+                  dt + repeat + nsb,
+               ),
+            );
          }
       }
    }
 
-   data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toJSON()));
+   data.difficulty.customData.fakeColorNotes?.push(
+      ...fakeNotes.map((n) => v3.colorNote.serialize(n)),
+   );
 }

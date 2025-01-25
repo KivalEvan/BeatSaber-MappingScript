@@ -2,10 +2,10 @@ import {
    Axis,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    LightRotationDirection,
    types,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import {
    Brightness,
    FILTER_HALF_1_STEP,
@@ -26,14 +26,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             filter: FILTER_QUARTET_1_DIV.clone().setReverse(1),
             beatDistribution: 1,
             events: [
-               { color: EventBoxColor.WHITE, brightness: Brightness.FLASH },
+               { color: EventLightColor.WHITE, brightness: Brightness.FLASH },
                {
                   time: 0.125,
                   previous: 1,
                },
                {
                   time: 1,
-                  color: EventBoxColor.RED,
+                  color: EventLightColor.RED,
                   easing: EaseType.LINEAR,
                },
             ],
@@ -42,14 +42,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
             filter: FILTER_QUARTET_2_DIV.clone().setReverse(1),
             beatDistribution: 1,
             events: [
-               { color: EventBoxColor.WHITE, brightness: Brightness.FLASH },
+               { color: EventLightColor.WHITE, brightness: Brightness.FLASH },
                {
                   time: 0.125,
                   previous: 1,
                },
                {
                   time: 1,
-                  color: EventBoxColor.BLUE,
+                  color: EventLightColor.BLUE,
                   easing: EaseType.LINEAR,
                },
             ],
@@ -351,14 +351,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                filter: { reverse: 1 },
                beatDistribution: 1.25,
                events: [
-                  { color: EventBoxColor.WHITE, brightness: Brightness.FLASH },
+                  { color: EventLightColor.WHITE, brightness: Brightness.FLASH },
                   {
                      time: 0.25,
                      previous: 1,
                   },
                   {
                      time: 1,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      brightness: Brightness.OFF,
                      easing: EaseType.LINEAR,
                      frequency: 8,
@@ -376,13 +376,13 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                beatDistribution: 4,
                events: [
                   {
-                     color: EventBoxColor.BLUE,
+                     color: EventLightColor.BLUE,
                      brightness: Brightness.OFF,
                      frequency: 8,
                   },
                   {
                      time: 1,
-                     color: EventBoxColor.RED,
+                     color: EventLightColor.RED,
                      easing: EaseType.LINEAR,
                   },
                ],
@@ -392,13 +392,13 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                beatDistribution: 4,
                events: [
                   {
-                     color: EventBoxColor.RED,
+                     color: EventLightColor.RED,
                      brightness: Brightness.OFF,
                      frequency: 8,
                   },
                   {
                      time: 1,
-                     color: EventBoxColor.BLUE,
+                     color: EventLightColor.BLUE,
                      easing: EaseType.LINEAR,
                   },
                ],

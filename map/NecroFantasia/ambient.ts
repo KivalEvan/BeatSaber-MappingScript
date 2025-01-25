@@ -1,14 +1,14 @@
-import { pRandomFn, range as rangeEx, v3 } from '../../depsLocal.ts';
+import { pRandomFn, range as rangeEx, types, v3 } from '@bsmap';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
 export default function (data: types.wrapper.IWrapBeatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
-   data.customData.customEvents ??= [];
+   data.difficulty.customData.customEvents ??= [];
    for (const it of range(0, 9)) {
       const r = pRandom(3, 4);
-      data.customData.customEvents.push(
+      data.difficulty.customData.customEvents.push(
          {
             b: 0,
             t: 'AnimateTrack',

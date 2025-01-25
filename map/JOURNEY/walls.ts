@@ -1,7 +1,7 @@
-import { colorFrom, lerp, normalize, v3 } from '../../depsLocal.ts';
+import { colorFrom, lerp, normalize, Obstacle, types, v3 } from '@bsmap';
 
 export function walls(data: types.wrapper.IWrapBeatmap) {
-   let tempWall = v3.Obstacle.create(
+   let tempWall = Obstacle.create(
       {
          b: 68.75,
          d: 0.09375,
@@ -68,7 +68,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 195,
          d: 0.9375,
@@ -118,7 +118,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 245.5,
          d: 0.1875,
@@ -159,7 +159,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 258,
          d: 0.875,
@@ -213,7 +213,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 261.5,
          d: 0.25,
@@ -298,7 +298,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    );
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
-   data.customData.customEvents?.push(
+   data.difficulty.customData.customEvents?.push(
       {
          b: 259.75,
          t: 'AnimateTrack',
@@ -352,7 +352,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
       },
    );
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 270.25,
          d: 0.09375,
@@ -470,7 +470,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
       ),
    );
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 277.75,
          d: 0.25,
@@ -559,7 +559,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 317.25,
          d: 0.125,
@@ -642,7 +642,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
    tempWall = tempWall.concat(tempWall.map((w) => w.clone().mirror()));
    data.obstacles.push(...tempWall);
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 834.5,
          d: 0.1875,
@@ -756,7 +756,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
       ...tempWall.map((w) => w.setTime(lerp(normalize(w.time, 834.5, 835.75), 835, 836))),
    );
 
-   tempWall = v3.Obstacle.create(
+   tempWall = Obstacle.create(
       {
          b: 836.75,
          d: 0.125,
@@ -844,7 +844,7 @@ export function walls(data: types.wrapper.IWrapBeatmap) {
       [983, true],
    ];
    for (const wt of wallTime) {
-      tempWall = v3.Obstacle.create(
+      tempWall = Obstacle.create(
          {
             b: wt[0],
             d: 0.25,

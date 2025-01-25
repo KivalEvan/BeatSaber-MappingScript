@@ -6,7 +6,7 @@ import {
    toColorObject,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import applyLabel from '../../utility/applyLabel.ts';
 import { ColorUtils } from '../../utility/colorUtils.ts';
@@ -17,8 +17,9 @@ globals.directory = beatmapWipPath('Dancing Dollz');
 const info = readInfoFileSync('Info.dat', 2);
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'Dancing Dollz',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(
          colorFrom(355, 0.8125, 0.9375, 'hsva'),
          true,

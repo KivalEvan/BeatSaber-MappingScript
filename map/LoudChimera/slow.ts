@@ -8,13 +8,17 @@ import {
    types,
    unityToGridUnit,
    v3,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import { connectSlider, lerpVec3 } from './helpers.ts';
 import UFO from './ufo.ts';
-const { NE, selector } = ext;
+const { ne: NE, selector } = ext;
 const { between } = selector;
 
-export function slow(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function slow(
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
+   NJS: NoteJumpSpeed,
+) {
    logger.info('Run Slow');
    const slowTiming = [136, 648];
    const ufoSlow = new UFO(data, 'Slow');
@@ -31,7 +35,7 @@ export function slow(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
       const obstacles = between(data.obstacles, st + 0.001, st + 63.999);
       notes.forEach((n) => {
          const noteNJS = NoteJumpSpeed.create(
-            BPM,
+            BPM.bpm,
             n.customData.noteJumpMovementSpeed,
             n.customData.noteJumpStartBeatOffset,
          );
@@ -43,7 +47,11 @@ export function slow(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
             pos[0] +
             unityToGridUnit(
                lerpVec3(
-                  normalize(clamp(n.time - noteNJS.calcHjd() / 2, st, st + 64), st, st + 64),
+                  normalize(
+                     clamp(n.time - noteNJS.calcHjd() / 2, st, st + 64),
+                     st,
+                     st + 64,
+                  ),
                   [
                      [0, 4, 16, 0],
                      [4, 4, 16, 0.25, 'easeOutCubic'],
@@ -147,7 +155,11 @@ export function slow(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: 
    connectSlider(data, between(data.colorNotes, 188, 190));
    connectSlider(
       data,
-      between(data.colorNotes, 192, data.filename === 'ExpertPlusOneSaber.dat' ? 194 : 200),
+      between(
+         data.colorNotes,
+         192,
+         data.filename === 'ExpertPlusOneSaber.dat' ? 194 : 200,
+      ),
    );
    connectSlider(data, between(data.colorNotes, 196, 200));
 

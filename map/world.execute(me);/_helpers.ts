@@ -1,4 +1,4 @@
-import { deepCopy, pRandom, types } from '../../depsLocal.ts';
+import { deepCopy, pRandom, types } from '@bsmap';
 
 export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColorEventAttribute>>(
    obj: T[],

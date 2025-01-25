@@ -1,4 +1,4 @@
-import { types } from '../depsLocal.ts';
+import { types } from '@bsmap';
 
 export default function (
    info: types.wrapper.IWrapInfo,

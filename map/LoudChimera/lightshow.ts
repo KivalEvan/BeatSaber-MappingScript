@@ -1,9 +1,5 @@
 import { writeTextFileSync } from '../../deps.ts';
-import {
-   chromaLightGradientToVanillaGradient,
-   readDifficultyFileSync,
-   types,
-} from '../../depsLocal.ts';
+import { chromaLightGradientToVanillaGradient, readDifficultyFileSync, types } from '@bsmap';
 
 let init = false;
 let data: types.wrapper.IWrapBeatmap;
@@ -16,7 +12,7 @@ export function lightshow() {
    data = readDifficultyFileSync('Lightshow.dat', 3);
    chromaLightGradientToVanillaGradient(data);
 
-   // const e = data.customData.environment?.filter((e) => e.id).map((e) => e.id);
+   // const e = data.difficulty.customData.environment?.filter((e) => e.id).map((e) => e.id);
    data.difficulty.customData.environment?.forEach((e) => {
       if (e.id) {
          e.id = e.id

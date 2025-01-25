@@ -16,7 +16,7 @@ import {
    v3,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 const { between, at } = ext.selector;
@@ -476,8 +476,9 @@ const info = readInfoFileSync();
 info.song.title = 'Girly Cupid';
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'Girly Cupid',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: { r: 0.875, g: 0.125, b: 0.125, a: 1 },
       saberRightColor: { r: 0.375, g: 0.5625, b: 0.875, a: 1 },
       environment0Color: { r: 0.375, g: 0.375, b: 0.375, a: 1 },

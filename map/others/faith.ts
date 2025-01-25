@@ -4,10 +4,10 @@ import {
    readInfoFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import applyLabel from '../../utility/applyLabel.ts';
-import infoAudioDur from '../../utility/infoAudioDur.ts';
+import infoAudioDur from '../../utility/audioDuration.ts';
 
 globals.directory = beatmapWipPath('FAITH');
 

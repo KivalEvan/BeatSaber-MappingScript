@@ -8,7 +8,7 @@ import {
    toColorObject,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { insertEnvironment } from '../../environment-enhancement/railway/main.ts';
 import applyLabel from '../../utility/applyLabel.ts';
@@ -19,8 +19,9 @@ globals.directory = beatmapWipPath('Lost Days');
 const info = readInfoFileSync();
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'Lost Days',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(
          colorFrom(355, 0.8125, 0.9375, 'hsva'),
          true,
@@ -35,7 +36,7 @@ info.colorSchemes = [
          true,
       ),
       environment0ColorBoost: toColorObject(
-         colorFrom(350, 1, 0.8125, 'hsva'),
+         colorFrom(330, 1, 0.8125, 'hsva'),
          true,
       ),
       environment1ColorBoost: toColorObject(
@@ -86,10 +87,10 @@ for (const d of info.difficulties) {
    insertEnvironment(data);
 
    const pRandom = pRandomFn('Lost Days');
-   data.customData.customEvents = [];
+   data.difficulty.customData.customEvents = [];
    for (const it of range(0, 9)) {
       const r = pRandom(3, 4);
-      data.customData.customEvents.push(
+      data.difficulty.customData.customEvents.push(
          {
             b: 0,
             t: 'AnimateTrack',

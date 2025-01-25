@@ -1,4 +1,4 @@
-import { v3 } from '../../../depsLocal.ts';
+import { types, v3 } from '@bsmap';
 import protection from './protection.ts';
 import objectCreation from './objectCreation.ts';
 import initialisation from './initialisation.ts';

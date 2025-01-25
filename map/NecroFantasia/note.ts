@@ -1,4 +1,4 @@
-import { ext, lerp, normalize, pRandomFn, round, types, v3 } from '../../depsLocal.ts';
+import { ext, lerp, normalize, pRandomFn, round, types, v3 } from '@bsmap';
 
 const { between, where } = ext.selector;
 

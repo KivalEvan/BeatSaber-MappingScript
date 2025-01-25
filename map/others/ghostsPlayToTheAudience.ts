@@ -7,7 +7,7 @@ import {
    types,
    v3,
    writeDifficultyFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 
 globals.directory =
    'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/GhostsPlayToTheAudience';

@@ -1,5 +1,5 @@
 import { process, readdirSync, resolve } from '../deps.ts';
-import { logger, round } from '../depsLocal.ts';
+import { logger, round } from '@bsmap';
 
 const path = import.meta.dirname!;
 for (const dir of readdirSync(path, { withFileTypes: true })) {

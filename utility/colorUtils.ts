@@ -1,4 +1,4 @@
-import { Cloneable, colorFrom, hsvaToRgba, normalize, rgbaToHsva, types } from '../depsLocal.ts';
+import { Cloneable, colorFrom, colorToHex, hsvaToRgba, normalize, rgbaToHsva, types } from '@bsmap';
 
 export class ColorUtils extends Cloneable implements types.IColor {
    r: number;
@@ -19,17 +19,24 @@ export class ColorUtils extends Cloneable implements types.IColor {
       return new this(...input);
    }
 
-   toJSON(noAlpha?: boolean): types.IColor {
-      return noAlpha
-         ? { r: this.r, g: this.g, b: this.b }
-         : { r: this.r, g: this.g, b: this.b, a: this.a };
+   toJSON(): types.IColor;
+   toJSON(ensureAlpha: false): Omit<types.IColor, 'a'>;
+   toJSON(ensureAlpha: true): Required<types.IColor>;
+   toJSON(ensureAlpha?: boolean): types.IColor {
+      return ensureAlpha
+         ? { r: this.r, g: this.g, b: this.b, a: this.a }
+         : { r: this.r, g: this.g, b: this.b };
    }
 
    toArray(): types.ColorArray;
-   toArray(noAlpha: false): Omit<types.ColorArray, 'a'>;
-   toArray(noAlpha: true): Required<types.ColorArray>;
-   toArray(noAlpha?: boolean): types.ColorArray {
-      return noAlpha ? [this.r, this.g, this.b] : [this.r, this.g, this.b, this.a];
+   toArray(ensureAlpha: false): types.Vector3;
+   toArray(ensureAlpha: true): Required<types.ColorArray>;
+   toArray(ensureAlpha?: boolean): types.ColorArray {
+      return ensureAlpha ? [this.r, this.g, this.b, this.a] : [this.r, this.g, this.b];
+   }
+
+   toHex(): string {
+      return colorToHex(this);
    }
 
    *[Symbol.iterator](): IterableIterator<number> {

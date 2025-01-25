@@ -1,13 +1,4 @@
-import {
-   ext,
-   lerp,
-   logger,
-   normalize,
-   pRandomFn,
-   types,
-   vectorAdd,
-   vectorMul,
-} from '../../depsLocal.ts';
+import { ext, lerp, logger, normalize, pRandomFn, types, vectorAdd, vectorMul } from '@bsmap';
 import { environmentSave } from '../helpers.ts';
 
 const info: types.external.IEnvironmentJSON = {

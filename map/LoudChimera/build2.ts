@@ -1,19 +1,15 @@
-import {
-   ext,
-   logger,
-   normalize,
-   NoteJumpSpeed,
-   pRandom,
-   TimeProcessor,
-   v3,
-} from '../../depsLocal.ts';
+import { ext, logger, normalize, NoteJumpSpeed, pRandom, TimeProcessor, types, v3 } from '@bsmap';
 
-const { NE } = ext;
+const { ne: NE } = ext;
 const { between } = ext.selector;
 
-export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function build2(
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
+   NJS: NoteJumpSpeed,
+) {
    logger.info('Run Build 2');
-   const fakeNotes: v3.ColorNote[] = [];
+   const fakeNotes: types.wrapper.IWrapColorNote[] = [];
    const slowBuildTiming = [264, 778];
 
    for (const sbt of slowBuildTiming) {
@@ -22,7 +18,7 @@ export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS
       notes.forEach((n) => n.addCustomData({ track: 'tBuild' }));
 
       for (let t = sbt; t < sbt + 64; t += 2) {
-         data.customData.customEvents?.push({
+         data.difficulty.customData.customEvents?.push({
             b: t,
             t: 'AnimateTrack',
             d: {
@@ -40,7 +36,7 @@ export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS
          });
       }
       for (let t = sbt + 64; t < sbt + 120; t += 2) {
-         data.customData.customEvents?.push(
+         data.difficulty.customData.customEvents?.push(
             {
                b: t,
                t: 'AnimateTrack',
@@ -48,11 +44,19 @@ export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS
                   track: 'tBuild',
                   duration: 0.75,
                   dissolve: [
-                     [pRandom(0.8, 0.9) - normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                     [
+                        pRandom(0.8, 0.9) -
+                        normalize(t, sbt + 64, sbt + 120) * 0.25,
+                        0,
+                     ],
                      [1, 1],
                   ],
                   dissolveArrow: [
-                     [pRandom(0.45, 0.55) - normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                     [
+                        pRandom(0.45, 0.55) -
+                        normalize(t, sbt + 64, sbt + 120) * 0.25,
+                        0,
+                     ],
                      [1, 1],
                   ],
                },
@@ -64,11 +68,19 @@ export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS
                   track: 'tBuild',
                   duration: 0.75,
                   dissolve: [
-                     [pRandom(0.95, 1) - normalize(t, sbt + 64, sbt + 120) * 0.25, 0],
+                     [
+                        pRandom(0.95, 1) -
+                        normalize(t, sbt + 64, sbt + 120) * 0.25,
+                        0,
+                     ],
                      [1, 1],
                   ],
                   dissolveArrow: [
-                     [pRandom(0.95, 1) - normalize(t, sbt + 64, sbt + 120) * 0.75, 0],
+                     [
+                        pRandom(0.95, 1) -
+                        normalize(t, sbt + 64, sbt + 120) * 0.75,
+                        0,
+                     ],
                      [1, 1],
                   ],
                },
@@ -79,5 +91,7 @@ export function build2(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS
       // fakeNotes.push(...notes)
    }
 
-   data.customData.fakeColorNotes!.push(...fakeNotes.map((n) => n.toJSON()));
+   data.difficulty.customData.fakeColorNotes!.push(
+      ...fakeNotes.map((n) => v3.colorNote.serialize(n)),
+   );
 }

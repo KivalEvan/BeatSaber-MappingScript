@@ -7,7 +7,7 @@ import {
    toColorObject,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
@@ -39,8 +39,9 @@ info.customData = {
 };
 info.colorSchemes = [
    {
-      useOverride: false,
       name: 'Default Color',
+      overrideNotes: false,
+      overrideLights: false,
       saberLeftColor: toColorObject(ColorScheme['The First']._colorLeft!, true),
       saberRightColor: toColorObject(
          ColorScheme['The First']._colorRight!,
@@ -62,8 +63,9 @@ info.colorSchemes = [
       ),
    },
    {
-      useOverride: true,
       name: 'Sunset Tea Cup',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(
          colorFrom(355, 0.8125, 0.9375, 'hsva'),
          true,

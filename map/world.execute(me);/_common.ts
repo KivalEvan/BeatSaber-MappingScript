@@ -1,4 +1,4 @@
-import { EaseType, EventBoxColor, IndexFilter, IndexFilterType, types } from '../../depsLocal.ts';
+import { EaseType, EventLightColor, IndexFilter, IndexFilterType, types } from '@bsmap';
 
 export const TIME_OFFSET = 4;
 
@@ -257,15 +257,15 @@ export const FILTER_TWELVE_12_STEP = new IndexFilter({
 export const SMALL_RINGS_DRUM_INNER: Partial<
    types.wrapper.IWrapLightColorEventAttribute
 >[] = [
-   { color: EventBoxColor.WHITE, brightness: 1.2 },
-   { time: 0.0625, color: EventBoxColor.WHITE, brightness: 0 },
+   { color: EventLightColor.WHITE, brightness: 1.2 },
+   { time: 0.0625, color: EventLightColor.WHITE, brightness: 0 },
    {
       time: 0.125,
-      color: EventBoxColor.RED,
+      color: EventLightColor.RED,
    },
    {
       time: 0.5,
-      color: EventBoxColor.BLUE,
+      color: EventLightColor.BLUE,
       brightness: 0,
       easing: EaseType.LINEAR,
    },
@@ -274,12 +274,12 @@ export const SMALL_RINGS_DRUM_INNER: Partial<
 export const SMALL_RINGS_DRUM_OUTER: Partial<
    types.wrapper.IWrapLightColorEventAttribute
 >[] = [
-   { color: EventBoxColor.WHITE, brightness: 1.2 },
-   { time: 0.0625, color: EventBoxColor.WHITE, brightness: 0 },
-   { time: 0.125, color: EventBoxColor.WHITE, brightness: 0.5 },
+   { color: EventLightColor.WHITE, brightness: 1.2 },
+   { time: 0.0625, color: EventLightColor.WHITE, brightness: 0 },
+   { time: 0.125, color: EventLightColor.WHITE, brightness: 0.5 },
    {
       time: 0.25,
-      color: EventBoxColor.WHITE,
+      color: EventLightColor.WHITE,
       easing: EaseType.LINEAR,
       brightness: 0.25,
    },

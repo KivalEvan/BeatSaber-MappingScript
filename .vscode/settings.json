@@ -2,5 +2,6 @@
    "deno.enable": true,
    "deno.lint": true,
    "deno.unstable": [],
-   "deno.future": true
+   "deno.future": true,
+   "discord.enabled": false
 }

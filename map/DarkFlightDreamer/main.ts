@@ -8,7 +8,7 @@ import {
    readInfoFileSync,
    types,
    writeDifficultyFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 globals.directory = beatmapWipPath('Dark Flight Dreamer');

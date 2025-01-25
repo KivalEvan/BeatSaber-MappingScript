@@ -3,12 +3,13 @@ import {
    deepCopy,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    EventLightValue,
    LightRotationDirection,
    TransitionType,
+   types,
    v3,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import {
    Brightness,
    FILTER_HALF_1_STEP,
@@ -39,14 +40,14 @@ export default function (data: types.wrapper.IWrapBeatmap) {
          {
             filter: FILTER_QUARTET_1_DIV,
             beatDistribution: 0.499,
-            events: [{ color: EventBoxColor.WHITE, brightness: 0.2 }],
+            events: [{ color: EventLightColor.WHITE, brightness: 0.2 }],
             brightnessDistribution: 1,
             affectFirst: 1,
          },
          {
             filter: FILTER_QUARTET_2_DIV,
             beatDistribution: 0.499,
-            events: [{ color: EventBoxColor.WHITE, brightness: 0.2 }],
+            events: [{ color: EventLightColor.WHITE, brightness: 0.2 }],
             brightnessDistribution: 1,
             affectFirst: 1,
          },

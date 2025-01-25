@@ -1,8 +1,27 @@
-import { genCircle } from '../../utility/circ.ts';
-import { degToRad, ext, logger, range, types, vectorMul } from '../../depsLocal.ts';
+import { degToRad, ext, logger, range, types, vectorMul } from '@bsmap';
 import { environmentSave } from '../helpers.ts';
 const EnvGrab = ext.chroma.EnvironmentGrab;
 const { EnvironmentGroup } = ext.chroma;
+function genCircle(
+   radius: number,
+   precision: number,
+   posOffset?: types.Vector2,
+   angleOffset?: number,
+) {
+   const points: types.Vector2[] = [];
+   angleOffset = angleOffset || 0;
+   posOffset ||= [0, 0];
+
+   const step = 360 / precision;
+   for (let angle = 0; angle < 360; angle += step) {
+      const rad = degToRad(-angle + angleOffset);
+      points.push([
+         posOffset[0] + radius * Math.cos(rad),
+         posOffset[1] + radius * Math.sin(rad),
+      ]);
+   }
+   return points;
+}
 
 const info: types.external.IEnvironmentJSON = {
    version: '1.0.0',

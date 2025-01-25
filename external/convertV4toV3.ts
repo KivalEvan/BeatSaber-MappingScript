@@ -7,9 +7,10 @@ import {
    writeAudioDataFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from './depsLocal.ts';
+} from '@bsmap';
+import beatmapWipPath from '../utility/beatmapWipPath.ts';
 
-globals.directory = 'PATH_TO_YOUR_MAP';
+globals.directory = beatmapWipPath('Lost Days');
 const info = readInfoFileSync();
 const audioData = readAudioDataFileSync(info.audio.audioDataFilename).setFilename(
    'BPMInfo.dat',

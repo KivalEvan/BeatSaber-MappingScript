@@ -1,9 +1,9 @@
-import { ext, globals, readLightshowFileSync } from '../depsLocal.ts';
+import { ext, globals, readLightshowFileSync } from '@bsmap';
 import beatmapWipPath from '../utility/beatmapWipPath.ts';
 const countEbg = ext.stats.countEbg;
 
 globals.directory = beatmapWipPath('Bad Apple');
-const data = readLightshowFileSync('BritneySpears.lightshow.dat');
+const data = readLightshowFileSync('Common.lightshow.dat');
 
 console.log(Object.keys(countEbg(data.lightColorEventBoxGroups)).map((e) => +e));
 console.log(Object.keys(countEbg(data.lightRotationEventBoxGroups)).map((e) => +e));

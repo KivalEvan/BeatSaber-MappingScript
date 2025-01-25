@@ -1,4 +1,5 @@
 import {
+   BombNote,
    EasingsFn,
    ext,
    lerp,
@@ -6,15 +7,20 @@ import {
    normalize,
    NoteDirectionAngle,
    NoteJumpSpeed,
+   Obstacle,
    pRandom,
    TimeProcessor,
+   types,
    v3,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import { getRepeatArray } from './helpers.ts';
-const { NE } = ext;
+const { ne: NE } = ext;
 const { at, between } = ext.selector;
 
-function doArrowthing(fakeNotes: v3.ColorNote[], duration: number) {
+function doArrowthing(
+   fakeNotes: types.wrapper.IWrapColorNote[],
+   duration: number,
+) {
    if (duration < 0.25) {
       throw new Error('re');
    }
@@ -45,28 +51,42 @@ function doArrowthing(fakeNotes: v3.ColorNote[], duration: number) {
    });
 }
 
-export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function drop1(
+   data: types.wrapper.IWrapBeatmap,
+   BPM: TimeProcessor,
+   NJS: NoteJumpSpeed,
+) {
    logger.info('Run Drop 1');
-   const fakeNotes: v3.ColorNote[] = [];
+   const fakeNotes: types.wrapper.IWrapColorNote[] = [];
 
-   const fastPewPew: number[] = [...getRepeatArray(394, 16, 8), ...getRepeatArray(906, 16, 8)];
+   const fastPewPew: number[] = [
+      ...getRepeatArray(394, 16, 8),
+      ...getRepeatArray(906, 16, 8),
+   ];
    let flipFlop = true;
    for (const fpp of fastPewPew) {
       for (let min = 0, max = 4, x = min; x < max; x++) {
-         const bomb = v3.BombNote.create({
-            time: fpp - 2 + 1.5 - lerp(normalize(x, min, max), 0, 0.25, EasingsFn.easeInCirc),
+         const bomb = BombNote.create({
+            time: fpp -
+               2 +
+               1.5 -
+               lerp(EasingsFn.easeInCirc(normalize(x, min, max)), 0, 0.25),
             customData: {
                coordinates: [
                   x,
-                  -0.25 - lerp(normalize(x, min, max), 0, 1.25, EasingsFn.easeInQuad),
+                  -0.25 -
+                  lerp(
+                     EasingsFn.easeInQuad(normalize(x, min, max)),
+                     0,
+                     1.25,
+                  ),
                ],
                color: [1, 1, 1],
                noteJumpMovementSpeed: NJS.value,
                noteJumpStartBeatOffset: lerp(
-                  normalize(x, min, max),
+                  EasingsFn.easeInCirc(normalize(x, min, max)),
                   0,
                   8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                  EasingsFn.easeInCirc,
                ),
                spawnEffect: true,
                uninteractable: true,
@@ -81,10 +101,9 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                            0,
                            1,
                            lerp(
-                              normalize(x, min, max),
+                              EasingsFn.easeInCirc(normalize(x, min, max)),
                               0,
                               8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                              EasingsFn.easeInCirc,
                            ) * 0.375,
                            'easeOutQuad',
                         ]
@@ -94,10 +113,9 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                            lerp(normalize(x, min, max), 1, 0),
                            1,
                            lerp(
-                              normalize(x, min, max),
+                              EasingsFn.easeInCirc(normalize(x, min, max)),
                               0,
                               8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                              EasingsFn.easeInCirc,
                            ) * 0.375,
                            'easeOutQuad',
                         ],
@@ -109,10 +127,9 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                         0,
                         0,
                         lerp(
-                           normalize(x, min, max),
+                           EasingsFn.easeInCirc(normalize(x, min, max)),
                            0,
                            8 - NoteJumpSpeed.HJD_START - NJS.calcHjd(0),
-                           EasingsFn.easeInCirc,
                         ) * 0.1875,
                         'easeInCirc',
                      ],
@@ -120,11 +137,14 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                },
             },
          });
-         data.customData.fakeBombNotes?.push(bomb[0].toJSON(), bomb[0].clone().mirror().toJSON());
+         data.difficulty.customData.fakeBombNotes?.push(
+            bomb[0],
+            bomb[0].clone().mirror(),
+         );
       }
       flipFlop = !flipFlop;
 
-      const obs = v3.Obstacle.create({
+      const obs = Obstacle.create({
          time: fpp - 1.5,
          customData: {
             uninteractible: true,
@@ -152,7 +172,7 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
             },
          },
       });
-      // data.customData.fakeObstacles!.push(
+      // data.difficulty.customData.fakeObstacles!.push(
       //     obs.toJSON(),
       //     obs.clone().mirror().toJSON()
       // );
@@ -174,12 +194,18 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                      ],
                      offsetPosition: [
                         [0, 0, 0, 0],
-                        [n.time % 1 ? randX : -randX, randY, 0, 0.125, 'easeOutQuart'],
+                        [
+                           n.time % 1 ? randX : -randX,
+                           randY,
+                           0,
+                           0.125,
+                           'easeOutQuart',
+                        ],
                         [
                            0,
                            0,
                            NoteJumpSpeed.create(
-                              BPM,
+                              BPM.bpm,
                               n.customData.noteJumpMovementSpeed,
                            ).calcDistance(0.0024),
                            0.375,
@@ -204,7 +230,13 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
                      ],
                      offsetPosition: [
                         [0, 0, 0, 0],
-                        [n.time % 1 ? -randX : randX, randY, 0, 0.125, 'easeOutQuart'],
+                        [
+                           n.time % 1 ? -randX : randX,
+                           randY,
+                           0,
+                           0.125,
+                           'easeOutQuart',
+                        ],
                         [
                            0,
                            0,
@@ -239,7 +271,7 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
       );
       fastPewPewNotes.forEach((n) => {
          const noteNJS = NoteJumpSpeed.create(
-            BPM,
+            BPM.bpm,
             n.customData.noteJumpMovementSpeed,
             n.customData.noteJumpStartBeatOffset,
          );
@@ -266,5 +298,7 @@ export function drop1(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS:
       });
    }
 
-   data.customData.fakeColorNotes?.push(...fakeNotes.map((n) => n.toJSON()));
+   data.difficulty.customData.fakeColorNotes?.push(
+      ...fakeNotes.map((n) => v3.colorNote.serialize(n)),
+   );
 }

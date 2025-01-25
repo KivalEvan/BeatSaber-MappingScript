@@ -7,7 +7,7 @@ import {
    toColorObject,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
@@ -16,8 +16,9 @@ globals.directory = beatmapWipPath('TRIPLE PLAY');
 const info = readInfoFileSync();
 info.colorSchemes = [
    {
-      useOverride: true,
       name: 'TRIPLE PLAY',
+      overrideNotes: true,
+      overrideLights: true,
       saberLeftColor: toColorObject(
          colorFrom(355, 0.8125, 0.9375, 'hsva'),
          true,
@@ -48,8 +49,9 @@ info.colorSchemes = [
       ),
    },
    {
-      useOverride: false,
       name: 'Default Color',
+      overrideNotes: false,
+      overrideLights: false,
       saberLeftColor: toColorObject(ColorScheme['The First']._colorLeft!, true),
       saberRightColor: toColorObject(
          ColorScheme['The First']._colorRight!,

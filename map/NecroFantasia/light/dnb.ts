@@ -3,12 +3,12 @@ import {
    deepCopy,
    DistributionType,
    EaseType,
-   EventBoxColor,
+   EventLightColor,
    IndexFilterType,
    pRandomFn,
    range as rangeEx,
    types,
-} from '../../../depsLocal.ts';
+} from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
@@ -56,12 +56,12 @@ const lightBaseBass: Partial<types.wrapper.IWrapLightColorEvent>[] = [
    { time: 0, previous: 1 },
    {
       time: 0.125,
-      color: EventBoxColor.WHITE,
+      color: EventLightColor.WHITE,
       easing: EaseType.LINEAR,
    },
    {
       time: 0.4999,
-      color: EventBoxColor.WHITE,
+      color: EventLightColor.WHITE,
       easing: EaseType.LINEAR,
       brightness: 0,
    },
@@ -84,12 +84,12 @@ const lightBaseBassShort: Partial<types.wrapper.IWrapLightColorEvent>[] = [
    { previous: 1 },
    {
       time: 0.0625,
-      color: EventBoxColor.WHITE,
+      color: EventLightColor.WHITE,
       easing: EaseType.LINEAR,
    },
    {
       time: 0.375,
-      color: EventBoxColor.WHITE,
+      color: EventLightColor.WHITE,
       easing: EaseType.LINEAR,
       brightness: 0,
    },
@@ -107,12 +107,12 @@ const lightBassShort: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAtt
          { previous: 1 },
          {
             time: 0.125,
-            color: EventBoxColor.WHITE,
+            color: EventLightColor.WHITE,
             easing: EaseType.LINEAR,
          },
          {
             time: 0.375,
-            color: EventBoxColor.WHITE,
+            color: EventLightColor.WHITE,
             easing: EaseType.LINEAR,
             brightness: 0,
          },
@@ -125,10 +125,10 @@ const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
    {
       filter: {},
       events: [
-         { color: EventBoxColor.WHITE },
+         { color: EventLightColor.WHITE },
          {
             time: 0.5,
-            color: EventBoxColor.WHITE,
+            color: EventLightColor.WHITE,
             easing: EaseType.LINEAR,
             brightness: 0,
          },
@@ -201,15 +201,15 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         reverse: ((id + 1) % 2) as 1,
                      },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 0 },
+                        { color: EventLightColor.WHITE, brightness: 0 },
                         {
                            time: 0.5,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            easing: EaseType.LINEAR,
                         },
                         {
                            time: 2,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: 0,
                            easing: EaseType.LINEAR,
                         },
@@ -231,15 +231,15 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                         reverse: ((id + 1) % 2) as 1,
                      },
                      events: [
-                        { color: EventBoxColor.WHITE, brightness: 0 },
+                        { color: EventLightColor.WHITE, brightness: 0 },
                         {
                            time: 0.5,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            easing: EaseType.LINEAR,
                         },
                         {
                            time: 2,
-                           color: EventBoxColor.WHITE,
+                           color: EventLightColor.WHITE,
                            brightness: 0,
                            easing: EaseType.LINEAR,
                         },
@@ -323,10 +323,10 @@ function doPattern1(data: types.wrapper.IWrapBeatmap, time: number) {
                {
                   filter: { reverse: id % 2 ? 0 : 1 },
                   events: [
-                     { color: EventBoxColor.WHITE },
+                     { color: EventLightColor.WHITE },
                      {
                         time: 0.5,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -535,10 +535,10 @@ function doPattern2(data: types.wrapper.IWrapBeatmap, time: number) {
                   reverse: (flipFlop2 ? WeaveID.DISTANT_RIGHT : WeaveID.DISTANT_LEFT) % 2 ? 0 : 1,
                },
                events: [
-                  { color: EventBoxColor.WHITE },
+                  { color: EventLightColor.WHITE },
                   {
                      time: 0.5,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 0,
                   },
@@ -557,10 +557,10 @@ function doPattern2(data: types.wrapper.IWrapBeatmap, time: number) {
                   reverse: (flipFlop2 ? WeaveID.DISTANT_LEFT : WeaveID.DISTANT_RIGHT) % 2 ? 0 : 1,
                },
                events: [
-                  { color: EventBoxColor.WHITE },
+                  { color: EventLightColor.WHITE },
                   {
                      time: 0.5,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 0,
                   },
@@ -810,10 +810,10 @@ function doPattern3(data: types.wrapper.IWrapBeatmap, time: number) {
                   reverse: (flipFlop2 ? WeaveID.DISTANT_RIGHT : WeaveID.DISTANT_LEFT) % 2 ? 0 : 1,
                },
                events: [
-                  { color: EventBoxColor.WHITE },
+                  { color: EventLightColor.WHITE },
                   {
                      time: 0.5,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 0,
                   },
@@ -832,10 +832,10 @@ function doPattern3(data: types.wrapper.IWrapBeatmap, time: number) {
                   reverse: (flipFlop2 ? WeaveID.DISTANT_LEFT : WeaveID.DISTANT_RIGHT) % 2 ? 0 : 1,
                },
                events: [
-                  { color: EventBoxColor.WHITE },
+                  { color: EventLightColor.WHITE },
                   {
                      time: 0.5,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 0,
                   },
@@ -1034,10 +1034,10 @@ function doPattern4(data: types.wrapper.IWrapBeatmap, time: number) {
             {
                filter: { reverse: id % 2 ? 0 : 1 },
                events: [
-                  { color: EventBoxColor.WHITE },
+                  { color: EventLightColor.WHITE },
                   {
                      time: 0.5,
-                     color: EventBoxColor.WHITE,
+                     color: EventLightColor.WHITE,
                      easing: EaseType.LINEAR,
                      brightness: 0,
                   },
@@ -1097,10 +1097,10 @@ function doPattern4(data: types.wrapper.IWrapBeatmap, time: number) {
                {
                   filter: { reverse: id % 2 ? 0 : 1 },
                   events: [
-                     { color: EventBoxColor.WHITE },
+                     { color: EventLightColor.WHITE },
                      {
                         time: 0.5,
-                        color: EventBoxColor.WHITE,
+                        color: EventLightColor.WHITE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -1274,13 +1274,13 @@ function bigbuild(data: types.wrapper.IWrapBeatmap) {
                         { time: 0, previous: 1 },
                         {
                            time: 0.125,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            brightness: 2,
                            easing: EaseType.LINEAR,
                         },
                         {
                            time: 0.7499,
-                           color: EventBoxColor.BLUE,
+                           color: EventLightColor.BLUE,
                            easing: EaseType.LINEAR,
                            brightness: 0,
                         },
@@ -1316,13 +1316,13 @@ function bigbuild(data: types.wrapper.IWrapBeatmap) {
                      { time: 0, previous: 1 },
                      {
                         time: 0.125,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         brightness: 2,
                         easing: EaseType.LINEAR,
                      },
                      {
                         time: 0.7499,
-                        color: EventBoxColor.BLUE,
+                        color: EventLightColor.BLUE,
                         easing: EaseType.LINEAR,
                         brightness: 0,
                      },
@@ -1446,36 +1446,36 @@ function bigbuild(data: types.wrapper.IWrapBeatmap) {
    const lightsUp: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
       {
          time: 0,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 2,
       },
       {
          time: 0.2499,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 1,
          easing: EaseType.LINEAR,
       },
       {
          time: 0.75,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 1.5,
          easing: EaseType.LINEAR,
       },
       {
          time: 2,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 0,
          easing: EaseType.LINEAR,
       },
       {
          time: 3,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 1,
          easing: EaseType.LINEAR,
       },
       {
          time: 4,
-         color: EventBoxColor.WHITE,
+         color: EventLightColor.WHITE,
          brightness: 0,
          easing: EaseType.LINEAR,
       },

@@ -1,5 +1,5 @@
 import { resolve } from '../deps.ts';
-import { globals, types } from '../depsLocal.ts';
+import { globals, types } from '@bsmap';
 import { mediainfo } from '../vendor/mediainfo.ts';
 
 export default async function (info: types.wrapper.IWrapInfo): Promise<number> {

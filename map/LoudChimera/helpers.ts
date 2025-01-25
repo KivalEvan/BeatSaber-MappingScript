@@ -1,4 +1,4 @@
-import { EasingsFn, ext, lerp, normalize, types, v3 } from '../../depsLocal.ts';
+import { EasingsFn, ext, lerp, normalize, types } from '@bsmap';
 
 export function getRepeatArray(start: number, gap: number, repeat: number) {
    const arr = new Array(repeat).fill(start);
@@ -14,10 +14,10 @@ export function lerpVec3(
 ): types.Vector3 {
    const pointBefore = [...points].reverse().find((p) => alpha >= p[3]);
    const pointAfter = points.slice(1).find((p) => alpha <= p[3]);
-   if (!pointAfter) {
+   if (!pointAfter || typeof pointAfter === 'string') {
       throw new Error('not found');
    }
-   if (!pointBefore) {
+   if (!pointBefore || typeof pointBefore === 'string') {
       throw new Error('not found');
    }
    const norm = normalize(alpha, pointBefore[3], pointAfter[3]);
@@ -25,15 +25,18 @@ export function lerpVec3(
       (pointAfter?.find((s) => typeof s === 'string' ? s.startsWith('ease') : 'easeLinear') ??
          'easeLinear') as 'easeStep';
    return [
-      lerp(norm, pointBefore[0], pointAfter[0], EasingsFn[easing]),
-      lerp(norm, pointBefore[1], pointAfter[1], EasingsFn[easing]),
-      lerp(norm, pointBefore[2], pointAfter[2], EasingsFn[easing]),
+      lerp(EasingsFn[easing](norm), pointBefore[0], pointAfter[0]),
+      lerp(EasingsFn[easing](norm), pointBefore[1], pointAfter[1]),
+      lerp(EasingsFn[easing](norm), pointBefore[2], pointAfter[2]),
    ];
 }
 
-export function connectSlider(data: types.wrapper.IWrapBeatmap, notes: v3.ColorNote[]) {
+export function connectSlider(
+   data: types.wrapper.IWrapBeatmap,
+   notes: types.wrapper.IWrapColorNote[],
+) {
    const prevSlider: {
-      [key: number]: v3.ColorNote;
+      [key: number]: types.wrapper.IWrapColorNote;
    } = {};
    for (let i = 0, len = notes.length; i < len; i++) {
       const n = notes[i];

@@ -4,13 +4,15 @@ import {
    readInfoFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
-} from '../../depsLocal.ts';
+} from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import daftPunk from './daftPunk.ts';
 import hipHop from './hipHop.ts';
 import lattice from './lattice.ts';
 import collider from './collider.ts';
 import britneySpears from './britneySpears.ts';
+import monstercat2 from './monstercat2.ts';
+import metallica from './metallica.ts';
 
 globals.directory = beatmapWipPath('Bad Apple');
 
@@ -23,6 +25,8 @@ info.environmentNames = [
    'HipHopEnvironment',
    'ColliderEnvironment',
    'BritneyEnvironment',
+   'Monstercat2Environment',
+   'MetallicaEnvironment',
 ];
 info.difficulties = [];
 info
@@ -64,6 +68,24 @@ info
       njs: 10,
       colorSchemeId: -1,
       environmentId: 4,
+   })
+   .addMap({
+      difficulty: 'Easy',
+      characteristic: 'Legacy',
+      filename: 'Empty.beatmap.dat',
+      lightshowFilename: 'Monstercat2.lightshow.dat',
+      njs: 10,
+      colorSchemeId: -1,
+      environmentId: 5,
+   })
+   .addMap({
+      difficulty: 'Normal',
+      characteristic: 'Legacy',
+      filename: 'Empty.beatmap.dat',
+      lightshowFilename: 'Metallica.lightshow.dat',
+      njs: 10,
+      colorSchemeId: -1,
+      environmentId: 6,
    });
 writeInfoFileSync(info);
 
@@ -71,4 +93,6 @@ writeInfoFileSync(info);
 // await daftPunk();
 // await hipHop();
 // await collider();
-await britneySpears();
+// await britneySpears();
+// await monstercat2();
+await metallica();

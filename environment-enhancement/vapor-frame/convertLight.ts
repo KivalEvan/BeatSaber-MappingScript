@@ -1,4 +1,4 @@
-import { ColorScheme, EnvironmentSchemeName, types } from '../../depsLocal.ts';
+import { ColorScheme, EnvironmentSchemeName, types } from '@bsmap';
 import { idOffsetType4, ringCount, ringRepeat } from './main.ts';
 
 export function convertLight(
