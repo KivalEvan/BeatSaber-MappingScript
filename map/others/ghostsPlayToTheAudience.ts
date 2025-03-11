@@ -15,12 +15,10 @@ globals.directory =
 const { where, at, between } = ext.selector;
 
 const lightshow = readDifficultyFileSync('Expert.dat', 3);
-const osExpertP = readDifficultyFileSync('HardOneSaber.dat', 3).setFilename(
-   'ExpertPlusOneSaber.dat',
-);
-const osExpert = readDifficultyFileSync('NormalOneSaber.dat', 3).setFilename(
-   'ExpertOneSaber.dat',
-);
+const osExpertP = readDifficultyFileSync('HardOneSaber.dat', 3);
+osExpertP.filename = 'ExpertPlusOneSaber.dat';
+const osExpert = readDifficultyFileSync('NormalOneSaber.dat', 3);
+osExpert.filename = 'ExpertOneSaber.dat';
 
 const pointDefinitions: types.v3.IPointDefinition = {
    ghostPoint: [
@@ -59,14 +57,14 @@ const customEvents: types.v3.ICustomEvent[] = [
    },
 ];
 
-osExpertP.basicEvents = lightshow.basicEvents;
-osExpertP.colorBoostEvents = lightshow.colorBoostEvents;
+osExpertP.lightshow.basicEvents = lightshow.lightshow.basicEvents;
+osExpertP.lightshow.colorBoostEvents = lightshow.lightshow.colorBoostEvents;
 osExpertP.difficulty.customData.environment = lightshow.difficulty.customData.environment;
 osExpertP.difficulty.customData.pointDefinitions = pointDefinitions;
 osExpertP.difficulty.customData.customEvents = customEvents;
 
-osExpert.basicEvents = lightshow.basicEvents;
-osExpert.colorBoostEvents = lightshow.colorBoostEvents;
+osExpert.lightshow.basicEvents = lightshow.lightshow.basicEvents;
+osExpert.lightshow.colorBoostEvents = lightshow.lightshow.colorBoostEvents;
 osExpert.difficulty.customData.environment = lightshow.difficulty.customData.environment;
 osExpert.difficulty.customData.pointDefinitions = pointDefinitions;
 osExpert.difficulty.customData.customEvents = customEvents;
@@ -85,10 +83,10 @@ for (const it of introTime) {
    ];
    let i = 0;
    for (const bt of booTime) {
-      between(osExpertP.colorNotes, it + bt[0], it + bt[1]).forEach(
+      between(osExpertP.difficulty.colorNotes, it + bt[0], it + bt[1]).forEach(
          (n) => (n.customData.track = 'ghostTrack'),
       );
-      between(osExpert.colorNotes, it + bt[0], it + bt[1]).forEach(
+      between(osExpert.difficulty.colorNotes, it + bt[0], it + bt[1]).forEach(
          (n) => (n.customData.track = 'ghostTrack'),
       );
       const walls = i % 2
@@ -156,8 +154,8 @@ for (const it of introTime) {
             color: [0.3125, 0.3125, 0.3125],
          }),
       );
-      osExpertP.obstacles.push(...walls);
-      osExpert.obstacles.push(...walls);
+      osExpertP.difficulty.obstacles.push(...walls);
+      osExpert.difficulty.obstacles.push(...walls);
       customEvents.push(
          {
             b: it + bt[0],
@@ -208,7 +206,7 @@ for (const it of introTime) {
          },
       },
    );
-   osExpertP.addArcs(
+   osExpertP.difficulty.arcs.push(
       ...[
          {
             b: it + 6,
@@ -305,9 +303,9 @@ for (const it of introTime) {
             ty: flipFlop ? 0 : 1,
             m: 0,
          },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
-   osExpert.addArcs(
+   osExpert.difficulty.arcs.push(
       ...[
          {
             b: it + 6,
@@ -405,7 +403,7 @@ for (const it of introTime) {
             ty: flipFlop ? 0 : 1,
             m: 0,
          },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
    flipFlop = !flipFlop;
 }
@@ -439,7 +437,7 @@ for (const ct of chorusTime) {
             h: 5,
             customData: { color: [1, 1, 1, 1] as types.ColorArray },
          },
-      ].map(v3.obstacle.deserialize),
+      ].map((x) => v3.obstacle.deserialize(x)),
    );
    walls = walls.concat(walls.concat(walls.map((w) => w.clone().mirror())));
    const arr = [0, 1, 2, 3];
@@ -458,8 +456,8 @@ for (const ct of chorusTime) {
       }
       shuffle(arr);
    }
-   osExpertP.obstacles.push(...walls);
-   osExpert.obstacles.push(...walls);
+   osExpertP.difficulty.obstacles.push(...walls);
+   osExpert.difficulty.obstacles.push(...walls);
 }
 
 for (const _ of chorus2Time) {
@@ -522,47 +520,47 @@ for (let i = 0; i < 6; i++) {
          customData: { color: [0, 0, 0, 1] as types.ColorArray },
       },
    ]
-      .map(v3.obstacle.deserialize)
+      .map((x) => v3.obstacle.deserialize(x))
       .map(Obstacle.createOne);
-   osExpertP.obstacles.push(...walls);
-   osExpert.obstacles.push(...walls);
+   osExpertP.difficulty.obstacles.push(...walls);
+   osExpert.difficulty.obstacles.push(...walls);
 }
 
-osExpertP.addChains(
+osExpertP.difficulty.chains.push(
    ...[
       { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
       { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
       { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
       { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
-   ].map(v3.chain.deserialize),
+   ].map((x) => v3.chain.deserialize(x as types.v3.IChain)),
 );
-osExpertP.addArcs(
+osExpertP.difficulty.arcs.push(
    ...[
       { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
       { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
       { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
-   ].map(v3.arc.deserialize),
+   ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
 );
-osExpert.addChains(
+osExpert.difficulty.chains.push(
    ...[
       { b: 11.5, tb: 11.625, c: 1, d: 5, tx: 1, ty: 2, s: 0.75, sc: 4 },
       { b: 17.5, tb: 17.625, c: 1, d: 7, x: 2, y: 1, tx: 3, sc: 4 },
       { b: 543.5, tb: 543.625, c: 1, d: 6, x: 3, y: 2, tx: 2, s: 0.75, sc: 4 },
       { b: 549.5, tb: 549.625, c: 1, d: 5, x: 2, tx: 3, ty: 1, sc: 4 },
-   ].map(v3.chain.deserialize),
+   ].map((x) => v3.chain.deserialize(x as types.v3.IChain)),
 );
-osExpert.addArcs(
+osExpert.difficulty.arcs.push(
    ...[
       { b: 179, tb: 180, c: 1, d: 2, tc: 2, x: 1, tx: 1, m: 1 },
       { b: 339, tb: 340, c: 1, d: 2, tc: 3, y: 1, tx: 1, ty: 1 },
       { b: 500, tb: 502, c: 1, d: 2, tc: 2, x: 1, y: 1, tx: 1, ty: 2, m: 2 },
-   ].map(v3.arc.deserialize),
+   ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
 );
 
 const sliderApplyColor = (
-   s: types.wrapper.IWrapArcAttribute | types.wrapper.IWrapChainAttribute,
+   s: types.wrapper.IWrapArc | types.wrapper.IWrapChain,
 ) => {
-   const note = osExpert.colorNotes.filter(
+   const note = osExpert.difficulty.colorNotes.filter(
       (n) => n.time === s.time && n.posX === s.posX && n.posY === s.posY,
    );
    if (note.length > 1) {
@@ -576,8 +574,10 @@ const sliderApplyColor = (
 };
 
 let done = false;
-where(at(osExpert.colorNotes, 551), { include: { posX: 0 } })
-   .concat(where(at(osExpertP.colorNotes, 551), { include: { posX: 0 } }))
+where(at(osExpert.difficulty.colorNotes, 551), { include: { posX: 0 } })
+   .concat(
+      where(at(osExpertP.difficulty.colorNotes, 551), { include: { posX: 0 } }),
+   )
    .forEach((n) => {
       n.customData.track = 'baaaaaaaaa0';
       if (!done) {
@@ -610,8 +610,10 @@ where(at(osExpert.colorNotes, 551), { include: { posX: 0 } })
       done = true;
    });
 done = false;
-where(at(osExpert.colorNotes, 551), { include: { posX: 1 } })
-   .concat(where(at(osExpertP.colorNotes, 551), { include: { posX: 1 } }))
+where(at(osExpert.difficulty.colorNotes, 551), { include: { posX: 1 } })
+   .concat(
+      where(at(osExpertP.difficulty.colorNotes, 551), { include: { posX: 1 } }),
+   )
    .forEach((n) => {
       n.customData.track = 'baaaaaaaaa1';
       if (!done) {
@@ -644,8 +646,10 @@ where(at(osExpert.colorNotes, 551), { include: { posX: 1 } })
       done = true;
    });
 done = false;
-where(at(osExpert.colorNotes, 551), { include: { posX: 2 } })
-   .concat(where(at(osExpertP.colorNotes, 551), { include: { posX: 2 } }))
+where(at(osExpert.difficulty.colorNotes, 551), { include: { posX: 2 } })
+   .concat(
+      where(at(osExpertP.difficulty.colorNotes, 551), { include: { posX: 2 } }),
+   )
    .forEach((n) => {
       n.customData.track = 'baaaaaaaaa2';
       if (!done) {
@@ -678,8 +682,10 @@ where(at(osExpert.colorNotes, 551), { include: { posX: 2 } })
       done = true;
    });
 done = false;
-where(at(osExpert.colorNotes, 551), { include: { posX: 3 } })
-   .concat(where(at(osExpertP.colorNotes, 551), { include: { posX: 3 } }))
+where(at(osExpert.difficulty.colorNotes, 551), { include: { posX: 3 } })
+   .concat(
+      where(at(osExpertP.difficulty.colorNotes, 551), { include: { posX: 3 } }),
+   )
    .forEach((n) => {
       n.customData.track = 'baaaaaaaaa3';
       if (!done) {
@@ -712,10 +718,10 @@ where(at(osExpert.colorNotes, 551), { include: { posX: 3 } })
       done = true;
    });
 
-osExpert.arcs.forEach(sliderApplyColor);
-osExpert.chains.forEach(sliderApplyColor);
-osExpertP.arcs.forEach(sliderApplyColor);
-osExpertP.chains.forEach(sliderApplyColor);
+osExpert.difficulty.arcs.forEach(sliderApplyColor);
+osExpert.difficulty.chains.forEach(sliderApplyColor);
+osExpertP.difficulty.arcs.forEach(sliderApplyColor);
+osExpertP.difficulty.chains.forEach(sliderApplyColor);
 
 writeDifficultyFileSync(osExpertP);
 writeDifficultyFileSync(osExpert);

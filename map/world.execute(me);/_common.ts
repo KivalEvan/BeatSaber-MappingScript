@@ -255,7 +255,7 @@ export const FILTER_TWELVE_12_STEP = new IndexFilter({
 });
 
 export const SMALL_RINGS_DRUM_INNER: Partial<
-   types.wrapper.IWrapLightColorEventAttribute
+   types.wrapper.IWrapLightColorEvent
 >[] = [
    { color: EventLightColor.WHITE, brightness: 1.2 },
    { time: 0.0625, color: EventLightColor.WHITE, brightness: 0 },
@@ -272,7 +272,7 @@ export const SMALL_RINGS_DRUM_INNER: Partial<
 ];
 
 export const SMALL_RINGS_DRUM_OUTER: Partial<
-   types.wrapper.IWrapLightColorEventAttribute
+   types.wrapper.IWrapLightColorEvent
 >[] = [
    { color: EventLightColor.WHITE, brightness: 1.2 },
    { time: 0.0625, color: EventLightColor.WHITE, brightness: 0 },

@@ -43,7 +43,7 @@ applyLabel(info, [
 
 for (const d of info.difficulties) {
    const data = readDifficultyFileSync(d.filename, 3);
-   data.useNormalEventsAsCompatibleEvents = true;
+   data.lightshow.useNormalEventsAsCompatibleEvents = true;
 
    d.environmentId = d.characteristic === 'Legacy' ? 1 : 0;
    d.customData._information = [

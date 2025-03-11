@@ -17,15 +17,20 @@ const lightshow = readDifficultyFileSync('ExpertPlusStandard.dat', 3);
 difficultyList.forEach((d) => {
    if (d.beatmap.version === 3) {
       insertEnvironment(d.beatmap);
-      d.beatmap.basicEvents = lightshow.basicEvents;
-      d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
+      d.beatmap.lightshow.basicEvents = lightshow.lightshow.basicEvents;
+      d.beatmap.lightshow.colorBoostEvents = lightshow.lightshow.colorBoostEvents;
 
       let isRight = true;
       let justOnce = true;
       const wallDuration = 0.125;
-      d.beatmap.obstacles = d.beatmap.obstacles.filter((o) => o.time < 194);
-      for (const n of d.beatmap.colorNotes) {
-         if ((n.time >= 194 && n.time < 322) || (n.time >= 354 && n.time < 386)) {
+      d.beatmap.difficulty.obstacles = d.beatmap.difficulty.obstacles.filter(
+         (o) => o.time < 194,
+      );
+      for (const n of d.beatmap.difficulty.colorNotes) {
+         if (
+            (n.time >= 194 && n.time < 322) ||
+            (n.time >= 354 && n.time < 386)
+         ) {
             if (
                (n.time >= 197 && n.time < 198) ||
                (n.time >= 201 && n.time < 202) ||
@@ -58,13 +63,15 @@ difficultyList.forEach((d) => {
                (n.time >= 217 + 160 && n.time < 218 + 160) ||
                (n.time >= 222 + 160 && n.time < 226 + 160)
             ) {
-               d.beatmap.addObstacles({
+               d.beatmap.difficulty.obstacles.push({
                   time: n.time,
                   duration: wallDuration,
                   posX: n.posX,
                   posY: 0,
                   width: 1,
                   height: -1,
+                  laneRotation: 0,
+                  customData: {},
                });
                continue;
             }
@@ -110,13 +117,15 @@ difficultyList.forEach((d) => {
             } else {
                justOnce = true;
             }
-            d.beatmap.addObstacles({
+            d.beatmap.difficulty.obstacles.push({
                time: n.time,
                duration: wallDuration,
                posX: (isRight ? 4 : -4) + n.posX,
                posY: n.posY + 1,
                width: 1,
                height: 1,
+               laneRotation: 0,
+               customData: {},
             });
          }
       }

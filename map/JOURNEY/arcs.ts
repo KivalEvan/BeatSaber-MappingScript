@@ -1,6 +1,6 @@
-import { types, v3 } from '@bsmap';
+import { Beatmap, types, v3 } from '@bsmap';
 
-export function arcs(data: types.wrapper.IWrapBeatmap) {
+export function arcs(data: Beatmap) {
    data.addArcs(
       v3.arc.deserialize({
          b: 193.5,
@@ -51,7 +51,7 @@ export function arcs(data: types.wrapper.IWrapBeatmap) {
          { b: 288.5, tb: 289, c: 1, d: 3, tc: 2, x: 1, y: 0, tx: 0, ty: 0 },
          { b: 289, tb: 290, c: 1, d: 2, tc: 3, x: 0, y: 0, tx: 1, ty: 1 },
          { b: 290.0625, tb: 294, c: 1, d: 7, tc: 6, x: 3, y: 0, tx: 2, ty: 2 },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
    //#endregion
 
@@ -78,7 +78,7 @@ export function arcs(data: types.wrapper.IWrapBeatmap) {
          { b: 383, tb: 384.5, c: 1, d: 5, tc: 1, x: 2, y: 2, tx: 2, ty: 0 },
          { b: 385.5, tb: 386.5, c: 1, d: 7, tc: 0, x: 3, y: 1, tx: 1, ty: 2 },
          { b: 387.5, tb: 388.5, c: 1, d: 5, tc: 6, x: 2, y: 1, tx: 0, ty: 1 },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
 
    data.addArcs(
@@ -102,7 +102,7 @@ export function arcs(data: types.wrapper.IWrapBeatmap) {
          },
          { b: 577.5, tb: 578.5, c: 1, d: 7, tc: 4, x: 3, y: 0, tx: 0, ty: 1 },
          { b: 579.5, tb: 580.5, c: 1, d: 4, tc: 7, x: 1, y: 2, tx: 2, ty: 0 },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
 
    data.addArcs(
@@ -138,7 +138,7 @@ export function arcs(data: types.wrapper.IWrapBeatmap) {
          },
          { b: 965, tb: 966, c: 1, d: 2, tc: 3, x: 0, y: 0, tx: 0, ty: 1 },
          { b: 996.5, tb: 998, c: 1, d: 6, tc: 5, x: 0, y: 2, tx: 1, ty: 0 },
-      ].map(v3.arc.deserialize),
+      ].map((x) => v3.arc.deserialize(x as types.v3.IArc)),
    );
 
    data.arcs.forEach((s) => {

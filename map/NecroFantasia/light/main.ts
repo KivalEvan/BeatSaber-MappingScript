@@ -1,4 +1,4 @@
-import { BasicEvent, LightColorEvent, types, v3 } from '@bsmap';
+import { BasicEvent, Beatmap, LightColorEvent } from '@bsmap';
 import ambient from './ambient.ts';
 import boost from './boost.ts';
 import dnb from './dnb.ts';
@@ -10,7 +10,7 @@ import synth2 from './synth2.ts';
 import transition from './transition.ts';
 import chorus from './chorus.ts';
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    BasicEvent.defaultValue.type = 4;
    BasicEvent.defaultValue.floatValue = 1;
    LightColorEvent.defaultValue.brightness = 1;

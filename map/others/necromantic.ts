@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    degToRad,
    DistributionType,
    EaseType,
@@ -93,7 +94,7 @@ export function createCircle(
    return points;
 }
 
-function speiny(data: types.wrapper.IWrapBeatmap) {
+function speiny(data: Beatmap) {
    for (let i = 0, r = 0; r < 360; r += 15, i++) {
       const circ = createCircle(1.5, 3, [0.05, 2.15], r + 270).map((e) =>
          e.map((p) => round(p, 2))

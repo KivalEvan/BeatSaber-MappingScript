@@ -98,7 +98,7 @@ const walls = readDifficultyFileSync('ExpertPlusStandard.dat', 3);
 
 for (const d of info.difficulties) {
    const difficulty = readDifficultyFileSync(d.filename, 3);
-   difficulty.useNormalEventsAsCompatibleEvents = true;
+   difficulty.lightshow.useNormalEventsAsCompatibleEvents = true;
    if (d.characteristic === 'Legacy') {
       if (d.difficulty === 'ExpertPlus') {
          d.customData._difficultyLabel = 'Seasonal Scenery (2021)';
@@ -123,9 +123,9 @@ for (const d of info.difficulties) {
          d.customData._difficultyLabel = 'Seasonal Scenery';
       }
    }
-   difficulty.obstacles = walls.obstacles;
-   difficulty.basicEvents = lightshow.basicEvents;
-   difficulty.colorBoostEvents = lightshow.colorBoostEvents;
+   difficulty.difficulty.obstacles = walls.difficulty.obstacles;
+   difficulty.lightshow.basicEvents = lightshow.lightshow.basicEvents;
+   difficulty.lightshow.colorBoostEvents = lightshow.lightshow.colorBoostEvents;
 
    delete d.customData._requirements;
    d.colorSchemeId = 1;

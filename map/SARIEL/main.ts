@@ -65,11 +65,11 @@ lights(lightshow, bpm);
 const difficultyList = readFromInfoSync(info);
 
 difficultyList.forEach((d) => {
-   d.beatmap.basicEvents = [];
-   d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
-   d.beatmap.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
-   d.beatmap.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   d.beatmap.useNormalEventsAsCompatibleEvents = false;
+   d.beatmap.lightshow.basicEvents = [];
+   d.beatmap.lightshow.colorBoostEvents = lightshow.colorBoostEvents;
+   d.beatmap.lightshow.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
+   d.beatmap.lightshow.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
+   d.beatmap.lightshow.useNormalEventsAsCompatibleEvents = false;
 
    writeDifficultyFileSync(d.beatmap, 3);
 });

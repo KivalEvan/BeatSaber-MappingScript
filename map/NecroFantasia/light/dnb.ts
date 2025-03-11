@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    deepCopy,
    DistributionType,
    EaseType,
@@ -66,7 +67,7 @@ const lightBaseBass: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       brightness: 0,
    },
 ];
-const lightBass: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribute>[] = [
+const lightBass: types.DeepPartial<types.wrapper.IWrapLightColorEventBox>[] = [
    {
       filter: { p0: 2, p1: 1 },
       events: lightBaseBass,
@@ -94,7 +95,7 @@ const lightBaseBassShort: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       brightness: 0,
    },
 ];
-const lightBassShort: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribute>[] = [
+const lightBassShort: types.DeepPartial<types.wrapper.IWrapLightColorEventBox>[] = [
    {
       filter: { p0: 2, p1: 1, limit: 0.5 },
       events: lightBaseBassShort,
@@ -121,7 +122,7 @@ const lightBassShort: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAtt
       beatDistributionType: DistributionType.STEP,
    },
 ];
-const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribute>[] = [
+const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBox>[] = [
    {
       filter: {},
       events: [
@@ -139,7 +140,7 @@ const lightKick: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribut
 ];
 
 const pRandom = pRandomFn('h');
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    for (const time of range(timeStart, timeEnd, timeInterval)) {
       if (timeSkip.includes(time)) continue;
       if (timePattern2.includes(time)) doPattern2(data, time);
@@ -254,7 +255,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
    }
 }
 
-function doPattern1(data: types.wrapper.IWrapBeatmap, time: number) {
+function doPattern1(data: Beatmap, time: number) {
    const pattern = pattern1;
    data.addLightRotationEventBoxGroups({
       time,
@@ -383,7 +384,7 @@ function doPattern1(data: types.wrapper.IWrapBeatmap, time: number) {
 }
 
 let flipFlop2 = false;
-function doPattern2(data: types.wrapper.IWrapBeatmap, time: number) {
+function doPattern2(data: Beatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time: time,
@@ -656,7 +657,7 @@ function doPattern2(data: types.wrapper.IWrapBeatmap, time: number) {
    flipFlop2 = !flipFlop2;
 }
 
-function doPattern3(data: types.wrapper.IWrapBeatmap, time: number) {
+function doPattern3(data: Beatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time,
@@ -931,7 +932,7 @@ function doPattern3(data: types.wrapper.IWrapBeatmap, time: number) {
    flipFlop2 = !flipFlop2;
 }
 
-function doPattern4(data: types.wrapper.IWrapBeatmap, time: number) {
+function doPattern4(data: Beatmap, time: number) {
    data.addLightColorEventBoxGroups(
       {
          time,
@@ -1156,7 +1157,7 @@ function doPattern4(data: types.wrapper.IWrapBeatmap, time: number) {
    }
 }
 
-function bigbuild(data: types.wrapper.IWrapBeatmap) {
+function bigbuild(data: Beatmap) {
    const buildTime = [342, 346, 350, 662, 666, 670, 798];
    for (const time of buildTime) {
       data.addLightRotationEventBoxGroups(
@@ -1443,7 +1444,7 @@ function bigbuild(data: types.wrapper.IWrapBeatmap) {
          );
       }
    }
-   const lightsUp: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+   const lightsUp: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       {
          time: 0,
          color: EventLightColor.WHITE,

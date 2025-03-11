@@ -13,7 +13,7 @@ const info: types.external.IEnvironmentJSON = {
    materials: {},
 };
 
-const EnvGrab = ext.chroma.EnvironmentGrab;
+const EnvGrab = ext.heck.chroma.EnvironmentGrab;
 
 const MOON_SIZE = 250;
 const MOON_Y_OFFSET = 310;
@@ -173,13 +173,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       },
    );
 
-   const cubeBlock = ext.chroma.EnvironmentBlock.create(
+   const cubeBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'ToriiStandard' },
       },
       [0, 0, 0],
    );
-   const cubeLight = ext.chroma.EnvironmentBlock.create(
+   const cubeLight = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'ToriiOpaqueLight' },
          components: {
@@ -192,13 +192,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       },
       [0, 0, 0],
    );
-   const pillarBlock = ext.chroma.EnvironmentBlock.create(
+   const pillarBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cylinder', material: 'ToriiStandard' },
       },
       [0, 0, 0],
    );
-   const pillarLight = ext.chroma.EnvironmentBlock.create(
+   const pillarLight = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cylinder', material: 'ToriiTransparentLight' },
          components: {
@@ -208,7 +208,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       },
       [0, 0, 0],
    );
-   const sphereBlock = ext.chroma.EnvironmentBlock.create(
+   const sphereBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Sphere', material: 'ToriiStandard' },
       },
@@ -388,7 +388,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       torii,
    );
 
-   const toriiGroup = ext.chroma.EnvironmentGroup.create(torii, [0, 0, 0]);
+   const toriiGroup = ext.heck.chroma.EnvironmentGroup.create(torii, [0, 0, 0]);
    toriiGroup.place(
       {
          position: vectorAdd(
@@ -540,7 +540,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       },
       environment,
    );
-   const lanternPostGroup = ext.chroma.EnvironmentGroup.create(
+   const lanternPostGroup = ext.heck.chroma.EnvironmentGroup.create(
       lanternPost,
       [0, 0, 0],
    );
@@ -771,7 +771,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    for (let reroll = 0; reroll++ < LANTERN_REROLL;) {
       pRandom();
    }
-   const lanternGroup = ext.chroma.EnvironmentGroup.create(lantern, [0, 0, 0]);
+   const lanternGroup = ext.heck.chroma.EnvironmentGroup.create(lantern, [0, 0, 0]);
    const lanternYGap = 8;
    for (let z = 0; z < 10; z++) {
       let pos: types.Vector3 = [

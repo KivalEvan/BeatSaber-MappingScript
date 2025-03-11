@@ -1,9 +1,9 @@
-import { pRandomFn, range as rangeEx, types, v3 } from '@bsmap';
+import { Beatmap, pRandomFn, range as rangeEx } from '@bsmap';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.difficulty.customData.customEvents ??= [];
    for (const it of range(0, 9)) {

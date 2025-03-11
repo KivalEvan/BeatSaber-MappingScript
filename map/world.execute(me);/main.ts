@@ -42,12 +42,12 @@ difficultyList.forEach((d) => {
       toV3Beatmap(d.beatmap, d.beatmap.version);
    }
 
-   d.beatmap.basicEvents = lightshow.basicEvents;
-   d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
-   d.beatmap.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
-   d.beatmap.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   d.beatmap.lightTranslationEventBoxGroups = lightshow.lightTranslationEventBoxGroups;
-   d.beatmap.useNormalEventsAsCompatibleEvents = false;
+   d.beatmap.lightshow.basicEvents = lightshow.basicEvents;
+   d.beatmap.lightshow.colorBoostEvents = lightshow.colorBoostEvents;
+   d.beatmap.lightshow.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
+   d.beatmap.lightshow.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
+   d.beatmap.lightshow.lightTranslationEventBoxGroups = lightshow.lightTranslationEventBoxGroups;
+   d.beatmap.lightshow.useNormalEventsAsCompatibleEvents = false;
 
    writeDifficultyFileSync(d.beatmap);
 });

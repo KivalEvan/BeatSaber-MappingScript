@@ -263,7 +263,7 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
    );
    //#endregion
 
-   const lightBlock = ext.chroma.EnvironmentBlock.create(
+   const lightBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          id: regexSideLaser,
          lookupMethod: 'Regex',
@@ -358,7 +358,7 @@ export function generateEnvironment(includeFELT = false): types.v3.IChromaEnviro
       }
    });
 
-   const logoGroup = ext.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
+   const logoGroup = ext.heck.chroma.EnvironmentGroup.create(logo, [0, 0, 0]);
    if (includeFELT) {
       logoGroup.place(
          {

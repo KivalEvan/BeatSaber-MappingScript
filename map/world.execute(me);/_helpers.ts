@@ -1,6 +1,6 @@
 import { deepCopy, pRandom, types } from '@bsmap';
 
-export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColorEventAttribute>>(
+export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColorEvent>>(
    obj: T[],
 ): T[] {
    return deepCopy(obj).map((o) => {
@@ -9,7 +9,7 @@ export function eventBoxSwapColor<T extends Partial<types.wrapper.IWrapLightColo
    }) as T[];
 }
 
-export function objectTimeScale<T extends Partial<types.wrapper.IWrapBaseObjectAttribute>>(
+export function objectTimeScale<T extends Partial<types.wrapper.IWrapBaseObject>>(
    obj: T[],
    scale: number,
 ): T[] {
@@ -21,7 +21,7 @@ export function objectTimeScale<T extends Partial<types.wrapper.IWrapBaseObjectA
    }) as T[];
 }
 
-export function objectTimeShift<T extends Partial<types.wrapper.IWrapBaseObjectAttribute>>(
+export function objectTimeShift<T extends Partial<types.wrapper.IWrapBaseObject>>(
    obj: T[],
    shift: number,
 ): T[] {

@@ -1,11 +1,11 @@
-import { mod, radToDeg, randomNormal, range, vectorAdd } from '@bsmap';
+import { Beatmap, mod, radToDeg, randomNormal, range, vectorAdd } from '@bsmap';
 import { pRandomFn } from '@bsmap';
 import { isVector4, types, vectorMul } from '@bsmap';
 import phoenixModel from './phoenix.json' with { type: 'json' };
 
 const DEBRI_COUNT = 125;
 const EFFECT_DURATION = 2.5625;
-export default function (bm: types.wrapper.IWrapBeatmap, is360?: boolean) {
+export default function (bm: Beatmap, is360?: boolean) {
    const pRand = pRandomFn('Phoenix');
    const envAry: types.v3.IChromaEnvironment[] = [];
    bm.difficulty.customData.customEvents = [];

@@ -1,7 +1,7 @@
-import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    //#region ding sound
    const dingTiming = [
       38,
@@ -266,7 +266,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                frequency: 8,
                time: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          d.addLightRotationEventBoxGroups(
             {
                time,
@@ -402,7 +402,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                frequency: 8,
                time: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          d.addLightRotationEventBoxGroups(
             {
                time,

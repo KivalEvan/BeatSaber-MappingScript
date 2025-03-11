@@ -1,6 +1,6 @@
-import { EventLightValue, ext, logger, types, v3 } from '@bsmap';
+import { Beatmap, EventLightValue, ext, logger, types } from '@bsmap';
 
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 
 export default class UFO {
    static bulbCount = 8;
@@ -16,7 +16,7 @@ export default class UFO {
    private mapData;
    private ufoMaterial;
    private ufoParent;
-   constructor(mapData: types.wrapper.IWrapBeatmap, name = '') {
+   constructor(data: Beatmap, name = '') {
       if (UFO.nameList.includes(name)) {
          throw new Error('UFO name ' + name + ' already existed');
       }
@@ -24,7 +24,7 @@ export default class UFO {
       this.type = UFO.type;
       this.lightID = UFO.startID + UFO.index;
       if (!UFO.init) {
-         mapData.difficulty.customData.pointDefinitions!.ufoSpinLoop = [
+         data.difficulty.customData.pointDefinitions!.ufoSpinLoop = [
             [0, 0, 0, 0],
             [0, 90, 10, 0.25],
             [0, 180, 0, 0.5],
@@ -34,15 +34,15 @@ export default class UFO {
          UFO.init = true;
       }
 
-      this.mapData = mapData;
+      this.mapData = data;
       this.ufoMaterial = 'ufoMaterial_' + name;
       this.ufoParent = 'ufoParent_' + name;
-      mapData.difficulty.customData.materials![this.ufoMaterial] = {
+      data.difficulty.customData.materials![this.ufoMaterial] = {
          shader: 'Standard',
          color: [0, 0, 1],
          track: this.ufoMaterial,
       };
-      mapData.difficulty.customData.environment?.push(
+      data.difficulty.customData.environment?.push(
          {
             geometry: {
                type: 'Sphere',
@@ -81,7 +81,7 @@ export default class UFO {
       const ufoLegTrack = [];
       for (const p in ufoLegPoint) {
          const partName = `ufoLeg${p}_${name}`;
-         mapData.difficulty.customData.environment?.push({
+         data.difficulty.customData.environment?.push({
             geometry: {
                type: 'Sphere',
                material: this.ufoMaterial,
@@ -96,7 +96,7 @@ export default class UFO {
       const ufoBulbTrack = [];
       for (const p in ufoBulbPoint) {
          const partName = `ufoBulb${p}_${name}`;
-         mapData.difficulty.customData.environment?.push({
+         data.difficulty.customData.environment?.push({
             geometry: {
                type: 'Sphere',
                material: 'lightMaterialOpaque',
@@ -116,7 +116,7 @@ export default class UFO {
          });
          ufoBulbTrack.push(partName);
       }
-      mapData.difficulty.customData.customEvents?.push({
+      data.difficulty.customData.customEvents?.push({
          b: 0,
          t: 'AssignTrackParent',
          d: {

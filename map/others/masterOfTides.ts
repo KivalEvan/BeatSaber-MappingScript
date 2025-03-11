@@ -16,7 +16,7 @@ info.customData._contributors = [
 ];
 
 const light = readDifficultyFileSync('Lightshow.dat', 3);
-light.basicEvents.forEach((e) => {
+light.lightshow.basicEvents.forEach((e) => {
    switch (e.type) {
       case 0:
       case 1:

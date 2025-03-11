@@ -14,10 +14,10 @@ info.environmentNames = ['Monstercat2Environment', 'MonstercatEnvironment'];
 
 for (const d of info.difficulties) {
    const difficulty = readDifficultyFileSync(d.filename, 3);
-   difficulty.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
+   difficulty.lightshow.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
 
    if (d.characteristic !== 'Legacy') {
-      difficulty.basicEvents = [];
+      difficulty.lightshow.basicEvents = [];
    }
 
    delete d.customData._requirements;

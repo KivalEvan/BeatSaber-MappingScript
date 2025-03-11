@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
@@ -7,9 +8,6 @@ import {
    pRandomFn,
    RandomType,
    range as rangeEx,
-   TransitionType,
-   types,
-   v3,
 } from '@bsmap';
 import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
@@ -35,7 +33,7 @@ const timingAry = [
 const loopGen = loopArray(
    range(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT),
 );
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = true;
    for (const time of [358, 806]) {

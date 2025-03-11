@@ -1,7 +1,7 @@
-import { logger, types, v3 } from '@bsmap';
+import { Beatmap, logger } from '@bsmap';
 import UFO from './ufo.ts';
 
-export function preset(data: types.wrapper.IWrapBeatmap) {
+export function preset(data: Beatmap) {
    logger.info('Run Preset');
    data.difficulty.customData.pointDefinitions = data.difficulty.customData.pointDefinitions ?? {};
    data.difficulty.customData.customEvents = data.difficulty.customData.customEvents ?? [];

@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    deepCopy,
    DistributionType,
    EaseType,
@@ -8,9 +9,7 @@ import {
    IndexFilterType,
    pRandomFn,
    RandomType,
-   TransitionType,
    types,
-   v3,
 } from '@bsmap';
 import { WeaveID } from './id.ts';
 
@@ -37,7 +36,7 @@ const flashTime = [
    934,
 ];
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    data.addBasicEvents(
       { time: 6, value: EventLightValue.BLUE_ON, floatValue: 0 },
       { time: 10, value: EventLightValue.RED_TRANSITION, floatValue: 1.5 },
@@ -227,7 +226,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
    }
 
    const pRandom = pRandomFn('sakura');
-   const lightBox: types.DeepPartial<types.wrapper.IWrapLightColorEventBoxAttribute>[] = [
+   const lightBox: types.DeepPartial<types.wrapper.IWrapLightColorEventBox>[] = [
       {
          filter: {
             random: RandomType.RANDOM_ELEMENTS,

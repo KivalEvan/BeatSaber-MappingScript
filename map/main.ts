@@ -53,7 +53,8 @@ try {
             console.timeEnd('Runtime');
          });
       } else {
-         import(resolve(folderPath, 'main.ts'));
+         console.time('Runtime');
+         await import(resolve(folderPath, 'main.ts'));
       }
    } else {
       const o = others.find(
@@ -62,7 +63,26 @@ try {
       if (!o) throw new Error('Script not found');
       const folderPath = (process.platform === 'win32' ? 'file:///' : '') +
          resolve(path, 'others');
-      await import(resolve(folderPath, o.name));
+      if (args.includes('--watch')) {
+         await watchthisshit(folderPath, () => {
+            console.time('Runtime');
+            const output = new Deno.Command(Deno.execPath(), {
+               args: [
+                  'run',
+                  '--allow-read',
+                  '--allow-write',
+                  '--allow-net',
+                  resolve(folderPath, o.name),
+               ],
+            }).outputSync();
+            console.log(new TextDecoder().decode(output.stdout));
+            console.log(new TextDecoder().decode(output.stderr));
+            console.timeEnd('Runtime');
+         });
+      } else {
+         console.time('Runtime');
+         await import(resolve(folderPath, o.name));
+      }
    }
 } catch (e) {
    console.error(e);

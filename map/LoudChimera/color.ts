@@ -1,10 +1,10 @@
-import { ext, logger, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
+import { Beatmap, ext, logger, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
 
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { between } = ext.selector;
 
 export function color(
-   data: types.wrapper.IWrapBeatmap,
+   data: Beatmap,
    BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {

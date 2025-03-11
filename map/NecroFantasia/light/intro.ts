@@ -1,20 +1,18 @@
 import {
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
    IndexFilterType,
    pRandom,
    range as rangeEx,
-   TransitionType,
-   types,
-   v3,
 } from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    // for (const id of itNum(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {
    //    data.addLightColorEventBoxGroups(
    //       {

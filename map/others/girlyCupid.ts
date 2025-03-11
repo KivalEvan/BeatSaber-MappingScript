@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    colorFrom,
    ColorNote,
    deepCopy,
@@ -23,14 +24,16 @@ const { between, at } = ext.selector;
 
 globals.directory = beatmapWipPath('Girly Cupid');
 
-const lightshow = readDifficultyFileSync('ExpertPlusLegacy.dat', 3);
+const lightshow = Beatmap.createOne(
+   readDifficultyFileSync('ExpertPlusLegacy.dat', 3),
+);
 
 function makeBlackWhite(n: types.wrapper.IWrapBaseNote) {
    if (n.color === 0) n.customData.color = colorFrom(0.25);
    if (n.color === 1) n.customData.color = colorFrom(0.5625);
 }
 
-function leaveTrail(d: types.wrapper.IWrapBeatmap, start: number, end: number) {
+function leaveTrail(d: Beatmap, start: number, end: number) {
    between(d.colorNotes, start, end).forEach((n) => {
       let i = 0;
       for (const step of range(0.09, 0.25, 0.05)) {
@@ -49,7 +52,7 @@ function leaveTrail(d: types.wrapper.IWrapBeatmap, start: number, end: number) {
    });
 }
 
-function drawNote(d: types.wrapper.IWrapBeatmap, start: number, end: number) {
+function drawNote(d: Beatmap, start: number, end: number) {
    d.difficulty.customData.pointDefinitions!.drawNoteScale = [[3, 3, 0.1, 0]];
    d.difficulty.customData.pointDefinitions!.drawNoteDefPos = [
       [0, -2, 10, 0],
@@ -75,7 +78,7 @@ function makeItAppear(n: types.wrapper.IWrapBaseNote) {
    n.customData.animation.dissolve = 'popIntoExistence';
 }
 
-function funstuff(d: types.wrapper.IWrapBeatmap) {
+function funstuff(d: Beatmap) {
    const allthestuff = [...d.arcs, ...d.chains, ...d.colorNotes];
    allthestuff.forEach((n) => n.resetCustomData());
    d.difficulty.customData.fakeColorNotes = [];
@@ -489,7 +492,7 @@ info.colorSchemes = [
    },
 ];
 for (const d of info.difficulties) {
-   const bm = readDifficultyFileSync(d.filename, 3);
+   const bm = Beatmap.createOne(readDifficultyFileSync(d.filename, 3));
    if (d.characteristic !== 'Legacy') {
       bm.difficulty.customData.fakeObstacles = deepCopy(
          lightshow.difficulty.customData.fakeObstacles,
@@ -504,9 +507,7 @@ for (const d of info.difficulties) {
             i / bm.difficulty.customData.bookmarks!.length,
          )),
       );
-      bm.basicEvents = lightshow.basicEvents.filter(
-         (e) => !e.isBpmEvent(),
-      );
+      bm.basicEvents = lightshow.basicEvents.filter((e) => !e.isBpmEvent());
       bm.obstacles = [];
       funstuff(bm);
    }

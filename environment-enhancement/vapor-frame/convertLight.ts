@@ -5,7 +5,7 @@ export function convertLight(
    d: types.wrapper.IWrapBeatmap,
    environment: types.EnvironmentAllName,
 ) {
-   const events = d.basicEvents;
+   const events = d.lightshow.basicEvents;
    const newEvents = [];
 
    // default color (for no chroma)
@@ -116,6 +116,6 @@ export function convertLight(
       ev.type = switchType[ev.type];
    }
 
-   d.basicEvents = newEvents;
+   d.lightshow.basicEvents = newEvents;
    //#endregion
 }

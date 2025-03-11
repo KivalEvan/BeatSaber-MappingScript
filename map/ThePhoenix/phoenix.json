@@ -6565,7 +6565,7 @@
          "name": "Cube.001",
          "primitives": [
             {
-               "attributes": { "POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2 },
+               "s": { "POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2 },
                "indices": 3,
                "material": 0
             }
@@ -6575,7 +6575,7 @@
          "name": "Cube.005",
          "primitives": [
             {
-               "attributes": { "POSITION": 4, "NORMAL": 5, "TEXCOORD_0": 6 },
+               "s": { "POSITION": 4, "NORMAL": 5, "TEXCOORD_0": 6 },
                "indices": 3,
                "material": 1
             }
@@ -6585,7 +6585,7 @@
          "name": "Cube.010",
          "primitives": [
             {
-               "attributes": { "POSITION": 7, "NORMAL": 8, "TEXCOORD_0": 9 },
+               "s": { "POSITION": 7, "NORMAL": 8, "TEXCOORD_0": 9 },
                "indices": 3,
                "material": 2
             }
@@ -6595,7 +6595,7 @@
          "name": "Cube.011",
          "primitives": [
             {
-               "attributes": { "POSITION": 10, "NORMAL": 11, "TEXCOORD_0": 12 },
+               "s": { "POSITION": 10, "NORMAL": 11, "TEXCOORD_0": 12 },
                "indices": 3,
                "material": 3
             }
@@ -6605,7 +6605,7 @@
          "name": "Cube.012",
          "primitives": [
             {
-               "attributes": { "POSITION": 13, "NORMAL": 14, "TEXCOORD_0": 15 },
+               "s": { "POSITION": 13, "NORMAL": 14, "TEXCOORD_0": 15 },
                "indices": 3,
                "material": 4
             }
@@ -6615,7 +6615,7 @@
          "name": "Cube.013",
          "primitives": [
             {
-               "attributes": { "POSITION": 16, "NORMAL": 17, "TEXCOORD_0": 18 },
+               "s": { "POSITION": 16, "NORMAL": 17, "TEXCOORD_0": 18 },
                "indices": 3,
                "material": 5
             }
@@ -6625,7 +6625,7 @@
          "name": "Cube.014",
          "primitives": [
             {
-               "attributes": { "POSITION": 19, "NORMAL": 20, "TEXCOORD_0": 21 },
+               "s": { "POSITION": 19, "NORMAL": 20, "TEXCOORD_0": 21 },
                "indices": 3,
                "material": 6
             }
@@ -6635,7 +6635,7 @@
          "name": "Cube.015",
          "primitives": [
             {
-               "attributes": { "POSITION": 22, "NORMAL": 23, "TEXCOORD_0": 24 },
+               "s": { "POSITION": 22, "NORMAL": 23, "TEXCOORD_0": 24 },
                "indices": 3,
                "material": 7
             }
@@ -6645,7 +6645,7 @@
          "name": "Cube.016",
          "primitives": [
             {
-               "attributes": { "POSITION": 25, "NORMAL": 26, "TEXCOORD_0": 27 },
+               "s": { "POSITION": 25, "NORMAL": 26, "TEXCOORD_0": 27 },
                "indices": 3,
                "material": 8
             }
@@ -6655,7 +6655,7 @@
          "name": "Cube.017",
          "primitives": [
             {
-               "attributes": { "POSITION": 28, "NORMAL": 29, "TEXCOORD_0": 30 },
+               "s": { "POSITION": 28, "NORMAL": 29, "TEXCOORD_0": 30 },
                "indices": 3,
                "material": 9
             }
@@ -6665,7 +6665,7 @@
          "name": "Cube.018",
          "primitives": [
             {
-               "attributes": { "POSITION": 31, "NORMAL": 32, "TEXCOORD_0": 33 },
+               "s": { "POSITION": 31, "NORMAL": 32, "TEXCOORD_0": 33 },
                "indices": 3,
                "material": 10
             }
@@ -6675,7 +6675,7 @@
          "name": "Cube.019",
          "primitives": [
             {
-               "attributes": { "POSITION": 34, "NORMAL": 35, "TEXCOORD_0": 36 },
+               "s": { "POSITION": 34, "NORMAL": 35, "TEXCOORD_0": 36 },
                "indices": 3,
                "material": 11
             }
@@ -6685,7 +6685,7 @@
          "name": "Cube.020",
          "primitives": [
             {
-               "attributes": { "POSITION": 37, "NORMAL": 38, "TEXCOORD_0": 39 },
+               "s": { "POSITION": 37, "NORMAL": 38, "TEXCOORD_0": 39 },
                "indices": 3,
                "material": 12
             }
@@ -6695,7 +6695,7 @@
          "name": "Cube.021",
          "primitives": [
             {
-               "attributes": { "POSITION": 40, "NORMAL": 41, "TEXCOORD_0": 42 },
+               "s": { "POSITION": 40, "NORMAL": 41, "TEXCOORD_0": 42 },
                "indices": 3,
                "material": 13
             }
@@ -6705,7 +6705,7 @@
          "name": "Cube.022",
          "primitives": [
             {
-               "attributes": { "POSITION": 43, "NORMAL": 44, "TEXCOORD_0": 45 },
+               "s": { "POSITION": 43, "NORMAL": 44, "TEXCOORD_0": 45 },
                "indices": 3,
                "material": 14
             }
@@ -6715,7 +6715,7 @@
          "name": "Cube.023",
          "primitives": [
             {
-               "attributes": { "POSITION": 46, "NORMAL": 47, "TEXCOORD_0": 48 },
+               "s": { "POSITION": 46, "NORMAL": 47, "TEXCOORD_0": 48 },
                "indices": 3,
                "material": 15
             }
@@ -6725,7 +6725,7 @@
          "name": "Cube.024",
          "primitives": [
             {
-               "attributes": { "POSITION": 49, "NORMAL": 50, "TEXCOORD_0": 51 },
+               "s": { "POSITION": 49, "NORMAL": 50, "TEXCOORD_0": 51 },
                "indices": 3,
                "material": 16
             }
@@ -6735,7 +6735,7 @@
          "name": "Cube.025",
          "primitives": [
             {
-               "attributes": { "POSITION": 52, "NORMAL": 53, "TEXCOORD_0": 54 },
+               "s": { "POSITION": 52, "NORMAL": 53, "TEXCOORD_0": 54 },
                "indices": 3,
                "material": 17
             }
@@ -6745,7 +6745,7 @@
          "name": "Cube.026",
          "primitives": [
             {
-               "attributes": { "POSITION": 55, "NORMAL": 56, "TEXCOORD_0": 57 },
+               "s": { "POSITION": 55, "NORMAL": 56, "TEXCOORD_0": 57 },
                "indices": 3,
                "material": 18
             }
@@ -6755,7 +6755,7 @@
          "name": "Cube.027",
          "primitives": [
             {
-               "attributes": { "POSITION": 58, "NORMAL": 59, "TEXCOORD_0": 60 },
+               "s": { "POSITION": 58, "NORMAL": 59, "TEXCOORD_0": 60 },
                "indices": 3,
                "material": 19
             }
@@ -6765,7 +6765,7 @@
          "name": "Cube.028",
          "primitives": [
             {
-               "attributes": { "POSITION": 61, "NORMAL": 62, "TEXCOORD_0": 63 },
+               "s": { "POSITION": 61, "NORMAL": 62, "TEXCOORD_0": 63 },
                "indices": 3,
                "material": 20
             }
@@ -6775,7 +6775,7 @@
          "name": "Cube.029",
          "primitives": [
             {
-               "attributes": { "POSITION": 64, "NORMAL": 65, "TEXCOORD_0": 66 },
+               "s": { "POSITION": 64, "NORMAL": 65, "TEXCOORD_0": 66 },
                "indices": 3,
                "material": 21
             }
@@ -6785,7 +6785,7 @@
          "name": "Cube.030",
          "primitives": [
             {
-               "attributes": { "POSITION": 67, "NORMAL": 68, "TEXCOORD_0": 69 },
+               "s": { "POSITION": 67, "NORMAL": 68, "TEXCOORD_0": 69 },
                "indices": 3,
                "material": 22
             }
@@ -6795,7 +6795,7 @@
          "name": "Cube.031",
          "primitives": [
             {
-               "attributes": { "POSITION": 70, "NORMAL": 71, "TEXCOORD_0": 72 },
+               "s": { "POSITION": 70, "NORMAL": 71, "TEXCOORD_0": 72 },
                "indices": 3,
                "material": 23
             }
@@ -6805,7 +6805,7 @@
          "name": "Cube.032",
          "primitives": [
             {
-               "attributes": { "POSITION": 73, "NORMAL": 74, "TEXCOORD_0": 75 },
+               "s": { "POSITION": 73, "NORMAL": 74, "TEXCOORD_0": 75 },
                "indices": 3,
                "material": 24
             }
@@ -6815,7 +6815,7 @@
          "name": "Cube.033",
          "primitives": [
             {
-               "attributes": { "POSITION": 76, "NORMAL": 77, "TEXCOORD_0": 78 },
+               "s": { "POSITION": 76, "NORMAL": 77, "TEXCOORD_0": 78 },
                "indices": 3,
                "material": 25
             }
@@ -6825,7 +6825,7 @@
          "name": "Cube.034",
          "primitives": [
             {
-               "attributes": { "POSITION": 79, "NORMAL": 80, "TEXCOORD_0": 81 },
+               "s": { "POSITION": 79, "NORMAL": 80, "TEXCOORD_0": 81 },
                "indices": 3,
                "material": 26
             }
@@ -6835,7 +6835,7 @@
          "name": "Cube.035",
          "primitives": [
             {
-               "attributes": { "POSITION": 82, "NORMAL": 83, "TEXCOORD_0": 84 },
+               "s": { "POSITION": 82, "NORMAL": 83, "TEXCOORD_0": 84 },
                "indices": 3,
                "material": 27
             }
@@ -6845,7 +6845,7 @@
          "name": "Cube.036",
          "primitives": [
             {
-               "attributes": { "POSITION": 85, "NORMAL": 86, "TEXCOORD_0": 87 },
+               "s": { "POSITION": 85, "NORMAL": 86, "TEXCOORD_0": 87 },
                "indices": 3,
                "material": 28
             }
@@ -6855,7 +6855,7 @@
          "name": "Cube.037",
          "primitives": [
             {
-               "attributes": { "POSITION": 88, "NORMAL": 89, "TEXCOORD_0": 90 },
+               "s": { "POSITION": 88, "NORMAL": 89, "TEXCOORD_0": 90 },
                "indices": 3,
                "material": 29
             }
@@ -6865,7 +6865,7 @@
          "name": "Cube.038",
          "primitives": [
             {
-               "attributes": { "POSITION": 91, "NORMAL": 92, "TEXCOORD_0": 93 },
+               "s": { "POSITION": 91, "NORMAL": 92, "TEXCOORD_0": 93 },
                "indices": 3,
                "material": 30
             }
@@ -6875,7 +6875,7 @@
          "name": "Cube.039",
          "primitives": [
             {
-               "attributes": { "POSITION": 94, "NORMAL": 95, "TEXCOORD_0": 96 },
+               "s": { "POSITION": 94, "NORMAL": 95, "TEXCOORD_0": 96 },
                "indices": 3,
                "material": 31
             }
@@ -6885,7 +6885,7 @@
          "name": "Cube.040",
          "primitives": [
             {
-               "attributes": { "POSITION": 97, "NORMAL": 98, "TEXCOORD_0": 99 },
+               "s": { "POSITION": 97, "NORMAL": 98, "TEXCOORD_0": 99 },
                "indices": 3,
                "material": 32
             }
@@ -6895,7 +6895,7 @@
          "name": "Cube.041",
          "primitives": [
             {
-               "attributes": { "POSITION": 100, "NORMAL": 101, "TEXCOORD_0": 102 },
+               "s": { "POSITION": 100, "NORMAL": 101, "TEXCOORD_0": 102 },
                "indices": 3,
                "material": 33
             }
@@ -6905,7 +6905,7 @@
          "name": "Cube.042",
          "primitives": [
             {
-               "attributes": { "POSITION": 103, "NORMAL": 104, "TEXCOORD_0": 105 },
+               "s": { "POSITION": 103, "NORMAL": 104, "TEXCOORD_0": 105 },
                "indices": 3,
                "material": 34
             }
@@ -6915,7 +6915,7 @@
          "name": "Cube.043",
          "primitives": [
             {
-               "attributes": { "POSITION": 106, "NORMAL": 107, "TEXCOORD_0": 108 },
+               "s": { "POSITION": 106, "NORMAL": 107, "TEXCOORD_0": 108 },
                "indices": 3,
                "material": 35
             }
@@ -6925,7 +6925,7 @@
          "name": "Cube.044",
          "primitives": [
             {
-               "attributes": { "POSITION": 109, "NORMAL": 110, "TEXCOORD_0": 111 },
+               "s": { "POSITION": 109, "NORMAL": 110, "TEXCOORD_0": 111 },
                "indices": 3,
                "material": 36
             }
@@ -6935,7 +6935,7 @@
          "name": "Cube.045",
          "primitives": [
             {
-               "attributes": { "POSITION": 112, "NORMAL": 113, "TEXCOORD_0": 114 },
+               "s": { "POSITION": 112, "NORMAL": 113, "TEXCOORD_0": 114 },
                "indices": 3,
                "material": 37
             }
@@ -6945,7 +6945,7 @@
          "name": "Cube.046",
          "primitives": [
             {
-               "attributes": { "POSITION": 115, "NORMAL": 116, "TEXCOORD_0": 117 },
+               "s": { "POSITION": 115, "NORMAL": 116, "TEXCOORD_0": 117 },
                "indices": 3,
                "material": 38
             }
@@ -6955,7 +6955,7 @@
          "name": "Cube.047",
          "primitives": [
             {
-               "attributes": { "POSITION": 118, "NORMAL": 119, "TEXCOORD_0": 120 },
+               "s": { "POSITION": 118, "NORMAL": 119, "TEXCOORD_0": 120 },
                "indices": 3,
                "material": 39
             }
@@ -6965,7 +6965,7 @@
          "name": "Cube.048",
          "primitives": [
             {
-               "attributes": { "POSITION": 121, "NORMAL": 122, "TEXCOORD_0": 123 },
+               "s": { "POSITION": 121, "NORMAL": 122, "TEXCOORD_0": 123 },
                "indices": 3,
                "material": 40
             }
@@ -6975,7 +6975,7 @@
          "name": "Cube.049",
          "primitives": [
             {
-               "attributes": { "POSITION": 124, "NORMAL": 125, "TEXCOORD_0": 126 },
+               "s": { "POSITION": 124, "NORMAL": 125, "TEXCOORD_0": 126 },
                "indices": 3,
                "material": 41
             }
@@ -6985,7 +6985,7 @@
          "name": "Cube.050",
          "primitives": [
             {
-               "attributes": { "POSITION": 127, "NORMAL": 128, "TEXCOORD_0": 129 },
+               "s": { "POSITION": 127, "NORMAL": 128, "TEXCOORD_0": 129 },
                "indices": 3,
                "material": 42
             }
@@ -6995,7 +6995,7 @@
          "name": "Cube.051",
          "primitives": [
             {
-               "attributes": { "POSITION": 130, "NORMAL": 131, "TEXCOORD_0": 132 },
+               "s": { "POSITION": 130, "NORMAL": 131, "TEXCOORD_0": 132 },
                "indices": 3,
                "material": 43
             }
@@ -7005,7 +7005,7 @@
          "name": "Cube.052",
          "primitives": [
             {
-               "attributes": { "POSITION": 133, "NORMAL": 134, "TEXCOORD_0": 135 },
+               "s": { "POSITION": 133, "NORMAL": 134, "TEXCOORD_0": 135 },
                "indices": 3,
                "material": 44
             }
@@ -7015,7 +7015,7 @@
          "name": "Cube.053",
          "primitives": [
             {
-               "attributes": { "POSITION": 136, "NORMAL": 137, "TEXCOORD_0": 138 },
+               "s": { "POSITION": 136, "NORMAL": 137, "TEXCOORD_0": 138 },
                "indices": 3,
                "material": 45
             }
@@ -7025,7 +7025,7 @@
          "name": "Cube.054",
          "primitives": [
             {
-               "attributes": { "POSITION": 139, "NORMAL": 140, "TEXCOORD_0": 141 },
+               "s": { "POSITION": 139, "NORMAL": 140, "TEXCOORD_0": 141 },
                "indices": 3,
                "material": 46
             }
@@ -7035,7 +7035,7 @@
          "name": "Cube.055",
          "primitives": [
             {
-               "attributes": { "POSITION": 142, "NORMAL": 143, "TEXCOORD_0": 144 },
+               "s": { "POSITION": 142, "NORMAL": 143, "TEXCOORD_0": 144 },
                "indices": 3,
                "material": 47
             }
@@ -7045,7 +7045,7 @@
          "name": "Cube.056",
          "primitives": [
             {
-               "attributes": { "POSITION": 145, "NORMAL": 146, "TEXCOORD_0": 147 },
+               "s": { "POSITION": 145, "NORMAL": 146, "TEXCOORD_0": 147 },
                "indices": 3,
                "material": 48
             }
@@ -7055,7 +7055,7 @@
          "name": "Cube.057",
          "primitives": [
             {
-               "attributes": { "POSITION": 148, "NORMAL": 149, "TEXCOORD_0": 150 },
+               "s": { "POSITION": 148, "NORMAL": 149, "TEXCOORD_0": 150 },
                "indices": 3,
                "material": 49
             }
@@ -7065,7 +7065,7 @@
          "name": "Cube.058",
          "primitives": [
             {
-               "attributes": { "POSITION": 151, "NORMAL": 152, "TEXCOORD_0": 153 },
+               "s": { "POSITION": 151, "NORMAL": 152, "TEXCOORD_0": 153 },
                "indices": 3,
                "material": 50
             }
@@ -7075,7 +7075,7 @@
          "name": "Cube.059",
          "primitives": [
             {
-               "attributes": { "POSITION": 154, "NORMAL": 155, "TEXCOORD_0": 156 },
+               "s": { "POSITION": 154, "NORMAL": 155, "TEXCOORD_0": 156 },
                "indices": 3,
                "material": 51
             }
@@ -7085,7 +7085,7 @@
          "name": "Cube.060",
          "primitives": [
             {
-               "attributes": { "POSITION": 157, "NORMAL": 158, "TEXCOORD_0": 159 },
+               "s": { "POSITION": 157, "NORMAL": 158, "TEXCOORD_0": 159 },
                "indices": 3,
                "material": 52
             }
@@ -7095,7 +7095,7 @@
          "name": "Cube.061",
          "primitives": [
             {
-               "attributes": { "POSITION": 160, "NORMAL": 161, "TEXCOORD_0": 162 },
+               "s": { "POSITION": 160, "NORMAL": 161, "TEXCOORD_0": 162 },
                "indices": 3,
                "material": 53
             }
@@ -7105,7 +7105,7 @@
          "name": "Cube.062",
          "primitives": [
             {
-               "attributes": { "POSITION": 163, "NORMAL": 164, "TEXCOORD_0": 165 },
+               "s": { "POSITION": 163, "NORMAL": 164, "TEXCOORD_0": 165 },
                "indices": 3,
                "material": 54
             }
@@ -7115,7 +7115,7 @@
          "name": "Cube.063",
          "primitives": [
             {
-               "attributes": { "POSITION": 166, "NORMAL": 167, "TEXCOORD_0": 168 },
+               "s": { "POSITION": 166, "NORMAL": 167, "TEXCOORD_0": 168 },
                "indices": 3,
                "material": 55
             }
@@ -7125,7 +7125,7 @@
          "name": "Cube.064",
          "primitives": [
             {
-               "attributes": { "POSITION": 169, "NORMAL": 170, "TEXCOORD_0": 171 },
+               "s": { "POSITION": 169, "NORMAL": 170, "TEXCOORD_0": 171 },
                "indices": 3,
                "material": 56
             }
@@ -7135,7 +7135,7 @@
          "name": "Cube.066",
          "primitives": [
             {
-               "attributes": { "POSITION": 172, "NORMAL": 173, "TEXCOORD_0": 174 },
+               "s": { "POSITION": 172, "NORMAL": 173, "TEXCOORD_0": 174 },
                "indices": 3,
                "material": 57
             }
@@ -7145,7 +7145,7 @@
          "name": "Cube.067",
          "primitives": [
             {
-               "attributes": { "POSITION": 175, "NORMAL": 176, "TEXCOORD_0": 177 },
+               "s": { "POSITION": 175, "NORMAL": 176, "TEXCOORD_0": 177 },
                "indices": 3,
                "material": 58
             }
@@ -7155,7 +7155,7 @@
          "name": "Cube.068",
          "primitives": [
             {
-               "attributes": { "POSITION": 178, "NORMAL": 179, "TEXCOORD_0": 180 },
+               "s": { "POSITION": 178, "NORMAL": 179, "TEXCOORD_0": 180 },
                "indices": 3,
                "material": 59
             }
@@ -7165,7 +7165,7 @@
          "name": "Cube.069",
          "primitives": [
             {
-               "attributes": { "POSITION": 181, "NORMAL": 182, "TEXCOORD_0": 183 },
+               "s": { "POSITION": 181, "NORMAL": 182, "TEXCOORD_0": 183 },
                "indices": 3,
                "material": 60
             }
@@ -7175,7 +7175,7 @@
          "name": "Cube.070",
          "primitives": [
             {
-               "attributes": { "POSITION": 184, "NORMAL": 185, "TEXCOORD_0": 186 },
+               "s": { "POSITION": 184, "NORMAL": 185, "TEXCOORD_0": 186 },
                "indices": 3,
                "material": 61
             }
@@ -7185,7 +7185,7 @@
          "name": "Cube.071",
          "primitives": [
             {
-               "attributes": { "POSITION": 187, "NORMAL": 188, "TEXCOORD_0": 189 },
+               "s": { "POSITION": 187, "NORMAL": 188, "TEXCOORD_0": 189 },
                "indices": 3,
                "material": 62
             }
@@ -7195,7 +7195,7 @@
          "name": "Cube.072",
          "primitives": [
             {
-               "attributes": { "POSITION": 190, "NORMAL": 191, "TEXCOORD_0": 192 },
+               "s": { "POSITION": 190, "NORMAL": 191, "TEXCOORD_0": 192 },
                "indices": 3,
                "material": 63
             }
@@ -7205,7 +7205,7 @@
          "name": "Cube.073",
          "primitives": [
             {
-               "attributes": { "POSITION": 193, "NORMAL": 194, "TEXCOORD_0": 195 },
+               "s": { "POSITION": 193, "NORMAL": 194, "TEXCOORD_0": 195 },
                "indices": 3,
                "material": 64
             }
@@ -7215,7 +7215,7 @@
          "name": "Cube.074",
          "primitives": [
             {
-               "attributes": { "POSITION": 196, "NORMAL": 197, "TEXCOORD_0": 198 },
+               "s": { "POSITION": 196, "NORMAL": 197, "TEXCOORD_0": 198 },
                "indices": 3,
                "material": 65
             }
@@ -7225,7 +7225,7 @@
          "name": "Cube.075",
          "primitives": [
             {
-               "attributes": { "POSITION": 199, "NORMAL": 200, "TEXCOORD_0": 201 },
+               "s": { "POSITION": 199, "NORMAL": 200, "TEXCOORD_0": 201 },
                "indices": 3,
                "material": 66
             }
@@ -7235,7 +7235,7 @@
          "name": "Cube.076",
          "primitives": [
             {
-               "attributes": { "POSITION": 202, "NORMAL": 203, "TEXCOORD_0": 204 },
+               "s": { "POSITION": 202, "NORMAL": 203, "TEXCOORD_0": 204 },
                "indices": 3,
                "material": 67
             }
@@ -7245,7 +7245,7 @@
          "name": "Cube.077",
          "primitives": [
             {
-               "attributes": { "POSITION": 205, "NORMAL": 206, "TEXCOORD_0": 207 },
+               "s": { "POSITION": 205, "NORMAL": 206, "TEXCOORD_0": 207 },
                "indices": 3,
                "material": 68
             }
@@ -7255,7 +7255,7 @@
          "name": "Cube.078",
          "primitives": [
             {
-               "attributes": { "POSITION": 208, "NORMAL": 209, "TEXCOORD_0": 210 },
+               "s": { "POSITION": 208, "NORMAL": 209, "TEXCOORD_0": 210 },
                "indices": 3,
                "material": 69
             }
@@ -7265,7 +7265,7 @@
          "name": "Cube.079",
          "primitives": [
             {
-               "attributes": { "POSITION": 211, "NORMAL": 212, "TEXCOORD_0": 213 },
+               "s": { "POSITION": 211, "NORMAL": 212, "TEXCOORD_0": 213 },
                "indices": 3,
                "material": 70
             }
@@ -7275,7 +7275,7 @@
          "name": "Cube.080",
          "primitives": [
             {
-               "attributes": { "POSITION": 214, "NORMAL": 215, "TEXCOORD_0": 216 },
+               "s": { "POSITION": 214, "NORMAL": 215, "TEXCOORD_0": 216 },
                "indices": 3,
                "material": 71
             }
@@ -7285,7 +7285,7 @@
          "name": "Cube.081",
          "primitives": [
             {
-               "attributes": { "POSITION": 217, "NORMAL": 218, "TEXCOORD_0": 219 },
+               "s": { "POSITION": 217, "NORMAL": 218, "TEXCOORD_0": 219 },
                "indices": 3,
                "material": 72
             }
@@ -7295,7 +7295,7 @@
          "name": "Cube.082",
          "primitives": [
             {
-               "attributes": { "POSITION": 220, "NORMAL": 221, "TEXCOORD_0": 222 },
+               "s": { "POSITION": 220, "NORMAL": 221, "TEXCOORD_0": 222 },
                "indices": 3,
                "material": 73
             }
@@ -7305,7 +7305,7 @@
          "name": "Cube.083",
          "primitives": [
             {
-               "attributes": { "POSITION": 223, "NORMAL": 224, "TEXCOORD_0": 225 },
+               "s": { "POSITION": 223, "NORMAL": 224, "TEXCOORD_0": 225 },
                "indices": 3,
                "material": 74
             }
@@ -7315,7 +7315,7 @@
          "name": "Cube.084",
          "primitives": [
             {
-               "attributes": { "POSITION": 226, "NORMAL": 227, "TEXCOORD_0": 228 },
+               "s": { "POSITION": 226, "NORMAL": 227, "TEXCOORD_0": 228 },
                "indices": 3,
                "material": 75
             }
@@ -7325,7 +7325,7 @@
          "name": "Cube.085",
          "primitives": [
             {
-               "attributes": { "POSITION": 229, "NORMAL": 230, "TEXCOORD_0": 231 },
+               "s": { "POSITION": 229, "NORMAL": 230, "TEXCOORD_0": 231 },
                "indices": 3,
                "material": 76
             }
@@ -7335,7 +7335,7 @@
          "name": "Cube.086",
          "primitives": [
             {
-               "attributes": { "POSITION": 232, "NORMAL": 233, "TEXCOORD_0": 234 },
+               "s": { "POSITION": 232, "NORMAL": 233, "TEXCOORD_0": 234 },
                "indices": 3,
                "material": 77
             }
@@ -7345,7 +7345,7 @@
          "name": "Cube.087",
          "primitives": [
             {
-               "attributes": { "POSITION": 235, "NORMAL": 236, "TEXCOORD_0": 237 },
+               "s": { "POSITION": 235, "NORMAL": 236, "TEXCOORD_0": 237 },
                "indices": 3,
                "material": 78
             }
@@ -7355,7 +7355,7 @@
          "name": "Cube.088",
          "primitives": [
             {
-               "attributes": { "POSITION": 238, "NORMAL": 239, "TEXCOORD_0": 240 },
+               "s": { "POSITION": 238, "NORMAL": 239, "TEXCOORD_0": 240 },
                "indices": 3,
                "material": 79
             }
@@ -7365,7 +7365,7 @@
          "name": "Cube.089",
          "primitives": [
             {
-               "attributes": { "POSITION": 241, "NORMAL": 242, "TEXCOORD_0": 243 },
+               "s": { "POSITION": 241, "NORMAL": 242, "TEXCOORD_0": 243 },
                "indices": 3,
                "material": 80
             }
@@ -7375,7 +7375,7 @@
          "name": "Cube.090",
          "primitives": [
             {
-               "attributes": { "POSITION": 244, "NORMAL": 245, "TEXCOORD_0": 246 },
+               "s": { "POSITION": 244, "NORMAL": 245, "TEXCOORD_0": 246 },
                "indices": 3,
                "material": 81
             }
@@ -7385,7 +7385,7 @@
          "name": "Cube.091",
          "primitives": [
             {
-               "attributes": { "POSITION": 247, "NORMAL": 248, "TEXCOORD_0": 249 },
+               "s": { "POSITION": 247, "NORMAL": 248, "TEXCOORD_0": 249 },
                "indices": 3,
                "material": 82
             }
@@ -7395,7 +7395,7 @@
          "name": "Cube.092",
          "primitives": [
             {
-               "attributes": { "POSITION": 250, "NORMAL": 251, "TEXCOORD_0": 252 },
+               "s": { "POSITION": 250, "NORMAL": 251, "TEXCOORD_0": 252 },
                "indices": 3,
                "material": 83
             }
@@ -7405,7 +7405,7 @@
          "name": "Cube.093",
          "primitives": [
             {
-               "attributes": { "POSITION": 253, "NORMAL": 254, "TEXCOORD_0": 255 },
+               "s": { "POSITION": 253, "NORMAL": 254, "TEXCOORD_0": 255 },
                "indices": 3,
                "material": 84
             }
@@ -7415,7 +7415,7 @@
          "name": "Cube.094",
          "primitives": [
             {
-               "attributes": { "POSITION": 256, "NORMAL": 257, "TEXCOORD_0": 258 },
+               "s": { "POSITION": 256, "NORMAL": 257, "TEXCOORD_0": 258 },
                "indices": 3,
                "material": 85
             }
@@ -7425,7 +7425,7 @@
          "name": "Cube.095",
          "primitives": [
             {
-               "attributes": { "POSITION": 259, "NORMAL": 260, "TEXCOORD_0": 261 },
+               "s": { "POSITION": 259, "NORMAL": 260, "TEXCOORD_0": 261 },
                "indices": 3,
                "material": 86
             }
@@ -7435,7 +7435,7 @@
          "name": "Cube.096",
          "primitives": [
             {
-               "attributes": { "POSITION": 262, "NORMAL": 263, "TEXCOORD_0": 264 },
+               "s": { "POSITION": 262, "NORMAL": 263, "TEXCOORD_0": 264 },
                "indices": 3,
                "material": 87
             }
@@ -7445,7 +7445,7 @@
          "name": "Cube.097",
          "primitives": [
             {
-               "attributes": { "POSITION": 265, "NORMAL": 266, "TEXCOORD_0": 267 },
+               "s": { "POSITION": 265, "NORMAL": 266, "TEXCOORD_0": 267 },
                "indices": 3,
                "material": 88
             }
@@ -7455,7 +7455,7 @@
          "name": "Cube.098",
          "primitives": [
             {
-               "attributes": { "POSITION": 268, "NORMAL": 269, "TEXCOORD_0": 270 },
+               "s": { "POSITION": 268, "NORMAL": 269, "TEXCOORD_0": 270 },
                "indices": 3,
                "material": 89
             }
@@ -7465,7 +7465,7 @@
          "name": "Cube.099",
          "primitives": [
             {
-               "attributes": { "POSITION": 271, "NORMAL": 272, "TEXCOORD_0": 273 },
+               "s": { "POSITION": 271, "NORMAL": 272, "TEXCOORD_0": 273 },
                "indices": 3,
                "material": 90
             }
@@ -7475,7 +7475,7 @@
          "name": "Cube.100",
          "primitives": [
             {
-               "attributes": { "POSITION": 274, "NORMAL": 275, "TEXCOORD_0": 276 },
+               "s": { "POSITION": 274, "NORMAL": 275, "TEXCOORD_0": 276 },
                "indices": 3,
                "material": 91
             }
@@ -7485,7 +7485,7 @@
          "name": "Cube.101",
          "primitives": [
             {
-               "attributes": { "POSITION": 277, "NORMAL": 278, "TEXCOORD_0": 279 },
+               "s": { "POSITION": 277, "NORMAL": 278, "TEXCOORD_0": 279 },
                "indices": 3,
                "material": 92
             }
@@ -7495,7 +7495,7 @@
          "name": "Cube.102",
          "primitives": [
             {
-               "attributes": { "POSITION": 280, "NORMAL": 281, "TEXCOORD_0": 282 },
+               "s": { "POSITION": 280, "NORMAL": 281, "TEXCOORD_0": 282 },
                "indices": 3,
                "material": 93
             }
@@ -7505,7 +7505,7 @@
          "name": "Cube.103",
          "primitives": [
             {
-               "attributes": { "POSITION": 283, "NORMAL": 284, "TEXCOORD_0": 285 },
+               "s": { "POSITION": 283, "NORMAL": 284, "TEXCOORD_0": 285 },
                "indices": 3,
                "material": 94
             }
@@ -7515,7 +7515,7 @@
          "name": "Cube.104",
          "primitives": [
             {
-               "attributes": { "POSITION": 286, "NORMAL": 287, "TEXCOORD_0": 288 },
+               "s": { "POSITION": 286, "NORMAL": 287, "TEXCOORD_0": 288 },
                "indices": 3,
                "material": 95
             }
@@ -7525,7 +7525,7 @@
          "name": "Cube.105",
          "primitives": [
             {
-               "attributes": { "POSITION": 289, "NORMAL": 290, "TEXCOORD_0": 291 },
+               "s": { "POSITION": 289, "NORMAL": 290, "TEXCOORD_0": 291 },
                "indices": 3,
                "material": 96
             }
@@ -7535,7 +7535,7 @@
          "name": "Cube.106",
          "primitives": [
             {
-               "attributes": { "POSITION": 292, "NORMAL": 293, "TEXCOORD_0": 294 },
+               "s": { "POSITION": 292, "NORMAL": 293, "TEXCOORD_0": 294 },
                "indices": 3,
                "material": 97
             }
@@ -7545,7 +7545,7 @@
          "name": "Cube.107",
          "primitives": [
             {
-               "attributes": { "POSITION": 295, "NORMAL": 296, "TEXCOORD_0": 297 },
+               "s": { "POSITION": 295, "NORMAL": 296, "TEXCOORD_0": 297 },
                "indices": 3,
                "material": 98
             }
@@ -7555,7 +7555,7 @@
          "name": "Cube.108",
          "primitives": [
             {
-               "attributes": { "POSITION": 298, "NORMAL": 299, "TEXCOORD_0": 300 },
+               "s": { "POSITION": 298, "NORMAL": 299, "TEXCOORD_0": 300 },
                "indices": 3,
                "material": 99
             }
@@ -7565,7 +7565,7 @@
          "name": "Cube.109",
          "primitives": [
             {
-               "attributes": { "POSITION": 301, "NORMAL": 302, "TEXCOORD_0": 303 },
+               "s": { "POSITION": 301, "NORMAL": 302, "TEXCOORD_0": 303 },
                "indices": 3,
                "material": 100
             }
@@ -7575,7 +7575,7 @@
          "name": "Cube.110",
          "primitives": [
             {
-               "attributes": { "POSITION": 304, "NORMAL": 305, "TEXCOORD_0": 306 },
+               "s": { "POSITION": 304, "NORMAL": 305, "TEXCOORD_0": 306 },
                "indices": 3,
                "material": 101
             }
@@ -7585,7 +7585,7 @@
          "name": "Cube.111",
          "primitives": [
             {
-               "attributes": { "POSITION": 307, "NORMAL": 308, "TEXCOORD_0": 309 },
+               "s": { "POSITION": 307, "NORMAL": 308, "TEXCOORD_0": 309 },
                "indices": 3,
                "material": 102
             }
@@ -7595,7 +7595,7 @@
          "name": "Cube.112",
          "primitives": [
             {
-               "attributes": { "POSITION": 310, "NORMAL": 311, "TEXCOORD_0": 312 },
+               "s": { "POSITION": 310, "NORMAL": 311, "TEXCOORD_0": 312 },
                "indices": 3,
                "material": 103
             }
@@ -7605,7 +7605,7 @@
          "name": "Cube.113",
          "primitives": [
             {
-               "attributes": { "POSITION": 313, "NORMAL": 314, "TEXCOORD_0": 315 },
+               "s": { "POSITION": 313, "NORMAL": 314, "TEXCOORD_0": 315 },
                "indices": 3,
                "material": 104
             }
@@ -7615,7 +7615,7 @@
          "name": "Cube.114",
          "primitives": [
             {
-               "attributes": { "POSITION": 316, "NORMAL": 317, "TEXCOORD_0": 318 },
+               "s": { "POSITION": 316, "NORMAL": 317, "TEXCOORD_0": 318 },
                "indices": 3,
                "material": 105
             }
@@ -7625,7 +7625,7 @@
          "name": "Cube.115",
          "primitives": [
             {
-               "attributes": { "POSITION": 319, "NORMAL": 320, "TEXCOORD_0": 321 },
+               "s": { "POSITION": 319, "NORMAL": 320, "TEXCOORD_0": 321 },
                "indices": 3,
                "material": 106
             }
@@ -7635,7 +7635,7 @@
          "name": "Cube.116",
          "primitives": [
             {
-               "attributes": { "POSITION": 322, "NORMAL": 323, "TEXCOORD_0": 324 },
+               "s": { "POSITION": 322, "NORMAL": 323, "TEXCOORD_0": 324 },
                "indices": 3,
                "material": 107
             }
@@ -7645,7 +7645,7 @@
          "name": "Cube.117",
          "primitives": [
             {
-               "attributes": { "POSITION": 325, "NORMAL": 326, "TEXCOORD_0": 327 },
+               "s": { "POSITION": 325, "NORMAL": 326, "TEXCOORD_0": 327 },
                "indices": 3,
                "material": 108
             }
@@ -7655,7 +7655,7 @@
          "name": "Cube.118",
          "primitives": [
             {
-               "attributes": { "POSITION": 328, "NORMAL": 329, "TEXCOORD_0": 330 },
+               "s": { "POSITION": 328, "NORMAL": 329, "TEXCOORD_0": 330 },
                "indices": 3,
                "material": 109
             }
@@ -7665,7 +7665,7 @@
          "name": "Cube.119",
          "primitives": [
             {
-               "attributes": { "POSITION": 331, "NORMAL": 332, "TEXCOORD_0": 333 },
+               "s": { "POSITION": 331, "NORMAL": 332, "TEXCOORD_0": 333 },
                "indices": 3,
                "material": 110
             }
@@ -7675,7 +7675,7 @@
          "name": "Cube.120",
          "primitives": [
             {
-               "attributes": { "POSITION": 334, "NORMAL": 335, "TEXCOORD_0": 336 },
+               "s": { "POSITION": 334, "NORMAL": 335, "TEXCOORD_0": 336 },
                "indices": 3,
                "material": 111
             }
@@ -7685,7 +7685,7 @@
          "name": "Cube.121",
          "primitives": [
             {
-               "attributes": { "POSITION": 337, "NORMAL": 338, "TEXCOORD_0": 339 },
+               "s": { "POSITION": 337, "NORMAL": 338, "TEXCOORD_0": 339 },
                "indices": 3,
                "material": 112
             }
@@ -7695,7 +7695,7 @@
          "name": "Cube.122",
          "primitives": [
             {
-               "attributes": { "POSITION": 340, "NORMAL": 341, "TEXCOORD_0": 342 },
+               "s": { "POSITION": 340, "NORMAL": 341, "TEXCOORD_0": 342 },
                "indices": 3,
                "material": 113
             }
@@ -7705,7 +7705,7 @@
          "name": "Cube.123",
          "primitives": [
             {
-               "attributes": { "POSITION": 343, "NORMAL": 344, "TEXCOORD_0": 345 },
+               "s": { "POSITION": 343, "NORMAL": 344, "TEXCOORD_0": 345 },
                "indices": 3,
                "material": 114
             }
@@ -7715,7 +7715,7 @@
          "name": "Cube.124",
          "primitives": [
             {
-               "attributes": { "POSITION": 346, "NORMAL": 347, "TEXCOORD_0": 348 },
+               "s": { "POSITION": 346, "NORMAL": 347, "TEXCOORD_0": 348 },
                "indices": 3,
                "material": 115
             }
@@ -7725,7 +7725,7 @@
          "name": "Cube.125",
          "primitives": [
             {
-               "attributes": { "POSITION": 349, "NORMAL": 350, "TEXCOORD_0": 351 },
+               "s": { "POSITION": 349, "NORMAL": 350, "TEXCOORD_0": 351 },
                "indices": 3,
                "material": 116
             }
@@ -7735,7 +7735,7 @@
          "name": "Cube.126",
          "primitives": [
             {
-               "attributes": { "POSITION": 352, "NORMAL": 353, "TEXCOORD_0": 354 },
+               "s": { "POSITION": 352, "NORMAL": 353, "TEXCOORD_0": 354 },
                "indices": 3,
                "material": 117
             }
@@ -7745,7 +7745,7 @@
          "name": "Cube.127",
          "primitives": [
             {
-               "attributes": { "POSITION": 355, "NORMAL": 356, "TEXCOORD_0": 357 },
+               "s": { "POSITION": 355, "NORMAL": 356, "TEXCOORD_0": 357 },
                "indices": 3,
                "material": 118
             }
@@ -7755,7 +7755,7 @@
          "name": "Cube.128",
          "primitives": [
             {
-               "attributes": { "POSITION": 358, "NORMAL": 359, "TEXCOORD_0": 360 },
+               "s": { "POSITION": 358, "NORMAL": 359, "TEXCOORD_0": 360 },
                "indices": 3,
                "material": 119
             }
@@ -7765,7 +7765,7 @@
          "name": "Cube.129",
          "primitives": [
             {
-               "attributes": { "POSITION": 361, "NORMAL": 362, "TEXCOORD_0": 363 },
+               "s": { "POSITION": 361, "NORMAL": 362, "TEXCOORD_0": 363 },
                "indices": 3,
                "material": 120
             }
@@ -7775,7 +7775,7 @@
          "name": "Cube.130",
          "primitives": [
             {
-               "attributes": { "POSITION": 364, "NORMAL": 365, "TEXCOORD_0": 366 },
+               "s": { "POSITION": 364, "NORMAL": 365, "TEXCOORD_0": 366 },
                "indices": 3,
                "material": 121
             }
@@ -7785,7 +7785,7 @@
          "name": "Cube.131",
          "primitives": [
             {
-               "attributes": { "POSITION": 367, "NORMAL": 368, "TEXCOORD_0": 369 },
+               "s": { "POSITION": 367, "NORMAL": 368, "TEXCOORD_0": 369 },
                "indices": 3,
                "material": 122
             }
@@ -7795,7 +7795,7 @@
          "name": "Cube.132",
          "primitives": [
             {
-               "attributes": { "POSITION": 370, "NORMAL": 371, "TEXCOORD_0": 372 },
+               "s": { "POSITION": 370, "NORMAL": 371, "TEXCOORD_0": 372 },
                "indices": 3,
                "material": 123
             }
@@ -7805,7 +7805,7 @@
          "name": "Cube.133",
          "primitives": [
             {
-               "attributes": { "POSITION": 373, "NORMAL": 374, "TEXCOORD_0": 375 },
+               "s": { "POSITION": 373, "NORMAL": 374, "TEXCOORD_0": 375 },
                "indices": 3,
                "material": 124
             }
@@ -7815,7 +7815,7 @@
          "name": "Cube.134",
          "primitives": [
             {
-               "attributes": { "POSITION": 376, "NORMAL": 377, "TEXCOORD_0": 378 },
+               "s": { "POSITION": 376, "NORMAL": 377, "TEXCOORD_0": 378 },
                "indices": 3,
                "material": 125
             }
@@ -7825,7 +7825,7 @@
          "name": "Cube.135",
          "primitives": [
             {
-               "attributes": { "POSITION": 379, "NORMAL": 380, "TEXCOORD_0": 381 },
+               "s": { "POSITION": 379, "NORMAL": 380, "TEXCOORD_0": 381 },
                "indices": 3,
                "material": 126
             }
@@ -7835,7 +7835,7 @@
          "name": "Cube.136",
          "primitives": [
             {
-               "attributes": { "POSITION": 382, "NORMAL": 383, "TEXCOORD_0": 384 },
+               "s": { "POSITION": 382, "NORMAL": 383, "TEXCOORD_0": 384 },
                "indices": 3,
                "material": 127
             }
@@ -7845,7 +7845,7 @@
          "name": "Cube.137",
          "primitives": [
             {
-               "attributes": { "POSITION": 385, "NORMAL": 386, "TEXCOORD_0": 387 },
+               "s": { "POSITION": 385, "NORMAL": 386, "TEXCOORD_0": 387 },
                "indices": 3,
                "material": 128
             }
@@ -7855,7 +7855,7 @@
          "name": "Cube.138",
          "primitives": [
             {
-               "attributes": { "POSITION": 388, "NORMAL": 389, "TEXCOORD_0": 390 },
+               "s": { "POSITION": 388, "NORMAL": 389, "TEXCOORD_0": 390 },
                "indices": 3,
                "material": 129
             }
@@ -7865,7 +7865,7 @@
          "name": "Cube.139",
          "primitives": [
             {
-               "attributes": { "POSITION": 391, "NORMAL": 392, "TEXCOORD_0": 393 },
+               "s": { "POSITION": 391, "NORMAL": 392, "TEXCOORD_0": 393 },
                "indices": 3,
                "material": 130
             }
@@ -7875,7 +7875,7 @@
          "name": "Cube.140",
          "primitives": [
             {
-               "attributes": { "POSITION": 394, "NORMAL": 395, "TEXCOORD_0": 396 },
+               "s": { "POSITION": 394, "NORMAL": 395, "TEXCOORD_0": 396 },
                "indices": 3,
                "material": 131
             }
@@ -7885,7 +7885,7 @@
          "name": "Cube.141",
          "primitives": [
             {
-               "attributes": { "POSITION": 397, "NORMAL": 398, "TEXCOORD_0": 399 },
+               "s": { "POSITION": 397, "NORMAL": 398, "TEXCOORD_0": 399 },
                "indices": 3,
                "material": 132
             }
@@ -7895,7 +7895,7 @@
          "name": "Cube.142",
          "primitives": [
             {
-               "attributes": { "POSITION": 400, "NORMAL": 401, "TEXCOORD_0": 402 },
+               "s": { "POSITION": 400, "NORMAL": 401, "TEXCOORD_0": 402 },
                "indices": 3,
                "material": 133
             }
@@ -7905,7 +7905,7 @@
          "name": "Cube.143",
          "primitives": [
             {
-               "attributes": { "POSITION": 403, "NORMAL": 404, "TEXCOORD_0": 405 },
+               "s": { "POSITION": 403, "NORMAL": 404, "TEXCOORD_0": 405 },
                "indices": 3,
                "material": 134
             }
@@ -7915,7 +7915,7 @@
          "name": "Cube.144",
          "primitives": [
             {
-               "attributes": { "POSITION": 406, "NORMAL": 407, "TEXCOORD_0": 408 },
+               "s": { "POSITION": 406, "NORMAL": 407, "TEXCOORD_0": 408 },
                "indices": 3,
                "material": 135
             }
@@ -7925,7 +7925,7 @@
          "name": "Cube.145",
          "primitives": [
             {
-               "attributes": { "POSITION": 409, "NORMAL": 410, "TEXCOORD_0": 411 },
+               "s": { "POSITION": 409, "NORMAL": 410, "TEXCOORD_0": 411 },
                "indices": 3,
                "material": 136
             }
@@ -7935,7 +7935,7 @@
          "name": "Cube.146",
          "primitives": [
             {
-               "attributes": { "POSITION": 412, "NORMAL": 413, "TEXCOORD_0": 414 },
+               "s": { "POSITION": 412, "NORMAL": 413, "TEXCOORD_0": 414 },
                "indices": 3,
                "material": 137
             }
@@ -7945,7 +7945,7 @@
          "name": "Cube.147",
          "primitives": [
             {
-               "attributes": { "POSITION": 415, "NORMAL": 416, "TEXCOORD_0": 417 },
+               "s": { "POSITION": 415, "NORMAL": 416, "TEXCOORD_0": 417 },
                "indices": 3,
                "material": 138
             }
@@ -7955,7 +7955,7 @@
          "name": "Cube.148",
          "primitives": [
             {
-               "attributes": { "POSITION": 418, "NORMAL": 419, "TEXCOORD_0": 420 },
+               "s": { "POSITION": 418, "NORMAL": 419, "TEXCOORD_0": 420 },
                "indices": 3,
                "material": 139
             }
@@ -7965,7 +7965,7 @@
          "name": "Cube.149",
          "primitives": [
             {
-               "attributes": { "POSITION": 421, "NORMAL": 422, "TEXCOORD_0": 423 },
+               "s": { "POSITION": 421, "NORMAL": 422, "TEXCOORD_0": 423 },
                "indices": 3,
                "material": 140
             }
@@ -7975,7 +7975,7 @@
          "name": "Cube.150",
          "primitives": [
             {
-               "attributes": { "POSITION": 424, "NORMAL": 425, "TEXCOORD_0": 426 },
+               "s": { "POSITION": 424, "NORMAL": 425, "TEXCOORD_0": 426 },
                "indices": 3,
                "material": 141
             }
@@ -7985,7 +7985,7 @@
          "name": "Cube.151",
          "primitives": [
             {
-               "attributes": { "POSITION": 427, "NORMAL": 428, "TEXCOORD_0": 429 },
+               "s": { "POSITION": 427, "NORMAL": 428, "TEXCOORD_0": 429 },
                "indices": 3,
                "material": 142
             }
@@ -7995,7 +7995,7 @@
          "name": "Cube.152",
          "primitives": [
             {
-               "attributes": { "POSITION": 430, "NORMAL": 431, "TEXCOORD_0": 432 },
+               "s": { "POSITION": 430, "NORMAL": 431, "TEXCOORD_0": 432 },
                "indices": 3,
                "material": 143
             }
@@ -8005,7 +8005,7 @@
          "name": "Cube.153",
          "primitives": [
             {
-               "attributes": { "POSITION": 433, "NORMAL": 434, "TEXCOORD_0": 435 },
+               "s": { "POSITION": 433, "NORMAL": 434, "TEXCOORD_0": 435 },
                "indices": 3,
                "material": 144
             }
@@ -8015,7 +8015,7 @@
          "name": "Cube.154",
          "primitives": [
             {
-               "attributes": { "POSITION": 436, "NORMAL": 437, "TEXCOORD_0": 438 },
+               "s": { "POSITION": 436, "NORMAL": 437, "TEXCOORD_0": 438 },
                "indices": 3,
                "material": 145
             }
@@ -8025,7 +8025,7 @@
          "name": "Cube.155",
          "primitives": [
             {
-               "attributes": { "POSITION": 439, "NORMAL": 440, "TEXCOORD_0": 441 },
+               "s": { "POSITION": 439, "NORMAL": 440, "TEXCOORD_0": 441 },
                "indices": 3,
                "material": 146
             }
@@ -8035,7 +8035,7 @@
          "name": "Cube.156",
          "primitives": [
             {
-               "attributes": { "POSITION": 442, "NORMAL": 443, "TEXCOORD_0": 444 },
+               "s": { "POSITION": 442, "NORMAL": 443, "TEXCOORD_0": 444 },
                "indices": 3,
                "material": 147
             }
@@ -8045,7 +8045,7 @@
          "name": "Cube.157",
          "primitives": [
             {
-               "attributes": { "POSITION": 445, "NORMAL": 446, "TEXCOORD_0": 447 },
+               "s": { "POSITION": 445, "NORMAL": 446, "TEXCOORD_0": 447 },
                "indices": 3,
                "material": 148
             }
@@ -8055,7 +8055,7 @@
          "name": "Cube.158",
          "primitives": [
             {
-               "attributes": { "POSITION": 448, "NORMAL": 449, "TEXCOORD_0": 450 },
+               "s": { "POSITION": 448, "NORMAL": 449, "TEXCOORD_0": 450 },
                "indices": 3,
                "material": 149
             }
@@ -8065,7 +8065,7 @@
          "name": "Cube.159",
          "primitives": [
             {
-               "attributes": { "POSITION": 451, "NORMAL": 452, "TEXCOORD_0": 453 },
+               "s": { "POSITION": 451, "NORMAL": 452, "TEXCOORD_0": 453 },
                "indices": 3,
                "material": 150
             }
@@ -8075,7 +8075,7 @@
          "name": "Cube.160",
          "primitives": [
             {
-               "attributes": { "POSITION": 454, "NORMAL": 455, "TEXCOORD_0": 456 },
+               "s": { "POSITION": 454, "NORMAL": 455, "TEXCOORD_0": 456 },
                "indices": 3,
                "material": 151
             }
@@ -8085,7 +8085,7 @@
          "name": "Cube.161",
          "primitives": [
             {
-               "attributes": { "POSITION": 457, "NORMAL": 458, "TEXCOORD_0": 459 },
+               "s": { "POSITION": 457, "NORMAL": 458, "TEXCOORD_0": 459 },
                "indices": 3,
                "material": 152
             }
@@ -8095,7 +8095,7 @@
          "name": "Cube.162",
          "primitives": [
             {
-               "attributes": { "POSITION": 460, "NORMAL": 461, "TEXCOORD_0": 462 },
+               "s": { "POSITION": 460, "NORMAL": 461, "TEXCOORD_0": 462 },
                "indices": 3,
                "material": 153
             }
@@ -8105,7 +8105,7 @@
          "name": "Cube.163",
          "primitives": [
             {
-               "attributes": { "POSITION": 463, "NORMAL": 464, "TEXCOORD_0": 465 },
+               "s": { "POSITION": 463, "NORMAL": 464, "TEXCOORD_0": 465 },
                "indices": 3,
                "material": 154
             }
@@ -8115,7 +8115,7 @@
          "name": "Cube.164",
          "primitives": [
             {
-               "attributes": { "POSITION": 466, "NORMAL": 467, "TEXCOORD_0": 468 },
+               "s": { "POSITION": 466, "NORMAL": 467, "TEXCOORD_0": 468 },
                "indices": 3,
                "material": 155
             }
@@ -8125,7 +8125,7 @@
          "name": "Cube.165",
          "primitives": [
             {
-               "attributes": { "POSITION": 469, "NORMAL": 470, "TEXCOORD_0": 471 },
+               "s": { "POSITION": 469, "NORMAL": 470, "TEXCOORD_0": 471 },
                "indices": 3,
                "material": 156
             }
@@ -8135,7 +8135,7 @@
          "name": "Cube.167",
          "primitives": [
             {
-               "attributes": { "POSITION": 472, "NORMAL": 473, "TEXCOORD_0": 474 },
+               "s": { "POSITION": 472, "NORMAL": 473, "TEXCOORD_0": 474 },
                "indices": 3,
                "material": 157
             }
@@ -8145,7 +8145,7 @@
          "name": "Cube.168",
          "primitives": [
             {
-               "attributes": { "POSITION": 475, "NORMAL": 476, "TEXCOORD_0": 477 },
+               "s": { "POSITION": 475, "NORMAL": 476, "TEXCOORD_0": 477 },
                "indices": 3,
                "material": 158
             }
@@ -8155,7 +8155,7 @@
          "name": "Cube.169",
          "primitives": [
             {
-               "attributes": { "POSITION": 478, "NORMAL": 479, "TEXCOORD_0": 480 },
+               "s": { "POSITION": 478, "NORMAL": 479, "TEXCOORD_0": 480 },
                "indices": 3,
                "material": 159
             }
@@ -8165,7 +8165,7 @@
          "name": "Cube.170",
          "primitives": [
             {
-               "attributes": { "POSITION": 481, "NORMAL": 482, "TEXCOORD_0": 483 },
+               "s": { "POSITION": 481, "NORMAL": 482, "TEXCOORD_0": 483 },
                "indices": 3,
                "material": 160
             }
@@ -8175,7 +8175,7 @@
          "name": "Cube.171",
          "primitives": [
             {
-               "attributes": { "POSITION": 484, "NORMAL": 485, "TEXCOORD_0": 486 },
+               "s": { "POSITION": 484, "NORMAL": 485, "TEXCOORD_0": 486 },
                "indices": 3,
                "material": 161
             }
@@ -8185,7 +8185,7 @@
          "name": "Cube.172",
          "primitives": [
             {
-               "attributes": { "POSITION": 487, "NORMAL": 488, "TEXCOORD_0": 489 },
+               "s": { "POSITION": 487, "NORMAL": 488, "TEXCOORD_0": 489 },
                "indices": 3,
                "material": 162
             }
@@ -8195,7 +8195,7 @@
          "name": "Cube.173",
          "primitives": [
             {
-               "attributes": { "POSITION": 490, "NORMAL": 491, "TEXCOORD_0": 492 },
+               "s": { "POSITION": 490, "NORMAL": 491, "TEXCOORD_0": 492 },
                "indices": 3,
                "material": 163
             }
@@ -8205,7 +8205,7 @@
          "name": "Cube.174",
          "primitives": [
             {
-               "attributes": { "POSITION": 493, "NORMAL": 494, "TEXCOORD_0": 495 },
+               "s": { "POSITION": 493, "NORMAL": 494, "TEXCOORD_0": 495 },
                "indices": 3,
                "material": 164
             }
@@ -8215,7 +8215,7 @@
          "name": "Cube.175",
          "primitives": [
             {
-               "attributes": { "POSITION": 496, "NORMAL": 497, "TEXCOORD_0": 498 },
+               "s": { "POSITION": 496, "NORMAL": 497, "TEXCOORD_0": 498 },
                "indices": 3,
                "material": 165
             }
@@ -8225,7 +8225,7 @@
          "name": "Cube.176",
          "primitives": [
             {
-               "attributes": { "POSITION": 499, "NORMAL": 500, "TEXCOORD_0": 501 },
+               "s": { "POSITION": 499, "NORMAL": 500, "TEXCOORD_0": 501 },
                "indices": 3,
                "material": 166
             }
@@ -8235,7 +8235,7 @@
          "name": "Cube.177",
          "primitives": [
             {
-               "attributes": { "POSITION": 502, "NORMAL": 503, "TEXCOORD_0": 504 },
+               "s": { "POSITION": 502, "NORMAL": 503, "TEXCOORD_0": 504 },
                "indices": 3,
                "material": 167
             }
@@ -8245,7 +8245,7 @@
          "name": "Cube.178",
          "primitives": [
             {
-               "attributes": { "POSITION": 505, "NORMAL": 506, "TEXCOORD_0": 507 },
+               "s": { "POSITION": 505, "NORMAL": 506, "TEXCOORD_0": 507 },
                "indices": 3,
                "material": 168
             }
@@ -8255,7 +8255,7 @@
          "name": "Cube.179",
          "primitives": [
             {
-               "attributes": { "POSITION": 508, "NORMAL": 509, "TEXCOORD_0": 510 },
+               "s": { "POSITION": 508, "NORMAL": 509, "TEXCOORD_0": 510 },
                "indices": 3,
                "material": 169
             }
@@ -8265,7 +8265,7 @@
          "name": "Cube.180",
          "primitives": [
             {
-               "attributes": { "POSITION": 511, "NORMAL": 512, "TEXCOORD_0": 513 },
+               "s": { "POSITION": 511, "NORMAL": 512, "TEXCOORD_0": 513 },
                "indices": 3,
                "material": 170
             }
@@ -8275,7 +8275,7 @@
          "name": "Cube.181",
          "primitives": [
             {
-               "attributes": { "POSITION": 514, "NORMAL": 515, "TEXCOORD_0": 516 },
+               "s": { "POSITION": 514, "NORMAL": 515, "TEXCOORD_0": 516 },
                "indices": 3,
                "material": 171
             }
@@ -8285,7 +8285,7 @@
          "name": "Cube.182",
          "primitives": [
             {
-               "attributes": { "POSITION": 517, "NORMAL": 518, "TEXCOORD_0": 519 },
+               "s": { "POSITION": 517, "NORMAL": 518, "TEXCOORD_0": 519 },
                "indices": 3,
                "material": 172
             }
@@ -8295,7 +8295,7 @@
          "name": "Cube.183",
          "primitives": [
             {
-               "attributes": { "POSITION": 520, "NORMAL": 521, "TEXCOORD_0": 522 },
+               "s": { "POSITION": 520, "NORMAL": 521, "TEXCOORD_0": 522 },
                "indices": 3,
                "material": 173
             }
@@ -8305,7 +8305,7 @@
          "name": "Cube.184",
          "primitives": [
             {
-               "attributes": { "POSITION": 523, "NORMAL": 524, "TEXCOORD_0": 525 },
+               "s": { "POSITION": 523, "NORMAL": 524, "TEXCOORD_0": 525 },
                "indices": 3,
                "material": 174
             }
@@ -8315,7 +8315,7 @@
          "name": "Cube.185",
          "primitives": [
             {
-               "attributes": { "POSITION": 526, "NORMAL": 527, "TEXCOORD_0": 528 },
+               "s": { "POSITION": 526, "NORMAL": 527, "TEXCOORD_0": 528 },
                "indices": 3,
                "material": 175
             }
@@ -8325,7 +8325,7 @@
          "name": "Cube.186",
          "primitives": [
             {
-               "attributes": { "POSITION": 529, "NORMAL": 530, "TEXCOORD_0": 531 },
+               "s": { "POSITION": 529, "NORMAL": 530, "TEXCOORD_0": 531 },
                "indices": 3,
                "material": 176
             }
@@ -8335,7 +8335,7 @@
          "name": "Cube.187",
          "primitives": [
             {
-               "attributes": { "POSITION": 532, "NORMAL": 533, "TEXCOORD_0": 534 },
+               "s": { "POSITION": 532, "NORMAL": 533, "TEXCOORD_0": 534 },
                "indices": 3,
                "material": 177
             }
@@ -8345,7 +8345,7 @@
          "name": "Cube.188",
          "primitives": [
             {
-               "attributes": { "POSITION": 535, "NORMAL": 536, "TEXCOORD_0": 537 },
+               "s": { "POSITION": 535, "NORMAL": 536, "TEXCOORD_0": 537 },
                "indices": 3,
                "material": 178
             }
@@ -8355,7 +8355,7 @@
          "name": "Cube.189",
          "primitives": [
             {
-               "attributes": { "POSITION": 538, "NORMAL": 539, "TEXCOORD_0": 540 },
+               "s": { "POSITION": 538, "NORMAL": 539, "TEXCOORD_0": 540 },
                "indices": 3,
                "material": 179
             }
@@ -8365,7 +8365,7 @@
          "name": "Cube.190",
          "primitives": [
             {
-               "attributes": { "POSITION": 541, "NORMAL": 542, "TEXCOORD_0": 543 },
+               "s": { "POSITION": 541, "NORMAL": 542, "TEXCOORD_0": 543 },
                "indices": 3,
                "material": 180
             }
@@ -8375,7 +8375,7 @@
          "name": "Cube.191",
          "primitives": [
             {
-               "attributes": { "POSITION": 544, "NORMAL": 545, "TEXCOORD_0": 546 },
+               "s": { "POSITION": 544, "NORMAL": 545, "TEXCOORD_0": 546 },
                "indices": 3,
                "material": 181
             }
@@ -8385,7 +8385,7 @@
          "name": "Cube.192",
          "primitives": [
             {
-               "attributes": { "POSITION": 547, "NORMAL": 548, "TEXCOORD_0": 549 },
+               "s": { "POSITION": 547, "NORMAL": 548, "TEXCOORD_0": 549 },
                "indices": 3,
                "material": 182
             }
@@ -8395,7 +8395,7 @@
          "name": "Cube.193",
          "primitives": [
             {
-               "attributes": { "POSITION": 550, "NORMAL": 551, "TEXCOORD_0": 552 },
+               "s": { "POSITION": 550, "NORMAL": 551, "TEXCOORD_0": 552 },
                "indices": 3,
                "material": 183
             }
@@ -8405,7 +8405,7 @@
          "name": "Cube.194",
          "primitives": [
             {
-               "attributes": { "POSITION": 553, "NORMAL": 554, "TEXCOORD_0": 555 },
+               "s": { "POSITION": 553, "NORMAL": 554, "TEXCOORD_0": 555 },
                "indices": 3,
                "material": 184
             }
@@ -8415,7 +8415,7 @@
          "name": "Cube.195",
          "primitives": [
             {
-               "attributes": { "POSITION": 556, "NORMAL": 557, "TEXCOORD_0": 558 },
+               "s": { "POSITION": 556, "NORMAL": 557, "TEXCOORD_0": 558 },
                "indices": 3,
                "material": 185
             }
@@ -8425,7 +8425,7 @@
          "name": "Cube.196",
          "primitives": [
             {
-               "attributes": { "POSITION": 559, "NORMAL": 560, "TEXCOORD_0": 561 },
+               "s": { "POSITION": 559, "NORMAL": 560, "TEXCOORD_0": 561 },
                "indices": 3,
                "material": 186
             }
@@ -8435,7 +8435,7 @@
          "name": "Cube.197",
          "primitives": [
             {
-               "attributes": { "POSITION": 562, "NORMAL": 563, "TEXCOORD_0": 564 },
+               "s": { "POSITION": 562, "NORMAL": 563, "TEXCOORD_0": 564 },
                "indices": 3,
                "material": 187
             }
@@ -8445,7 +8445,7 @@
          "name": "Cube.198",
          "primitives": [
             {
-               "attributes": { "POSITION": 565, "NORMAL": 566, "TEXCOORD_0": 567 },
+               "s": { "POSITION": 565, "NORMAL": 566, "TEXCOORD_0": 567 },
                "indices": 3,
                "material": 188
             }
@@ -8455,7 +8455,7 @@
          "name": "Cube.199",
          "primitives": [
             {
-               "attributes": { "POSITION": 568, "NORMAL": 569, "TEXCOORD_0": 570 },
+               "s": { "POSITION": 568, "NORMAL": 569, "TEXCOORD_0": 570 },
                "indices": 3,
                "material": 189
             }
@@ -8465,7 +8465,7 @@
          "name": "Cube.200",
          "primitives": [
             {
-               "attributes": { "POSITION": 571, "NORMAL": 572, "TEXCOORD_0": 573 },
+               "s": { "POSITION": 571, "NORMAL": 572, "TEXCOORD_0": 573 },
                "indices": 3,
                "material": 190
             }
@@ -8475,7 +8475,7 @@
          "name": "Cube.201",
          "primitives": [
             {
-               "attributes": { "POSITION": 574, "NORMAL": 575, "TEXCOORD_0": 576 },
+               "s": { "POSITION": 574, "NORMAL": 575, "TEXCOORD_0": 576 },
                "indices": 3,
                "material": 191
             }
@@ -8485,7 +8485,7 @@
          "name": "Cube.202",
          "primitives": [
             {
-               "attributes": { "POSITION": 577, "NORMAL": 578, "TEXCOORD_0": 579 },
+               "s": { "POSITION": 577, "NORMAL": 578, "TEXCOORD_0": 579 },
                "indices": 3,
                "material": 192
             }
@@ -8495,7 +8495,7 @@
          "name": "Cube.203",
          "primitives": [
             {
-               "attributes": { "POSITION": 580, "NORMAL": 581, "TEXCOORD_0": 582 },
+               "s": { "POSITION": 580, "NORMAL": 581, "TEXCOORD_0": 582 },
                "indices": 3,
                "material": 193
             }
@@ -8505,7 +8505,7 @@
          "name": "Cube.204",
          "primitives": [
             {
-               "attributes": { "POSITION": 583, "NORMAL": 584, "TEXCOORD_0": 585 },
+               "s": { "POSITION": 583, "NORMAL": 584, "TEXCOORD_0": 585 },
                "indices": 3,
                "material": 194
             }
@@ -8515,7 +8515,7 @@
          "name": "Cube.205",
          "primitives": [
             {
-               "attributes": { "POSITION": 586, "NORMAL": 587, "TEXCOORD_0": 588 },
+               "s": { "POSITION": 586, "NORMAL": 587, "TEXCOORD_0": 588 },
                "indices": 3,
                "material": 195
             }
@@ -8525,7 +8525,7 @@
          "name": "Cube.206",
          "primitives": [
             {
-               "attributes": { "POSITION": 589, "NORMAL": 590, "TEXCOORD_0": 591 },
+               "s": { "POSITION": 589, "NORMAL": 590, "TEXCOORD_0": 591 },
                "indices": 3,
                "material": 196
             }
@@ -8535,7 +8535,7 @@
          "name": "Cube.207",
          "primitives": [
             {
-               "attributes": { "POSITION": 592, "NORMAL": 593, "TEXCOORD_0": 594 },
+               "s": { "POSITION": 592, "NORMAL": 593, "TEXCOORD_0": 594 },
                "indices": 3,
                "material": 197
             }
@@ -8545,7 +8545,7 @@
          "name": "Cube.208",
          "primitives": [
             {
-               "attributes": { "POSITION": 595, "NORMAL": 596, "TEXCOORD_0": 597 },
+               "s": { "POSITION": 595, "NORMAL": 596, "TEXCOORD_0": 597 },
                "indices": 3,
                "material": 198
             }
@@ -8555,7 +8555,7 @@
          "name": "Cube.209",
          "primitives": [
             {
-               "attributes": { "POSITION": 598, "NORMAL": 599, "TEXCOORD_0": 600 },
+               "s": { "POSITION": 598, "NORMAL": 599, "TEXCOORD_0": 600 },
                "indices": 3,
                "material": 199
             }
@@ -8565,7 +8565,7 @@
          "name": "Cube.210",
          "primitives": [
             {
-               "attributes": { "POSITION": 601, "NORMAL": 602, "TEXCOORD_0": 603 },
+               "s": { "POSITION": 601, "NORMAL": 602, "TEXCOORD_0": 603 },
                "indices": 3,
                "material": 200
             }
@@ -8575,7 +8575,7 @@
          "name": "Cube.211",
          "primitives": [
             {
-               "attributes": { "POSITION": 604, "NORMAL": 605, "TEXCOORD_0": 606 },
+               "s": { "POSITION": 604, "NORMAL": 605, "TEXCOORD_0": 606 },
                "indices": 3,
                "material": 201
             }
@@ -8585,7 +8585,7 @@
          "name": "Cube.212",
          "primitives": [
             {
-               "attributes": { "POSITION": 607, "NORMAL": 608, "TEXCOORD_0": 609 },
+               "s": { "POSITION": 607, "NORMAL": 608, "TEXCOORD_0": 609 },
                "indices": 3,
                "material": 202
             }
@@ -8595,7 +8595,7 @@
          "name": "Cube.213",
          "primitives": [
             {
-               "attributes": { "POSITION": 610, "NORMAL": 611, "TEXCOORD_0": 612 },
+               "s": { "POSITION": 610, "NORMAL": 611, "TEXCOORD_0": 612 },
                "indices": 3,
                "material": 203
             }
@@ -8605,7 +8605,7 @@
          "name": "Cube.214",
          "primitives": [
             {
-               "attributes": { "POSITION": 613, "NORMAL": 614, "TEXCOORD_0": 615 },
+               "s": { "POSITION": 613, "NORMAL": 614, "TEXCOORD_0": 615 },
                "indices": 3,
                "material": 204
             }
@@ -8615,7 +8615,7 @@
          "name": "Cube.215",
          "primitives": [
             {
-               "attributes": { "POSITION": 616, "NORMAL": 617, "TEXCOORD_0": 618 },
+               "s": { "POSITION": 616, "NORMAL": 617, "TEXCOORD_0": 618 },
                "indices": 3,
                "material": 205
             }
@@ -8625,7 +8625,7 @@
          "name": "Cube.216",
          "primitives": [
             {
-               "attributes": { "POSITION": 619, "NORMAL": 620, "TEXCOORD_0": 621 },
+               "s": { "POSITION": 619, "NORMAL": 620, "TEXCOORD_0": 621 },
                "indices": 3,
                "material": 206
             }
@@ -8635,7 +8635,7 @@
          "name": "Cube.218",
          "primitives": [
             {
-               "attributes": { "POSITION": 622, "NORMAL": 623, "TEXCOORD_0": 624 },
+               "s": { "POSITION": 622, "NORMAL": 623, "TEXCOORD_0": 624 },
                "indices": 3,
                "material": 207
             }
@@ -8645,7 +8645,7 @@
          "name": "Cube.219",
          "primitives": [
             {
-               "attributes": { "POSITION": 625, "NORMAL": 626, "TEXCOORD_0": 627 },
+               "s": { "POSITION": 625, "NORMAL": 626, "TEXCOORD_0": 627 },
                "indices": 3,
                "material": 208
             }
@@ -8655,7 +8655,7 @@
          "name": "Cube.221",
          "primitives": [
             {
-               "attributes": { "POSITION": 628, "NORMAL": 629, "TEXCOORD_0": 630 },
+               "s": { "POSITION": 628, "NORMAL": 629, "TEXCOORD_0": 630 },
                "indices": 3,
                "material": 209
             }
@@ -8665,7 +8665,7 @@
          "name": "Cube.222",
          "primitives": [
             {
-               "attributes": { "POSITION": 631, "NORMAL": 632, "TEXCOORD_0": 633 },
+               "s": { "POSITION": 631, "NORMAL": 632, "TEXCOORD_0": 633 },
                "indices": 3,
                "material": 210
             }
@@ -8675,7 +8675,7 @@
          "name": "Cube.223",
          "primitives": [
             {
-               "attributes": { "POSITION": 634, "NORMAL": 635, "TEXCOORD_0": 636 },
+               "s": { "POSITION": 634, "NORMAL": 635, "TEXCOORD_0": 636 },
                "indices": 3,
                "material": 211
             }
@@ -8685,7 +8685,7 @@
          "name": "Cube.224",
          "primitives": [
             {
-               "attributes": { "POSITION": 637, "NORMAL": 638, "TEXCOORD_0": 639 },
+               "s": { "POSITION": 637, "NORMAL": 638, "TEXCOORD_0": 639 },
                "indices": 3,
                "material": 212
             }
@@ -8695,7 +8695,7 @@
          "name": "Cube.225",
          "primitives": [
             {
-               "attributes": { "POSITION": 640, "NORMAL": 641, "TEXCOORD_0": 642 },
+               "s": { "POSITION": 640, "NORMAL": 641, "TEXCOORD_0": 642 },
                "indices": 3,
                "material": 213
             }
@@ -8705,7 +8705,7 @@
          "name": "Cube.226",
          "primitives": [
             {
-               "attributes": { "POSITION": 643, "NORMAL": 644, "TEXCOORD_0": 645 },
+               "s": { "POSITION": 643, "NORMAL": 644, "TEXCOORD_0": 645 },
                "indices": 3,
                "material": 214
             }
@@ -8715,7 +8715,7 @@
          "name": "Cube.227",
          "primitives": [
             {
-               "attributes": { "POSITION": 646, "NORMAL": 647, "TEXCOORD_0": 648 },
+               "s": { "POSITION": 646, "NORMAL": 647, "TEXCOORD_0": 648 },
                "indices": 3,
                "material": 215
             }
@@ -8725,7 +8725,7 @@
          "name": "Cube.228",
          "primitives": [
             {
-               "attributes": { "POSITION": 649, "NORMAL": 650, "TEXCOORD_0": 651 },
+               "s": { "POSITION": 649, "NORMAL": 650, "TEXCOORD_0": 651 },
                "indices": 3,
                "material": 216
             }
@@ -8735,7 +8735,7 @@
          "name": "Cube.229",
          "primitives": [
             {
-               "attributes": { "POSITION": 652, "NORMAL": 653, "TEXCOORD_0": 654 },
+               "s": { "POSITION": 652, "NORMAL": 653, "TEXCOORD_0": 654 },
                "indices": 3,
                "material": 217
             }
@@ -8745,7 +8745,7 @@
          "name": "Cube.230",
          "primitives": [
             {
-               "attributes": { "POSITION": 655, "NORMAL": 656, "TEXCOORD_0": 657 },
+               "s": { "POSITION": 655, "NORMAL": 656, "TEXCOORD_0": 657 },
                "indices": 3,
                "material": 218
             }
@@ -8755,7 +8755,7 @@
          "name": "Cube.231",
          "primitives": [
             {
-               "attributes": { "POSITION": 658, "NORMAL": 659, "TEXCOORD_0": 660 },
+               "s": { "POSITION": 658, "NORMAL": 659, "TEXCOORD_0": 660 },
                "indices": 3,
                "material": 219
             }
@@ -8765,7 +8765,7 @@
          "name": "Cube.232",
          "primitives": [
             {
-               "attributes": { "POSITION": 661, "NORMAL": 662, "TEXCOORD_0": 663 },
+               "s": { "POSITION": 661, "NORMAL": 662, "TEXCOORD_0": 663 },
                "indices": 3,
                "material": 220
             }
@@ -8775,7 +8775,7 @@
          "name": "Cube.233",
          "primitives": [
             {
-               "attributes": { "POSITION": 664, "NORMAL": 665, "TEXCOORD_0": 666 },
+               "s": { "POSITION": 664, "NORMAL": 665, "TEXCOORD_0": 666 },
                "indices": 3,
                "material": 221
             }
@@ -8785,7 +8785,7 @@
          "name": "Cube.234",
          "primitives": [
             {
-               "attributes": { "POSITION": 667, "NORMAL": 668, "TEXCOORD_0": 669 },
+               "s": { "POSITION": 667, "NORMAL": 668, "TEXCOORD_0": 669 },
                "indices": 3,
                "material": 222
             }
@@ -8795,7 +8795,7 @@
          "name": "Cube.235",
          "primitives": [
             {
-               "attributes": { "POSITION": 670, "NORMAL": 671, "TEXCOORD_0": 672 },
+               "s": { "POSITION": 670, "NORMAL": 671, "TEXCOORD_0": 672 },
                "indices": 3,
                "material": 223
             }
@@ -8805,7 +8805,7 @@
          "name": "Cube.236",
          "primitives": [
             {
-               "attributes": { "POSITION": 673, "NORMAL": 674, "TEXCOORD_0": 675 },
+               "s": { "POSITION": 673, "NORMAL": 674, "TEXCOORD_0": 675 },
                "indices": 3,
                "material": 224
             }
@@ -8815,7 +8815,7 @@
          "name": "Cube.237",
          "primitives": [
             {
-               "attributes": { "POSITION": 676, "NORMAL": 677, "TEXCOORD_0": 678 },
+               "s": { "POSITION": 676, "NORMAL": 677, "TEXCOORD_0": 678 },
                "indices": 3,
                "material": 225
             }
@@ -8825,7 +8825,7 @@
          "name": "Cube.238",
          "primitives": [
             {
-               "attributes": { "POSITION": 679, "NORMAL": 680, "TEXCOORD_0": 681 },
+               "s": { "POSITION": 679, "NORMAL": 680, "TEXCOORD_0": 681 },
                "indices": 3,
                "material": 226
             }
@@ -8835,7 +8835,7 @@
          "name": "Cube.239",
          "primitives": [
             {
-               "attributes": { "POSITION": 682, "NORMAL": 683, "TEXCOORD_0": 684 },
+               "s": { "POSITION": 682, "NORMAL": 683, "TEXCOORD_0": 684 },
                "indices": 3,
                "material": 227
             }
@@ -8845,7 +8845,7 @@
          "name": "Cube.240",
          "primitives": [
             {
-               "attributes": { "POSITION": 685, "NORMAL": 686, "TEXCOORD_0": 687 },
+               "s": { "POSITION": 685, "NORMAL": 686, "TEXCOORD_0": 687 },
                "indices": 3,
                "material": 228
             }
@@ -8855,7 +8855,7 @@
          "name": "Cube.241",
          "primitives": [
             {
-               "attributes": { "POSITION": 688, "NORMAL": 689, "TEXCOORD_0": 690 },
+               "s": { "POSITION": 688, "NORMAL": 689, "TEXCOORD_0": 690 },
                "indices": 3,
                "material": 229
             }
@@ -8865,7 +8865,7 @@
          "name": "Cube.242",
          "primitives": [
             {
-               "attributes": { "POSITION": 691, "NORMAL": 692, "TEXCOORD_0": 693 },
+               "s": { "POSITION": 691, "NORMAL": 692, "TEXCOORD_0": 693 },
                "indices": 3,
                "material": 230
             }
@@ -8875,7 +8875,7 @@
          "name": "Cube.243",
          "primitives": [
             {
-               "attributes": { "POSITION": 694, "NORMAL": 695, "TEXCOORD_0": 696 },
+               "s": { "POSITION": 694, "NORMAL": 695, "TEXCOORD_0": 696 },
                "indices": 3,
                "material": 231
             }
@@ -8885,7 +8885,7 @@
          "name": "Cube.244",
          "primitives": [
             {
-               "attributes": { "POSITION": 697, "NORMAL": 698, "TEXCOORD_0": 699 },
+               "s": { "POSITION": 697, "NORMAL": 698, "TEXCOORD_0": 699 },
                "indices": 3,
                "material": 232
             }
@@ -8895,7 +8895,7 @@
          "name": "Cube.245",
          "primitives": [
             {
-               "attributes": { "POSITION": 700, "NORMAL": 701, "TEXCOORD_0": 702 },
+               "s": { "POSITION": 700, "NORMAL": 701, "TEXCOORD_0": 702 },
                "indices": 3,
                "material": 233
             }
@@ -8905,7 +8905,7 @@
          "name": "Cube.246",
          "primitives": [
             {
-               "attributes": { "POSITION": 703, "NORMAL": 704, "TEXCOORD_0": 705 },
+               "s": { "POSITION": 703, "NORMAL": 704, "TEXCOORD_0": 705 },
                "indices": 3,
                "material": 234
             }
@@ -8915,7 +8915,7 @@
          "name": "Cube.247",
          "primitives": [
             {
-               "attributes": { "POSITION": 706, "NORMAL": 707, "TEXCOORD_0": 708 },
+               "s": { "POSITION": 706, "NORMAL": 707, "TEXCOORD_0": 708 },
                "indices": 3,
                "material": 235
             }
@@ -8925,7 +8925,7 @@
          "name": "Cube.248",
          "primitives": [
             {
-               "attributes": { "POSITION": 709, "NORMAL": 710, "TEXCOORD_0": 711 },
+               "s": { "POSITION": 709, "NORMAL": 710, "TEXCOORD_0": 711 },
                "indices": 3,
                "material": 236
             }
@@ -8935,7 +8935,7 @@
          "name": "Cube.249",
          "primitives": [
             {
-               "attributes": { "POSITION": 712, "NORMAL": 713, "TEXCOORD_0": 714 },
+               "s": { "POSITION": 712, "NORMAL": 713, "TEXCOORD_0": 714 },
                "indices": 3,
                "material": 237
             }
@@ -8945,7 +8945,7 @@
          "name": "Cube.250",
          "primitives": [
             {
-               "attributes": { "POSITION": 715, "NORMAL": 716, "TEXCOORD_0": 717 },
+               "s": { "POSITION": 715, "NORMAL": 716, "TEXCOORD_0": 717 },
                "indices": 3,
                "material": 238
             }
@@ -8955,7 +8955,7 @@
          "name": "Cube.251",
          "primitives": [
             {
-               "attributes": { "POSITION": 718, "NORMAL": 719, "TEXCOORD_0": 720 },
+               "s": { "POSITION": 718, "NORMAL": 719, "TEXCOORD_0": 720 },
                "indices": 3,
                "material": 239
             }
@@ -8965,7 +8965,7 @@
          "name": "Cube.252",
          "primitives": [
             {
-               "attributes": { "POSITION": 721, "NORMAL": 722, "TEXCOORD_0": 723 },
+               "s": { "POSITION": 721, "NORMAL": 722, "TEXCOORD_0": 723 },
                "indices": 3,
                "material": 240
             }
@@ -8975,7 +8975,7 @@
          "name": "Cube.253",
          "primitives": [
             {
-               "attributes": { "POSITION": 724, "NORMAL": 725, "TEXCOORD_0": 726 },
+               "s": { "POSITION": 724, "NORMAL": 725, "TEXCOORD_0": 726 },
                "indices": 3,
                "material": 241
             }
@@ -8985,7 +8985,7 @@
          "name": "Cube.254",
          "primitives": [
             {
-               "attributes": { "POSITION": 727, "NORMAL": 728, "TEXCOORD_0": 729 },
+               "s": { "POSITION": 727, "NORMAL": 728, "TEXCOORD_0": 729 },
                "indices": 3,
                "material": 242
             }
@@ -8995,7 +8995,7 @@
          "name": "Cube.255",
          "primitives": [
             {
-               "attributes": { "POSITION": 730, "NORMAL": 731, "TEXCOORD_0": 732 },
+               "s": { "POSITION": 730, "NORMAL": 731, "TEXCOORD_0": 732 },
                "indices": 3,
                "material": 243
             }
@@ -9005,7 +9005,7 @@
          "name": "Cube.256",
          "primitives": [
             {
-               "attributes": { "POSITION": 733, "NORMAL": 734, "TEXCOORD_0": 735 },
+               "s": { "POSITION": 733, "NORMAL": 734, "TEXCOORD_0": 735 },
                "indices": 3,
                "material": 244
             }
@@ -9015,7 +9015,7 @@
          "name": "Cube.257",
          "primitives": [
             {
-               "attributes": { "POSITION": 736, "NORMAL": 737, "TEXCOORD_0": 738 },
+               "s": { "POSITION": 736, "NORMAL": 737, "TEXCOORD_0": 738 },
                "indices": 3,
                "material": 245
             }
@@ -9025,7 +9025,7 @@
          "name": "Cube.258",
          "primitives": [
             {
-               "attributes": { "POSITION": 739, "NORMAL": 740, "TEXCOORD_0": 741 },
+               "s": { "POSITION": 739, "NORMAL": 740, "TEXCOORD_0": 741 },
                "indices": 3,
                "material": 246
             }
@@ -9035,7 +9035,7 @@
          "name": "Cube.259",
          "primitives": [
             {
-               "attributes": { "POSITION": 742, "NORMAL": 743, "TEXCOORD_0": 744 },
+               "s": { "POSITION": 742, "NORMAL": 743, "TEXCOORD_0": 744 },
                "indices": 3,
                "material": 247
             }
@@ -9045,7 +9045,7 @@
          "name": "Cube.260",
          "primitives": [
             {
-               "attributes": { "POSITION": 745, "NORMAL": 746, "TEXCOORD_0": 747 },
+               "s": { "POSITION": 745, "NORMAL": 746, "TEXCOORD_0": 747 },
                "indices": 3,
                "material": 248
             }
@@ -9055,7 +9055,7 @@
          "name": "Cube.261",
          "primitives": [
             {
-               "attributes": { "POSITION": 748, "NORMAL": 749, "TEXCOORD_0": 750 },
+               "s": { "POSITION": 748, "NORMAL": 749, "TEXCOORD_0": 750 },
                "indices": 3,
                "material": 249
             }
@@ -9065,7 +9065,7 @@
          "name": "Cube.262",
          "primitives": [
             {
-               "attributes": { "POSITION": 751, "NORMAL": 752, "TEXCOORD_0": 753 },
+               "s": { "POSITION": 751, "NORMAL": 752, "TEXCOORD_0": 753 },
                "indices": 3,
                "material": 250
             }
@@ -9075,7 +9075,7 @@
          "name": "Cube.263",
          "primitives": [
             {
-               "attributes": { "POSITION": 754, "NORMAL": 755, "TEXCOORD_0": 756 },
+               "s": { "POSITION": 754, "NORMAL": 755, "TEXCOORD_0": 756 },
                "indices": 3,
                "material": 251
             }
@@ -9085,7 +9085,7 @@
          "name": "Cube.264",
          "primitives": [
             {
-               "attributes": { "POSITION": 757, "NORMAL": 758, "TEXCOORD_0": 759 },
+               "s": { "POSITION": 757, "NORMAL": 758, "TEXCOORD_0": 759 },
                "indices": 3,
                "material": 252
             }
@@ -9095,7 +9095,7 @@
          "name": "Cube.265",
          "primitives": [
             {
-               "attributes": { "POSITION": 760, "NORMAL": 761, "TEXCOORD_0": 762 },
+               "s": { "POSITION": 760, "NORMAL": 761, "TEXCOORD_0": 762 },
                "indices": 3,
                "material": 253
             }
@@ -9105,7 +9105,7 @@
          "name": "Cube.266",
          "primitives": [
             {
-               "attributes": { "POSITION": 763, "NORMAL": 764, "TEXCOORD_0": 765 },
+               "s": { "POSITION": 763, "NORMAL": 764, "TEXCOORD_0": 765 },
                "indices": 3,
                "material": 254
             }
@@ -9115,7 +9115,7 @@
          "name": "Cube.267",
          "primitives": [
             {
-               "attributes": { "POSITION": 766, "NORMAL": 767, "TEXCOORD_0": 768 },
+               "s": { "POSITION": 766, "NORMAL": 767, "TEXCOORD_0": 768 },
                "indices": 3,
                "material": 255
             }
@@ -9125,7 +9125,7 @@
          "name": "Cube.268",
          "primitives": [
             {
-               "attributes": { "POSITION": 769, "NORMAL": 770, "TEXCOORD_0": 771 },
+               "s": { "POSITION": 769, "NORMAL": 770, "TEXCOORD_0": 771 },
                "indices": 3,
                "material": 256
             }
@@ -9135,7 +9135,7 @@
          "name": "Cube.269",
          "primitives": [
             {
-               "attributes": { "POSITION": 772, "NORMAL": 773, "TEXCOORD_0": 774 },
+               "s": { "POSITION": 772, "NORMAL": 773, "TEXCOORD_0": 774 },
                "indices": 3,
                "material": 257
             }
@@ -9145,7 +9145,7 @@
          "name": "Cube.270",
          "primitives": [
             {
-               "attributes": { "POSITION": 775, "NORMAL": 776, "TEXCOORD_0": 777 },
+               "s": { "POSITION": 775, "NORMAL": 776, "TEXCOORD_0": 777 },
                "indices": 3,
                "material": 258
             }
@@ -9155,7 +9155,7 @@
          "name": "Cube.271",
          "primitives": [
             {
-               "attributes": { "POSITION": 778, "NORMAL": 779, "TEXCOORD_0": 780 },
+               "s": { "POSITION": 778, "NORMAL": 779, "TEXCOORD_0": 780 },
                "indices": 3,
                "material": 259
             }
@@ -9165,7 +9165,7 @@
          "name": "Cube.272",
          "primitives": [
             {
-               "attributes": { "POSITION": 781, "NORMAL": 782, "TEXCOORD_0": 783 },
+               "s": { "POSITION": 781, "NORMAL": 782, "TEXCOORD_0": 783 },
                "indices": 3,
                "material": 260
             }
@@ -9175,7 +9175,7 @@
          "name": "Cube.273",
          "primitives": [
             {
-               "attributes": { "POSITION": 784, "NORMAL": 785, "TEXCOORD_0": 786 },
+               "s": { "POSITION": 784, "NORMAL": 785, "TEXCOORD_0": 786 },
                "indices": 3,
                "material": 261
             }
@@ -9185,7 +9185,7 @@
          "name": "Cube.274",
          "primitives": [
             {
-               "attributes": { "POSITION": 787, "NORMAL": 788, "TEXCOORD_0": 789 },
+               "s": { "POSITION": 787, "NORMAL": 788, "TEXCOORD_0": 789 },
                "indices": 3,
                "material": 262
             }
@@ -9195,7 +9195,7 @@
          "name": "Cube.275",
          "primitives": [
             {
-               "attributes": { "POSITION": 790, "NORMAL": 791, "TEXCOORD_0": 792 },
+               "s": { "POSITION": 790, "NORMAL": 791, "TEXCOORD_0": 792 },
                "indices": 3,
                "material": 263
             }
@@ -9205,7 +9205,7 @@
          "name": "Cube.276",
          "primitives": [
             {
-               "attributes": { "POSITION": 793, "NORMAL": 794, "TEXCOORD_0": 795 },
+               "s": { "POSITION": 793, "NORMAL": 794, "TEXCOORD_0": 795 },
                "indices": 3,
                "material": 264
             }
@@ -9215,7 +9215,7 @@
          "name": "Cube.277",
          "primitives": [
             {
-               "attributes": { "POSITION": 796, "NORMAL": 797, "TEXCOORD_0": 798 },
+               "s": { "POSITION": 796, "NORMAL": 797, "TEXCOORD_0": 798 },
                "indices": 3,
                "material": 265
             }
@@ -9225,7 +9225,7 @@
          "name": "Cube.278",
          "primitives": [
             {
-               "attributes": { "POSITION": 799, "NORMAL": 800, "TEXCOORD_0": 801 },
+               "s": { "POSITION": 799, "NORMAL": 800, "TEXCOORD_0": 801 },
                "indices": 3,
                "material": 266
             }
@@ -9235,7 +9235,7 @@
          "name": "Cube.279",
          "primitives": [
             {
-               "attributes": { "POSITION": 802, "NORMAL": 803, "TEXCOORD_0": 804 },
+               "s": { "POSITION": 802, "NORMAL": 803, "TEXCOORD_0": 804 },
                "indices": 3,
                "material": 267
             }
@@ -9245,7 +9245,7 @@
          "name": "Cube.280",
          "primitives": [
             {
-               "attributes": { "POSITION": 805, "NORMAL": 806, "TEXCOORD_0": 807 },
+               "s": { "POSITION": 805, "NORMAL": 806, "TEXCOORD_0": 807 },
                "indices": 3,
                "material": 268
             }
@@ -9255,7 +9255,7 @@
          "name": "Cube.281",
          "primitives": [
             {
-               "attributes": { "POSITION": 808, "NORMAL": 809, "TEXCOORD_0": 810 },
+               "s": { "POSITION": 808, "NORMAL": 809, "TEXCOORD_0": 810 },
                "indices": 3,
                "material": 269
             }
@@ -9265,7 +9265,7 @@
          "name": "Cube.282",
          "primitives": [
             {
-               "attributes": { "POSITION": 811, "NORMAL": 812, "TEXCOORD_0": 813 },
+               "s": { "POSITION": 811, "NORMAL": 812, "TEXCOORD_0": 813 },
                "indices": 3,
                "material": 270
             }
@@ -9275,7 +9275,7 @@
          "name": "Cube.283",
          "primitives": [
             {
-               "attributes": { "POSITION": 814, "NORMAL": 815, "TEXCOORD_0": 816 },
+               "s": { "POSITION": 814, "NORMAL": 815, "TEXCOORD_0": 816 },
                "indices": 3,
                "material": 271
             }
@@ -9285,7 +9285,7 @@
          "name": "Cube.284",
          "primitives": [
             {
-               "attributes": { "POSITION": 817, "NORMAL": 818, "TEXCOORD_0": 819 },
+               "s": { "POSITION": 817, "NORMAL": 818, "TEXCOORD_0": 819 },
                "indices": 3,
                "material": 272
             }
@@ -9295,7 +9295,7 @@
          "name": "Cube.285",
          "primitives": [
             {
-               "attributes": { "POSITION": 820, "NORMAL": 821, "TEXCOORD_0": 822 },
+               "s": { "POSITION": 820, "NORMAL": 821, "TEXCOORD_0": 822 },
                "indices": 3,
                "material": 273
             }
@@ -9305,7 +9305,7 @@
          "name": "Cube.286",
          "primitives": [
             {
-               "attributes": { "POSITION": 823, "NORMAL": 824, "TEXCOORD_0": 825 },
+               "s": { "POSITION": 823, "NORMAL": 824, "TEXCOORD_0": 825 },
                "indices": 3,
                "material": 274
             }
@@ -9315,7 +9315,7 @@
          "name": "Cube.288",
          "primitives": [
             {
-               "attributes": { "POSITION": 826, "NORMAL": 827, "TEXCOORD_0": 828 },
+               "s": { "POSITION": 826, "NORMAL": 827, "TEXCOORD_0": 828 },
                "indices": 3,
                "material": 275
             }
@@ -9325,7 +9325,7 @@
          "name": "Cube.289",
          "primitives": [
             {
-               "attributes": { "POSITION": 829, "NORMAL": 830, "TEXCOORD_0": 831 },
+               "s": { "POSITION": 829, "NORMAL": 830, "TEXCOORD_0": 831 },
                "indices": 3,
                "material": 276
             }
@@ -9335,7 +9335,7 @@
          "name": "Cube.290",
          "primitives": [
             {
-               "attributes": { "POSITION": 832, "NORMAL": 833, "TEXCOORD_0": 834 },
+               "s": { "POSITION": 832, "NORMAL": 833, "TEXCOORD_0": 834 },
                "indices": 3,
                "material": 277
             }
@@ -9345,7 +9345,7 @@
          "name": "Cube.291",
          "primitives": [
             {
-               "attributes": { "POSITION": 835, "NORMAL": 836, "TEXCOORD_0": 837 },
+               "s": { "POSITION": 835, "NORMAL": 836, "TEXCOORD_0": 837 },
                "indices": 3,
                "material": 278
             }
@@ -9355,7 +9355,7 @@
          "name": "Cube.292",
          "primitives": [
             {
-               "attributes": { "POSITION": 838, "NORMAL": 839, "TEXCOORD_0": 840 },
+               "s": { "POSITION": 838, "NORMAL": 839, "TEXCOORD_0": 840 },
                "indices": 3,
                "material": 279
             }
@@ -9365,7 +9365,7 @@
          "name": "Cube.293",
          "primitives": [
             {
-               "attributes": { "POSITION": 841, "NORMAL": 842, "TEXCOORD_0": 843 },
+               "s": { "POSITION": 841, "NORMAL": 842, "TEXCOORD_0": 843 },
                "indices": 3,
                "material": 280
             }
@@ -9375,7 +9375,7 @@
          "name": "Cube.294",
          "primitives": [
             {
-               "attributes": { "POSITION": 844, "NORMAL": 845, "TEXCOORD_0": 846 },
+               "s": { "POSITION": 844, "NORMAL": 845, "TEXCOORD_0": 846 },
                "indices": 3,
                "material": 281
             }
@@ -9385,7 +9385,7 @@
          "name": "Cube.295",
          "primitives": [
             {
-               "attributes": { "POSITION": 847, "NORMAL": 848, "TEXCOORD_0": 849 },
+               "s": { "POSITION": 847, "NORMAL": 848, "TEXCOORD_0": 849 },
                "indices": 3,
                "material": 282
             }
@@ -9395,7 +9395,7 @@
          "name": "Cube.296",
          "primitives": [
             {
-               "attributes": { "POSITION": 850, "NORMAL": 851, "TEXCOORD_0": 852 },
+               "s": { "POSITION": 850, "NORMAL": 851, "TEXCOORD_0": 852 },
                "indices": 3,
                "material": 283
             }
@@ -9405,7 +9405,7 @@
          "name": "Cube.297",
          "primitives": [
             {
-               "attributes": { "POSITION": 853, "NORMAL": 854, "TEXCOORD_0": 855 },
+               "s": { "POSITION": 853, "NORMAL": 854, "TEXCOORD_0": 855 },
                "indices": 3,
                "material": 284
             }
@@ -9415,7 +9415,7 @@
          "name": "Cube.298",
          "primitives": [
             {
-               "attributes": { "POSITION": 856, "NORMAL": 857, "TEXCOORD_0": 858 },
+               "s": { "POSITION": 856, "NORMAL": 857, "TEXCOORD_0": 858 },
                "indices": 3,
                "material": 285
             }
@@ -9425,7 +9425,7 @@
          "name": "Cube.299",
          "primitives": [
             {
-               "attributes": { "POSITION": 859, "NORMAL": 860, "TEXCOORD_0": 861 },
+               "s": { "POSITION": 859, "NORMAL": 860, "TEXCOORD_0": 861 },
                "indices": 3,
                "material": 286
             }
@@ -9435,7 +9435,7 @@
          "name": "Cube.300",
          "primitives": [
             {
-               "attributes": { "POSITION": 862, "NORMAL": 863, "TEXCOORD_0": 864 },
+               "s": { "POSITION": 862, "NORMAL": 863, "TEXCOORD_0": 864 },
                "indices": 3,
                "material": 287
             }
@@ -9445,7 +9445,7 @@
          "name": "Cube.301",
          "primitives": [
             {
-               "attributes": { "POSITION": 865, "NORMAL": 866, "TEXCOORD_0": 867 },
+               "s": { "POSITION": 865, "NORMAL": 866, "TEXCOORD_0": 867 },
                "indices": 3,
                "material": 288
             }
@@ -9455,7 +9455,7 @@
          "name": "Cube.302",
          "primitives": [
             {
-               "attributes": { "POSITION": 868, "NORMAL": 869, "TEXCOORD_0": 870 },
+               "s": { "POSITION": 868, "NORMAL": 869, "TEXCOORD_0": 870 },
                "indices": 3,
                "material": 289
             }
@@ -9465,7 +9465,7 @@
          "name": "Cube.303",
          "primitives": [
             {
-               "attributes": { "POSITION": 871, "NORMAL": 872, "TEXCOORD_0": 873 },
+               "s": { "POSITION": 871, "NORMAL": 872, "TEXCOORD_0": 873 },
                "indices": 3,
                "material": 290
             }
@@ -9475,7 +9475,7 @@
          "name": "Cube.304",
          "primitives": [
             {
-               "attributes": { "POSITION": 874, "NORMAL": 875, "TEXCOORD_0": 876 },
+               "s": { "POSITION": 874, "NORMAL": 875, "TEXCOORD_0": 876 },
                "indices": 3,
                "material": 291
             }
@@ -9485,7 +9485,7 @@
          "name": "Cube.305",
          "primitives": [
             {
-               "attributes": { "POSITION": 877, "NORMAL": 878, "TEXCOORD_0": 879 },
+               "s": { "POSITION": 877, "NORMAL": 878, "TEXCOORD_0": 879 },
                "indices": 3,
                "material": 292
             }
@@ -9495,7 +9495,7 @@
          "name": "Cube.306",
          "primitives": [
             {
-               "attributes": { "POSITION": 880, "NORMAL": 881, "TEXCOORD_0": 882 },
+               "s": { "POSITION": 880, "NORMAL": 881, "TEXCOORD_0": 882 },
                "indices": 3,
                "material": 293
             }
@@ -9505,7 +9505,7 @@
          "name": "Cube.307",
          "primitives": [
             {
-               "attributes": { "POSITION": 883, "NORMAL": 884, "TEXCOORD_0": 885 },
+               "s": { "POSITION": 883, "NORMAL": 884, "TEXCOORD_0": 885 },
                "indices": 3,
                "material": 294
             }
@@ -9515,7 +9515,7 @@
          "name": "Cube.308",
          "primitives": [
             {
-               "attributes": { "POSITION": 886, "NORMAL": 887, "TEXCOORD_0": 888 },
+               "s": { "POSITION": 886, "NORMAL": 887, "TEXCOORD_0": 888 },
                "indices": 3,
                "material": 295
             }
@@ -9525,7 +9525,7 @@
          "name": "Cube.309",
          "primitives": [
             {
-               "attributes": { "POSITION": 889, "NORMAL": 890, "TEXCOORD_0": 891 },
+               "s": { "POSITION": 889, "NORMAL": 890, "TEXCOORD_0": 891 },
                "indices": 3,
                "material": 296
             }
@@ -9535,7 +9535,7 @@
          "name": "Cube.310",
          "primitives": [
             {
-               "attributes": { "POSITION": 892, "NORMAL": 893, "TEXCOORD_0": 894 },
+               "s": { "POSITION": 892, "NORMAL": 893, "TEXCOORD_0": 894 },
                "indices": 3,
                "material": 297
             }
@@ -9545,7 +9545,7 @@
          "name": "Cube.311",
          "primitives": [
             {
-               "attributes": { "POSITION": 895, "NORMAL": 896, "TEXCOORD_0": 897 },
+               "s": { "POSITION": 895, "NORMAL": 896, "TEXCOORD_0": 897 },
                "indices": 3,
                "material": 298
             }
@@ -9555,7 +9555,7 @@
          "name": "Cube.312",
          "primitives": [
             {
-               "attributes": { "POSITION": 898, "NORMAL": 899, "TEXCOORD_0": 900 },
+               "s": { "POSITION": 898, "NORMAL": 899, "TEXCOORD_0": 900 },
                "indices": 3,
                "material": 299
             }
@@ -9565,7 +9565,7 @@
          "name": "Cube.313",
          "primitives": [
             {
-               "attributes": { "POSITION": 901, "NORMAL": 902, "TEXCOORD_0": 903 },
+               "s": { "POSITION": 901, "NORMAL": 902, "TEXCOORD_0": 903 },
                "indices": 3,
                "material": 300
             }
@@ -9575,7 +9575,7 @@
          "name": "Cube.314",
          "primitives": [
             {
-               "attributes": { "POSITION": 904, "NORMAL": 905, "TEXCOORD_0": 906 },
+               "s": { "POSITION": 904, "NORMAL": 905, "TEXCOORD_0": 906 },
                "indices": 3,
                "material": 301
             }
@@ -9585,7 +9585,7 @@
          "name": "Cube.315",
          "primitives": [
             {
-               "attributes": { "POSITION": 907, "NORMAL": 908, "TEXCOORD_0": 909 },
+               "s": { "POSITION": 907, "NORMAL": 908, "TEXCOORD_0": 909 },
                "indices": 3,
                "material": 302
             }
@@ -9595,7 +9595,7 @@
          "name": "Cube.316",
          "primitives": [
             {
-               "attributes": { "POSITION": 910, "NORMAL": 911, "TEXCOORD_0": 912 },
+               "s": { "POSITION": 910, "NORMAL": 911, "TEXCOORD_0": 912 },
                "indices": 3,
                "material": 303
             }
@@ -9605,7 +9605,7 @@
          "name": "Cube.317",
          "primitives": [
             {
-               "attributes": { "POSITION": 913, "NORMAL": 914, "TEXCOORD_0": 915 },
+               "s": { "POSITION": 913, "NORMAL": 914, "TEXCOORD_0": 915 },
                "indices": 3,
                "material": 304
             }
@@ -9615,7 +9615,7 @@
          "name": "Cube.318",
          "primitives": [
             {
-               "attributes": { "POSITION": 916, "NORMAL": 917, "TEXCOORD_0": 918 },
+               "s": { "POSITION": 916, "NORMAL": 917, "TEXCOORD_0": 918 },
                "indices": 3,
                "material": 305
             }
@@ -9625,7 +9625,7 @@
          "name": "Cube.319",
          "primitives": [
             {
-               "attributes": { "POSITION": 919, "NORMAL": 920, "TEXCOORD_0": 921 },
+               "s": { "POSITION": 919, "NORMAL": 920, "TEXCOORD_0": 921 },
                "indices": 3,
                "material": 306
             }
@@ -9635,7 +9635,7 @@
          "name": "Cube.320",
          "primitives": [
             {
-               "attributes": { "POSITION": 922, "NORMAL": 923, "TEXCOORD_0": 924 },
+               "s": { "POSITION": 922, "NORMAL": 923, "TEXCOORD_0": 924 },
                "indices": 3,
                "material": 307
             }
@@ -9645,7 +9645,7 @@
          "name": "Cube.321",
          "primitives": [
             {
-               "attributes": { "POSITION": 925, "NORMAL": 926, "TEXCOORD_0": 927 },
+               "s": { "POSITION": 925, "NORMAL": 926, "TEXCOORD_0": 927 },
                "indices": 3,
                "material": 308
             }
@@ -9655,7 +9655,7 @@
          "name": "Cube.322",
          "primitives": [
             {
-               "attributes": { "POSITION": 928, "NORMAL": 929, "TEXCOORD_0": 930 },
+               "s": { "POSITION": 928, "NORMAL": 929, "TEXCOORD_0": 930 },
                "indices": 3,
                "material": 309
             }
@@ -9665,7 +9665,7 @@
          "name": "Cube.323",
          "primitives": [
             {
-               "attributes": { "POSITION": 931, "NORMAL": 932, "TEXCOORD_0": 933 },
+               "s": { "POSITION": 931, "NORMAL": 932, "TEXCOORD_0": 933 },
                "indices": 3,
                "material": 310
             }
@@ -9675,7 +9675,7 @@
          "name": "Cube.324",
          "primitives": [
             {
-               "attributes": { "POSITION": 934, "NORMAL": 935, "TEXCOORD_0": 936 },
+               "s": { "POSITION": 934, "NORMAL": 935, "TEXCOORD_0": 936 },
                "indices": 3,
                "material": 311
             }
@@ -9685,7 +9685,7 @@
          "name": "Cube.325",
          "primitives": [
             {
-               "attributes": { "POSITION": 937, "NORMAL": 938, "TEXCOORD_0": 939 },
+               "s": { "POSITION": 937, "NORMAL": 938, "TEXCOORD_0": 939 },
                "indices": 3,
                "material": 312
             }
@@ -9695,7 +9695,7 @@
          "name": "Cube.326",
          "primitives": [
             {
-               "attributes": { "POSITION": 940, "NORMAL": 941, "TEXCOORD_0": 942 },
+               "s": { "POSITION": 940, "NORMAL": 941, "TEXCOORD_0": 942 },
                "indices": 3,
                "material": 313
             }
@@ -9705,7 +9705,7 @@
          "name": "Cube.327",
          "primitives": [
             {
-               "attributes": { "POSITION": 943, "NORMAL": 944, "TEXCOORD_0": 945 },
+               "s": { "POSITION": 943, "NORMAL": 944, "TEXCOORD_0": 945 },
                "indices": 3,
                "material": 314
             }
@@ -9715,7 +9715,7 @@
          "name": "Cube.328",
          "primitives": [
             {
-               "attributes": { "POSITION": 946, "NORMAL": 947, "TEXCOORD_0": 948 },
+               "s": { "POSITION": 946, "NORMAL": 947, "TEXCOORD_0": 948 },
                "indices": 3,
                "material": 315
             }
@@ -9725,7 +9725,7 @@
          "name": "Cube.329",
          "primitives": [
             {
-               "attributes": { "POSITION": 949, "NORMAL": 950, "TEXCOORD_0": 951 },
+               "s": { "POSITION": 949, "NORMAL": 950, "TEXCOORD_0": 951 },
                "indices": 3,
                "material": 316
             }
@@ -9735,7 +9735,7 @@
          "name": "Cube.330",
          "primitives": [
             {
-               "attributes": { "POSITION": 952, "NORMAL": 953, "TEXCOORD_0": 954 },
+               "s": { "POSITION": 952, "NORMAL": 953, "TEXCOORD_0": 954 },
                "indices": 3,
                "material": 317
             }
@@ -9745,7 +9745,7 @@
          "name": "Cube.331",
          "primitives": [
             {
-               "attributes": { "POSITION": 955, "NORMAL": 956, "TEXCOORD_0": 957 },
+               "s": { "POSITION": 955, "NORMAL": 956, "TEXCOORD_0": 957 },
                "indices": 3,
                "material": 318
             }
@@ -9755,7 +9755,7 @@
          "name": "Cube.375",
          "primitives": [
             {
-               "attributes": { "POSITION": 958, "NORMAL": 959, "TEXCOORD_0": 960 },
+               "s": { "POSITION": 958, "NORMAL": 959, "TEXCOORD_0": 960 },
                "indices": 3,
                "material": 319
             }
@@ -9765,7 +9765,7 @@
          "name": "Cube.376",
          "primitives": [
             {
-               "attributes": { "POSITION": 961, "NORMAL": 962, "TEXCOORD_0": 963 },
+               "s": { "POSITION": 961, "NORMAL": 962, "TEXCOORD_0": 963 },
                "indices": 3,
                "material": 320
             }
@@ -9775,7 +9775,7 @@
          "name": "Cube.377",
          "primitives": [
             {
-               "attributes": { "POSITION": 964, "NORMAL": 965, "TEXCOORD_0": 966 },
+               "s": { "POSITION": 964, "NORMAL": 965, "TEXCOORD_0": 966 },
                "indices": 3,
                "material": 321
             }
@@ -9785,7 +9785,7 @@
          "name": "Cube.378",
          "primitives": [
             {
-               "attributes": { "POSITION": 967, "NORMAL": 968, "TEXCOORD_0": 969 },
+               "s": { "POSITION": 967, "NORMAL": 968, "TEXCOORD_0": 969 },
                "indices": 3,
                "material": 322
             }
@@ -9795,7 +9795,7 @@
          "name": "Cube.379",
          "primitives": [
             {
-               "attributes": { "POSITION": 970, "NORMAL": 971, "TEXCOORD_0": 972 },
+               "s": { "POSITION": 970, "NORMAL": 971, "TEXCOORD_0": 972 },
                "indices": 3,
                "material": 323
             }
@@ -9805,7 +9805,7 @@
          "name": "Cube.380",
          "primitives": [
             {
-               "attributes": { "POSITION": 973, "NORMAL": 974, "TEXCOORD_0": 975 },
+               "s": { "POSITION": 973, "NORMAL": 974, "TEXCOORD_0": 975 },
                "indices": 3,
                "material": 324
             }
@@ -9815,7 +9815,7 @@
          "name": "Cube.381",
          "primitives": [
             {
-               "attributes": { "POSITION": 976, "NORMAL": 977, "TEXCOORD_0": 978 },
+               "s": { "POSITION": 976, "NORMAL": 977, "TEXCOORD_0": 978 },
                "indices": 3,
                "material": 325
             }
@@ -9825,7 +9825,7 @@
          "name": "Cube.382",
          "primitives": [
             {
-               "attributes": { "POSITION": 979, "NORMAL": 980, "TEXCOORD_0": 981 },
+               "s": { "POSITION": 979, "NORMAL": 980, "TEXCOORD_0": 981 },
                "indices": 3,
                "material": 326
             }
@@ -9835,7 +9835,7 @@
          "name": "Cube.383",
          "primitives": [
             {
-               "attributes": { "POSITION": 982, "NORMAL": 983, "TEXCOORD_0": 984 },
+               "s": { "POSITION": 982, "NORMAL": 983, "TEXCOORD_0": 984 },
                "indices": 3,
                "material": 327
             }
@@ -9845,7 +9845,7 @@
          "name": "Cube.384",
          "primitives": [
             {
-               "attributes": { "POSITION": 985, "NORMAL": 986, "TEXCOORD_0": 987 },
+               "s": { "POSITION": 985, "NORMAL": 986, "TEXCOORD_0": 987 },
                "indices": 3,
                "material": 328
             }
@@ -9855,7 +9855,7 @@
          "name": "Cube.385",
          "primitives": [
             {
-               "attributes": { "POSITION": 988, "NORMAL": 989, "TEXCOORD_0": 990 },
+               "s": { "POSITION": 988, "NORMAL": 989, "TEXCOORD_0": 990 },
                "indices": 3,
                "material": 329
             }
@@ -9865,7 +9865,7 @@
          "name": "Cube.393",
          "primitives": [
             {
-               "attributes": { "POSITION": 991, "NORMAL": 992, "TEXCOORD_0": 993 },
+               "s": { "POSITION": 991, "NORMAL": 992, "TEXCOORD_0": 993 },
                "indices": 3,
                "material": 330
             }
@@ -9875,7 +9875,7 @@
          "name": "Cube.002",
          "primitives": [
             {
-               "attributes": { "POSITION": 994, "NORMAL": 995, "TEXCOORD_0": 996 },
+               "s": { "POSITION": 994, "NORMAL": 995, "TEXCOORD_0": 996 },
                "indices": 3,
                "material": 331
             }
@@ -9885,7 +9885,7 @@
          "name": "Cube.003",
          "primitives": [
             {
-               "attributes": { "POSITION": 997, "NORMAL": 998, "TEXCOORD_0": 999 },
+               "s": { "POSITION": 997, "NORMAL": 998, "TEXCOORD_0": 999 },
                "indices": 3,
                "material": 332
             }
@@ -9895,7 +9895,7 @@
          "name": "Cube.004",
          "primitives": [
             {
-               "attributes": { "POSITION": 1000, "NORMAL": 1001, "TEXCOORD_0": 1002 },
+               "s": { "POSITION": 1000, "NORMAL": 1001, "TEXCOORD_0": 1002 },
                "indices": 3,
                "material": 333
             }
@@ -9905,7 +9905,7 @@
          "name": "Cube.006",
          "primitives": [
             {
-               "attributes": { "POSITION": 1003, "NORMAL": 1004, "TEXCOORD_0": 1005 },
+               "s": { "POSITION": 1003, "NORMAL": 1004, "TEXCOORD_0": 1005 },
                "indices": 3,
                "material": 334
             }
@@ -9915,7 +9915,7 @@
          "name": "Cube.007",
          "primitives": [
             {
-               "attributes": { "POSITION": 1006, "NORMAL": 1007, "TEXCOORD_0": 1008 },
+               "s": { "POSITION": 1006, "NORMAL": 1007, "TEXCOORD_0": 1008 },
                "indices": 3,
                "material": 335
             }
@@ -9925,7 +9925,7 @@
          "name": "Cube.008",
          "primitives": [
             {
-               "attributes": { "POSITION": 1009, "NORMAL": 1010, "TEXCOORD_0": 1011 },
+               "s": { "POSITION": 1009, "NORMAL": 1010, "TEXCOORD_0": 1011 },
                "indices": 3,
                "material": 336
             }
@@ -9935,7 +9935,7 @@
          "name": "Cube.009",
          "primitives": [
             {
-               "attributes": { "POSITION": 1012, "NORMAL": 1013, "TEXCOORD_0": 1014 },
+               "s": { "POSITION": 1012, "NORMAL": 1013, "TEXCOORD_0": 1014 },
                "indices": 3,
                "material": 337
             }
@@ -9945,7 +9945,7 @@
          "name": "Cube.065",
          "primitives": [
             {
-               "attributes": { "POSITION": 1015, "NORMAL": 1016, "TEXCOORD_0": 1017 },
+               "s": { "POSITION": 1015, "NORMAL": 1016, "TEXCOORD_0": 1017 },
                "indices": 3,
                "material": 338
             }
@@ -9955,7 +9955,7 @@
          "name": "Cube.166",
          "primitives": [
             {
-               "attributes": { "POSITION": 1018, "NORMAL": 1019, "TEXCOORD_0": 1020 },
+               "s": { "POSITION": 1018, "NORMAL": 1019, "TEXCOORD_0": 1020 },
                "indices": 3,
                "material": 339
             }
@@ -9965,7 +9965,7 @@
          "name": "Cube.217",
          "primitives": [
             {
-               "attributes": { "POSITION": 1021, "NORMAL": 1022, "TEXCOORD_0": 1023 },
+               "s": { "POSITION": 1021, "NORMAL": 1022, "TEXCOORD_0": 1023 },
                "indices": 3,
                "material": 340
             }
@@ -9975,7 +9975,7 @@
          "name": "Cube.220",
          "primitives": [
             {
-               "attributes": { "POSITION": 1024, "NORMAL": 1025, "TEXCOORD_0": 1026 },
+               "s": { "POSITION": 1024, "NORMAL": 1025, "TEXCOORD_0": 1026 },
                "indices": 3,
                "material": 341
             }
@@ -9985,7 +9985,7 @@
          "name": "Cube.287",
          "primitives": [
             {
-               "attributes": { "POSITION": 1027, "NORMAL": 1028, "TEXCOORD_0": 1029 },
+               "s": { "POSITION": 1027, "NORMAL": 1028, "TEXCOORD_0": 1029 },
                "indices": 3,
                "material": 342
             }
@@ -9995,7 +9995,7 @@
          "name": "Cube.386",
          "primitives": [
             {
-               "attributes": { "POSITION": 1030, "NORMAL": 1031, "TEXCOORD_0": 1032 },
+               "s": { "POSITION": 1030, "NORMAL": 1031, "TEXCOORD_0": 1032 },
                "indices": 3,
                "material": 343
             }
@@ -10005,7 +10005,7 @@
          "name": "Cube.394",
          "primitives": [
             {
-               "attributes": { "POSITION": 1033, "NORMAL": 1034, "TEXCOORD_0": 1035 },
+               "s": { "POSITION": 1033, "NORMAL": 1034, "TEXCOORD_0": 1035 },
                "indices": 3,
                "material": 344
             }
@@ -10015,7 +10015,7 @@
          "name": "Cube.395",
          "primitives": [
             {
-               "attributes": { "POSITION": 1036, "NORMAL": 1037, "TEXCOORD_0": 1038 },
+               "s": { "POSITION": 1036, "NORMAL": 1037, "TEXCOORD_0": 1038 },
                "indices": 3,
                "material": 345
             }
@@ -10025,7 +10025,7 @@
          "name": "Cube.396",
          "primitives": [
             {
-               "attributes": { "POSITION": 1039, "NORMAL": 1040, "TEXCOORD_0": 1041 },
+               "s": { "POSITION": 1039, "NORMAL": 1040, "TEXCOORD_0": 1041 },
                "indices": 3,
                "material": 346
             }
@@ -10035,7 +10035,7 @@
          "name": "Cube.397",
          "primitives": [
             {
-               "attributes": { "POSITION": 1042, "NORMAL": 1043, "TEXCOORD_0": 1044 },
+               "s": { "POSITION": 1042, "NORMAL": 1043, "TEXCOORD_0": 1044 },
                "indices": 3,
                "material": 347
             }
@@ -10045,7 +10045,7 @@
          "name": "Cube.398",
          "primitives": [
             {
-               "attributes": { "POSITION": 1045, "NORMAL": 1046, "TEXCOORD_0": 1047 },
+               "s": { "POSITION": 1045, "NORMAL": 1046, "TEXCOORD_0": 1047 },
                "indices": 3,
                "material": 348
             }
@@ -10055,7 +10055,7 @@
          "name": "Cube.399",
          "primitives": [
             {
-               "attributes": { "POSITION": 1048, "NORMAL": 1049, "TEXCOORD_0": 1050 },
+               "s": { "POSITION": 1048, "NORMAL": 1049, "TEXCOORD_0": 1050 },
                "indices": 3,
                "material": 349
             }
@@ -10065,7 +10065,7 @@
          "name": "Cube.400",
          "primitives": [
             {
-               "attributes": { "POSITION": 1051, "NORMAL": 1052, "TEXCOORD_0": 1053 },
+               "s": { "POSITION": 1051, "NORMAL": 1052, "TEXCOORD_0": 1053 },
                "indices": 3,
                "material": 350
             }
@@ -10075,7 +10075,7 @@
          "name": "Cube.401",
          "primitives": [
             {
-               "attributes": { "POSITION": 1054, "NORMAL": 1055, "TEXCOORD_0": 1056 },
+               "s": { "POSITION": 1054, "NORMAL": 1055, "TEXCOORD_0": 1056 },
                "indices": 3,
                "material": 351
             }
@@ -10085,7 +10085,7 @@
          "name": "Cube.402",
          "primitives": [
             {
-               "attributes": { "POSITION": 1057, "NORMAL": 1058, "TEXCOORD_0": 1059 },
+               "s": { "POSITION": 1057, "NORMAL": 1058, "TEXCOORD_0": 1059 },
                "indices": 3,
                "material": 352
             }
@@ -10095,7 +10095,7 @@
          "name": "Cube.403",
          "primitives": [
             {
-               "attributes": { "POSITION": 1060, "NORMAL": 1061, "TEXCOORD_0": 1062 },
+               "s": { "POSITION": 1060, "NORMAL": 1061, "TEXCOORD_0": 1062 },
                "indices": 3,
                "material": 353
             }
@@ -10105,7 +10105,7 @@
          "name": "Cube.404",
          "primitives": [
             {
-               "attributes": { "POSITION": 1063, "NORMAL": 1064, "TEXCOORD_0": 1065 },
+               "s": { "POSITION": 1063, "NORMAL": 1064, "TEXCOORD_0": 1065 },
                "indices": 3,
                "material": 354
             }
@@ -10115,7 +10115,7 @@
          "name": "Cube.405",
          "primitives": [
             {
-               "attributes": { "POSITION": 1066, "NORMAL": 1067, "TEXCOORD_0": 1068 },
+               "s": { "POSITION": 1066, "NORMAL": 1067, "TEXCOORD_0": 1068 },
                "indices": 3,
                "material": 355
             }
@@ -10125,7 +10125,7 @@
          "name": "Cube.406",
          "primitives": [
             {
-               "attributes": { "POSITION": 1069, "NORMAL": 1070, "TEXCOORD_0": 1071 },
+               "s": { "POSITION": 1069, "NORMAL": 1070, "TEXCOORD_0": 1071 },
                "indices": 3,
                "material": 356
             }
@@ -10135,7 +10135,7 @@
          "name": "Cube.407",
          "primitives": [
             {
-               "attributes": { "POSITION": 1072, "NORMAL": 1073, "TEXCOORD_0": 1074 },
+               "s": { "POSITION": 1072, "NORMAL": 1073, "TEXCOORD_0": 1074 },
                "indices": 3,
                "material": 357
             }
@@ -10145,7 +10145,7 @@
          "name": "Cube.408",
          "primitives": [
             {
-               "attributes": { "POSITION": 1075, "NORMAL": 1076, "TEXCOORD_0": 1077 },
+               "s": { "POSITION": 1075, "NORMAL": 1076, "TEXCOORD_0": 1077 },
                "indices": 3,
                "material": 358
             }
@@ -10155,7 +10155,7 @@
          "name": "Cube.409",
          "primitives": [
             {
-               "attributes": { "POSITION": 1078, "NORMAL": 1079, "TEXCOORD_0": 1080 },
+               "s": { "POSITION": 1078, "NORMAL": 1079, "TEXCOORD_0": 1080 },
                "indices": 3,
                "material": 359
             }
@@ -10165,7 +10165,7 @@
          "name": "Cube.410",
          "primitives": [
             {
-               "attributes": { "POSITION": 1081, "NORMAL": 1082, "TEXCOORD_0": 1083 },
+               "s": { "POSITION": 1081, "NORMAL": 1082, "TEXCOORD_0": 1083 },
                "indices": 3,
                "material": 360
             }
@@ -10175,7 +10175,7 @@
          "name": "Cube.411",
          "primitives": [
             {
-               "attributes": { "POSITION": 1084, "NORMAL": 1085, "TEXCOORD_0": 1086 },
+               "s": { "POSITION": 1084, "NORMAL": 1085, "TEXCOORD_0": 1086 },
                "indices": 3,
                "material": 361
             }
@@ -10185,7 +10185,7 @@
          "name": "Cube.412",
          "primitives": [
             {
-               "attributes": { "POSITION": 1087, "NORMAL": 1088, "TEXCOORD_0": 1089 },
+               "s": { "POSITION": 1087, "NORMAL": 1088, "TEXCOORD_0": 1089 },
                "indices": 3,
                "material": 362
             }
@@ -10195,7 +10195,7 @@
          "name": "Cube.413",
          "primitives": [
             {
-               "attributes": { "POSITION": 1090, "NORMAL": 1091, "TEXCOORD_0": 1092 },
+               "s": { "POSITION": 1090, "NORMAL": 1091, "TEXCOORD_0": 1092 },
                "indices": 3,
                "material": 363
             }
@@ -10205,7 +10205,7 @@
          "name": "Cube.414",
          "primitives": [
             {
-               "attributes": { "POSITION": 1093, "NORMAL": 1094, "TEXCOORD_0": 1095 },
+               "s": { "POSITION": 1093, "NORMAL": 1094, "TEXCOORD_0": 1095 },
                "indices": 3,
                "material": 364
             }
@@ -10215,7 +10215,7 @@
          "name": "Cube.415",
          "primitives": [
             {
-               "attributes": { "POSITION": 1096, "NORMAL": 1097, "TEXCOORD_0": 1098 },
+               "s": { "POSITION": 1096, "NORMAL": 1097, "TEXCOORD_0": 1098 },
                "indices": 3,
                "material": 365
             }
@@ -10225,7 +10225,7 @@
          "name": "Cube.416",
          "primitives": [
             {
-               "attributes": { "POSITION": 1099, "NORMAL": 1100, "TEXCOORD_0": 1101 },
+               "s": { "POSITION": 1099, "NORMAL": 1100, "TEXCOORD_0": 1101 },
                "indices": 3,
                "material": 366
             }
@@ -10235,7 +10235,7 @@
          "name": "Cube.417",
          "primitives": [
             {
-               "attributes": { "POSITION": 1102, "NORMAL": 1103, "TEXCOORD_0": 1104 },
+               "s": { "POSITION": 1102, "NORMAL": 1103, "TEXCOORD_0": 1104 },
                "indices": 3,
                "material": 367
             }
@@ -10245,7 +10245,7 @@
          "name": "Cube.418",
          "primitives": [
             {
-               "attributes": { "POSITION": 1105, "NORMAL": 1106, "TEXCOORD_0": 1107 },
+               "s": { "POSITION": 1105, "NORMAL": 1106, "TEXCOORD_0": 1107 },
                "indices": 3,
                "material": 368
             }
@@ -10255,7 +10255,7 @@
          "name": "Cube.419",
          "primitives": [
             {
-               "attributes": { "POSITION": 1108, "NORMAL": 1109, "TEXCOORD_0": 1110 },
+               "s": { "POSITION": 1108, "NORMAL": 1109, "TEXCOORD_0": 1110 },
                "indices": 3,
                "material": 369
             }
@@ -10265,7 +10265,7 @@
          "name": "Cube.420",
          "primitives": [
             {
-               "attributes": { "POSITION": 1111, "NORMAL": 1112, "TEXCOORD_0": 1113 },
+               "s": { "POSITION": 1111, "NORMAL": 1112, "TEXCOORD_0": 1113 },
                "indices": 3,
                "material": 370
             }
@@ -10275,7 +10275,7 @@
          "name": "Cube.421",
          "primitives": [
             {
-               "attributes": { "POSITION": 1114, "NORMAL": 1115, "TEXCOORD_0": 1116 },
+               "s": { "POSITION": 1114, "NORMAL": 1115, "TEXCOORD_0": 1116 },
                "indices": 3,
                "material": 371
             }
@@ -10285,7 +10285,7 @@
          "name": "Cube.422",
          "primitives": [
             {
-               "attributes": { "POSITION": 1117, "NORMAL": 1118, "TEXCOORD_0": 1119 },
+               "s": { "POSITION": 1117, "NORMAL": 1118, "TEXCOORD_0": 1119 },
                "indices": 3,
                "material": 372
             }
@@ -10295,7 +10295,7 @@
          "name": "Cube.423",
          "primitives": [
             {
-               "attributes": { "POSITION": 1120, "NORMAL": 1121, "TEXCOORD_0": 1122 },
+               "s": { "POSITION": 1120, "NORMAL": 1121, "TEXCOORD_0": 1122 },
                "indices": 3,
                "material": 373
             }
@@ -10305,7 +10305,7 @@
          "name": "Cube.424",
          "primitives": [
             {
-               "attributes": { "POSITION": 1123, "NORMAL": 1124, "TEXCOORD_0": 1125 },
+               "s": { "POSITION": 1123, "NORMAL": 1124, "TEXCOORD_0": 1125 },
                "indices": 3,
                "material": 374
             }
@@ -10315,7 +10315,7 @@
          "name": "Cube.425",
          "primitives": [
             {
-               "attributes": { "POSITION": 1126, "NORMAL": 1127, "TEXCOORD_0": 1128 },
+               "s": { "POSITION": 1126, "NORMAL": 1127, "TEXCOORD_0": 1128 },
                "indices": 3,
                "material": 375
             }
@@ -10325,7 +10325,7 @@
          "name": "Cube.426",
          "primitives": [
             {
-               "attributes": { "POSITION": 1129, "NORMAL": 1130, "TEXCOORD_0": 1131 },
+               "s": { "POSITION": 1129, "NORMAL": 1130, "TEXCOORD_0": 1131 },
                "indices": 3,
                "material": 376
             }
@@ -10335,7 +10335,7 @@
          "name": "Cube.427",
          "primitives": [
             {
-               "attributes": { "POSITION": 1132, "NORMAL": 1133, "TEXCOORD_0": 1134 },
+               "s": { "POSITION": 1132, "NORMAL": 1133, "TEXCOORD_0": 1134 },
                "indices": 3,
                "material": 377
             }
@@ -10345,7 +10345,7 @@
          "name": "Cube.428",
          "primitives": [
             {
-               "attributes": { "POSITION": 1135, "NORMAL": 1136, "TEXCOORD_0": 1137 },
+               "s": { "POSITION": 1135, "NORMAL": 1136, "TEXCOORD_0": 1137 },
                "indices": 3,
                "material": 378
             }
@@ -10355,7 +10355,7 @@
          "name": "Cube.429",
          "primitives": [
             {
-               "attributes": { "POSITION": 1138, "NORMAL": 1139, "TEXCOORD_0": 1140 },
+               "s": { "POSITION": 1138, "NORMAL": 1139, "TEXCOORD_0": 1140 },
                "indices": 3,
                "material": 379
             }
@@ -10365,7 +10365,7 @@
          "name": "Cube.430",
          "primitives": [
             {
-               "attributes": { "POSITION": 1141, "NORMAL": 1142, "TEXCOORD_0": 1143 },
+               "s": { "POSITION": 1141, "NORMAL": 1142, "TEXCOORD_0": 1143 },
                "indices": 3,
                "material": 380
             }
@@ -10375,7 +10375,7 @@
          "name": "Cube.431",
          "primitives": [
             {
-               "attributes": { "POSITION": 1144, "NORMAL": 1145, "TEXCOORD_0": 1146 },
+               "s": { "POSITION": 1144, "NORMAL": 1145, "TEXCOORD_0": 1146 },
                "indices": 3,
                "material": 381
             }
@@ -10385,7 +10385,7 @@
          "name": "Cube.432",
          "primitives": [
             {
-               "attributes": { "POSITION": 1147, "NORMAL": 1148, "TEXCOORD_0": 1149 },
+               "s": { "POSITION": 1147, "NORMAL": 1148, "TEXCOORD_0": 1149 },
                "indices": 3,
                "material": 382
             }

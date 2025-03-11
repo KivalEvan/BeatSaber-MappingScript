@@ -1,3 +1,3 @@
-import { types, v3 } from '@bsmap';
+import { Beatmap } from '@bsmap';
 
-export default function (data: types.wrapper.IWrapBeatmap) {}
+export default function (data: Beatmap) {}

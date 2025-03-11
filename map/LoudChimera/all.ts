@@ -13,10 +13,10 @@ import { misc } from './misc.ts';
 import { text } from './text.ts';
 import { sus } from './imposter.ts';
 import { color } from './color.ts';
-import { logger, NoteJumpSpeed, TimeProcessor, types, writeDifficultyFileSync } from '@bsmap';
+import { Beatmap, logger, NoteJumpSpeed, TimeProcessor, writeDifficultyFileSync } from '@bsmap';
 
 export function main(
-   data: types.wrapper.IWrapBeatmap,
+   data: Beatmap,
    BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {

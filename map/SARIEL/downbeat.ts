@@ -1,7 +1,7 @@
-import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness, eventBoxSwapColor, objectTimeScale } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    const downbeatTiming: [number, number, number, boolean?, boolean?][] = [
       [70, 20, 2, false, true],
       [102, 26, 1, true],
@@ -28,7 +28,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
       p1: 1,
       reverse: 0,
    } as types.wrapper.IWrapIndexFilter;
-   const e: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+   const e: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       { color: EventLightColor.WHITE, brightness: 1.25 },
       {
          time: 0.1875,

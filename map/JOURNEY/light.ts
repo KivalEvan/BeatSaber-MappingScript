@@ -1,12 +1,12 @@
-import { globals, readDifficultyFileSync, writeDifficultyFileSync } from '@bsmap';
+import { Beatmap, globals, readDifficultyFileSync, writeDifficultyFileSync } from '@bsmap';
+import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
-globals.directory =
-   'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomWIPLevels/JOURNEY';
+globals.directory = beatmapWipPath('JOURNEY');
 
 const INPUT_FILE = 'NormalLightshow.dat';
 const OUTPUT_FILE = 'Lightshow.dat';
 
-const difficulty = readDifficultyFileSync(INPUT_FILE, 2);
+const difficulty = Beatmap.createOne(readDifficultyFileSync(INPUT_FILE, 2));
 const _events = difficulty.basicEvents;
 
 const isLight = (t: number) => {
@@ -42,19 +42,13 @@ const easings = {
    InOutQuad: (x: number) => (x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x),
    InCubic: (x: number) => x * x * x,
    OutCubic: (x: number) => --x * x * x + 1,
-   InOutCubic: (
-      x: number,
-   ) => (x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1),
+   InOutCubic: (x: number) => x < 0.5 ? 4 * x * x * x : (x - 1) * (2 * x - 2) * (2 * x - 2) + 1,
    InQuart: (x: number) => x * x * x * x,
    OutQuart: (x: number) => 1 - --x * x * x * x,
-   InOutQuart: (
-      x: number,
-   ) => (x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x),
+   InOutQuart: (x: number) => x < 0.5 ? 8 * x * x * x * x : 1 - 8 * --x * x * x * x,
    InQuint: (x: number) => x * x * x * x * x,
    OutQuint: (x: number) => 1 - --x * x * x * x * x,
-   InOutQuint: (
-      x: number,
-   ) => (x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x),
+   InOutQuint: (x: number) => x < 0.5 ? 16 * x * x * x * x * x : 1 + 16 * --x * x * x * x * x,
 };
 
 function setFloat(t1: number, t2: number, n: number, type: number) {
@@ -66,7 +60,8 @@ function setFloat(t1: number, t2: number, n: number, type: number) {
          break;
       }
       if (
-         !isLight(_events[i].type) || _events[i].time < t1 ||
+         !isLight(_events[i].type) ||
+         _events[i].time < t1 ||
          (type != null && _events[i].type !== type)
       ) {
          continue;
@@ -92,7 +87,8 @@ function gradientFloat(
          break;
       }
       if (
-         !isLight(_events[i].type) || _events[i].time < t1 ||
+         !isLight(_events[i].type) ||
+         _events[i].time < t1 ||
          (type != null && _events[i].type !== type)
       ) {
          continue;
@@ -118,7 +114,8 @@ function randomizeFloat(
          break;
       }
       if (
-         !isLight(_events[i].type) || _events[i].time < t1 ||
+         !isLight(_events[i].type) ||
+         _events[i].time < t1 ||
          (type != null && _events[i].type !== type)
       ) {
          continue;

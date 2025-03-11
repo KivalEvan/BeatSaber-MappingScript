@@ -1,12 +1,10 @@
 import {
+   Beatmap,
    EaseType,
    EventLightColor,
    IndexFilterType,
    pRandomFn,
    range as rangeEx,
-   TransitionType,
-   types,
-   v3,
 } from '@bsmap';
 import { loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
@@ -24,7 +22,7 @@ const loopRight = loopArray([
    WeaveID.SIDE_TOP_RIGHT,
 ]);
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    let flipFlop = false;
    for (

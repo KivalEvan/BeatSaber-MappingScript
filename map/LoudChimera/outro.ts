@@ -1,10 +1,19 @@
-import { ext, logger, NoteDirectionAngle, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
+import {
+   Beatmap,
+   ext,
+   logger,
+   NoteDirectionAngle,
+   NoteJumpSpeed,
+   TimeProcessor,
+   types,
+   v3,
+} from '@bsmap';
 import { connectSlider } from './helpers.ts';
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { between, at } = ext.selector;
 
 export function outro(
-   data: types.wrapper.IWrapBeatmap,
+   data: Beatmap,
    BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {

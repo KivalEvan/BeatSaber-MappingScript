@@ -12,15 +12,15 @@ const prevSlider: {
 const possibleBurst: {
    [key: number]: bsmap.types.wrapper.IWrapColorNote[];
 } = { 0: [], 1: [] };
-for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
-   const n = difficulty.colorNotes[i];
+for (let i = 0, len = difficulty.difficulty.colorNotes.length; i < len; i++) {
+   const n = difficulty.difficulty.colorNotes[i];
    if (n.direction === 8) {
       n.angleOffset = 45;
    }
    if (n.customData?._color) {
       if (n.customData._color[0] === 0) {
          if (possibleBurst[n.color].length) {
-            difficulty.colorNotes.splice(i, 1);
+            difficulty.difficulty.colorNotes.splice(i, 1);
             i--;
             len--;
          }
@@ -28,7 +28,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       }
       if (n.customData._color[0] === 1) {
          if (prevSlider[n.color]) {
-            difficulty.addArcs(
+            difficulty.difficulty.arcs.push(
                bsmap.v3.arc.deserialize({
                   b: prevSlider[n.color].time,
                   c: prevSlider[n.color].color,
@@ -47,7 +47,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                   tmu: prevSlider[n.color].customData!._disableSpawnEffect
                      ? 0
                      : prevSlider[n.color].customData!._color![3],
-                  m: prevSlider[n.color].customData!._color![1],
+                  m: prevSlider[n.color].customData!._color![1] as bsmap.SliderMidAnchorMode,
                }),
             );
          }
@@ -64,7 +64,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                }
                x = bsmap.clamp(x, 0, 3);
                y = bsmap.clamp(y, 0, 2);
-               difficulty.addArcs(
+               difficulty.difficulty.arcs.push(
                   bsmap.v3.arc.deserialize({
                      b: n.time,
                      c: n.color,
@@ -82,7 +82,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
                );
             }
             if (n.customData!._disableSpawnEffect) {
-               difficulty.colorNotes.splice(i, 1);
+               difficulty.difficulty.colorNotes.splice(i, 1);
                i--;
                len--;
             }
@@ -90,7 +90,7 @@ for (let i = 0, len = difficulty.colorNotes.length; i < len; i++) {
       }
    }
    if (possibleBurst[n.color].length === 2) {
-      difficulty.addChains(
+      difficulty.difficulty.chains.push(
          bsmap.v3.chain.deserialize({
             b: possibleBurst[n.color][0].time,
             c: possibleBurst[n.color][0].color,
@@ -113,9 +113,9 @@ if (possibleBurst[0].length || possibleBurst[1].length) {
    throw Error('what the fuck');
 }
 
-difficulty.colorNotes.forEach((n) => n.resetCustomData());
+difficulty.difficulty.colorNotes.forEach((n) => (n.customData = {}));
 
-difficulty.arcs.push(
+difficulty.difficulty.arcs.push(
    ...[
       {
          b: 196,
@@ -594,7 +594,7 @@ difficulty.arcs.push(
          m: 0,
       },
    ]
-      .map(bsmap.v3.arc.deserialize)
+      .map((x) => bsmap.v3.arc.deserialize(x as bsmap.types.v3.IArc))
       .map(bsmap.Arc.createOne),
 );
 

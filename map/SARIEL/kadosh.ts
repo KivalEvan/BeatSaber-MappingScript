@@ -1,8 +1,8 @@
 import { pRandom } from '../../chromapper/library/kvlUtils.js';
-import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    const synthGroup = [0, 1, 4, 3, 1, 2, 5, 4, 2, 3, 6, 5, 7, 4, 5, 2];
 
    const kGroup = [0, 1, 4, 5, 10, 11];
@@ -76,7 +76,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                time: 0.25,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          for (let time = rt; time <= rt + 28; time++) {
             d.addLightColorEventBoxGroups({
                time,

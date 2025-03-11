@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    ColorScheme,
    globals,
    readDifficultyFileSync,
@@ -70,9 +71,9 @@ applyLabel(info, [
    },
 ]);
 
-const lightshow = readDifficultyFileSync('EasyStandard.dat', 3);
+const lightshow = new Beatmap(readDifficultyFileSync('EasyStandard.dat', 3));
 for (const d of info.difficulties) {
-   const data = readDifficultyFileSync(d.filename);
+   const data = new Beatmap(readDifficultyFileSync(d.filename));
    data.lightshow = lightshow.lightshow;
    insertEnvironment(data);
    phoenix(data, d.characteristic === '360Degree');

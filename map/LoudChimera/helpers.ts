@@ -1,4 +1,4 @@
-import { EasingsFn, ext, lerp, normalize, types } from '@bsmap';
+import { Beatmap, ColorNote, EasingsFn, ext, lerp, normalize, types } from '@bsmap';
 
 export function getRepeatArray(start: number, gap: number, repeat: number) {
    const arr = new Array(repeat).fill(start);
@@ -10,10 +10,12 @@ export function getRepeatArray(start: number, gap: number, repeat: number) {
 
 export function lerpVec3(
    alpha: number,
-   points: types.Vector3PointDefinition[],
+   points: types.Vector3PointDefinitionBase,
 ): types.Vector3 {
-   const pointBefore = [...points].reverse().find((p) => alpha >= p[3]);
-   const pointAfter = points.slice(1).find((p) => alpha <= p[3]);
+   const pointBefore = [...points]
+      .reverse()
+      .find((p) => alpha >= (p[3] as number));
+   const pointAfter = points.slice(1).find((p) => alpha <= (p[3] as number));
    if (!pointAfter || typeof pointAfter === 'string') {
       throw new Error('not found');
    }
@@ -31,12 +33,9 @@ export function lerpVec3(
    ];
 }
 
-export function connectSlider(
-   data: types.wrapper.IWrapBeatmap,
-   notes: types.wrapper.IWrapColorNote[],
-) {
+export function connectSlider(data: Beatmap, notes: ColorNote[]) {
    const prevSlider: {
-      [key: number]: types.wrapper.IWrapColorNote;
+      [key: number]: ColorNote;
    } = {};
    for (let i = 0, len = notes.length; i < len; i++) {
       const n = notes[i];
@@ -60,7 +59,7 @@ export function connectSlider(
       }
       if (prevSlider[n.color] && prevSlider[n.color].time === n.time) {
          if (
-            ext.placement.isEnd(
+            ext.placement.isEndNote(
                n,
                prevSlider[n.color],
                prevSlider[n.color].direction,

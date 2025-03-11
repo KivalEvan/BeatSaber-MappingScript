@@ -1,4 +1,4 @@
-import { ext, globals, readDifficultyFileSync } from '@bsmap';
+import { Beatmap, ext, globals, readDifficultyFileSync, writeDifficultyFileSync } from '@bsmap';
 import { arcs } from './arcs.ts';
 import { walls } from './walls.ts';
 
@@ -8,7 +8,9 @@ export function sword() {
    const INPUT_FILE = 'HardOneSaber.dat';
    const OUTPUT_FILE = 'ExpertPlusOneSaber.dat';
 
-   const data = readDifficultyFileSync(INPUT_FILE, 3).setFilename(OUTPUT_FILE);
+   const data = Beatmap.createOne(
+      readDifficultyFileSync(INPUT_FILE, 3),
+   ).setFilename(OUTPUT_FILE);
 
    where(at(data.colorNotes, 262), { include: { posX: 0 } }).forEach((n) => {
       n.customData.track = 'swordBit0';

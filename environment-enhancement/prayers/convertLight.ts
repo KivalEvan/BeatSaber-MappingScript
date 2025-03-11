@@ -1,8 +1,8 @@
-import { ColorScheme, EnvironmentSchemeName, types } from '@bsmap';
+import { Beatmap, ColorScheme, EnvironmentSchemeName, types } from '@bsmap';
 import { idOffsetType0, idOffsetType4, roadCount, roadRepeat } from './main.ts';
 
 export function convertLight(
-   d: types.wrapper.IWrapBeatmap,
+   d: Beatmap,
    environment: types.EnvironmentAllName,
 ) {
    const events = d.basicEvents;

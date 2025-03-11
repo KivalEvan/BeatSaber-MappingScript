@@ -1,6 +1,6 @@
-import { Obstacle, random, types, v3 } from '@bsmap';
+import { Beatmap, Obstacle, random, v3 } from '@bsmap';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    let obs: Obstacle[] = [];
    obs = [
       {
@@ -36,7 +36,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          y: 2,
       },
    ]
-      .map(v3.obstacle.deserialize)
+      .map((x) => v3.obstacle.deserialize(x))
       .map(Obstacle.createOne);
    obs = obs.concat(obs.map((w) => w.clone().mirror()));
    d.obstacles.push(...obs);
@@ -142,7 +142,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          y: 1,
       },
    ]
-      .map(v3.obstacle.deserialize)
+      .map((x) => v3.obstacle.deserialize(x))
       .map(Obstacle.createOne);
    obs = obs.concat(obs.map((w) => w.clone().mirror()));
    d.obstacles.push(...obs);

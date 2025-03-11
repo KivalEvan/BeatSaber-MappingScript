@@ -1,10 +1,20 @@
-import { ext, logger, normalize, NoteJumpSpeed, pRandom, TimeProcessor, types, v3 } from '@bsmap';
+import {
+   Beatmap,
+   ext,
+   logger,
+   normalize,
+   NoteJumpSpeed,
+   pRandom,
+   TimeProcessor,
+   types,
+   v3,
+} from '@bsmap';
 
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { between } = ext.selector;
 
 export function build2(
-   data: types.wrapper.IWrapBeatmap,
+   data: Beatmap,
    BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {

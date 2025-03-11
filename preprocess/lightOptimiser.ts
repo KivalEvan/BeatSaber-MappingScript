@@ -1,16 +1,16 @@
 import { BasicEvent, EventList, types } from '@bsmap';
 
-export default (
-   bm: types.wrapper.IWrapBeatmap,
+export default function <T extends types.wrapper.IWrapBeatmap>(
+   bm: T,
    environment: types.EnvironmentAllName,
-) => {
+) {
    // you can modify these variable as you prefer
    // uses beat time instead of real time
    const eventStackTol = 0.001;
    const ringStackTol = 0.05; // 1/20 precision
 
    // beyond you're on your own
-   const events = bm.basicEvents;
+   const events = bm.lightshow.basicEvents;
 
    // constant variable, best to not touch unless you know what you're doing
    // light value for static event such as OFF and ON event
@@ -378,7 +378,9 @@ export default (
       eventAtTime[evType].push(i);
    }
 
-   bm.basicEvents = bm.basicEvents.filter((el) => el != null);
+   bm.lightshow.basicEvents = bm.lightshow.basicEvents.filter(
+      (el) => el != null,
+   );
 
    // do the funny message
    let message = `Light Optimiser`;
@@ -391,4 +393,4 @@ export default (
    if (countChroma) {
       message += `\nOptimised ${countChroma} Chroma event(s)`;
    }
-};
+}

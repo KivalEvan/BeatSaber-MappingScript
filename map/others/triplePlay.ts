@@ -78,7 +78,7 @@ const lightshow = readDifficultyFileSync('EasyStandard.dat', 3);
 
 for (const d of info.difficulties) {
    const difficulty = readDifficultyFileSync(d.filename, 3);
-   difficulty.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
+   difficulty.lightshow.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
    if (d.characteristic !== 'Legacy') difficulty.lightshow = lightshow.lightshow;
 
    delete d.customData._requirements;

@@ -1,6 +1,6 @@
-import { Axis, EventLightColor, logger, TimeProcessor, types } from '@bsmap';
+import { Axis, Beatmap, EventLightColor, logger, TimeProcessor, types } from '@bsmap';
 
-export function fixRotation(d: types.wrapper.IWrapBeatmap) {
+export function fixRotation(d: Beatmap) {
    const rot = [0, 3, 9, 10, 11, 12];
    for (const id of rot) {
       d.addLightRotationEventBoxGroups({
@@ -17,7 +17,7 @@ export function fixRotation(d: types.wrapper.IWrapBeatmap) {
    }
 }
 
-export function fixTranslation(d: types.wrapper.IWrapBeatmap) {
+export function fixTranslation(d: Beatmap) {
    const tra = [0, 2];
    for (const id of tra) {
       d.addLightTranslationEventBoxGroups({
@@ -34,9 +34,9 @@ export function fixTranslation(d: types.wrapper.IWrapBeatmap) {
    }
 }
 
-export function rotation(d: types.wrapper.IWrapBeatmap) {
+export function rotation(d: Beatmap) {
    const skip = [0, 2];
-   d.lightColorEventBoxGroups = [];
+   d.lightshow.lightColorEventBoxGroups = [];
    for (let id = 0; id <= 12; id++) {
       if (!skip.includes(id)) {
          d.addLightColorEventBoxGroups({
@@ -60,43 +60,43 @@ export function rotation(d: types.wrapper.IWrapBeatmap) {
    }
 }
 
-export function stackedEvent(d: types.wrapper.IWrapBeatmap, bpm: TimeProcessor) {
+export function stackedEvent(d: Beatmap, bpm: TimeProcessor) {
    const lightColorAry: types.wrapper.IWrapLightColorEventBoxGroup[] = [];
    const lightRotationAry: types.wrapper.IWrapLightRotationEventBoxGroup[] = [];
-   for (let i = 0, len = d.lightColorEventBoxGroups.length; i < len; i++) {
+   for (let i = 0, len = d.lightshow.lightColorEventBoxGroups.length; i < len; i++) {
       for (let j = i + 1; j < len; j++) {
          if (
-            bpm.toRealTime(d.lightColorEventBoxGroups[j].time) >
-               bpm.toRealTime(d.lightColorEventBoxGroups[i].time) + 1
+            bpm.toRealTime(d.lightshow.lightColorEventBoxGroups[j].time) >
+               bpm.toRealTime(d.lightshow.lightColorEventBoxGroups[i].time) + 1
          ) {
             break;
          }
          if (
-            d.lightColorEventBoxGroups[i].id ===
-               d.lightColorEventBoxGroups[j].id &&
-            d.lightColorEventBoxGroups[j].time -
-                     d.lightColorEventBoxGroups[i].time ===
+            d.lightshow.lightColorEventBoxGroups[i].id ===
+               d.lightshow.lightColorEventBoxGroups[j].id &&
+            d.lightshow.lightColorEventBoxGroups[j].time -
+                     d.lightshow.lightColorEventBoxGroups[i].time ===
                0
          ) {
-            lightColorAry.push(d.lightColorEventBoxGroups[i]);
+            lightColorAry.push(d.lightshow.lightColorEventBoxGroups[i]);
          }
       }
    }
-   for (let i = 0, len = d.lightRotationEventBoxGroups.length; i < len; i++) {
+   for (let i = 0, len = d.lightshow.lightRotationEventBoxGroups.length; i < len; i++) {
       for (let j = i + 1; j < len; j++) {
          if (
-            bpm.toRealTime(d.lightRotationEventBoxGroups[j].time) >
-               bpm.toRealTime(d.lightRotationEventBoxGroups[i].time) + 1
+            bpm.toRealTime(d.lightshow.lightRotationEventBoxGroups[j].time) >
+               bpm.toRealTime(d.lightshow.lightRotationEventBoxGroups[i].time) + 1
          ) {
             break;
          }
          if (
-            d.lightRotationEventBoxGroups[i].id ===
-               d.lightRotationEventBoxGroups[j].id &&
-            d.lightRotationEventBoxGroups[j].time -
-                     d.lightRotationEventBoxGroups[i].time === 0
+            d.lightshow.lightRotationEventBoxGroups[i].id ===
+               d.lightshow.lightRotationEventBoxGroups[j].id &&
+            d.lightshow.lightRotationEventBoxGroups[j].time -
+                     d.lightshow.lightRotationEventBoxGroups[i].time === 0
          ) {
-            lightRotationAry.push(d.lightRotationEventBoxGroups[i]);
+            lightRotationAry.push(d.lightshow.lightRotationEventBoxGroups[i]);
          }
       }
    }

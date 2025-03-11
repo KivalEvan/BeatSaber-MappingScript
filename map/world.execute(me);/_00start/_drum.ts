@@ -1,18 +1,10 @@
-import {
-   deepCopy,
-   DistributionType,
-   EaseType,
-   EventLightColor,
-   TransitionType,
-   types,
-   v3,
-} from '@bsmap';
+import { Beatmap, deepCopy, DistributionType, EaseType, EventLightColor, types } from '@bsmap';
 import { Brightness, FILTER_HALF_1_STEP, FILTER_HALF_2_STEP, Group } from '../_common.ts';
 import { generateSeed, objectTimeShift } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: types.wrapper.IWrapBeatmap) {
-   const light: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+export default function (data: Beatmap) {
+   const light: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       {
          color: EventLightColor.WHITE,
          brightness: Brightness.OFF,

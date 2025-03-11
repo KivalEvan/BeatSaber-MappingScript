@@ -33,11 +33,13 @@ const cd = readDifficultyFileSync('ExpertPlusStandardBac.dat', 3);
 const precisions = [16, 12];
 
 difficultyList.forEach((d) => {
-   d.beatmap.basicEvents = lightshow.basicEvents;
-   d.beatmap.colorBoostEvents = lightshow.colorBoostEvents;
-   d.beatmap.lightColorEventBoxGroups = lightshow.lightColorEventBoxGroups;
-   d.beatmap.lightRotationEventBoxGroups = lightshow.lightRotationEventBoxGroups;
-   d.beatmap.lightTranslationEventBoxGroups = lightshow.lightTranslationEventBoxGroups;
+   d.beatmap.lightshow.basicEvents = lightshow.lightshow.basicEvents;
+   d.beatmap.lightshow.colorBoostEvents = lightshow.lightshow.colorBoostEvents;
+   d.beatmap.lightshow.lightColorEventBoxGroups = lightshow.lightshow.lightColorEventBoxGroups;
+   d.beatmap.lightshow.lightRotationEventBoxGroups =
+      lightshow.lightshow.lightRotationEventBoxGroups;
+   d.beatmap.lightshow.lightTranslationEventBoxGroups =
+      lightshow.lightshow.lightTranslationEventBoxGroups;
    d.beatmap.difficulty.customData.bookmarks = deepCopy(
       cd.difficulty.customData.bookmarks,
    );
@@ -76,7 +78,10 @@ difficultyList.forEach((d) => {
       }
    }
 
-   const bpm = new TimeProcessor(info.audio.bpm, d.beatmap.bpmEvents);
+   const bpm = new TimeProcessor(
+      info.audio.bpm,
+      d.beatmap.difficulty.bpmEvents,
+   );
    if (d.beatmap.version === 3) {
       d.beatmap.difficulty.customData.bookmarks?.forEach((b) => {
          const saveB = b.b;

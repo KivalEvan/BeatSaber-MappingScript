@@ -1,4 +1,6 @@
 import {
+   BasicEvent,
+   Beatmap,
    ext,
    globals,
    lerp,
@@ -18,7 +20,7 @@ const { between, where } = ext.selector;
 const environmentBM = readDifficultyFileSync('env.dat', 2, {
    directory: './map/DarkFlightDreamer',
 });
-const lightshow = readDifficultyFileSync('Lightshow.dat', 2);
+const lightshow = Beatmap.createOne(readDifficultyFileSync('Lightshow.dat', 2));
 environmentBM.difficulty.customData
    ._environment!.filter(
       (ev) =>
@@ -46,7 +48,7 @@ where(between(lightshow.basicEvents, 597, 605), {
    include: { type: [2, 3] },
 }).forEach((ev, i, _) => (ev.floatValue -= i / (_.length * 3)));
 
-const makeWhite = (e: types.wrapper.IWrapBasicEvent, mult = 1) => {
+const makeWhite = (e: BasicEvent, mult = 1) => {
    if (e.isLightEvent() && !e.isOff()) {
       if (e.isRed()) {
          e.value += 4;
@@ -233,14 +235,15 @@ between(
 const info = readInfoFileSync();
 info.environmentBase.normal = 'NiceEnvironment';
 for (const d of info.difficulties) {
-   const beatmap = readDifficultyFileSync(d.filename, 3);
+   const beatmap = Beatmap.createOne(readDifficultyFileSync(d.filename, 3));
    try {
-      const bombBeat = readDifficultyFileSync(d.filename, 3, {
-         directory: beatmapWipPath('Dark Flight Dreamer/dfd'),
-      });
+      const bombBeat = Beatmap.createOne(
+         readDifficultyFileSync(d.filename, 3, {
+            directory: beatmapWipPath('Dark Flight Dreamer/dfd'),
+         }),
+      );
       beatmap.bombNotes = bombBeat.bombNotes;
-   } catch (e) {
-   }
+   } catch (e) {}
 
    // beatmap.difficulty.customData._bookmarks = lightshow.difficulty.customData!._bookmarks;
    // beatmap.difficulty.customData._environment = lightshow.difficulty.customData!._environment;

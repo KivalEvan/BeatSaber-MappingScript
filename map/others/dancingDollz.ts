@@ -70,7 +70,7 @@ applyLabel(info, [
 
 for (const d of info.difficulties) {
    const data = readDifficultyFileSync(d.filename, 3);
-   data.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
+   data.lightshow.useNormalEventsAsCompatibleEvents = d.characteristic === 'Legacy';
 
    delete d.customData._requirements;
    d.customData._suggestions = ['Chroma'];

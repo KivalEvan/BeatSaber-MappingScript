@@ -1,17 +1,16 @@
 import {
+   Beatmap,
    ext,
    logger,
    NoteDirectionAngle,
    NoteJumpSpeed,
    random,
    TimeProcessor,
-   types,
-   v3,
 } from '@bsmap';
 
 const { at } = ext.selector;
 
-export function misc(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function misc(data: Beatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Misc');
 
    const slapTiming = [392, 456, 584, 904, 968, 1096];

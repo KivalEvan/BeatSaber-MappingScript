@@ -1,5 +1,6 @@
 import {
    BasicEvent,
+   Beatmap,
    EasingsFn,
    ext,
    globals,
@@ -9,7 +10,6 @@ import {
    readDifficultyFileSync,
    readInfoFileSync,
    types,
-   v2,
    writeDifficultyFileSync,
    writeInfoFileSync,
 } from '@bsmap';
@@ -24,7 +24,7 @@ const { at, between, where } = ext.selector;
 const INPUTFILE = 'Lightshow.dat';
 const OUTPUTFILE = 'EasyLightshow.dat';
 
-const lightshow = readDifficultyFileSync(INPUTFILE, 2);
+const lightshow = Beatmap.createOne(readDifficultyFileSync(INPUTFILE, 2));
 lightshow.colorNotes = [];
 lightshow.obstacles = [];
 const envV3 = generateEnvironment();
@@ -40,7 +40,7 @@ envV3.push({
    track: 'everythinglmao',
 });
 
-const env = ext.chroma.envV3ToV2(envV3);
+const env = ext.heck.chroma.envV3ToV2(envV3);
 
 lightshow.lightshow.customData.customEvents = [
    {
@@ -92,7 +92,7 @@ animatedFELT
    );
 lightshow.basicEvents.forEach((e) => {
    if (e.type === 1) {
-      e.customData.lightID = ext.chroma.LightIDList.BTSEnvironment[1];
+      e.customData.lightID = ext.heck.chroma.LightIDList.BTSEnvironment[1];
    }
 });
 lightshow.addBasicEvents(
@@ -363,7 +363,7 @@ lightshow.addBasicEvents(
    },
 );
 lightshow.lightshow.customData._environment = env;
-const makeWhite = (e: types.wrapper.IWrapBasicEvent, mult = 1) => {
+const makeWhite = (e: BasicEvent, mult = 1) => {
    if (!e.isOff()) {
       e.value += e.value <= 4 ? 8 : 4;
       e.floatValue *= mult;
@@ -426,10 +426,10 @@ for (const d of info.difficulties) {
    delete d.customData.requirements;
    d.customData.suggestions = ['Chroma'];
    if (d.characteristic == 'OneSaber') continue;
-   const difficulty = readDifficultyFileSync(d.filename, 2);
+   const difficulty = Beatmap.createOne(readDifficultyFileSync(d.filename, 2));
 
-   difficulty.customData.environment = lightshow.lightshow.customData!.environment;
-   difficulty.customData.customEvents = lightshow.lightshow.customData!.customEvents;
+   difficulty.difficulty.customData.environment = lightshow.lightshow.customData!.environment;
+   difficulty.difficulty.customData.customEvents = lightshow.lightshow.customData!.customEvents;
    const bookmarks = difficulty.customData.bookmarks;
    if (bookmarks) {
       for (const b of bookmarks) {
@@ -458,7 +458,9 @@ for (const d of info.difficulties) {
 writeInfoFileSync(info);
 
 const lightshowV3 = lightshow.clone().setVersion(3);
-const oneSaberV3 = readDifficultyFileSync('ExpertPlusOneSaber.dat', 3);
+const oneSaberV3 = Beatmap.createOne(
+   readDifficultyFileSync('ExpertPlusOneSaber.dat', 3),
+);
 
 oneSaberV3.difficulty.customData.environment = envV3;
 oneSaberV3.difficulty.customData.customEvents = lightshowV3.difficulty.customData!.customEvents;

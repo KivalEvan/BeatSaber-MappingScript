@@ -1,7 +1,7 @@
-import { Axis, EaseType, EventLightColor, IndexFilterType, pRandom, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, pRandom, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    const repeatDownTiming = [198, 358];
    for (const rt of repeatDownTiming) {
       d.addColorBoostEvents(
@@ -1466,7 +1466,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   frequency: 8,
                   time: 0.75,
                },
-            ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+            ] as Partial<types.wrapper.IWrapLightColorEvent>[];
             d.addLightRotationEventBoxGroups(
                {
                   time,
@@ -1582,7 +1582,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   frequency: 8,
                   time: 0.75,
                },
-            ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+            ] as Partial<types.wrapper.IWrapLightColorEvent>[];
             d.addLightRotationEventBoxGroups(
                {
                   time,

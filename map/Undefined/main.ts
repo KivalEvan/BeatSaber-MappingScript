@@ -1,6 +1,7 @@
 import walls from './walls.ts';
 import lights from './lights.ts';
 import {
+   Beatmap,
    globals,
    lerp,
    normalize,
@@ -56,11 +57,12 @@ for (const d of info.difficulties) {
 const difficultyList = readFromInfoSync(info);
 
 difficultyList.forEach((d) => {
-   d.beatmap = toV3Beatmap(d.beatmap, d.beatmap.version);
-   d.beatmap.basicEvents = [];
-   d.beatmap.useNormalEventsAsCompatibleEvents = false;
-   for (let i = 0, j = 0, len = d.beatmap.colorNotes.length; i < len; i++) {
-      const n = d.beatmap.colorNotes[i];
+   let beatmap = new Beatmap(d.beatmap);
+   beatmap = toV3Beatmap(beatmap, beatmap.version);
+   beatmap.basicEvents = [];
+   beatmap.useNormalEventsAsCompatibleEvents = false;
+   for (let i = 0, j = 0, len = beatmap.colorNotes.length; i < len; i++) {
+      const n = beatmap.colorNotes[i];
       if (n.direction === 8) {
          n.angleOffset = 45;
       }
@@ -79,7 +81,10 @@ difficultyList.forEach((d) => {
          }
          continue;
       }
-      if (d.info.difficulty === 'ExpertPlus' || d.info.difficulty === 'Expert') {
+      if (
+         d.info.difficulty === 'ExpertPlus' ||
+         d.info.difficulty === 'Expert'
+      ) {
          if (n.color === 1 && n.time >= 32 && n.time < 32.75) {
             n.angleOffset = Math.round(
                lerp(normalize(n.time, 32, 32.75), -45, 0),
@@ -106,10 +111,10 @@ difficultyList.forEach((d) => {
          }
       }
    }
-   walls(d.beatmap);
-   lights(d.beatmap);
+   walls(beatmap);
+   lights(beatmap);
 
-   writeDifficultyFileSync(d.beatmap);
+   writeDifficultyFileSync(beatmap);
 });
 
 writeInfoFileSync(info);

@@ -1,7 +1,7 @@
-import { Axis, EaseType, EventLightColor, IndexFilterType, pRandom, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, pRandom } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    for (let i = 0; i < 2; i++) {
       d.addLightColorEventBoxGroups(
          {

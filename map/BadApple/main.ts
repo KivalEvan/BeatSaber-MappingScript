@@ -1,6 +1,7 @@
 import {
    Beatmap,
    globals,
+   Info,
    readInfoFileSync,
    writeDifficultyFileSync,
    writeInfoFileSync,
@@ -18,7 +19,7 @@ globals.directory = beatmapWipPath('Bad Apple');
 
 writeDifficultyFileSync(new Beatmap({ filename: 'Empty.beatmap.dat' }), 4);
 
-const info = readInfoFileSync();
+const info = Info.createOne(readInfoFileSync());
 info.environmentNames = [
    'LatticeEnvironment',
    'DaftPunkEnvironment',

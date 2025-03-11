@@ -1,4 +1,6 @@
 import {
+   Beatmap,
+   ColorNote,
    ext,
    logger,
    NoteDirectionAngle,
@@ -9,11 +11,11 @@ import {
    v3,
 } from '@bsmap';
 import { connectSlider } from './helpers.ts';
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { between, at, where } = ext.selector;
 
 function slashGlitchHit(
-   fakeNotes: types.wrapper.IWrapColorNote[],
+   fakeNotes: ColorNote[],
    duration: number,
 ) {
    if (duration < NoteJumpSpeed.HJD_MIN) {
@@ -41,7 +43,7 @@ function slashGlitchHit(
 }
 
 export function drop2(
-   data: types.wrapper.IWrapBeatmap,
+   data: Beatmap,
    BPM: TimeProcessor,
    NJS: NoteJumpSpeed,
 ) {

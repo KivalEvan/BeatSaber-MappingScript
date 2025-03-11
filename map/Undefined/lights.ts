@@ -1,10 +1,10 @@
-import { Axis, EaseType, EventLightColor, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, types } from '@bsmap';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    //#region intro
    d.addColorBoostEvents({ toggle: true });
    for (let i = 0; i < 8; i++) {
-      const events: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+      const events: Partial<types.wrapper.IWrapLightColorEvent>[] = [
          {
             time: 0,
             color: EventLightColor.WHITE,
@@ -625,13 +625,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
             p0: 2,
             p1: 1,
             reverse: 1,
-         } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+         } as Partial<types.wrapper.IWrapIndexFilter>;
          const fltrR = {
             type: 1,
             p0: 2,
             p1: 1,
             reverse: 0,
-         } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+         } as Partial<types.wrapper.IWrapIndexFilter>;
          d.addLightRotationEventBoxGroups(
             {
                time: 34 + i * 32,
@@ -746,7 +746,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                time: 1.5,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          d.addLightColorEventBoxGroups(
             {
                time: 34 + i * 32,
@@ -1299,13 +1299,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          previous: t % 2 ? 2 : 8,
          p1: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
          flip: 1,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       const fltrR = {
          frequency: 1,
          previous: t % 2 ? 2 : 8,
          p1: t % 2 ? 1 : 4 - ((t - 98) % 16 > 7 ? 2 : 0),
          rotation: 0,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       const events = [
          { color: EventLightColor.WHITE, brightness: t % 2 ? 1.25 : 1 },
          {
@@ -1323,7 +1323,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
             easing: EaseType.LINEAR,
          },
          { c: t % 2 ? 0 : 1, time: 0.375, brightness: 0 },
-      ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+      ] as Partial<types.wrapper.IWrapLightColorEvent>[];
       const brightnessDistribution = t % 2 ? 0.5 : 0;
       d.addLightColorEventBoxGroups(
          {
@@ -1350,13 +1350,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          p0: t % 2 ? 2 : 8,
          p1: t % 2 ? 1 : 4 - ((t - 128) % 16 > 7 ? 2 : 0),
          reverse: 1,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       const fltrR = {
          frequency: 1,
          p0: t % 2 ? 2 : 8,
          p1: t % 2 ? 1 : 4 - ((t - 128) % 16 > 7 ? 2 : 0),
          reverse: 0,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       const events = [
          { color: EventLightColor.WHITE, brightness: t % 2 ? 1.25 : 1 },
          {
@@ -1374,7 +1374,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
             easing: EaseType.LINEAR,
          },
          { color: t % 2 ? 0 : 1, time: 0.375, brightness: 0 },
-      ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+      ] as Partial<types.wrapper.IWrapLightColorEvent>[];
       const brightnessDistribution = t % 2 ? 0.5 : 0;
       d.addLightColorEventBoxGroups(
          {
@@ -1401,13 +1401,13 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          p0: 2,
          p1: 1,
          flip: 1,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       const fltrR = {
          frequency: 1,
          p0: 2,
          p1: 1,
          rotation: 0,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       d.addLightRotationEventBoxGroups(
          {
             time: 98,
@@ -1776,7 +1776,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                brightness: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          for (let i = 0; i < 3; i++) {
             d.addLightColorEventBoxGroups(
                {
@@ -2000,7 +2000,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                brightness: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          for (let i = 0; i < 3; i++) {
             d.addLightColorEventBoxGroups(
                {
@@ -2247,7 +2247,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                brightness: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          for (let i = 0; i < 6; i++) {
             if (i === 0) {
                d.addLightColorEventBoxGroups(
@@ -2456,7 +2456,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                   easing: EaseType.LINEAR,
                   brightness: 0.75,
                },
-            ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+            ] as Partial<types.wrapper.IWrapLightColorEvent>[];
             d.addLightColorEventBoxGroups({
                time: time + t[i],
                id: g[i],
@@ -2762,7 +2762,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
          reverse: 1,
          p0: 1,
          p1: 2,
-      } as Partial<types.wrapper.IWrapIndexFilterAttribute>;
+      } as Partial<types.wrapper.IWrapIndexFilter>;
       if (!(x % 2)) {
          d.addLightColorEventBoxGroups(
             {
@@ -4006,7 +4006,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
                easing: EaseType.LINEAR,
                brightness: 0.75,
             },
-         ] as Partial<types.wrapper.IWrapLightColorEventAttribute>[];
+         ] as Partial<types.wrapper.IWrapLightColorEvent>[];
          d.addLightColorEventBoxGroups({
             time: time + t[i],
             id: g[i],

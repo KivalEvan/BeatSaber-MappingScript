@@ -55,7 +55,7 @@ applyLabel(info, [
 
 const l = readLightshowFileSync('Common.lightshow.dat');
 for (
-   const ltebg of l.lightTranslationEventBoxGroups.filter(
+   const ltebg of l.lightshow.lightTranslationEventBoxGroups.filter(
       (e) => e.time >= 2 && e.time <= 33 && (e.id === 0 || e.id === 1),
    )
 ) {

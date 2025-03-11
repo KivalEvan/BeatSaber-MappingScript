@@ -1,9 +1,9 @@
-import { ext, NoteJumpSpeed, TimeProcessor, types, v3 } from '@bsmap';
+import { Beatmap, ext, NoteJumpSpeed, TimeProcessor, types } from '@bsmap';
 
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { between } = ext.selector;
 
-export function text(data: types.wrapper.IWrapBeatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
+export function text(data: Beatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    const diffText = {
       danmakuX: [
          [

@@ -9,7 +9,7 @@ const MAP_DIRECTORY =
 const INPUT_FILE = MAP_DIRECTORY + 'EasyLawless.dat';
 const OUTPUT_FILE = INPUT_FILE;
 
-const difficulty = bsmap.readDifficultyFileSync(INPUT_FILE, 2);
+const difficulty = new bsmap.Beatmap(bsmap.readDifficultyFileSync(INPUT_FILE, 2));
 const info = bsmap.readInfoFileSync('Info.dat', 2, {
    directory: MAP_DIRECTORY + 'Info.dat',
 });

@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
@@ -9,7 +10,7 @@ import {
 } from '@bsmap';
 import { Brightness, objectTimeShift } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    for (let i = 0; i < 2; i++) {
       d.addLightColorEventBoxGroups(
          {
@@ -673,7 +674,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
       reverse: 0,
    } as types.wrapper.IWrapIndexFilter;
 
-   const e: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+   const e: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       { color: EventLightColor.WHITE, brightness: Brightness.DOUBLE },
       {
          time: 0.25,
@@ -690,7 +691,7 @@ export default (d: types.wrapper.IWrapBeatmap) => {
       },
    ];
 
-   const en: Partial<types.wrapper.IWrapLightColorEventAttribute>[] = [
+   const en: Partial<types.wrapper.IWrapLightColorEvent>[] = [
       { color: EventLightColor.WHITE, brightness: Brightness.DOUBLE },
       {
          time: 0.125,

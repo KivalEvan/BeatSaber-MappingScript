@@ -1,4 +1,4 @@
-import { LightColorEvent, TimeProcessor, types } from '@bsmap';
+import { Beatmap, LightColorEvent, TimeProcessor, types } from '@bsmap';
 import bridge from './bridge.ts';
 import build from './build.ts';
 import chorus1 from './chorus1.ts';
@@ -15,7 +15,7 @@ import transition from './transition.ts';
 import verse1 from './verse1.ts';
 import verse2 from './verse2.ts';
 
-export default (d: types.wrapper.IWrapBeatmap, bpm: TimeProcessor) => {
+export default (d: Beatmap, bpm: TimeProcessor) => {
    LightColorEvent.defaultValue.brightness = 1;
    start(d);
    kadosh(d);

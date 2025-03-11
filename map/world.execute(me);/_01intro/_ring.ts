@@ -1,10 +1,10 @@
 import {
    Axis,
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
    LightRotationDirection,
-   types,
 } from '@bsmap';
 import {
    Brightness,
@@ -17,7 +17,7 @@ import {
 import { generateSeed } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    data.addLightColorEventBoxGroups({
       time: START_TIME,
       id: Group.SMALL_RINGS_C,
@@ -351,7 +351,10 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                filter: { reverse: 1 },
                beatDistribution: 1.25,
                events: [
-                  { color: EventLightColor.WHITE, brightness: Brightness.FLASH },
+                  {
+                     color: EventLightColor.WHITE,
+                     brightness: Brightness.FLASH,
+                  },
                   {
                      time: 0.25,
                      previous: 1,

@@ -1,18 +1,19 @@
 import {
+   Beatmap,
    ext,
    globals,
    LightColorEventBox,
    readDifficultyFileSync,
    readInfoFileSync,
    TimeProcessor,
-   v3,
+   writeDifficultyFileSync,
 } from '@bsmap';
 import * as imagescript from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 
 globals.directory = beatmapWipPath('Bad Apple');
 
-const difficulty = readDifficultyFileSync('EasyLawless.dat', 3);
+const difficulty = new Beatmap(readDifficultyFileSync('EasyLawless.dat', 3));
 const info = readInfoFileSync();
 
 const BPM = TimeProcessor.create(info.audio.bpm);
@@ -173,5 +174,5 @@ globals.directory = Deno.build.os === 'linux'
    ? '/home/kival/.local/share/Steam/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple/'
    : 'D:/SteamLibrary/steamapps/common/Beat Saber/Beat Saber_Data/CustomLevels/Bad Apple';
 console.log(ext.stats.countEbg(difficulty.lightColorEventBoxGroups));
-readDifficultyFileSync(difficulty, { format: 4 });
+writeDifficultyFileSync(difficulty, { format: 4 });
 console.log('done');

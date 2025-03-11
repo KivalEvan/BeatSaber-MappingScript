@@ -1,4 +1,6 @@
 import {
+   AudioData,
+   Beatmap,
    globals,
    readAudioDataFileSync,
    readDifficultyFileSync,
@@ -9,22 +11,31 @@ import {
    writeInfoFileSync,
 } from '@bsmap';
 import beatmapWipPath from '../utility/beatmapWipPath.ts';
+import { resolve } from '../deps.ts';
 
-globals.directory = beatmapWipPath('Lost Days');
+globals.directory = beatmapWipPath('Never Know');
 const info = readInfoFileSync();
-const audioData = readAudioDataFileSync(info.audio.audioDataFilename).setFilename(
-   'BPMInfo.dat',
+const audioData = AudioData.createOne(
+   readAudioDataFileSync(info.audio.audioDataFilename),
 );
+Deno.removeSync(resolve(globals.directory, info.audio.audioDataFilename));
+audioData.filename = 'BPMInfo.dat';
 writeAudioDataFileSync(audioData, 2);
 
 const bpmEvents = audioData.getBpmEvents();
 for (const infoDiff of info.difficulties) {
-   const beatmap = readDifficultyFileSync(infoDiff.filename);
-   infoDiff.filename = infoDiff.filename.replace('.beatmap.dat', '.dat');
-   beatmap.filename = infoDiff.filename;
+   const beatmap = Beatmap.createOne(readDifficultyFileSync(infoDiff.filename));
+   const filename = infoDiff.filename.replace('.beatmap.dat', '.dat');
+   if (filename !== infoDiff.filename) {
+      Deno.removeSync(resolve(globals.directory, infoDiff.filename));
+   }
+   infoDiff.filename = filename;
+   beatmap.filename = filename;
 
    if (beatmap.version === 4) {
-      const lightshow = readLightshowFileSync(infoDiff.lightshowFilename);
+      const lightshow = Beatmap.createOne(
+         readLightshowFileSync(infoDiff.lightshowFilename),
+      );
       beatmap.lightshow = lightshow.lightshow;
    }
    beatmap.bpmEvents = []; // replace v3 bpm event anyway

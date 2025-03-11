@@ -1,7 +1,7 @@
-import { Axis, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
+import { Axis, Beatmap, EaseType, EventLightColor, IndexFilterType, types } from '@bsmap';
 import { Brightness } from './helpers.ts';
 
-export default (d: types.wrapper.IWrapBeatmap) => {
+export default (d: Beatmap) => {
    const repeatTiming = [102, 262];
    let ff = false;
    for (const rt of repeatTiming) {

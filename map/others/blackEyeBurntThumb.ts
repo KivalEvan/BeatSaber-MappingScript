@@ -1,11 +1,12 @@
 import * as bsmap from '@bsmap';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
+import { Beatmap } from '@bsmap';
 
 bsmap.globals.directory = beatmapWipPath('Black Eye-Burnt Thumb');
 const INPUT_FILE = 'ExpertPlusStandard.dat';
 const OUTPUT_FILE = INPUT_FILE;
 
-const old = bsmap.readDifficultyFileSync(INPUT_FILE, 2);
+const old = Beatmap.createOne(bsmap.readDifficultyFileSync(INPUT_FILE, 2));
 old.basicEvents.forEach((e) => {
    e.floatValue = 1;
    if (e.isLightEvent()) {
@@ -101,7 +102,7 @@ difficulty.obstacles.forEach((o) => {
    }
 });
 
-difficulty.colorNotes.forEach((n) => n.resetCustomData());
+difficulty.colorNotes.forEach((n) => (n.customData = {}));
 
 bsmap.writeDifficultyFileSync(difficulty, {
    filename: OUTPUT_FILE,

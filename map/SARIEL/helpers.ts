@@ -1,6 +1,6 @@
 import { deepCopy, types } from '@bsmap';
 
-export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorEventAttribute>(
+export function eventBoxSwapColor<T extends types.wrapper.IWrapLightColorEvent>(
    obj: Partial<T>[],
 ): T[] {
    return deepCopy(obj).map((o) => {

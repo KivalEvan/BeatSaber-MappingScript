@@ -102,7 +102,7 @@ lightshow.lightshow.customData.bookmarks = intervalBookmark(6, 32, [
 const promise = [];
 for (const d of info.difficulties) {
    // if (d.difficulty !=='Easy') continue;
-   const bm = readDifficultyFileSync(d.filename, 3);
+   const bm = Beatmap.createOne(readDifficultyFileSync(d.filename, 3));
    bm.useNormalEventsAsCompatibleEvents = false;
    bm.basicEvents = lightshow.basicEvents;
    bm.colorBoostEvents = lightshow.colorBoostEvents;
@@ -197,7 +197,10 @@ console.table(
       { groups: 0, boxes: 0, bases: 0 },
    ),
 );
-console.log('custom events', lightshow.lightshow.customData.customEvents?.length);
+console.log(
+   'custom events',
+   lightshow.lightshow.customData.customEvents?.length,
+);
 console.log(
    'custom events position points',
    lightshow.difficulty.customData.customEvents?.reduce((p, v) => {

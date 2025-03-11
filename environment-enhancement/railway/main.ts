@@ -13,7 +13,7 @@ const info: types.external.IEnvironmentJSON = {
    materials: {},
 };
 
-const EnvGrab = ext.chroma.EnvironmentGrab;
+const EnvGrab = ext.heck.chroma.EnvironmentGrab;
 
 const pillarHeight = 12;
 const pillarScale = 0.5;
@@ -138,13 +138,13 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       });
    }
 
-   const cubeBlock = ext.chroma.EnvironmentBlock.create(
+   const cubeBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'RailwayStandard' },
       },
       [0, 0, 0],
    );
-   const cubeLight = ext.chroma.EnvironmentBlock.create(
+   const cubeLight = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'RailwayTransparentLight' },
          components: {
@@ -157,14 +157,14 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       },
       [0, 0, 0],
    );
-   const pillarBlock = ext.chroma.EnvironmentBlock.create(
+   const pillarBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cylinder', material: 'RailwayStandard' },
       },
       [0, 0, 0],
    );
 
-   const pillarPart = ext.chroma.EnvironmentGroup.create([
+   const pillarPart = ext.heck.chroma.EnvironmentGroup.create([
       cubeBlock.place({
          position: [0, 0, 0.75],
          scale: [1, 2, 0.75],
@@ -181,7 +181,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          rotation: [60, 0, 0],
       }),
    ]);
-   const pillarGroup = ext.chroma.EnvironmentGroup.create([
+   const pillarGroup = ext.heck.chroma.EnvironmentGroup.create([
       pillarBlock.place({
          position: [0, -1 / 8 - 1 / 8 - 1 / 2 - 1 / 4, 0],
          scale: [2, 1 / 4, 2],
@@ -242,7 +242,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
       ...pillarPart.place({ position: [0, pillarHeight + 2, 0], rotation: [0, 180, 0] }),
       ...pillarPart.place({ position: [0, pillarHeight + 2, 0], rotation: [0, 270, 0] }),
    ]);
-   const domePart = ext.chroma.EnvironmentGroup.create([
+   const domePart = ext.heck.chroma.EnvironmentGroup.create([
       cubeBlock.place({
          position: [-9.2, -1.4, 0],
          scale: [2.5, 0.25, 0.375],
@@ -264,7 +264,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          rotation: [0, 0, 10],
       }),
    ]);
-   const domeGroup = ext.chroma.EnvironmentGroup.create([
+   const domeGroup = ext.heck.chroma.EnvironmentGroup.create([
       ...domePart.place({}),
       ...domePart.place({ rotation: [0, 180, 0] }),
       cubeBlock.place({
@@ -1129,7 +1129,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
          trainAry,
       );
    }
-   const trainGroup = ext.chroma.EnvironmentGroup.create(trainAry);
+   const trainGroup = ext.heck.chroma.EnvironmentGroup.create(trainAry);
    for (let i = 0; i < 6; i++) {
       trainGroup.place({ position: [0, 0, trainOffsetZ - i * trainLength - i] }, envAry);
    }

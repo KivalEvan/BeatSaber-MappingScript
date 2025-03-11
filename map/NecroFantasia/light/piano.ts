@@ -1,13 +1,11 @@
 import {
    Axis,
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
    pRandomFn,
    range as rangeEx,
-   TransitionType,
-   types,
-   v3,
 } from '@bsmap';
 import { autoShuffle, loopArray } from '../../../utility/iterator.ts';
 import { WeaveID } from './id.ts';
@@ -85,7 +83,7 @@ const loopGen2 = loopArray(idAry2);
 
 const shufflePick = autoShuffle([0, 90, 180, 270], pRandomFn('Necro Fantasia'));
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    for (
       const time of [

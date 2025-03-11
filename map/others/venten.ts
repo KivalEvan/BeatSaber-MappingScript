@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    colorFrom,
    globals,
    readDifficultyFileSync,
@@ -12,7 +13,7 @@ import copyToCustomColor from '../../utility/copyToCustomColor.ts';
 
 globals.directory = beatmapWipPath('VENTEN');
 
-const lightshow = readDifficultyFileSync('Lightshow.dat', 2);
+const lightshow = Beatmap.createOne(readDifficultyFileSync('Lightshow.dat', 2));
 
 const info = readInfoFileSync();
 info.customData = {
@@ -39,18 +40,29 @@ info.colorSchemes = [
       overrideNotes: true,
       overrideLights: true,
       saberLeftColor: toColorObject(colorFrom(30, 0.666, 0.9375, 'hsva'), true),
-      saberRightColor: toColorObject(colorFrom(270, 0.725, 0.9375, 'hsva'), true),
+      saberRightColor: toColorObject(
+         colorFrom(270, 0.725, 0.9375, 'hsva'),
+         true,
+      ),
       environment0Color: toColorObject(colorFrom(45, 1, 0.666, 'hsva'), true),
       environment1Color: toColorObject(colorFrom(90, 0.8, 0.5, 'hsva'), true),
-      environment0ColorBoost: toColorObject(colorFrom(330, 1, 0.75, 'hsva'), true),
-      environment1ColorBoost: toColorObject(colorFrom(200, 1, 0.666, 'hsva'), true),
+      environment0ColorBoost: toColorObject(
+         colorFrom(330, 1, 0.75, 'hsva'),
+         true,
+      ),
+      environment1ColorBoost: toColorObject(
+         colorFrom(200, 1, 0.666, 'hsva'),
+         true,
+      ),
       obstaclesColor: toColorObject(colorFrom(180, 0.333, 0.8, 'hsva'), true),
    },
 ];
 for (const d of info.difficulties) {
    const difficulty = readDifficultyFileSync(d.filename, 2);
    difficulty.difficulty.customData._bookmarks = lightshow.difficulty.customData!._bookmarks;
-   difficulty.basicEvents = lightshow.basicEvents.filter((e) => !e.isBpmEvent());
+   difficulty.lightshow.basicEvents = lightshow.lightshow.basicEvents.filter(
+      (e) => !e.isBpmEvent(),
+   );
    writeDifficultyFileSync(difficulty);
 
    delete d.customData._requirements;
@@ -68,7 +80,11 @@ for (const d of info.difficulties) {
    }
    if (d.characteristic === 'Standard' && d.difficulty === 'ExpertPlus') {
       d.customData._difficultyLabel = 'Sparkling Strings';
-      d.customData._information.splice(2, 0, 'Double Chant "Song of Falling Stars"');
+      d.customData._information.splice(
+         2,
+         0,
+         'Double Chant "Song of Falling Stars"',
+      );
    }
 
    if (d.characteristic === 'OneSaber' && d.difficulty === 'Normal') {

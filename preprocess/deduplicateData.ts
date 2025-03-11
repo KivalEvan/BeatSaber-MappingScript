@@ -1,6 +1,6 @@
 import { types } from '@bsmap';
 
-export default function (bm: types.wrapper.IWrapBeatmap) {
+export default function <T extends types.wrapper.IWrapBeatmap>(bm: T): T {
    const mapValuePd = new Map();
    const remapPd = new Map();
    const newPd: types.v3.IPointDefinition = {};
@@ -247,11 +247,11 @@ export default function (bm: types.wrapper.IWrapBeatmap) {
    });
    bm.difficulty.customData.materials = newMaterial;
 
-   bm.bombNotes.forEach(remapObjectAnims);
-   bm.colorNotes.forEach(remapObjectAnims);
-   bm.arcs.forEach(remapObjectAnims);
-   bm.chains.forEach(remapObjectAnims);
-   bm.obstacles.forEach(remapObjectAnims);
+   bm.difficulty.bombNotes.forEach(remapObjectAnims);
+   bm.difficulty.colorNotes.forEach(remapObjectAnims);
+   bm.difficulty.arcs.forEach(remapObjectAnims);
+   bm.difficulty.chains.forEach(remapObjectAnims);
+   bm.difficulty.obstacles.forEach(remapObjectAnims);
 
    bm.difficulty.customData.fakeBombNotes?.forEach(remapObjectAnims);
    bm.difficulty.customData.fakeColorNotes?.forEach(remapObjectAnims);

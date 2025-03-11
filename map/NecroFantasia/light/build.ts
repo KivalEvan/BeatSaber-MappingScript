@@ -1,5 +1,6 @@
 import {
    Axis,
+   Beatmap,
    DistributionType,
    EaseType,
    EventLightColor,
@@ -7,9 +8,7 @@ import {
    pRandomFn,
    RandomType,
    range as rangeEx,
-   TransitionType,
    types,
-   v3,
 } from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
@@ -59,7 +58,7 @@ const lightSweepBase: Partial<types.wrapper.IWrapLightColorEvent>[] = [
    },
 ];
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Sakura');
    let flipFlop = false;
    for (const time of sakuraTime) {

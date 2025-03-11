@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    globals,
    readDifficultyFileSync,
    readFromInfoSync,
@@ -12,24 +13,28 @@ import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 globals.directory = beatmapWipPath('ECHO');
 
 const info = readInfoFileSync();
-const lightshow = readDifficultyFileSync('EasyLightshow.dat', 3);
+const lightshow = Beatmap.createOne(
+   readDifficultyFileSync('EasyLightshow.dat', 3),
+);
 const difficultyList = readFromInfoSync(info);
 const diffFile: string[] = [];
 
 difficultyList.forEach((d) => {
-   if (d.beatmap.version !== 3) {
-      d.beatmap = toV3Beatmap(d.beatmap, d.beatmap.version);
+   let beatmap = Beatmap.createOne(d.beatmap);
+
+   if (beatmap.version !== 3) {
+      beatmap = toV3Beatmap(beatmap, beatmap.version);
    }
 
-   diffFile.push(globals.directory + d.beatmap.filename);
+   diffFile.push(globals.directory + beatmap.filename);
 
-   d.beatmap.basicEvents = lightshow.basicEvents;
-   d.beatmap.difficulty.customData.environment = lightshow.difficulty.customData.environment;
-   d.beatmap.difficulty.customData.customEvents = lightshow.difficulty.customData.customEvents;
-   d.beatmap.obstacles = [];
+   beatmap.basicEvents = lightshow.basicEvents;
+   beatmap.difficulty.customData.environment = lightshow.difficulty.customData.environment;
+   beatmap.difficulty.customData.customEvents = lightshow.difficulty.customData.customEvents;
+   beatmap.obstacles = [];
    if (d.info.difficulty === 'Easy' || d.info.difficulty === 'Normal') {
       for (let i = 0; i < 2; i++) {
-         d.beatmap.addObstacles(
+         beatmap.addObstacles(
             ...[
                {
                   b: 52 + i * 4,
@@ -67,12 +72,12 @@ difficultyList.forEach((d) => {
                   x: 3 + i,
                   y: 0,
                },
-            ].map(v3.obstacle.deserialize),
+            ].map((x) => v3.obstacle.deserialize(x)),
          );
       }
    } else {
       for (let i = 0; i < 2; i++) {
-         d.beatmap.addObstacles(
+         beatmap.addObstacles(
             ...[
                {
                   b: 52 + i * 4,
@@ -110,11 +115,11 @@ difficultyList.forEach((d) => {
                   x: 5,
                   y: 0,
                },
-            ].map(v3.obstacle.deserialize),
+            ].map((x) => v3.obstacle.deserialize(x)),
          );
       }
    }
-   d.beatmap.addObstacles(
+   beatmap.addObstacles(
       ...[
          { b: 60, d: 1, x: -1 },
          { b: 60.25, d: 1, x: -2, y: 2 },
@@ -148,9 +153,9 @@ difficultyList.forEach((d) => {
          { b: 210, d: 1.875, x: 4, y: 2, h: 2 },
          { b: 290, d: 1.75, x: -1, y: 2, h: 2 },
          { b: 290, d: 1.75, x: 4, y: 2, h: 2 },
-      ].map(v3.obstacle.deserialize),
+      ].map((x) => v3.obstacle.deserialize(x)),
    );
-   writeDifficultyFileSync(d.beatmap, {
+   writeDifficultyFileSync(beatmap, {
       directory: globals.directory.replace('CustomWIPLevels', 'CustomLevels'),
    });
 });

@@ -1,7 +1,7 @@
 import { degToRad, ext, logger, range, types, vectorMul } from '@bsmap';
 import { environmentSave } from '../helpers.ts';
-const EnvGrab = ext.chroma.EnvironmentGrab;
-const { EnvironmentGroup } = ext.chroma;
+const EnvGrab = ext.heck.chroma.EnvironmentGrab;
+const { EnvironmentGroup } = ext.heck.chroma;
 function genCircle(
    radius: number,
    precision: number,
@@ -41,7 +41,7 @@ export function generateEnvironment(): types.v3.IChromaEnvironment[] {
    const envAry: types.v3.IChromaEnvironment[] = [];
    const baseAry: types.v3.IChromaEnvironment[] = [];
 
-   const cubeBlock = ext.chroma.EnvironmentBlock.create(
+   const cubeBlock = ext.heck.chroma.EnvironmentBlock.create(
       {
          geometry: { type: 'Cube', material: 'PanoramaStandard' },
       },

@@ -1,11 +1,11 @@
 import {
    Axis,
+   Beatmap,
    deepCopy,
    DistributionType,
    EaseType,
    EventLightValue,
    LightRotationDirection,
-   types,
 } from '@bsmap';
 import {
    Brightness,
@@ -24,7 +24,7 @@ import {
 import { objectTimeScale } from '../_helpers.ts';
 import { START_TIME } from './_time.ts';
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    data.addColorBoostEvents(
       { time: START_TIME + 21.5, toggle: true },
       { time: START_TIME + 24, toggle: false },

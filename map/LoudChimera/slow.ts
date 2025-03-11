@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    clamp,
    ext,
    logger,
@@ -7,18 +8,14 @@ import {
    TimeProcessor,
    types,
    unityToGridUnit,
-   v3,
 } from '@bsmap';
 import { connectSlider, lerpVec3 } from './helpers.ts';
 import UFO from './ufo.ts';
-const { ne: NE, selector } = ext;
+const { heck, selector } = ext;
 const { between } = selector;
+const { noodle: NE } = heck;
 
-export function slow(
-   data: types.wrapper.IWrapBeatmap,
-   BPM: TimeProcessor,
-   NJS: NoteJumpSpeed,
-) {
+export function slow(data: Beatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Slow');
    const slowTiming = [136, 648];
    const ufoSlow = new UFO(data, 'Slow');
@@ -42,7 +39,7 @@ export function slow(
          ufoSlow.beam(n.time - noteNJS.calcHjd(), n.color);
          const pos = n.getPosition();
          const distance = unityToGridUnit(18.25) - noteNJS.calcJd();
-         const offsetPosition: types.Vector3PointDefinition = [
+         const offsetPosition: types.Vector3PointDefinitionBase[number] = [
             -0.5 -
             pos[0] +
             unityToGridUnit(

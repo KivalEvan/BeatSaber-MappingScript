@@ -1,5 +1,5 @@
 import { GIF } from 'https://deno.land/x/imagescript@1.2.17/ImageScript.js';
-import { logger, TimeProcessor, types } from '@bsmap';
+import { Beatmap, logger, TimeProcessor, types } from '@bsmap';
 
 export type LightPositionMapping = [
    pos: types.Vector2,
@@ -11,7 +11,7 @@ export function lightitup(
    gif: GIF,
    fps: number,
    pixelMap: LightPositionMapping[],
-   lightshow: types.wrapper.IWrapBeatmap,
+   lightshow: Beatmap,
    xOffset = 0,
    yOffset = 0,
 ): void {

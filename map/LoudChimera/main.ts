@@ -1,4 +1,5 @@
 import {
+   Beatmap,
    ColorScheme,
    ext,
    globals,
@@ -11,7 +12,7 @@ import {
 import counter from '../../utility/counter.ts';
 import beatmapWipPath from '../../utility/beatmapWipPath.ts';
 import { main } from './all.ts';
-const { ne } = ext;
+const { noodle: ne } = ext.heck;
 
 counter(import.meta.url);
 
@@ -26,7 +27,7 @@ ne.settings.timeProc = timeProcessor;
 ne.settings.NJS = NJS;
 
 main(
-   readDifficultyFileSync('HardStandard.dat', 3).setFilename(
+   Beatmap.createOne(readDifficultyFileSync('HardStandard.dat', 3)).setFilename(
       'ExpertPlusStandard.dat',
    ),
    timeProcessor,
@@ -34,9 +35,9 @@ main(
 );
 
 main(
-   readDifficultyFileSync('ExpertOneSaber.dat', 3).setFilename(
-      'ExpertPlusOneSaber.dat',
-   ),
+   Beatmap.createOne(
+      readDifficultyFileSync('ExpertOneSaber.dat', 3),
+   ).setFilename('ExpertPlusOneSaber.dat'),
    timeProcessor,
    NJS,
 );
@@ -44,9 +45,9 @@ main(
 NJS.value = 16;
 NJS.offset = -1.25;
 main(
-   readDifficultyFileSync('NormalStandard.dat', 3).setFilename(
-      'ExpertStandard.dat',
-   ),
+   Beatmap.createOne(
+      readDifficultyFileSync('NormalStandard.dat', 3),
+   ).setFilename('ExpertStandard.dat'),
    timeProcessor,
    NJS,
 );

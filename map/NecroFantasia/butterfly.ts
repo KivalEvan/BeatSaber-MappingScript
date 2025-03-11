@@ -1,4 +1,4 @@
-import { deepCopy, ext, normalize, pRandomFn, range as rangeEx, types, v3 } from '@bsmap';
+import { Beatmap, deepCopy, ext, normalize, pRandomFn, range as rangeEx, types } from '@bsmap';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
 }
@@ -13,7 +13,7 @@ const loopDuration = 0.75;
 const loopRepeat = 128;
 const posHide: types.Vector3 = [0, -99999, -99999];
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    const pRandom = pRandomFn('Necro Fantasia');
    data.difficulty.customData.environment ??= [];
    data.difficulty.customData.customEvents ??= [];
@@ -32,7 +32,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
    for (const it of range(0, bflyMax - 1)) {
       let prevX = it % 2 ? 2 : -2;
       let prevY = 0;
-      const butterfly = ext.chroma.EnvironmentGroup.create([
+      const butterfly = ext.heck.chroma.EnvironmentGroup.create([
          {
             // body
             geometry: { type: 'Cube', material: 'RailwayTransparentLight' },
@@ -116,7 +116,7 @@ export default function (data: types.wrapper.IWrapBeatmap) {
                'splineCatmullRom',
             ]
             : [-(it / 4) + 2, 1, 0, 0, 'easeStep'];
-      }) as types.Vector3PointDefinition[];
+      }) as types.Vector3PointDefinitionBase;
       if (!(it % 9)) {
          data.difficulty.customData.customEvents.push(
             {

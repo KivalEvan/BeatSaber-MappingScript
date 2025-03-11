@@ -1,12 +1,4 @@
-import {
-   EaseType,
-   EventLightColor,
-   IndexFilterType,
-   range as rangeEx,
-   TransitionType,
-   types,
-   v3,
-} from '@bsmap';
+import { Beatmap, EaseType, EventLightColor, IndexFilterType, range as rangeEx } from '@bsmap';
 import { WeaveID } from './id.ts';
 function range(start: number, end?: number, step?: number): number[] {
    return rangeEx(start, end!, step!, true);
@@ -21,7 +13,7 @@ const timeEnd = 614;
 const timeSkip = [130, 222, 226];
 const timeOverride = [578, 610];
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    for (const id of range(WeaveID.SIDE_BOTTOM_LEFT, WeaveID.SIDE_TOP_RIGHT)) {
       let flipFlop = false;
       for (

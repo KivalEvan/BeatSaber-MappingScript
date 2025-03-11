@@ -1,6 +1,6 @@
-import { types, v3 } from '@bsmap';
+import { Beatmap } from '@bsmap';
 
-export default function (data: types.wrapper.IWrapBeatmap) {
+export default function (data: Beatmap) {
    data.addColorBoostEvents(
       { time: 0, toggle: false },
       { time: 102, toggle: true },

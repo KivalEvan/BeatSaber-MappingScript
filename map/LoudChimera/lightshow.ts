@@ -1,8 +1,8 @@
 import { writeTextFileSync } from '../../deps.ts';
-import { chromaLightGradientToVanillaGradient, readDifficultyFileSync, types } from '@bsmap';
+import { Beatmap, chromaLightGradientToVanillaGradient, readDifficultyFileSync } from '@bsmap';
 
 let init = false;
-let data: types.wrapper.IWrapBeatmap;
+let data: Beatmap;
 
 export function lightshow() {
    if (init) {

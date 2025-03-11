@@ -12,12 +12,12 @@ globals.directory = beatmapWipPath('Reverse Rebirth Trigger');
 
 const lightshow = readDifficultyFileSync('Lightshow.dat', 2);
 
-const lightMapper = new ext.chroma.LightMapper('SkrillexEnvironment');
+const lightMapper = new ext.heck.chroma.LightMapper('SkrillexEnvironment');
 
 lightMapper.process(lightshow, false);
 
 const data = readDifficultyFileSync('EasyStandard.dat', 2);
-data.basicEvents = lightshow.basicEvents;
+data.lightshow.basicEvents = lightshow.lightshow.basicEvents;
 const bookmarks = data.difficulty.customData._bookmarks;
 if (bookmarks) {
    for (const b of bookmarks) {

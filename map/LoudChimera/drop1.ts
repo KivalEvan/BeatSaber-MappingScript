@@ -1,5 +1,7 @@
 import {
+   Beatmap,
    BombNote,
+   ColorNote,
    EasingsFn,
    ext,
    lerp,
@@ -14,11 +16,11 @@ import {
    v3,
 } from '@bsmap';
 import { getRepeatArray } from './helpers.ts';
-const { ne: NE } = ext;
+const { noodle: NE } = ext.heck;
 const { at, between } = ext.selector;
 
 function doArrowthing(
-   fakeNotes: types.wrapper.IWrapColorNote[],
+   fakeNotes: ColorNote[],
    duration: number,
 ) {
    if (duration < 0.25) {
@@ -51,11 +53,7 @@ function doArrowthing(
    });
 }
 
-export function drop1(
-   data: types.wrapper.IWrapBeatmap,
-   BPM: TimeProcessor,
-   NJS: NoteJumpSpeed,
-) {
+export function drop1(data: Beatmap, BPM: TimeProcessor, NJS: NoteJumpSpeed) {
    logger.info('Run Drop 1');
    const fakeNotes: types.wrapper.IWrapColorNote[] = [];
 
@@ -241,7 +239,7 @@ export function drop1(
                            0,
                            0,
                            NoteJumpSpeed.create(
-                              BPM,
+                              BPM.bpm,
                               n.customData.noteJumpMovementSpeed,
                            ).calcDistance(0.0074),
                            0.375,
